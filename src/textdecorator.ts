@@ -19,30 +19,7 @@ export class TextDecorator {
     }
 
     static toDateText(dateNow: Date, dateThen: Date): string {
-
-        const momentNow = moment(dateNow);
-        const momentThen = moment(dateThen);
-
-        const months = momentNow.diff(momentThen, 'months');
-        const days = momentNow.diff(momentThen, 'days');
-        const hours = momentNow.diff(momentThen, 'hours');
-        const minutes = momentNow.diff(momentThen, 'minutes');
-
-        if (minutes <= 4) {
-            return 'right now';
-        }
-        else if (minutes <= 70) {
-            return minutes + ' minutes ago';
-        }
-        else if (hours <= 47) {
-            return hours + ' hours ago';
-        }
-        else if (days <= 40) {
-            return days + ' days ago';
-        }
-        else {
-            return months + ' months ago';
-        }
+        return moment(dateThen).fromNow();
     }
 
     static parseTokens(target: string, tokens: object = {}): string {
