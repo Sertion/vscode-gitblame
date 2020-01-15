@@ -63,7 +63,7 @@ export async function getOriginOfActiveFile(
     return originUrl.trim();
 }
 
-export async function getRemoteUrl(): Promise<string> {
+export async function getRemoteUrl(defaultRemote : string): Promise<string> {
     if (!validEditor(window.activeTextEditor)) {
         return "";
     }
@@ -78,7 +78,7 @@ export async function getRemoteUrl(): Promise<string> {
     ], {
         cwd: activeFileFolder,
     });
-    const curRemote = await execute(gitCommand, [
+    var curRemote = await execute(gitCommand, [
         "config",
         "--local",
         "--get",
@@ -86,6 +86,9 @@ export async function getRemoteUrl(): Promise<string> {
     ], {
         cwd: activeFileFolder,
     });
+    if (curRemote == "") {
+        curRemote = defaultRemote;
+    }
     const remoteUrl = await execute(gitCommand, [
         "config",
         "--local",
