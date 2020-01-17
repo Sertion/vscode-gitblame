@@ -63,7 +63,7 @@ export async function getOriginOfActiveFile(
     return originUrl.trim();
 }
 
-export async function getRemoteUrl(defaultRemote : string): Promise<string> {
+export async function getRemoteUrl(defaultRemote: string): Promise<string> {
     if (!validEditor(window.activeTextEditor)) {
         return "";
     }
