@@ -3,26 +3,26 @@ import { ChildProcess, execFile, ExecOptions } from "node:child_process";
 import { Logger } from "./logger.mjs";
 
 export const execute = async (
-    command: string,
-    args: string[],
-    options: ExecOptions = {},
+	command: string,
+	args: string[],
+	options: ExecOptions = {},
 ): Promise<string> => {
-    Logger.info(`${command} ${args.join(" ")}`);
+	Logger.info(`${command} ${args.join(" ")}`);
 
-    let execution: ChildProcess;
+	let execution: ChildProcess;
 
-    try {
-        execution = execFile(command, args, { ...options, encoding: "utf8" });
-    } catch (err) {
-        Logger.error(err);
-        return "";
-    }
+	try {
+		execution = execFile(command, args, { ...options, encoding: "utf8" });
+	} catch (err) {
+		Logger.error(err);
+		return "";
+	}
 
-    let data = "";
+	let data = "";
 
-    for await (const chunk of execution?.stdout ?? []) {
-        data += chunk;
-    }
+	for await (const chunk of execution?.stdout ?? []) {
+		data += chunk;
+	}
 
-    return data.trim();
-}
+	return data.trim();
+};

@@ -1,16 +1,19 @@
 import { URL } from "node:url";
 
 export const isUrl = (check: string): boolean => {
-    let url: URL;
-    try {
-        url = new URL(check);
-    } catch (err) {
-        return false;
-    }
+	let url: URL;
+	try {
+		url = new URL(check);
+	} catch (err) {
+		return false;
+	}
 
-    if (url.href !== check || (url.protocol !== "http:" && url.protocol !== "https:")) {
-        return false;
-    }
+	if (
+		url.href !== check ||
+		(url.protocol !== "http:" && url.protocol !== "https:")
+	) {
+		return false;
+	}
 
-    return !!(url.hostname && url.pathname);
-}
+	return !!(url.hostname && url.pathname);
+};

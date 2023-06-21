@@ -4,26 +4,26 @@ import { Extension } from "./git/extension.mjs";
 import { Logger } from "./util/logger.mjs";
 
 const registerCommand = (name: string, callback: () => void): Disposable => {
-    return commands.registerCommand(`gitblame.${name}`, callback);
-}
+	return commands.registerCommand(`gitblame.${name}`, callback);
+};
 
 export const activate = (context: ExtensionContext): void => {
-    const app = new Extension;
+	const app = new Extension();
 
-    context.subscriptions.push(
-        app,
-        Logger.getInstance(),
-        registerCommand("quickInfo", () => {
-            app.showMessage()
-        }),
-        registerCommand("online", () => {
-            app.blameLink()
-        }),
-        registerCommand("addCommitHashToClipboard", () => {
-            app.copyHash()
-        }),
-        registerCommand("addToolUrlToClipboard", () => {
-            app.copyToolUrl()
-        }),
-    );
-}
+	context.subscriptions.push(
+		app,
+		Logger.getInstance(),
+		registerCommand("quickInfo", () => {
+			app.showMessage();
+		}),
+		registerCommand("online", () => {
+			app.blameLink();
+		}),
+		registerCommand("addCommitHashToClipboard", () => {
+			app.copyHash();
+		}),
+		registerCommand("addToolUrlToClipboard", () => {
+			app.copyToolUrl();
+		}),
+	);
+};
