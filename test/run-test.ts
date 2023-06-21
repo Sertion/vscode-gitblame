@@ -6,7 +6,7 @@ async function main(): Promise<void> {
 		// Download VS Code, unzip it and run the integration test
 		const exitCode = await runTests({
 			extensionDevelopmentPath: resolve(__dirname, ".."),
-			extensionTestsPath: resolve(__dirname, "suite", "index"),
+			extensionTestsPath: resolve(__dirname, "suite", "index.mjs"),
 			launchArgs: ["--disable-extensions"],
 		});
 
