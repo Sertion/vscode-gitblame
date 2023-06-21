@@ -1,7 +1,7 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 
-import { execute } from "../../src/util/execcommand";
-import { getGitCommand } from "../../src/git/util/gitcommand";
+import { execute } from "../../src/util/execcommand.mjs";
+import { getGitCommand } from "../../src/git/util/gitcommand.mjs";
 
 suite("Execute Command", (): void => {
     test("Simple command", async (): Promise<void> => {

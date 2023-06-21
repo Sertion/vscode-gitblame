@@ -1,6 +1,6 @@
-import { FSWatcher, watch } from "fs";
-import { dirname, join, resolve } from "path";
-import { getGitFolder } from "./util/gitcommand";
+import { FSWatcher, watch } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { getGitFolder } from "./util/gitcommand.mjs";
 
 export type HeadChangeEvent = {
     gitRoot: string;

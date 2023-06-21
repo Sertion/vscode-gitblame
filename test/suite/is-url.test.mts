@@ -1,5 +1,5 @@
-import * as assert from "assert";
-import { isUrl } from "../../src/util/is-url";
+import * as assert from "node:assert";
+import { isUrl } from "../../src/util/is-url.mjs";
 
 suite("Is URL", (): void => {
     test("Valid", (): void => {

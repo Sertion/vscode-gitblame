@@ -1,10 +1,10 @@
-import { LineAttatchedCommit, processStderr, processStdout } from "./util/stream-parsing";
+import { ChildProcess } from "node:child_process";
+import { realpath } from "node:fs/promises";
+import { relative } from "node:path";
 
-import { Logger } from "../util/logger";
-import { ChildProcess } from "child_process";
-import { blameProcess } from "./util/gitcommand";
-import { realpath } from "fs/promises";
-import { relative } from "path";
+import { LineAttatchedCommit, processStderr, processStdout } from "./util/stream-parsing.mjs";
+import { Logger } from "../util/logger.mjs";
+import { blameProcess } from "./util/gitcommand.mjs";
 
 export type Blame = Map<number, LineAttatchedCommit | undefined>;
 

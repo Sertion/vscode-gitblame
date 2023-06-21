@@ -1,14 +1,14 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import { match, stub } from "sinon";
 import { Uri } from "vscode";
 
-import type { LineAttatchedCommit } from "../../src/git/util/stream-parsing";
+import type { LineAttatchedCommit } from "../../src/git/util/stream-parsing.mjs";
 
-import { generateUrlTokens } from "../../src/git/util/get-tool-url";
-import * as execcommand from "../../src/util/execcommand";
-import * as getActive from "../../src/util/get-active";
-import * as property from "../../src/util/property";
-import { parseTokens } from "../../src/util/textdecorator";
+import { generateUrlTokens } from "../../src/git/util/get-tool-url.mjs";
+import * as execcommand from "../../src/util/execcommand.mjs";
+import * as getActive from "../../src/util/get-active.mjs";
+import * as property from "../../src/util/property.mjs";
+import { parseTokens } from "../../src/util/textdecorator.mjs";
 
 suite("Generate URL Tokens", () => {
     const call = (func: string | ((index: string | undefined) => string | undefined), arg?: string) =>

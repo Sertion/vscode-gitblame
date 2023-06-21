@@ -1,6 +1,6 @@
-import * as assert from "assert";
-import { readFileSync } from "fs";
-import { resolve } from "path";
+import * as assert from "node:assert";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 import {
     Commit,
@@ -8,7 +8,7 @@ import {
     CommitRegistry,
     LineAttatchedCommit,
     processChunk,
-} from "../../src/git/util/stream-parsing";
+} from "../../src/git/util/stream-parsing.mjs";
 
 type CommitAuthorStringDate = Omit<CommitAuthor, "date"> & {
     date: string;

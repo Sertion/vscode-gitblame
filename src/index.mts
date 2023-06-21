@@ -1,7 +1,7 @@
 import { commands, Disposable, ExtensionContext } from "vscode";
 
-import { Extension } from "./git/extension";
-import { Logger } from "./util/logger";
+import { Extension } from "./git/extension.mjs";
+import { Logger } from "./util/logger.mjs";
 
 const registerCommand = (name: string, callback: () => void): Disposable => {
     return commands.registerCommand(`gitblame.${name}`, callback);

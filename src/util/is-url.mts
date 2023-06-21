@@ -1,4 +1,4 @@
-import { URL } from "url";
+import { URL } from "node:url";
 
 export const isUrl = (check: string): boolean => {
     let url: URL;

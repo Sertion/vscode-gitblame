@@ -1,5 +1,5 @@
-import { resolve } from "path";
-import { promises } from "fs";
+import { resolve } from "node:path";
+import { promises } from "node:fs";
 
 import * as Mocha from "mocha";
 

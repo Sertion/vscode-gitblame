@@ -8,25 +8,25 @@ import {
     workspace,
 } from "vscode";
 
-import type { LineAttatchedCommit } from "./util/stream-parsing";
+import type { LineAttatchedCommit } from "./util/stream-parsing.mjs";
 
-import { Document, validEditor } from "../util/editorvalidator";
+import { Document, validEditor } from "../util/editorvalidator.mjs";
 import {
     normalizeCommitInfoTokens,
     parseTokens,
-} from "../util/textdecorator";
-import { StatusBarView } from "../view";
-import { Blamer } from "./blame";
-import { getProperty } from "../util/property";
-import { getToolUrl } from "./util/get-tool-url";
-import { isUncomitted } from "./util/uncommitted";
-import { errorMessage, infoMessage } from "../util/message";
+} from "../util/textdecorator.mjs";
+import { StatusBarView } from "../view.mjs";
+import { Blamer } from "./blame.mjs";
+import { getProperty } from "../util/property.mjs";
+import { getToolUrl } from "./util/get-tool-url.mjs";
+import { isUncomitted } from "./util/uncommitted.mjs";
+import { errorMessage, infoMessage } from "../util/message.mjs";
 import {
     getActiveTextEditor,
     getFilePosition,
     NO_FILE_OR_PLACE,
-} from "../util/get-active";
-import { HeadWatch } from "./head-watch";
+} from "../util/get-active.mjs";
+import { HeadWatch } from "./head-watch.mjs";
 
 type ActionableMessageItem = MessageItem & {
     action: () => void;

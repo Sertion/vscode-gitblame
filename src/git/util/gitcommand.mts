@@ -1,15 +1,15 @@
-import { ChildProcess, spawn } from "child_process";
-import { dirname } from "path";
+import { ChildProcess, spawn } from "node:child_process";
+import { dirname } from "node:path";
 
 import { extensions } from "vscode";
 
-import { validEditor } from "../../util/editorvalidator";
-import { getProperty } from "../../util/property";
-import { Logger } from "../../util/logger";
-import { execute } from "../../util/execcommand";
+import { validEditor } from "../../util/editorvalidator.mjs";
+import { getProperty } from "../../util/property.mjs";
+import { Logger } from "../../util/logger.mjs";
+import { execute } from "../../util/execcommand.mjs";
 import { GitExtension } from "../../../types/git";
-import { getActiveTextEditor } from "../../util/get-active";
-import { split } from "../../util/split";
+import { getActiveTextEditor } from "../../util/get-active.mjs";
+import { split } from "../../util/split.mjs";
 
 export const getGitCommand = (): string => {
     const vscodeGit = extensions.getExtension<GitExtension>("vscode.git");

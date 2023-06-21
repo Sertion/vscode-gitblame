@@ -1,10 +1,10 @@
-import { FSWatcher, promises, watch } from "fs";
+import { FSWatcher, promises, watch } from "node:fs";
 
-import type { LineAttatchedCommit } from "./util/stream-parsing";
+import type { LineAttatchedCommit } from "./util/stream-parsing.mjs";
 
-import { Blame, File } from "./file";
-import { Logger } from "../util/logger";
-import { isGitTracked } from "./util/gitcommand";
+import { Blame, File } from "./file.mjs";
+import { Logger } from "../util/logger.mjs";
+import { isGitTracked } from "./util/gitcommand.mjs";
 
 export class Blamer {
     private readonly files = new Map<string, Promise<File | undefined>>();
