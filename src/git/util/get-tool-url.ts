@@ -1,23 +1,23 @@
 import { Uri } from "vscode";
 import { URL } from "node:url";
 
-import type { LineAttatchedCommit } from "./stream-parsing.mjs";
+import type { LineAttatchedCommit } from "./stream-parsing.js";
 
-import { isUrl } from "../../util/is-url.mjs";
-import { split } from "../../util/split.mjs";
-import { originUrlToToolUrl } from "./origin-url-to-tool-url.mjs";
-import { getProperty } from "../../util/property.mjs";
+import { isUrl } from "../../util/is-url.js";
+import { split } from "../../util/split.js";
+import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
+import { getProperty } from "../../util/property.js";
 import {
 	getActiveFileOrigin,
 	getDefaultBranch,
 	getRelativePathOfActiveFile,
 	getRemoteUrl,
-} from "./gitcommand.mjs";
-import { projectNameFromOrigin } from "./project-name-from-origin.mjs";
-import { stripGitRemoteUrl, stripGitSuffix } from "./strip-git-remote-url.mjs";
-import { InfoTokens, parseTokens } from "../../util/textdecorator.mjs";
-import { isUncomitted } from "./uncommitted.mjs";
-import { errorMessage } from "../../util/message.mjs";
+} from "./gitcommand.js";
+import { projectNameFromOrigin } from "./project-name-from-origin.js";
+import { stripGitRemoteUrl, stripGitSuffix } from "./strip-git-remote-url.js";
+import { InfoTokens, parseTokens } from "../../util/textdecorator.js";
+import { isUncomitted } from "./uncommitted.js";
+import { errorMessage } from "../../util/message.js";
 
 export type ToolUrlTokens = {
 	hash: string;

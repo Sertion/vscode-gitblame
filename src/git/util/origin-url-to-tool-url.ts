@@ -1,6 +1,6 @@
 import { URL } from "node:url";
 
-import { stripGitRemoteUrl } from "./strip-git-remote-url.mjs";
+import { stripGitRemoteUrl } from "./strip-git-remote-url.js";
 
 export const originUrlToToolUrl = (url: string): URL | undefined => {
 	const httpProtocol = /^(https?):/.exec(url)?.[1];

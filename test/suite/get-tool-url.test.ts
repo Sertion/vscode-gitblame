@@ -1,6 +1,6 @@
 import * as assert from "node:assert";
 
-import { gitRemotePath } from "../../src/git/util/get-tool-url.mjs";
+import { gitRemotePath } from "../../src/git/util/get-tool-url.js";
 
 suite("Get tool URL: gitRemotePath", (): void => {
 	const call = (

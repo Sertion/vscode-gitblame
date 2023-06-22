@@ -3,13 +3,13 @@ import { dirname } from "node:path";
 
 import { extensions } from "vscode";
 
-import { validEditor } from "../../util/editorvalidator.mjs";
-import { getProperty } from "../../util/property.mjs";
-import { Logger } from "../../util/logger.mjs";
-import { execute } from "../../util/execcommand.mjs";
+import { validEditor } from "../../util/editorvalidator.js";
+import { getProperty } from "../../util/property.js";
+import { Logger } from "../../util/logger.js";
+import { execute } from "../../util/execcommand.js";
 import { GitExtension } from "../../../types/git";
-import { getActiveTextEditor } from "../../util/get-active.mjs";
-import { split } from "../../util/split.mjs";
+import { getActiveTextEditor } from "../../util/get-active.js";
+import { split } from "../../util/split.js";
 
 export const getGitCommand = (): string => {
 	const vscodeGit = extensions.getExtension<GitExtension>("vscode.git");

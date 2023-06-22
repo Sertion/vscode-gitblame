@@ -6,9 +6,9 @@ import {
 	LineAttatchedCommit,
 	processStderr,
 	processStdout,
-} from "./util/stream-parsing.mjs";
-import { Logger } from "../util/logger.mjs";
-import { blameProcess } from "./util/gitcommand.mjs";
+} from "./util/stream-parsing.js";
+import { Logger } from "../util/logger.js";
+import { blameProcess } from "./util/gitcommand.js";
 
 export type Blame = Map<number, LineAttatchedCommit | undefined>;
 

@@ -9,16 +9,13 @@ import {
 	workspace,
 } from "vscode";
 
-import type { Commit } from "./git/util/stream-parsing.mjs";
+import type { Commit } from "./git/util/stream-parsing.js";
 
-import { isUncomitted } from "./git/util/uncommitted.mjs";
-import { PartialTextEditor } from "./util/editorvalidator.mjs";
-import { getActiveTextEditor } from "./util/get-active.mjs";
-import { getProperty } from "./util/property.mjs";
-import {
-	toInlineTextView,
-	toStatusBarTextView,
-} from "./util/textdecorator.mjs";
+import { isUncomitted } from "./git/util/uncommitted.js";
+import { PartialTextEditor } from "./util/editorvalidator.js";
+import { getActiveTextEditor } from "./util/get-active.js";
+import { getProperty } from "./util/property.js";
+import { toInlineTextView, toStatusBarTextView } from "./util/textdecorator.js";
 
 export class StatusBarView {
 	private readonly statusBar: StatusBarItem;

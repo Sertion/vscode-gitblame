@@ -1,4 +1,4 @@
-import { Commit } from "./util/stream-parsing.mjs";
+import { Commit } from "./util/stream-parsing.js";
 
 export class FileCache {
 	private readonly holder: Map<number, Promise<Commit | undefined>> = new Map();

@@ -1,4 +1,4 @@
-import { split } from "../../util/split.mjs";
+import { split } from "../../util/split.js";
 
 export type CommitAuthor = {
 	name: string;

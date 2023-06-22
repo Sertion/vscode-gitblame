@@ -8,25 +8,25 @@ import {
 	workspace,
 } from "vscode";
 
-import type { LineAttatchedCommit } from "./util/stream-parsing.mjs";
+import type { LineAttatchedCommit } from "./util/stream-parsing.js";
 
-import { Document, validEditor } from "../util/editorvalidator.mjs";
+import { Document, validEditor } from "../util/editorvalidator.js";
 import {
 	normalizeCommitInfoTokens,
 	parseTokens,
-} from "../util/textdecorator.mjs";
-import { StatusBarView } from "../view.mjs";
-import { Blamer } from "./blame.mjs";
-import { getProperty } from "../util/property.mjs";
-import { getToolUrl } from "./util/get-tool-url.mjs";
-import { isUncomitted } from "./util/uncommitted.mjs";
-import { errorMessage, infoMessage } from "../util/message.mjs";
+} from "../util/textdecorator.js";
+import { StatusBarView } from "../view.js";
+import { Blamer } from "./blame.js";
+import { getProperty } from "../util/property.js";
+import { getToolUrl } from "./util/get-tool-url.js";
+import { isUncomitted } from "./util/uncommitted.js";
+import { errorMessage, infoMessage } from "../util/message.js";
 import {
 	getActiveTextEditor,
 	getFilePosition,
 	NO_FILE_OR_PLACE,
-} from "../util/get-active.mjs";
-import { HeadWatch } from "./head-watch.mjs";
+} from "../util/get-active.js";
+import { HeadWatch } from "./head-watch.js";
 
 type ActionableMessageItem = MessageItem & {
 	action: () => void;

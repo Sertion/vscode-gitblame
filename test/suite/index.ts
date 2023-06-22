@@ -12,7 +12,10 @@ export async function run(): Promise<void> {
 	const files = await promises.opendir(__dirname);
 
 	for await (const dirent of files) {
-		if (dirent.isFile() && (dirent.name.endsWith(".test.js") || dirent.name.endsWith(".test.mjs"))) {
+		if (
+			dirent.isFile() &&
+			(dirent.name.endsWith(".test.js") || dirent.name.endsWith(".test.js"))
+		) {
 			mocha.addFile(resolve(__dirname, dirent.name));
 		}
 	}

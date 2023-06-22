@@ -8,7 +8,7 @@ import {
 	CommitRegistry,
 	LineAttatchedCommit,
 	processChunk,
-} from "../../src/git/util/stream-parsing.mjs";
+} from "../../src/git/util/stream-parsing.js";
 
 type CommitAuthorStringDate = Omit<CommitAuthor, "date"> & {
 	date: string;
