@@ -6,6 +6,8 @@ import { Blame, File } from "./file.js";
 import { Logger } from "../util/logger.js";
 import { isGitTracked } from "./util/gitcommand.js";
 import { Queue } from "./queue.js";
+import { Disposable, workspace } from "vscode";
+import { getProperty } from "../util/property.js";
 
 type Files =
 	| undefined
@@ -18,6 +20,15 @@ export class Blamer {
 	private readonly files = new Map<string, Promise<Files>>();
 	private readonly fsWatchers = new Map<string, FSWatcher>();
 	private readonly blameQueue = new Queue<Blame | undefined>();
+	private readonly configChange: Disposable;
+
+	public constructor() {
+		this.configChange = workspace.onDidChangeConfiguration((e) => {
+			if (e.affectsConfiguration("gitblame")) {
+				this.blameQueue.updateParalell(getProperty("parallelBlames"));
+			}
+		});
+	}
 
 	public async file(fileName: string): Promise<Blame | undefined> {
 		return this.get(fileName);

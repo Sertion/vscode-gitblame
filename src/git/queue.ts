@@ -5,10 +5,10 @@ export class Queue<
 	private readonly list: QueueFunction[] = [];
 	private readonly storage = new Map<QueueFunction, (r: ReturnValue) => void>();
 	private readonly processing = new Set<QueueFunction>();
-	private readonly maxParallel: number;
+	private _maxParallel?: number;
 
 	constructor(maxParallel = 2) {
-		this.maxParallel = Math.max(1, maxParallel);
+		this.maxParallel = maxParallel;
 	}
 
 	public add(toQueue: QueueFunction): Promise<ReturnValue> {
@@ -22,6 +22,24 @@ export class Queue<
 		});
 	}
 
+	public updateParalell(maxParallel: number): void {
+		const oldMax = this.maxParallel;
+		this.maxParallel = Math.max(1, maxParallel);
+		const moreQueueSpace = Math.max(0, this.maxParallel - oldMax);
+
+		for (let i = 0; i < moreQueueSpace; i++) {
+			this.runNext();
+		}
+	}
+
+	private set maxParallel(value: number) {
+		this._maxParallel = value;
+	}
+
+	private get maxParallel(): number {
+		return Math.max(1, Number(this._maxParallel));
+	}
+
 	private startFunction(func: QueueFunction): void {
 		this.processing.add(func);
 		const resolve = this.storage.get(func);
@@ -31,11 +49,17 @@ export class Queue<
 				.then((r) => resolve(r))
 				.finally(() => {
 					this.processing.delete(func);
-					const next = this.list.shift();
-					if (next) {
-						this.startFunction(next);
-					}
+					this.runNext();
 				});
+		}
+	}
+
+	private runNext() {
+		if (this.processing.size < this.maxParallel) {
+			const next = this.list.shift();
+			if (next) {
+				this.startFunction(next);
+			}
 		}
 	}
 }

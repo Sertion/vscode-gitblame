@@ -1,4 +1,5 @@
 import {
+	Disposable,
 	Position,
 	Range,
 	StatusBarAlignment,
@@ -20,12 +21,13 @@ import { toInlineTextView, toStatusBarTextView } from "./util/textdecorator.js";
 export class StatusBarView {
 	private readonly statusBar: StatusBarItem;
 	private readonly decorationType: TextEditorDecorationType;
+	private readonly configChange: Disposable;
 
 	constructor() {
 		this.decorationType = window.createTextEditorDecorationType({});
 
 		this.statusBar = this.createStatusBarItem();
-		workspace.onDidChangeConfiguration((e) => {
+		this.configChange = workspace.onDidChangeConfiguration((e) => {
 			if (e.affectsConfiguration("gitblame")) {
 				this.createStatusBarItem();
 			}
@@ -109,6 +111,7 @@ export class StatusBarView {
 	public dispose(): void {
 		this.statusBar?.dispose();
 		this.decorationType.dispose();
+		this.configChange.dispose();
 	}
 
 	private command(): string {

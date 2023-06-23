@@ -171,6 +171,7 @@
         },
         "gitblame.parallelBlames": {
           "type": "number",
+          "minimum": 1,
           "default": 2,
           "markdownDescription": "Limit allowed parallel git blame process count"
         }

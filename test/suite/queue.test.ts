@@ -96,4 +96,59 @@ suite("Promise Queue", (): void => {
 
 		assert.strictEqual(await instance.add(() => Promise.resolve()), undefined);
 	});
+
+	test("Increase max parallel runs more things", async (): Promise<void> => {
+		const instance = new Queue<undefined>(1);
+
+		const spy1 = Sinon.spy(() => sleep(100, undefined));
+		const spy2 = Sinon.spy(() => sleep(100, undefined));
+		const spy3 = Sinon.spy(() => sleep(100, undefined));
+
+		instance.add(spy1);
+		instance.add(spy2);
+		instance.add(spy3);
+
+		Sinon.assert.calledOnce(spy1);
+		Sinon.assert.notCalled(spy2);
+		Sinon.assert.notCalled(spy3);
+
+		instance.updateParalell(3);
+
+		Sinon.assert.calledOnce(spy2);
+		Sinon.assert.calledOnce(spy3);
+
+		await clock?.runAllAsync();
+	});
+
+	test("Increase max parallel runs more things", async (): Promise<void> => {
+		const instance = new Queue<undefined>(2);
+
+		const spy1 = Sinon.spy(() => sleep(100, undefined));
+		const spy2 = Sinon.spy(() => sleep(100, undefined));
+		const spy3 = Sinon.spy(() => sleep(100, undefined));
+		const spy4 = Sinon.spy(() => sleep(100, undefined));
+
+		instance.add(spy1);
+		instance.add(spy2);
+		instance.add(spy3);
+
+		Sinon.assert.calledOnce(spy1);
+		Sinon.assert.calledOnce(spy2);
+		Sinon.assert.notCalled(spy3);
+
+		instance.updateParalell(1);
+		instance.add(spy4);
+
+		await clock?.tickAsync(50);
+
+		Sinon.assert.notCalled(spy3);
+		Sinon.assert.notCalled(spy4);
+
+		await clock?.tickAsync(100);
+
+		Sinon.assert.calledOnce(spy3);
+		Sinon.assert.notCalled(spy4);
+
+		await clock?.runAllAsync();
+	});
 });
