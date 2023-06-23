@@ -181,7 +181,11 @@ export class Extension {
 		if (delay > 0) {
 			await new Promise((f) => setTimeout(f, delay));
 		}
-		const after = getFilePosition(textEditor);
+		const textEditorAfter = getActiveTextEditor();
+		if (!validEditor(textEditorAfter)) {
+			return;
+		}
+		const after = getFilePosition(textEditorAfter);
 
 		// Only update if we haven't moved since we started blaming
 		// or if we no longer have focus on any file

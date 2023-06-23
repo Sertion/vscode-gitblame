@@ -13,13 +13,18 @@ import { blameProcess } from "./util/gitcommand.js";
 export type Blame = Map<number, LineAttatchedCommit | undefined>;
 
 export class File {
-	public readonly store: Promise<Blame | undefined>;
-
+	private store?: Promise<Blame | undefined>;
 	private process?: ChildProcess;
 	private killed = false;
 
-	public constructor(fileName: string) {
-		this.store = this.blame(fileName);
+	public constructor(private readonly fileName: string) {}
+
+	public getBlame(): Promise<Blame | undefined> {
+		if (!this.store) {
+			this.store = this.blame();
+		}
+
+		return this.store;
 	}
 
 	public dispose(): void {
@@ -36,9 +41,9 @@ export class File {
 		await processStderr(this.process?.stderr);
 	}
 
-	private async blame(fileName: string): Promise<Blame | undefined> {
+	private async blame(): Promise<Blame | undefined> {
 		const blameInfo: Blame = new Map();
-		const realpathFileName = await realpath(fileName);
+		const realpathFileName = await realpath(this.fileName);
 
 		try {
 			for await (const lineAttatchedCommit of this.run(realpathFileName)) {
@@ -51,9 +56,9 @@ export class File {
 
 		// Don't return partial git blame info when terminating a blame
 		if (!this.killed) {
-			if (relative(fileName, realpathFileName)) {
+			if (relative(this.fileName, realpathFileName)) {
 				Logger.info(
-					`Blamed "${realpathFileName}" (resolved via symlink from "${fileName}")`,
+					`Blamed "${realpathFileName}" (resolved via symlink from "${this.fileName}")`,
 				);
 			} else {
 				Logger.info(`Blamed "${realpathFileName}"`);
