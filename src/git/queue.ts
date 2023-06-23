@@ -24,7 +24,7 @@ export class Queue<
 
 	public updateParalell(maxParallel: number): void {
 		const oldMax = this.maxParallel;
-		this.maxParallel = Math.max(1, maxParallel);
+		this.maxParallel = maxParallel;
 		const moreQueueSpace = Math.max(0, this.maxParallel - oldMax);
 
 		for (let i = 0; i < moreQueueSpace; i++) {
