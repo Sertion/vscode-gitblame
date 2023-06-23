@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.0 (June 23, 2023)
+* Bug: Spawns many Git processes and uses up CPU ([#144](https://github.com/Sertion/vscode-gitblame/issue/144)) Thanks to [Theo Crandall](https://github.com/thrandale)!
+  * New setting `gitblame.parallelBlames` controlls how many git blame processes that will run in parallel. Defaults to `2`.
+* Bug: Blame completing can sometimes update the status bar to info from the wrong file
+* Fix: Fewer dev dependencies
+
 ## 10.2.1 (June 21, 2023)
 * Bug: Inline message drawn on top of code when backspacing from EOL ([#142](https://github.com/Sertion/vscode-gitblame/issue/142)) Thanks to [Kim Alford](https://github.com/kgalford1)!
 * Fix: Hide blame decorator saving a file
