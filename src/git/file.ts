@@ -20,9 +20,7 @@ export class File {
 	public constructor(private readonly fileName: string) {}
 
 	public getBlame(): Promise<Blame | undefined> {
-		if (!this.store) {
-			this.store = this.blame();
-		}
+		this.store ??= this.blame();
 
 		return this.store;
 	}

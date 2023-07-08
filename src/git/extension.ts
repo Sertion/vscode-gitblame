@@ -4,9 +4,11 @@ import {
 	env,
 	MessageItem,
 	TextEditor,
+	ThemeIcon,
 	window,
 	workspace,
 } from "vscode";
+import { dirname } from "node:path";
 
 import type { LineAttatchedCommit } from "./util/stream-parsing.js";
 
@@ -71,16 +73,21 @@ export class Extension {
 			normalizeCommitInfoTokens(lineAware.commit),
 		);
 		const toolUrl = await getToolUrl(lineAware);
-		const action: ActionableMessageItem[] | undefined = toolUrl
-			? [
-					{
-						title: "View",
-						action() {
-							commands.executeCommand("vscode.open", toolUrl);
-						},
-					},
-			  ]
-			: undefined;
+		const action: ActionableMessageItem[] = [];
+
+		if (toolUrl) {
+			action.push({
+				title: "Online",
+				action() {
+					commands.executeCommand("vscode.open", toolUrl);
+				},
+			});
+		}
+
+		action.push({
+			title: "Terminal",
+			action: () => this.runGitShow(),
+		});
 
 		this.view.set(lineAware.commit, getActiveTextEditor());
 
@@ -106,6 +113,32 @@ export class Extension {
 		} else {
 			errorMessage("gitblame.commitUrl config empty");
 		}
+	}
+
+	public async runGitShow(): Promise<void> {
+		const editor = getActiveTextEditor();
+
+		if (!validEditor(editor)) {
+			return;
+		}
+
+		const currentLine = await this.commit(true);
+		const hash = currentLine?.commit.hash ?? "HEAD";
+
+		// Only ever allow HEAD or a git hash
+		if (!/^(\w{40}|HEAD)$/.test(hash)) {
+			return;
+		}
+
+		const ignoreWhitespace = getProperty("ignoreWhitespace") ? "-w " : "";
+		const terminal = window.createTerminal({
+			name: `Git Blame: git show ${hash}`,
+			iconPath: new ThemeIcon("git-commit"),
+			isTransient: true,
+			cwd: dirname(editor.document.fileName),
+		});
+		terminal.sendText(`git show ${ignoreWhitespace}${hash}; exit`, true);
+		terminal.show();
 	}
 
 	public dispose(): void {

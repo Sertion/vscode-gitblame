@@ -57,12 +57,23 @@ const newLocationAttatchedCommit = (
 	filename: "",
 });
 
-function* splitChunk(chunk: Buffer): Generator<[string, string]> {
+function untilNextEventLoop(): Promise<void> {
+	return new Promise(setImmediate);
+}
+
+const takeABreakEveryNthChunk = 25;
+
+async function* splitChunk(chunk: Buffer): AsyncGenerator<[string, string]> {
 	let lastIndex = 0;
 	while (lastIndex < chunk.length) {
 		const nextIndex = chunk.indexOf("\n", lastIndex);
 
 		yield split(chunk.toString("utf8", lastIndex, nextIndex));
+
+		// This is an attempt to mitigate main thread hogging.
+		if (nextIndex % takeABreakEveryNthChunk === 0) {
+			await untilNextEventLoop();
+		}
 
 		lastIndex = nextIndex + 1;
 	}
@@ -149,14 +160,14 @@ function* commitFilter(
  * @param dataChunk Chunk of `--incremental` git blame output
  * @param commitRegistry Keeping track of previously encountered commit information
  */
-export function* processChunk(
+export async function* processChunk(
 	dataChunk: Buffer,
 	commitRegistry: CommitRegistry,
-): Generator<LineAttatchedCommit, void> {
+): AsyncGenerator<LineAttatchedCommit, void> {
 	let commitLocation: FileAttatchedCommit | undefined;
 	let coverageGenerator: Generator<Line> | undefined;
 
-	for (const [key, value] of splitChunk(dataChunk)) {
+	for await (const [key, value] of splitChunk(dataChunk)) {
 		if (isCoverageLine(key, value)) {
 			commitLocation = newLocationAttatchedCommit(
 				commitRegistry.get(key) ?? newCommitInfo(key),
@@ -178,7 +189,7 @@ export function* processChunk(
 }
 
 export async function* processStdout(
-	data: AsyncIterable<Buffer> | null | undefined,
+	data: AsyncIterable<Buffer> | null,
 ): AsyncGenerator<LineAttatchedCommit, void> {
 	const commitRegistry: CommitRegistry = new Map();
 	for await (const chunk of data ?? []) {
@@ -187,7 +198,7 @@ export async function* processStdout(
 }
 
 export async function processStderr(
-	data: AsyncIterable<string> | null | undefined,
+	data: AsyncIterable<string> | null,
 ): Promise<void> {
 	for await (const error of data ?? []) {
 		if (typeof error === "string") {

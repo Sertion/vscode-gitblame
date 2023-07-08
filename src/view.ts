@@ -119,6 +119,8 @@ export class StatusBarView {
 
 		if (action === "Open tool URL") {
 			return "gitblame.online";
+		} else if (action === "Open git show") {
+			return "gitblame.gitShow";
 		}
 
 		return "gitblame.quickInfo";

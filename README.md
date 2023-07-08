@@ -1,23 +1,18 @@
 # Git Blame
 
-See Git Blame information in the status bar for the currently selected line.
-
-Quick link to open the latest commit on the current line in the most popular online git tools.
+Features:
+* See Git Blame information in the status bar for the currently selected line.
+* See Git Blame information on the last selected line in your editor.
+* Quick link to open the latest commit on the current line in the most popular online git tools.
+* Open `git show` for the latest commit on the current line in an vscode terminal.
 
 ## How to use
 
 ![Feature Usage](https://raw.githubusercontent.com/Sertion/vscode-gitblame/master/images/preview.png)
 
-Git blame adds git blame information to your vscode compatible view. See information about what commit last changed a line and how long ago it was. Click the message to see more information about the commit. It is possible to edit both of these information messages in the settings. There are multiple tokens avalible. These are described below.
+Git blame adds git blame information to your vscode compatible view. See information about what commit last changed a line and how long ago it was. Click the message to see more information about the commit. It is possible to edit all of these information messages in the settings. There are multiple tokens avalible. These are described below.
 
 Git Blame works very well with WSL but does not work with the web browser based vscode compatible editors.
-
-## Install
-
-1. Open _Visual Studio Code_
-1. Press `Ctrl+Shift+X` or `⇧⌘X`
-1. Type `blame`
-1. Click install on _Git Blame_
 
 ## Configuration
 
@@ -126,25 +121,32 @@ The amount of margin between line and inline blame view
 
 This setting adds a delay (in milliseconds) before the blame is displayed
 
+### `gitblame.parallelBlames`
+> Type: `number`
+
+> Default value: `2`
+
+Limit how many git blame processes the extension can run in parallel. This can help with high CPU usage.
+
 ### Message Tokens
 
-| Token | Function | Parameter | Default Value | Description |
-|-------|----------|-----------|---------------|-------------|
-| `${commit.hash,length}` | Yes | `length` | 40 | the first `length` characters of the 40-bit hash unique to the commit |
-| `${commit.hash_short,length}` | Yes | `length` | 7 | the first `length` characters of the 40-bit hash unique to the commit |
-| `${commit.summary}` | Yes | `length` | 65536 | the first `length` characters of the first line of the commit message |
-| `${author.name}` | No | - | - | the commit author's name |
-| `${author.mail}` | No | - | - | the commit author's e-mail |
-| `${author.timestamp}` | No | - | - | timestamp for the commit author's commit |
-| `${author.tz}` | No | - | - | the commit author's time zone |
-| `${author.date}` | No | - | - | the commit author's date (ex: 1990-09-16) |
-| `${committer.name}` | No | - | - | the committer's name |
-| `${committer.mail}` | No | - | - | the committer's e-mail |
-| `${committer.timestamp}` | No | - | - | timestamp for the committer's commit |
-| `${committer.tz}` | No | - | - | the committer's time zone |
-| `${committer.date}` | No | - | - | the committer's date (ex: Sep 16 1990) |
-| `${time.ago}` | No | - | - | displays an estimation of how long ago the author committed (e.g. `10 hours ago`, `20 days ago`, `4 months ago`) |
-| `${time.c_ago}` | No | - | - | displays an estimation of how long ago the committer committed (e.g. `10 hours ago`, `20 days ago`, `4 months ago`) |
+| Token                         | Function | Parameter | Default Value | Description |
+|-------------------------------|----------|-----------|---------------|-------------|
+| `${commit.hash,length}`       | Yes      | `length`  |            40 | the first `length` characters of the 40-bit hash unique to the commit |
+| `${commit.hash_short,length}` | Yes      | `length`  |             7 | the first `length` characters of the 40-bit hash unique to the commit |
+| `${commit.summary}`           | Yes      | `length`  |         65536 | the first `length` characters of the first line of the commit message |
+| `${author.name}`              | No       | -         | -             | the commit author's name |
+| `${author.mail}`              | No       | -         | -             | the commit author's e-mail |
+| `${author.timestamp}`         | No       | -         | -             | timestamp for the commit author's commit |
+| `${author.tz}`                | No       | -         | -             | the commit author's time zone |
+| `${author.date}`              | No       | -         | -             | the commit author's date (ex: 1990-09-16) |
+| `${committer.name}`           | No       | -         | -             | the committer's name |
+| `${committer.mail}`           | No       | -         | -             | the committer's e-mail |
+| `${committer.timestamp}`      | No       | -         | -             | timestamp for the committer's commit |
+| `${committer.tz}`             | No       | -         | -             | the committer's time zone |
+| `${committer.date}`           | No       | -         | -             | the committer's date (ex: 1990-09-16) |
+| `${time.ago}`                 | No       | -         | -             | displays an estimation of how long ago the author committed (e.g. `10 hours ago`, `20 days ago`, `4 months ago`) |
+| `${time.c_ago}`               | No       | -         | -             | displays an estimation of how long ago the committer committed (e.g. `10 hours ago`, `20 days ago`, `4 months ago`) |
 
 ## Housekeeping
  * [Planned Features](https://github.com/Sertion/vscode-gitblame/labels/Planned)

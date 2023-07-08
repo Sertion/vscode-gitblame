@@ -1,5 +1,12 @@
 # Change Log
 
+## 10.4.0 (July 08, 2023)
+* Feature: Open `git show` for the commit on the last selected line in the terminal from the info message or from the `gitblame.gitShow` command
+  * It is also possible to change the status bar button default behavor to run git show by changing `gitblame.statusBarMessageClickAction` to `"Open git show"`
+* Bug: Attempting to fix *Extension causes high cpu load ([#145](https://github.com/Sertion/vscode-gitblame/issue/145))* Thanks to [joshrbarcodefactory](https://github.com/joshrbarcodefactory) for uploading the CPU snapshot!
+* Fix: Updating dependencies
+* Fix: Updated README.md
+
 ## 10.3.0 (June 23, 2023)
 * Bug: Spawns many Git processes and uses up CPU ([#144](https://github.com/Sertion/vscode-gitblame/issue/144)) Thanks to [Theo Crandall](https://github.com/thrandale)!
   * New setting `gitblame.parallelBlames` controlls how many git blame processes that will run in parallel. Defaults to `2`.

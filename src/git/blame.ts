@@ -63,6 +63,7 @@ export class Blamer {
 		for (const [fileName] of this.files) {
 			this.remove(fileName);
 		}
+		this.configChange.dispose();
 	}
 
 	private async get(fileName: string): Promise<Blame | undefined> {

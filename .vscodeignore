@@ -3,6 +3,8 @@
 test/**
 src/**
 types/**
+out/**
+!out/src/index.js
 **/*.map
 .gitignore
 .eslintrc

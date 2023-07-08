@@ -25,5 +25,8 @@ export const activate = (context: ExtensionContext): void => {
 		registerCommand("addToolUrlToClipboard", () => {
 			app.copyToolUrl();
 		}),
+		registerCommand("gitShow", () => {
+			app.runGitShow();
+		}),
 	);
 };

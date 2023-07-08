@@ -52,24 +52,27 @@ function datesToString(
 }
 
 suite("Chunk Processing", (): void => {
-	test("Process normal chunk", (): void => {
+	test("Process normal chunk", async (): Promise<void> => {
 		const chunk = load("git-stream-blame-incremental.chunks", true);
 		const result = JSON.parse(
 			load("git-stream-blame-incremental-result.json", false),
 		) as string[];
 
 		const registry: CommitRegistry = new Map();
-		const chunks = Array.from(processChunk(chunk, registry));
+		const foundChunks: LineAttatchedCommit[] = [];
+		for await (const line of processChunk(chunk, registry)) {
+			foundChunks.push(line);
+		}
 
 		assert.strictEqual(
-			JSON.stringify(datesToString(chunks)),
+			JSON.stringify(datesToString(foundChunks)),
 			JSON.stringify(result),
 		);
 	});
 });
 
 suite("Processing Errors", (): void => {
-	test("Git chunk not starting with commit information", (): void => {
+	test("Git chunk not starting with commit information", async (): Promise<void> => {
 		const chunks = JSON.parse(
 			load("git-stream-blame-incremental-multi-chunk.json", false),
 		) as string[];
@@ -81,7 +84,12 @@ suite("Processing Errors", (): void => {
 
 		const foundChunks: LineAttatchedCommit[] = [];
 		for (const chunk of chunks) {
-			foundChunks.push(...processChunk(Buffer.from(chunk, "utf-8"), registry));
+			for await (const line of processChunk(
+				Buffer.from(chunk, "utf-8"),
+				registry,
+			)) {
+				foundChunks.push(line);
+			}
 		}
 
 		assert.strictEqual(

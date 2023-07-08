@@ -9,7 +9,10 @@ export type PropertiesMap = {
 	statusBarMessageNoCommit: string;
 	statusBarPositionPriority: number | undefined;
 	pluralWebPathSubstrings: string[] | undefined;
-	statusBarMessageClickAction: "Show info message" | "Open tool URL";
+	statusBarMessageClickAction:
+		| "Show info message"
+		| "Open tool URL"
+		| "Open git show";
 	inlineMessageFormat: string;
 	inlineMessageNoCommit: string;
 	inlineMessageEnabled: boolean;
