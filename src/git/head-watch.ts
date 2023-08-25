@@ -25,13 +25,11 @@ export class HeadWatch {
 
 		this.filesWithFoundHeads.add(filePath);
 
-		const relativeGitRoot = await getGitFolder(filePath);
-		const gitRoot = this.normalizeWindowsDriveLetter(
-			resolve(dirname(filePath), relativeGitRoot),
-		);
+		const gitRepositoryPath = await getGitFolder(filePath);
+		const gitRoot = this.normalizeWindowsDriveLetter(gitRepositoryPath);
 		const watched = this.heads.has(gitRoot);
 
-		if (watched === true || relativeGitRoot === "") {
+		if (watched === true || gitRepositoryPath === "") {
 			return;
 		}
 

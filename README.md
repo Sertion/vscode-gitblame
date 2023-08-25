@@ -148,9 +148,10 @@ Limit how many git blame processes the extension can run in parallel. This can h
 | `${time.ago}`                 | No       | -         | -             | displays an estimation of how long ago the author committed (e.g. `10 hours ago`, `20 days ago`, `4 months ago`) |
 | `${time.c_ago}`               | No       | -         | -             | displays an estimation of how long ago the committer committed (e.g. `10 hours ago`, `20 days ago`, `4 months ago`) |
 
-## Housekeeping
- * [Planned Features](https://github.com/Sertion/vscode-gitblame/labels/Planned)
- * [Known Issues](https://github.com/Sertion/vscode-gitblame/issues)
+## Known issues
+### The `gitblame.gitShow` command does not work with _my shell_
+
+If your default terminal profile is set to `cmd.exe` `gitblame.gitShow` will not function correctly. Fix this by using a unix compatible shell.
 
 ## Acknowledgements
 

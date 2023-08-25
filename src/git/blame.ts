@@ -4,7 +4,7 @@ import type { LineAttatchedCommit } from "./util/stream-parsing.js";
 
 import { Blame, File } from "./file.js";
 import { Logger } from "../util/logger.js";
-import { isGitTracked } from "./util/gitcommand.js";
+import { getGitFolder } from "./util/gitcommand.js";
 import { Queue } from "./queue.js";
 import { Disposable, workspace } from "vscode";
 import { getProperty } from "../util/property.js";
@@ -12,14 +12,17 @@ import { getProperty } from "../util/property.js";
 type Files =
 	| undefined
 	| {
-			file: Promise<File | undefined>;
+			file: File | undefined;
 			store: Promise<Blame | undefined>;
+			gitRoot: string;
 	  };
 
 export class Blamer {
 	private readonly files = new Map<string, Promise<Files>>();
 	private readonly fsWatchers = new Map<string, FSWatcher>();
-	private readonly blameQueue = new Queue<Blame | undefined>();
+	private readonly blameQueue = new Queue<Blame | undefined>(
+		getProperty("parallelBlames"),
+	);
 	private readonly configChange: Disposable;
 
 	public constructor() {
@@ -44,9 +47,10 @@ export class Blamer {
 		return blameInfo?.get(commitLineNumber);
 	}
 
-	public removeFromRepository(gitRepositoryPath: string): void {
-		for (const [fileName] of this.files) {
-			if (fileName.startsWith(gitRepositoryPath)) {
+	public async removeFromRepository(gitRepositoryPath: string): Promise<void> {
+		for (const [fileName, file] of this.files) {
+			const gitRoot = (await file)?.gitRoot;
+			if (gitRoot === gitRepositoryPath) {
 				this.remove(fileName);
 			}
 		}
@@ -71,24 +75,26 @@ export class Blamer {
 			return (await this.files.get(fileName))?.store;
 		}
 
-		const setup = new Promise<Files | undefined>((resolve) => {
-			const file = this.create(fileName);
-			file.then((createdFile) => {
-				if (createdFile) {
-					this.fsWatchers.set(
-						fileName,
-						watch(fileName, () => {
-							this.remove(fileName);
-						}),
-					);
-					resolve({
-						file,
-						store: this.blameQueue.add(() => createdFile.getBlame()),
-					});
-				} else {
-					resolve(undefined);
-				}
-			});
+		const setup = this.create(fileName).then(({ file, gitRoot }): Files => {
+			if (file) {
+				this.fsWatchers.set(
+					fileName,
+					watch(fileName, () => {
+						this.remove(fileName);
+					}),
+				);
+				return {
+					file,
+					store: this.blameQueue.add(() => file.getBlame()),
+					gitRoot,
+				};
+			}
+
+			return {
+				file,
+				store: Promise.resolve(undefined),
+				gitRoot,
+			};
 		});
 
 		this.files.set(fileName, setup);
@@ -96,17 +102,28 @@ export class Blamer {
 		return (await setup)?.store;
 	}
 
-	private async create(fileName: string): Promise<File | undefined> {
+	private async create(
+		fileName: string,
+	): Promise<{ gitRoot: string; file: File | undefined }> {
 		try {
 			await promises.access(fileName);
 
-			if (await isGitTracked(fileName)) {
-				return new File(fileName);
+			const gitRoot = getGitFolder(fileName);
+			if (await gitRoot) {
+				return {
+					gitRoot: await gitRoot,
+					file: new File(fileName),
+				};
 			}
 		} catch {
 			// NOOP
 		}
 
 		Logger.info(`Will not blame '${fileName}'. Outside the current workspace.`);
+
+		return {
+			gitRoot: "",
+			file: undefined,
+		};
 	}
 }

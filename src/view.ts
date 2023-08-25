@@ -34,52 +34,6 @@ export class StatusBarView {
 		});
 	}
 
-	private createStatusBarItem(): StatusBarItem {
-		if (this.statusBar) {
-			this.statusBar.dispose();
-		}
-
-		const statusBar = window.createStatusBarItem(
-			StatusBarAlignment.Right,
-			getProperty("statusBarPositionPriority"),
-		);
-
-		statusBar.show();
-
-		return statusBar;
-	}
-
-	private createLineDecoration(text: string, editor: PartialTextEditor): void {
-		if (!getProperty("inlineMessageEnabled")) {
-			return;
-		}
-		const margin = getProperty("inlineMessageMargin");
-		const decorationPosition = new Position(
-			editor.selection.active.line,
-			Number.MAX_SAFE_INTEGER,
-		);
-
-		this.removeLineDecoration();
-		// Add new decoration
-		editor.setDecorations?.(this.decorationType, [
-			{
-				renderOptions: {
-					after: {
-						contentText: text,
-						margin: `0 0 0 ${margin}rem`,
-						color: new ThemeColor("editorCodeLens.foreground"),
-					},
-				},
-				range: new Range(decorationPosition, decorationPosition),
-			},
-		]);
-	}
-
-	private removeLineDecoration(): void {
-		const editor = getActiveTextEditor();
-		editor?.setDecorations?.(this.decorationType, []);
-	}
-
 	public set(
 		commit: Commit | undefined,
 		editor: PartialTextEditor | undefined,
@@ -132,5 +86,51 @@ export class StatusBarView {
 			command ? "" : " - No info about the current line"
 		}`;
 		this.statusBar.command = command ? this.command() : undefined;
+	}
+
+	private createStatusBarItem(): StatusBarItem {
+		if (this.statusBar) {
+			this.statusBar.dispose();
+		}
+
+		const statusBar = window.createStatusBarItem(
+			StatusBarAlignment.Right,
+			getProperty("statusBarPositionPriority"),
+		);
+
+		statusBar.show();
+
+		return statusBar;
+	}
+
+	private createLineDecoration(text: string, editor: PartialTextEditor): void {
+		if (!getProperty("inlineMessageEnabled")) {
+			return;
+		}
+		const margin = getProperty("inlineMessageMargin");
+		const decorationPosition = new Position(
+			editor.selection.active.line,
+			Number.MAX_SAFE_INTEGER,
+		);
+
+		this.removeLineDecoration();
+		// Add new decoration
+		editor.setDecorations?.(this.decorationType, [
+			{
+				renderOptions: {
+					after: {
+						contentText: text,
+						margin: `0 0 0 ${margin}rem`,
+						color: new ThemeColor("editorCodeLens.foreground"),
+					},
+				},
+				range: new Range(decorationPosition, decorationPosition),
+			},
+		]);
+	}
+
+	private removeLineDecoration(): void {
+		const editor = getActiveTextEditor();
+		editor?.setDecorations?.(this.decorationType, []);
 	}
 }

@@ -137,7 +137,7 @@ export class Extension {
 			isTransient: true,
 			cwd: dirname(editor.document.fileName),
 		});
-		terminal.sendText(`git show ${ignoreWhitespace}${hash}; exit`, true);
+		terminal.sendText(`git show ${ignoreWhitespace}${hash}; exit 0`, true);
 		terminal.show();
 	}
 
@@ -156,9 +156,9 @@ export class Extension {
 			}
 		};
 
-		this.headWatcher.onChange(({ repositoryRoot }) => {
-			this.blame.removeFromRepository(repositoryRoot);
-		});
+		this.headWatcher.onChange(({ repositoryRoot }) =>
+			this.blame.removeFromRepository(repositoryRoot),
+		);
 
 		return Disposable.from(
 			window.onDidChangeActiveTextEditor((textEditor): void => {

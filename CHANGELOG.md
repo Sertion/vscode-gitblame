@@ -1,5 +1,12 @@
 # Change Log
 
+## 10.5.0 (August 25, 2023)
+* Known issue: `gitblame.gitShow` does not work in some shells
+* Fix: Use absolute path to determine when a git repository HEAD changes
+* Fix: Respect the `gitblame.parallelBlames` settings after a vscode relaunch
+* Fix: Updating dependencies
+* Fix: Updated README.md
+
 ## 10.4.0 (July 08, 2023)
 * Feature: Open `git show` for the commit on the last selected line in the terminal from the info message or from the `gitblame.gitShow` command
   * It is also possible to change the status bar button default behavor to run git show by changing `gitblame.statusBarMessageClickAction` to `"Open git show"`
