@@ -9,20 +9,19 @@ export const execute = async (
 ): Promise<string> => {
 	Logger.info(`${command} ${args.join(" ")}`);
 
-	let execution: ChildProcess;
-
-	try {
-		execution = execFile(command, args, { ...options, encoding: "utf8" });
-	} catch (err) {
-		Logger.error(err);
-		return "";
-	}
-
-	let data = "";
-
-	for await (const chunk of execution?.stdout ?? []) {
-		data += chunk;
-	}
-
-	return data.trim();
+	return new Promise((resolve) =>
+		execFile(
+			command,
+			args,
+			{ ...options, encoding: "utf8" },
+			(error, stdout, stderr): void => {
+				if (error || stderr) {
+					Logger.error(error || stderr);
+					resolve("");
+				} else {
+					resolve(stdout.trim());
+				}
+			},
+		),
+	);
 };

@@ -2,9 +2,10 @@
     "compilerOptions": {
         "module": "ES2022",
         "moduleResolution": "node",
-        "target": "es2020",
+        "target": "ES2022",
         "lib": [
             "ES2020",
+            "ES2022",
             "ESNext.Intl"
         ],
         "strict": true,

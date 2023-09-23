@@ -55,6 +55,10 @@ export class HeadWatch {
 	}
 
 	private normalizeWindowsDriveLetter(path: string): string {
+		if (path.length === 0) {
+			return "";
+		}
+
 		return path[0].toLowerCase() + path.substr(1);
 	}
 }

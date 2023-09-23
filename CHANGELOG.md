@@ -1,5 +1,10 @@
 # Change Log
 
+## 10.5.1 (September 24, 2023)
+* Bug: *TypeError: Cannot read properties of undefined (reading 'toLowerCase') [#155](https://github.com/Sertion/vscode-gitblame/issue/155)* Thanks to [Andre Figueiredo](https://github.com/andretf)
+* Fix: Builds now target ES2022
+* Fix: Updating dependencies
+
 ## 10.5.0 (August 25, 2023)
 * Known issue: `gitblame.gitShow` does not work in some shells
 * Fix: Use absolute path to determine when a git repository HEAD changes
