@@ -1,5 +1,9 @@
 # Change Log
 
+## 10.6.0 (December 11, 2023)
+* Bug/Breaking: *`gitblame.delayBlame` triggers for each character typed [#160](https://github.com/Sertion/vscode-gitblame/issue/160)* Thanks to [redactedscribe](https://github.com/redactedscribe).
+* Fix: Updating dependencies
+
 ## 10.5.1 (September 24, 2023)
 * Bug: *TypeError: Cannot read properties of undefined (reading 'toLowerCase') [#155](https://github.com/Sertion/vscode-gitblame/issue/155)* Thanks to [Andre Figueiredo](https://github.com/andretf)
 * Fix: Builds now target ES2022
