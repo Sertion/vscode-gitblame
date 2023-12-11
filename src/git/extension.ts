@@ -188,28 +188,10 @@ export class Extension {
 			workspace.onDidChangeTextDocument(({ document }) => {
 				const textEditor = getActiveTextEditor();
 				if (textEditor?.document === document) {
-					this.updateView(textEditor, 0);
+					this.updateView(textEditor, false);
 				}
 			}),
 		);
-	}
-
-	private preUpdateView(
-		textEditor: PartialTextEditor | undefined,
-		delay: number,
-	): textEditor is PartialTextEditor {
-		this.view.clear();
-		if (!validEditor(textEditor)) {
-			return false;
-		}
-		if (delay > 0) {
-			for (const rejects of this.ongoingViewUpdateRejects) {
-				rejects();
-			}
-		}
-		this.view.activity();
-
-		return true;
 	}
 
 	private async delayUpdateView(delay: number): Promise<boolean> {
@@ -229,9 +211,9 @@ export class Extension {
 
 	private async updateView(
 		textEditor = getActiveTextEditor(),
-		delay = getProperty("delayBlame"),
+		useDelay = true,
 	): Promise<void> {
-		if (!this.preUpdateView(textEditor, delay)) {
+		if (!this.view.preUpdate(textEditor)) {
 			return;
 		}
 
@@ -243,10 +225,6 @@ export class Extension {
 			textEditor.selection.active.line,
 		);
 
-		if (false === (await this.delayUpdateView(delay))) {
-			return;
-		}
-
 		const textEditorAfter = getActiveTextEditor();
 		if (!validEditor(textEditorAfter)) {
 			return;
@@ -256,7 +234,7 @@ export class Extension {
 		// Only update if we haven't moved since we started blaming
 		// or if we no longer have focus on any file
 		if (before === after || after === NO_FILE_OR_PLACE) {
-			this.view.set(lineAware?.commit, textEditor);
+			this.view.set(lineAware?.commit, textEditor, useDelay);
 		}
 	}
 

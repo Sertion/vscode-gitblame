@@ -13,7 +13,7 @@ import {
 import type { Commit } from "./git/util/stream-parsing.js";
 
 import { isUncomitted } from "./git/util/uncommitted.js";
-import { PartialTextEditor } from "./util/editorvalidator.js";
+import { PartialTextEditor, validEditor } from "./util/editorvalidator.js";
 import { getActiveTextEditor } from "./util/get-active.js";
 import { getProperty } from "./util/property.js";
 import { toInlineTextView, toStatusBarTextView } from "./util/textdecorator.js";
@@ -22,6 +22,7 @@ export class StatusBarView {
 	private readonly statusBar: StatusBarItem;
 	private readonly decorationType: TextEditorDecorationType;
 	private readonly configChange: Disposable;
+	private ongoingViewUpdateRejects: (() => void)[] = [];
 
 	constructor() {
 		this.decorationType = window.createTextEditorDecorationType({});
@@ -37,18 +38,27 @@ export class StatusBarView {
 	public set(
 		commit: Commit | undefined,
 		editor: PartialTextEditor | undefined,
+		useDelay = true,
 	): void {
 		if (!commit) {
 			this.clear();
 		} else if (isUncomitted(commit)) {
 			this.text(getProperty("statusBarMessageNoCommit"), false);
 			if (editor) {
-				this.createLineDecoration(getProperty("inlineMessageNoCommit"), editor);
+				void this.createLineDecoration(
+					getProperty("inlineMessageNoCommit"),
+					editor,
+					useDelay,
+				);
 			}
 		} else {
 			this.text(toStatusBarTextView(commit), true);
 			if (editor) {
-				this.createLineDecoration(toInlineTextView(commit), editor);
+				void this.createLineDecoration(
+					toInlineTextView(commit),
+					editor,
+					useDelay,
+				);
 			}
 		}
 	}
@@ -103,7 +113,11 @@ export class StatusBarView {
 		return statusBar;
 	}
 
-	private createLineDecoration(text: string, editor: PartialTextEditor): void {
+	private async createLineDecoration(
+		text: string,
+		editor: PartialTextEditor,
+		useDelay: boolean,
+	): Promise<void> {
 		if (!getProperty("inlineMessageEnabled")) {
 			return;
 		}
@@ -115,22 +129,54 @@ export class StatusBarView {
 
 		this.removeLineDecoration();
 		// Add new decoration
-		editor.setDecorations?.(this.decorationType, [
-			{
-				renderOptions: {
-					after: {
-						contentText: text,
-						margin: `0 0 0 ${margin}rem`,
-						color: new ThemeColor("editorCodeLens.foreground"),
+		if (await this.delayUpdate(useDelay ? getProperty("delayBlame") : 0)) {
+			editor.setDecorations?.(this.decorationType, [
+				{
+					renderOptions: {
+						after: {
+							contentText: text,
+							margin: `0 0 0 ${margin}rem`,
+							color: new ThemeColor("editorCodeLens.foreground"),
+						},
 					},
+					range: new Range(decorationPosition, decorationPosition),
 				},
-				range: new Range(decorationPosition, decorationPosition),
-			},
-		]);
+			]);
+		}
 	}
 
 	private removeLineDecoration(): void {
 		const editor = getActiveTextEditor();
 		editor?.setDecorations?.(this.decorationType, []);
+	}
+
+	public preUpdate(
+		textEditor: PartialTextEditor | undefined,
+	): textEditor is PartialTextEditor {
+		this.clear();
+		if (!validEditor(textEditor)) {
+			return false;
+		}
+		for (const rejects of this.ongoingViewUpdateRejects) {
+			rejects();
+		}
+		this.activity();
+
+		return true;
+	}
+
+	private async delayUpdate(delay: number): Promise<boolean> {
+		if (delay > 0) {
+			try {
+				return await new Promise((resolve, reject) => {
+					this.ongoingViewUpdateRejects.push(reject);
+					setTimeout(() => resolve(true), delay);
+				});
+			} catch {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
