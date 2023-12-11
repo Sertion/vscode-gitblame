@@ -12,7 +12,11 @@ import { dirname } from "node:path";
 
 import type { LineAttatchedCommit } from "./util/stream-parsing.js";
 
-import { Document, validEditor } from "../util/editorvalidator.js";
+import {
+	Document,
+	PartialTextEditor,
+	validEditor,
+} from "../util/editorvalidator.js";
 import {
 	normalizeCommitInfoTokens,
 	parseTokens,
@@ -39,6 +43,8 @@ export class Extension {
 	private readonly blame: Blamer;
 	private readonly view: StatusBarView;
 	private readonly headWatcher: HeadWatch;
+
+	private ongoingViewUpdateRejects: (() => void)[] = [];
 
 	constructor() {
 		this.blame = new Blamer();
@@ -165,13 +171,6 @@ export class Extension {
 				if (validEditor(textEditor)) {
 					this.view.activity();
 					this.blame.file(textEditor.document.fileName);
-					/**
-					 * For unknown reasons files without previous or stored
-					 * selection locations don't trigger the change selection
-					 * event. I have not been able to find a way to detect when
-					 * this happens. Running the event handler twice seames to
-					 * be a good enough workaround.
-					 */
 					changeTextEditorSelection(textEditor);
 				} else {
 					this.view.clear();
@@ -195,15 +194,47 @@ export class Extension {
 		);
 	}
 
+	private preUpdateView(
+		textEditor: PartialTextEditor | undefined,
+		delay: number,
+	): textEditor is PartialTextEditor {
+		this.view.clear();
+		if (!validEditor(textEditor)) {
+			return false;
+		}
+		if (delay > 0) {
+			for (const rejects of this.ongoingViewUpdateRejects) {
+				rejects();
+			}
+		}
+		this.view.activity();
+
+		return true;
+	}
+
+	private async delayUpdateView(delay: number): Promise<boolean> {
+		if (delay > 0) {
+			try {
+				return await new Promise((resolve, reject) => {
+					this.ongoingViewUpdateRejects.push(reject);
+					setTimeout(() => resolve(true), delay);
+				});
+			} catch {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	private async updateView(
 		textEditor = getActiveTextEditor(),
 		delay = getProperty("delayBlame"),
 	): Promise<void> {
-		this.view.clear();
-		if (!validEditor(textEditor)) {
+		if (!this.preUpdateView(textEditor, delay)) {
 			return;
 		}
-		this.view.activity();
+
 		this.headWatcher.addFile(textEditor.document.fileName);
 
 		const before = getFilePosition(textEditor);
@@ -211,9 +242,11 @@ export class Extension {
 			textEditor.document.fileName,
 			textEditor.selection.active.line,
 		);
-		if (delay > 0) {
-			await new Promise((f) => setTimeout(f, delay));
+
+		if (false === (await this.delayUpdateView(delay))) {
+			return;
 		}
+
 		const textEditorAfter = getActiveTextEditor();
 		if (!validEditor(textEditorAfter)) {
 			return;
