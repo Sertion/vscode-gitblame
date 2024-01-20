@@ -2,7 +2,7 @@
   "name": "gitblame",
   "displayName": "Git Blame",
   "description": "See git blame information in the status bar.",
-  "version": "10.6.0",
+  "version": "10.7.0",
   "publisher": "waderyan",
   "engines": {
     "vscode": "^1.82.0"
@@ -39,14 +39,14 @@
   "devDependencies": {
     "@types/mocha": "10.0.6",
     "@types/node": "18.15.3",
-    "@types/sinon": "17.0.2",
+    "@types/sinon": "17.0.3",
     "@types/vscode": "1.82.0",
-    "@vscode/test-electron": "2.3.7",
-    "esbuild": "0.19.7",
+    "@vscode/test-electron": "2.3.8",
+    "esbuild": "0.19.11",
     "mocha": "10.2.0",
     "rome": "12.1.3",
     "sinon": "17.0.1",
-    "typescript": "5.3.2"
+    "typescript": "5.3.3"
   },
   "homepage": "https://github.com/Sertion/vscode-gitblame/blob/master/README.md",
   "bugs": {
@@ -147,7 +147,7 @@
         "gitblame.remoteName": {
           "type": "string",
           "default": "origin",
-          "markdownDescription": "The name of the git remote used to build the URL."
+          "description": "The name of the git remote used to build the URL."
         },
         "gitblame.commitUrl": {
           "type": "string",
@@ -173,13 +173,18 @@
         "gitblame.delayBlame": {
           "type": "number",
           "default": 0,
-          "markdownDescription": "This setting adds a delay (in milliseconds) before the blame is displayed"
+          "description": "This setting adds a delay (in milliseconds) before the blame is displayed"
         },
         "gitblame.parallelBlames": {
           "type": "number",
           "minimum": 1,
           "default": 2,
-          "markdownDescription": "Limit allowed parallel git blame process count"
+          "description": "Limit allowed parallel git blame process count"
+        },
+        "gitblame.revsFile": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "List of refs-file names to look for relative to the closest `.git`-folder. The first file in the list that is accessible will be used with the `-S`-argument in `git blame`."
         }
       }
     }

@@ -63,7 +63,7 @@ Use the git blame `-w` flag.
 
 > Default value: `"${commit.hash} ${commit.summary}"`
 
-Message that appears when the <code>gitblame.quickInfo</code> command executes (when you click the status bar message).
+Message that appears when the `gitblame.quickInfo` command executes (when you click the status bar message).
 
 ### `gitblame.statusBarMessageFormat`
 > Type: `string`
@@ -127,6 +127,13 @@ This setting adds a delay (in milliseconds) before the blame is displayed
 > Default value: `2`
 
 Limit how many git blame processes the extension can run in parallel. This can help with high CPU usage.
+
+### `gitblame.revsFile`
+> Type: `string[]`
+
+> Default value: `[]`
+
+List of refs-file names to look for relative to the closest `.git`-folder. The first file in the list that is [accessible](https://nodejs.org/docs/latest-v18.x/api/fs.html#fspromisesaccesspath-mode) will be used with the [`-S` argument](https://git-scm.com/docs/git-blame#Documentation/git-blame.txt--Sltrevs-filegt) in `git blame`.
 
 ### Message Tokens
 

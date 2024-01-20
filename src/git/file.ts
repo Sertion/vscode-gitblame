@@ -8,7 +8,7 @@ import {
 	processStdout,
 } from "./util/stream-parsing.js";
 import { Logger } from "../util/logger.js";
-import { blameProcess } from "./util/gitcommand.js";
+import { blameProcess, getRevsFile } from "./util/gitcommand.js";
 
 export type Blame = Map<number, LineAttatchedCommit | undefined>;
 
@@ -33,7 +33,7 @@ export class File {
 	private async *run(
 		realFileName: string,
 	): AsyncGenerator<LineAttatchedCommit> {
-		this.process = blameProcess(realFileName);
+		this.process = blameProcess(realFileName, await getRevsFile(realFileName));
 
 		yield* processStdout(this.process?.stdout);
 		await processStderr(this.process?.stderr);

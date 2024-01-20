@@ -19,6 +19,7 @@ export type PropertiesMap = {
 	inlineMessageMargin: number;
 	delayBlame: number;
 	parallelBlames: number;
+	revsFile: string[];
 };
 
 // getConfiguration has an unfortunate typing that does not

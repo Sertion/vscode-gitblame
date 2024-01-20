@@ -1,5 +1,9 @@
 # Change Log
 
+## 10.7.0 (January 20, 2024)
+* Feature: New setting `gitblame.revsFile` [#165](https://github.com/Sertion/vscode-gitblame/issue/165) Thanks to [mpawlowski-eyeo](https://github.com/mpawlowski-eyeo).
+* Fix: Updating dependencies
+
 ## 10.6.0 (December 11, 2023)
 * Bug/Breaking: *`gitblame.delayBlame` triggers for each character typed [#160](https://github.com/Sertion/vscode-gitblame/issue/160)* Thanks to [redactedscribe](https://github.com/redactedscribe).
 * Fix: Updating dependencies

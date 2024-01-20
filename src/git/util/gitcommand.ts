@@ -1,5 +1,6 @@
 import { ChildProcess, spawn } from "node:child_process";
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
+import { access } from "node:fs/promises";
 
 import { extensions } from "vscode";
 
@@ -71,11 +72,18 @@ export const getRemoteUrl = async (fallbackRemote: string): Promise<string> => {
 export const getGitFolder = async (fileName: string): Promise<string> =>
 	runGit(fileName, "rev-parse", "--absolute-git-dir");
 
-export const blameProcess = (realpathFileName: string): ChildProcess => {
+export const blameProcess = (
+	realpathFileName: string,
+	revsFile: string | undefined,
+): ChildProcess => {
 	const args = ["blame", "-C", "--incremental", "--", realpathFileName];
 
 	if (getProperty("ignoreWhitespace")) {
 		args.splice(1, 0, "-w");
+	}
+
+	if (revsFile) {
+		args.splice(1, 0, "-S", revsFile);
 	}
 
 	Logger.info(`${getGitCommand()} ${args.join(" ")}`);
@@ -83,6 +91,31 @@ export const blameProcess = (realpathFileName: string): ChildProcess => {
 	return spawn(getGitCommand(), args, {
 		cwd: dirname(realpathFileName),
 	});
+};
+
+export const getRevsFile = async (
+	realFileName: string,
+): Promise<string | undefined> => {
+	const possibleRevsFiles = getProperty("revsFile");
+	if (possibleRevsFiles.length === 0) {
+		return undefined;
+	}
+
+	const gitRoot = await getGitFolder(realFileName);
+	const projectRoot = dirname(gitRoot);
+
+	return (
+		await Promise.allSettled(
+			possibleRevsFiles
+				.map((fileName) => join(projectRoot, fileName))
+				.map((path) => access(path).then(() => path)),
+		)
+	)
+		.filter(
+			(promise): promise is PromiseFulfilledResult<string> =>
+				promise.status === "fulfilled",
+		)
+		.map((promiseResult) => promiseResult.value)[0];
 };
 
 export const getRelativePathOfActiveFile = async (): Promise<string> => {
