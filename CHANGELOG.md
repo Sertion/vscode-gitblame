@@ -1,15 +1,18 @@
 # Change Log
 
+## 10.7.1 (January 24, 2024)
+* Bug: *Incorrect issues URL in changelog [#166](https://github.com/Sertion/vscode-gitblame/issues/166)* Thanks to [Minobi](https://github.com/Minobi)
+
 ## 10.7.0 (January 20, 2024)
-* Feature: New setting `gitblame.revsFile` [#165](https://github.com/Sertion/vscode-gitblame/issue/165) Thanks to [mpawlowski-eyeo](https://github.com/mpawlowski-eyeo).
+* Feature: New setting `gitblame.revsFile` [#165](https://github.com/Sertion/vscode-gitblame/issues/165) Thanks to [mpawlowski-eyeo](https://github.com/mpawlowski-eyeo).
 * Fix: Updating dependencies
 
 ## 10.6.0 (December 11, 2023)
-* Bug/Breaking: *`gitblame.delayBlame` triggers for each character typed [#160](https://github.com/Sertion/vscode-gitblame/issue/160)* Thanks to [redactedscribe](https://github.com/redactedscribe).
+* Bug/Breaking: *`gitblame.delayBlame` triggers for each character typed [#160](https://github.com/Sertion/vscode-gitblame/issues/160)* Thanks to [redactedscribe](https://github.com/redactedscribe).
 * Fix: Updating dependencies
 
 ## 10.5.1 (September 24, 2023)
-* Bug: *TypeError: Cannot read properties of undefined (reading 'toLowerCase') [#155](https://github.com/Sertion/vscode-gitblame/issue/155)* Thanks to [Andre Figueiredo](https://github.com/andretf)
+* Bug: *TypeError: Cannot read properties of undefined (reading 'toLowerCase') [#155](https://github.com/Sertion/vscode-gitblame/issues/155)* Thanks to [Andre Figueiredo](https://github.com/andretf)
 * Fix: Builds now target ES2022
 * Fix: Updating dependencies
 
@@ -23,27 +26,27 @@
 ## 10.4.0 (July 08, 2023)
 * Feature: Open `git show` for the commit on the last selected line in the terminal from the info message or from the `gitblame.gitShow` command
   * It is also possible to change the status bar button default behavor to run git show by changing `gitblame.statusBarMessageClickAction` to `"Open git show"`
-* Bug: Attempting to fix *Extension causes high cpu load ([#145](https://github.com/Sertion/vscode-gitblame/issue/145))* Thanks to [joshrbarcodefactory](https://github.com/joshrbarcodefactory) for uploading the CPU snapshot!
+* Bug: Attempting to fix *Extension causes high cpu load ([#145](https://github.com/Sertion/vscode-gitblame/issues/145))* Thanks to [joshrbarcodefactory](https://github.com/joshrbarcodefactory) for uploading the CPU snapshot!
 * Fix: Updating dependencies
 * Fix: Updated README.md
 
 ## 10.3.0 (June 23, 2023)
-* Bug: Spawns many Git processes and uses up CPU ([#144](https://github.com/Sertion/vscode-gitblame/issue/144)) Thanks to [Theo Crandall](https://github.com/thrandale)!
+* Bug: Spawns many Git processes and uses up CPU ([#144](https://github.com/Sertion/vscode-gitblame/issues/144)) Thanks to [Theo Crandall](https://github.com/thrandale)!
   * New setting `gitblame.parallelBlames` controlls how many git blame processes that will run in parallel. Defaults to `2`.
 * Bug: Blame completing can sometimes update the status bar to info from the wrong file
 * Fix: Fewer dev dependencies
 
 ## 10.2.1 (June 21, 2023)
-* Bug: Inline message drawn on top of code when backspacing from EOL ([#142](https://github.com/Sertion/vscode-gitblame/issue/142)) Thanks to [Kim Alford](https://github.com/kgalford1)!
+* Bug: Inline message drawn on top of code when backspacing from EOL ([#142](https://github.com/Sertion/vscode-gitblame/issues/142)) Thanks to [Kim Alford](https://github.com/kgalford1)!
 * Fix: Hide blame decorator saving a file
 * Fix: Updated unclear error message
 * Fix: Added `${project.defaultbranch}` to the readme
 * Fix: Updating dependencies
 
 ## 10.2.0 (April 8, 2023)
-* Feature: Add a delay before blame is shown ([#139](https://github.com/Sertion/vscode-gitblame/issue/139)) [#141](https://github.com/Sertion/vscode-gitblame/pull/141). Thanks to [Ajith Aravind](https://github.com/aaravind100) for the PR and request!
+* Feature: Add a delay before blame is shown ([#139](https://github.com/Sertion/vscode-gitblame/issues/139)) [#141](https://github.com/Sertion/vscode-gitblame/pull/141). Thanks to [Ajith Aravind](https://github.com/aaravind100) for the PR and request!
   * Set `gitblame.delayBlame` to add a timeout from when navigating to a line to when the blame information is shown
-* Feature:  Master or Main [#134](https://github.com/Sertion/vscode-gitblame/issue/134) (Thanks to [Pierre Hersant](https://github.com/elcortez))
+* Feature:  Master or Main [#134](https://github.com/Sertion/vscode-gitblame/issues/134) (Thanks to [Pierre Hersant](https://github.com/elcortez))
   * New token for `gitblame.commitUrl`: `${project.defaultbranch}` - The current projects default branch
 * Fix: Updating dependencies
 
