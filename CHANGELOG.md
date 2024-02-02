@@ -1,5 +1,9 @@
 # Change Log
 
+## 10.8.0 (February 02, 2024)
+* Feature: *Define a custom theme color for the inline message [#168](https://github.com/Sertion/vscode-gitblame/issues/168)* Thanks to [Johannes Rieken ](https://github.com/jrieken)
+  * You can [customise the inline blame message by overriding `gitblame.inlineMessage`](https://code.visualstudio.com/docs/getstarted/themes#_customizing-a-color-theme)
+
 ## 10.7.1 (January 24, 2024)
 * Bug: *Incorrect issues URL in changelog [#166](https://github.com/Sertion/vscode-gitblame/issues/166)* Thanks to [Minobi](https://github.com/Minobi)
 

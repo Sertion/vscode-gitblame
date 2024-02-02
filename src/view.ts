@@ -129,14 +129,14 @@ export class StatusBarView {
 
 		this.removeLineDecoration();
 		// Add new decoration
-		if (await this.delayUpdate(useDelay ? getProperty("delayBlame") : 0)) {
+		if (useDelay && (await this.delayUpdate(getProperty("delayBlame")))) {
 			editor.setDecorations?.(this.decorationType, [
 				{
 					renderOptions: {
 						after: {
 							contentText: text,
 							margin: `0 0 0 ${margin}rem`,
-							color: new ThemeColor("editorCodeLens.foreground"),
+							color: new ThemeColor("gitblame.inlineMessage"),
 						},
 					},
 					range: new Range(decorationPosition, decorationPosition),
