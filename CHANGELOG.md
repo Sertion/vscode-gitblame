@@ -1,5 +1,8 @@
 # Change Log
 
+## 10.9.0 (February 06, 2024)
+* Feature: Moving "Waiting for git blame response" to the tool tip and replacing the spinning icon with a non-spinning version while waiting for blame information for a line. [#167](https://github.com/Sertion/vscode-gitblame/issues/163) Thanks to [Benjamin Pasero](https://github.com/bpasero) and [Jasper Trooster](https://github.com/Japsert)
+
 ## 10.8.0 (February 02, 2024)
 * Feature: *Define a custom theme color for the inline message [#168](https://github.com/Sertion/vscode-gitblame/issues/168)* Thanks to [Johannes Rieken ](https://github.com/jrieken)
   * You can [customise the inline blame message by overriding `gitblame.inlineMessage`](https://code.visualstudio.com/docs/getstarted/themes#_customizing-a-color-theme)

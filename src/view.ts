@@ -22,7 +22,7 @@ export class StatusBarView {
 	private readonly statusBar: StatusBarItem;
 	private readonly decorationType: TextEditorDecorationType;
 	private readonly configChange: Disposable;
-	private ongoingViewUpdateRejects: (() => void)[] = [];
+	private ongoingViewUpdateRejects: Set<() => void> = new Set();
 
 	constructor() {
 		this.decorationType = window.createTextEditorDecorationType({});
@@ -69,7 +69,8 @@ export class StatusBarView {
 	}
 
 	public activity(): void {
-		this.text("$(sync~spin) Waiting for git blame response", false);
+		this.text("$(extensions-refresh)", false);
+		this.statusBar.tooltip = "git blame - Waiting for git blame response";
 	}
 
 	public dispose(): void {
@@ -160,6 +161,7 @@ export class StatusBarView {
 		for (const rejects of this.ongoingViewUpdateRejects) {
 			rejects();
 		}
+		this.ongoingViewUpdateRejects.clear();
 		this.activity();
 
 		return true;
@@ -169,7 +171,7 @@ export class StatusBarView {
 		if (delay > 0) {
 			try {
 				return await new Promise((resolve, reject) => {
-					this.ongoingViewUpdateRejects.push(reject);
+					this.ongoingViewUpdateRejects.add(reject);
 					setTimeout(() => resolve(true), delay);
 				});
 			} catch {
