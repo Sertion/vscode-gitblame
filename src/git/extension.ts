@@ -1,38 +1,35 @@
+import { dirname } from "node:path";
 import {
-	commands,
 	Disposable,
-	env,
-	MessageItem,
-	TextEditor,
+	type MessageItem,
+	type TextEditor,
 	ThemeIcon,
+	commands,
+	env,
 	window,
 	workspace,
 } from "vscode";
-import { dirname } from "node:path";
 
 import type { LineAttatchedCommit } from "./util/stream-parsing.js";
 
+import { type Document, validEditor } from "../util/editorvalidator.js";
 import {
-	Document,
-	PartialTextEditor,
-	validEditor,
-} from "../util/editorvalidator.js";
+	NO_FILE_OR_PLACE,
+	getActiveTextEditor,
+	getFilePosition,
+} from "../util/get-active.js";
+import { errorMessage, infoMessage } from "../util/message.js";
+import { getProperty } from "../util/property.js";
 import {
 	normalizeCommitInfoTokens,
 	parseTokens,
 } from "../util/textdecorator.js";
 import { StatusBarView } from "../view.js";
 import { Blamer } from "./blame.js";
-import { getProperty } from "../util/property.js";
-import { getToolUrl } from "./util/get-tool-url.js";
-import { isUncomitted } from "./util/uncommitted.js";
-import { errorMessage, infoMessage } from "../util/message.js";
-import {
-	getActiveTextEditor,
-	getFilePosition,
-	NO_FILE_OR_PLACE,
-} from "../util/get-active.js";
 import { HeadWatch } from "./head-watch.js";
+import { getToolUrl } from "./util/get-tool-url.js";
+import { isUncomitted } from "./util/is-hash.js";
+import { isHash } from "./util/is-hash.js";
 
 type ActionableMessageItem = MessageItem & {
 	action: () => void;
@@ -43,8 +40,6 @@ export class Extension {
 	private readonly blame: Blamer;
 	private readonly view: StatusBarView;
 	private readonly headWatcher: HeadWatch;
-
-	private ongoingViewUpdateRejects: (() => void)[] = [];
 
 	constructor() {
 		this.blame = new Blamer();
@@ -132,7 +127,7 @@ export class Extension {
 		const hash = currentLine?.commit.hash ?? "HEAD";
 
 		// Only ever allow HEAD or a git hash
-		if (!/^(\w{40}|HEAD)$/.test(hash)) {
+		if (!isHash(hash, true)) {
 			return;
 		}
 
@@ -194,21 +189,6 @@ export class Extension {
 		);
 	}
 
-	private async delayUpdateView(delay: number): Promise<boolean> {
-		if (delay > 0) {
-			try {
-				return await new Promise((resolve, reject) => {
-					this.ongoingViewUpdateRejects.push(reject);
-					setTimeout(() => resolve(true), delay);
-				});
-			} catch {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	private async updateView(
 		textEditor = getActiveTextEditor(),
 		useDelay = true,
@@ -239,7 +219,7 @@ export class Extension {
 	}
 
 	private async commit(
-		undercover = false,
+		noVisibleActivity = false,
 	): Promise<LineAttatchedCommit | undefined> {
 		const notBlame = () => errorMessage("Unable to blame current line");
 		const editor = getActiveTextEditor();
@@ -249,7 +229,7 @@ export class Extension {
 			return;
 		}
 
-		if (!undercover) {
+		if (!noVisibleActivity) {
 			this.view.activity();
 		}
 

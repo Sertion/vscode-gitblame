@@ -1,4 +1,4 @@
-import { MessageItem, window } from "vscode";
+import { type MessageItem, window } from "vscode";
 
 export const infoMessage = <T extends MessageItem>(
 	message: string,

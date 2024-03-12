@@ -46,7 +46,7 @@ export class Queue<
 		this.storage.delete(func);
 		if (resolve) {
 			func()
-				.then((r) => resolve(r))
+				.then(resolve)
 				.finally(() => {
 					this.processing.delete(func);
 					this.runNext();

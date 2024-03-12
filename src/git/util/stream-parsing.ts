@@ -1,4 +1,5 @@
 import { split } from "../../util/split.js";
+import { isHash } from "./is-hash.js";
 
 export type CommitAuthor = {
 	name: string;
@@ -86,7 +87,7 @@ const fillOwner = (
 ): void => {
 	if (dataPoint === "time") {
 		owner.timestamp = value;
-		owner.date = new Date(parseInt(value, 10) * 1000);
+		owner.date = new Date(Number.parseInt(value, 10) * 1000);
 	} else if (dataPoint === "tz" || dataPoint === "mail") {
 		owner[dataPoint] = value;
 	} else if (dataPoint === "") {
@@ -106,7 +107,6 @@ const processAuthorLine = (
 	}
 };
 
-const isHash = (hash: string): boolean => /^\w{40}$/.test(hash);
 const isCoverageLine = (hash: string, coverage: string): boolean =>
 	isHash(hash) && /^\d+ \d+ \d+$/.test(coverage);
 

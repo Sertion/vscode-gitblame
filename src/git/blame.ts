@@ -1,13 +1,13 @@
-import { FSWatcher, promises, watch } from "node:fs";
+import { type FSWatcher, promises, watch } from "node:fs";
 
 import type { LineAttatchedCommit } from "./util/stream-parsing.js";
 
-import { Blame, File } from "./file.js";
+import { type Disposable, workspace } from "vscode";
 import { Logger } from "../util/logger.js";
-import { getGitFolder } from "./util/gitcommand.js";
-import { Queue } from "./queue.js";
-import { Disposable, workspace } from "vscode";
 import { getProperty } from "../util/property.js";
+import { type Blame, File } from "./file.js";
+import { Queue } from "./queue.js";
+import { getGitFolder } from "./util/gitcommand.js";
 
 type Files =
 	| undefined
@@ -60,11 +60,15 @@ export class Blamer {
 		(await (await this.files.get(fileName))?.file)?.dispose();
 		this.fsWatchers.get(fileName)?.close();
 		this.files.delete(fileName);
-		this.fsWatchers.delete(fileName);
+		const fsWatcher = this.fsWatchers.get(fileName);
+		if (fsWatcher) {
+			this.fsWatchers.delete(fileName);
+			fsWatcher.close();
+		}
 	}
 
 	public dispose(): void {
-		for (const [fileName] of this.files) {
+		for (const fileName of this.files.keys()) {
 			this.remove(fileName);
 		}
 		this.configChange.dispose();

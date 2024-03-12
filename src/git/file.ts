@@ -1,14 +1,14 @@
-import { ChildProcess } from "node:child_process";
+import type { ChildProcess } from "node:child_process";
 import { realpath } from "node:fs/promises";
 import { relative } from "node:path";
 
+import { Logger } from "../util/logger.js";
+import { blameProcess, getRevsFile } from "./util/gitcommand.js";
 import {
-	LineAttatchedCommit,
+	type LineAttatchedCommit,
 	processStderr,
 	processStdout,
 } from "./util/stream-parsing.js";
-import { Logger } from "../util/logger.js";
-import { blameProcess, getRevsFile } from "./util/gitcommand.js";
 
 export type Blame = Map<number, LineAttatchedCommit | undefined>;
 

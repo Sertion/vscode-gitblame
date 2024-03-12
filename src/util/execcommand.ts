@@ -1,4 +1,4 @@
-import { ChildProcess, execFile, ExecOptions } from "node:child_process";
+import { type ExecOptions, execFile } from "node:child_process";
 
 import { Logger } from "./logger.js";
 

@@ -120,7 +120,7 @@ suite("Promise Queue", (): void => {
 		await clock?.runAllAsync();
 	});
 
-	test("Increase max parallel runs more things", async (): Promise<void> => {
+	test("Decrease max parallel does not run more things", async (): Promise<void> => {
 		const instance = new Queue<undefined>(2);
 
 		const spy1 = Sinon.spy(() => sleep(100, undefined));

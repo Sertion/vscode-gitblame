@@ -1,5 +1,10 @@
 # Change Log
 
+## 10.10.0 (March xx, 2024)
+* Feature: Update extension to support [the future move to SHA-256 hashes for object names](https://github.com/git/git/blob/70661d28/Documentation/technical/hash-function-transition.txt)
+* Fix: Change from `rome` to `@biomejs/biome`
+* Fix: Updating dependencies
+
 ## 10.9.0 (February 06, 2024)
 * Feature: Moving "Waiting for git blame response" to the tool tip and replacing the spinning icon with a non-spinning version while waiting for blame information for a line. [#167](https://github.com/Sertion/vscode-gitblame/issues/163) Thanks to [Benjamin Pasero](https://github.com/bpasero) and [Jasper Trooster](https://github.com/Japsert)
 

@@ -1,15 +1,15 @@
-import { ChildProcess, spawn } from "node:child_process";
-import { dirname, join } from "node:path";
+import { type ChildProcess, spawn } from "node:child_process";
 import { access } from "node:fs/promises";
+import { dirname, join } from "node:path";
 
 import { extensions } from "vscode";
 
+import type { GitExtension } from "../../../types/git";
 import { validEditor } from "../../util/editorvalidator.js";
-import { getProperty } from "../../util/property.js";
-import { Logger } from "../../util/logger.js";
 import { execute } from "../../util/execcommand.js";
-import { GitExtension } from "../../../types/git";
 import { getActiveTextEditor } from "../../util/get-active.js";
+import { Logger } from "../../util/logger.js";
+import { getProperty } from "../../util/property.js";
 import { split } from "../../util/split.js";
 
 export const getGitCommand = (): string => {

@@ -15,14 +15,12 @@ const timeUnits: [Intl.RelativeTimeFormatUnit, number][] = [
 	["minute", MINUTE],
 ];
 export const between = (now: Date, compare: Date): string => {
-	const diffMilliseconds = now.valueOf() - compare.valueOf();
+	const diff = now.valueOf() - compare.valueOf();
+	const relativeTime = new Intl.RelativeTimeFormat(env.language);
 
-	for (const [currentUnit, scale] of timeUnits) {
-		if (diffMilliseconds > scale) {
-			return new Intl.RelativeTimeFormat(env.language).format(
-				-1 * Math.round(diffMilliseconds / scale),
-				currentUnit,
-			);
+	for (const [unit, scale] of timeUnits) {
+		if (diff > scale) {
+			return relativeTime.format(-1 * Math.round(diff / scale), unit);
 		}
 	}
 

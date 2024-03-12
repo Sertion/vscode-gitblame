@@ -1,4 +1,4 @@
-import { LogOutputChannel, window } from "vscode";
+import { type LogOutputChannel, window } from "vscode";
 
 export class Logger {
 	private static instance?: Logger;

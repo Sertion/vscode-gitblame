@@ -1,4 +1,4 @@
-import { commands, Disposable, ExtensionContext } from "vscode";
+import { type Disposable, type ExtensionContext, commands } from "vscode";
 
 import { Extension } from "./git/extension.js";
 import { Logger } from "./util/logger.js";

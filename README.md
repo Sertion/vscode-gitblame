@@ -139,8 +139,8 @@ List of refs-file names to look for relative to the closest `.git`-folder. The f
 
 | Token                         | Function | Parameter | Default Value | Description |
 |-------------------------------|----------|-----------|---------------|-------------|
-| `${commit.hash,length}`       | Yes      | `length`  |            40 | the first `length` characters of the 40-bit hash unique to the commit |
-| `${commit.hash_short,length}` | Yes      | `length`  |             7 | the first `length` characters of the 40-bit hash unique to the commit |
+| `${commit.hash,length}`       | Yes      | `length`  |            64 | the first `length` characters of the 40-bit (or 64-bit) hash unique to the commit |
+| `${commit.hash_short,length}` | Yes      | `length`  |             7 | the first `length` characters of the 40-bit (or 64-bit) hash unique to the commit |
 | `${commit.summary}`           | Yes      | `length`  |         65536 | the first `length` characters of the first line of the commit message |
 | `${author.name}`              | No       | -         | -             | the commit author's name |
 | `${author.mail}`              | No       | -         | -             | the commit author's e-mail |

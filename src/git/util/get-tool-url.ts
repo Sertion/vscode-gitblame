@@ -1,23 +1,23 @@
-import { Uri } from "vscode";
 import { URL } from "node:url";
+import { Uri } from "vscode";
 
 import type { LineAttatchedCommit } from "./stream-parsing.js";
 
 import { isUrl } from "../../util/is-url.js";
-import { split } from "../../util/split.js";
-import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
+import { errorMessage } from "../../util/message.js";
 import { getProperty } from "../../util/property.js";
+import { split } from "../../util/split.js";
+import { type InfoTokens, parseTokens } from "../../util/textdecorator.js";
 import {
 	getActiveFileOrigin,
 	getDefaultBranch,
 	getRelativePathOfActiveFile,
 	getRemoteUrl,
 } from "./gitcommand.js";
+import { isUncomitted } from "./is-hash.js";
+import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
 import { stripGitRemoteUrl, stripGitSuffix } from "./strip-git-remote-url.js";
-import { InfoTokens, parseTokens } from "../../util/textdecorator.js";
-import { isUncomitted } from "./uncommitted.js";
-import { errorMessage } from "../../util/message.js";
 
 export type ToolUrlTokens = {
 	hash: string;
@@ -133,11 +133,11 @@ export const getToolUrl = async (
 
 	if (isUrl(parsedUrl)) {
 		return Uri.parse(parsedUrl, true);
-	} else {
-		errorMessage(
-			`Malformed gitblame.commitUrl: '${parsedUrl}' from '${getProperty(
-				"commitUrl",
-			)}'`,
-		);
 	}
+
+	errorMessage(
+		`Malformed gitblame.commitUrl: '${parsedUrl}' from '${getProperty(
+			"commitUrl",
+		)}'`,
+	);
 };

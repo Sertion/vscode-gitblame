@@ -1,5 +1,5 @@
-import { getProperty } from "./property.js";
 import { between } from "./ago.js";
+import { getProperty } from "./property.js";
 
 import type { Commit, CommitAuthor } from "../git/util/stream-parsing.js";
 
@@ -42,8 +42,9 @@ export const normalizeCommitInfoTokens = ({
 	const ago = between(now, author.date);
 	const cAgo = between(now, committer.date);
 	const shortness =
-		(target: string, fallbackLength: string) => (length = ""): string => {
-			return target.substr(0, parseInt(length || fallbackLength, 10));
+		(target: string, fallbackLength: string) =>
+		(length = ""): string => {
+			return target.substr(0, Number.parseInt(length || fallbackLength, 10));
 		};
 
 	return {
@@ -57,7 +58,7 @@ export const normalizeCommitInfoTokens = ({
 		"committer.timestamp": committer.timestamp,
 		"committer.tz": committer.tz,
 		"committer.date": toIso(committer),
-		"commit.hash": shortness(hash, "40"),
+		"commit.hash": shortness(hash, "64"),
 		"commit.hash_short": shortness(hash, "7"),
 		"commit.summary": shortness(summary, "65536"),
 		"time.ago": ago,

@@ -1,4 +1,4 @@
-import { FSWatcher, watch } from "node:fs";
+import { type FSWatcher, watch } from "node:fs";
 import { join, resolve } from "node:path";
 import { getGitFolder } from "./util/gitcommand.js";
 
@@ -51,6 +51,8 @@ export class HeadWatch {
 		for (const [, headWatcher] of this.heads) {
 			headWatcher.close();
 		}
+		this.heads.clear();
+		this.filesWithFoundHeads.clear();
 		this.callback = () => undefined;
 	}
 

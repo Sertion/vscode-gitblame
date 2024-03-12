@@ -1,10 +1,10 @@
 import {
-	Disposable,
+	type Disposable,
 	Position,
 	Range,
 	StatusBarAlignment,
-	StatusBarItem,
-	TextEditorDecorationType,
+	type StatusBarItem,
+	type TextEditorDecorationType,
 	ThemeColor,
 	window,
 	workspace,
@@ -12,8 +12,8 @@ import {
 
 import type { Commit } from "./git/util/stream-parsing.js";
 
-import { isUncomitted } from "./git/util/uncommitted.js";
-import { PartialTextEditor, validEditor } from "./util/editorvalidator.js";
+import { isUncomitted } from "./git/util/is-hash.js";
+import { type PartialTextEditor, validEditor } from "./util/editorvalidator.js";
 import { getActiveTextEditor } from "./util/get-active.js";
 import { getProperty } from "./util/property.js";
 import { toInlineTextView, toStatusBarTextView } from "./util/textdecorator.js";
@@ -84,7 +84,8 @@ export class StatusBarView {
 
 		if (action === "Open tool URL") {
 			return "gitblame.online";
-		} else if (action === "Open git show") {
+		}
+		if (action === "Open git show") {
 			return "gitblame.gitShow";
 		}
 

@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { promises } from "node:fs";
+import { opendir } from "node:fs/promises";
 
 import * as Mocha from "mocha";
 
@@ -9,7 +9,7 @@ export async function run(): Promise<void> {
 		color: true,
 	});
 
-	const files = await promises.opendir(__dirname);
+	const files = await opendir(__dirname);
 
 	for await (const dirent of files) {
 		if (
