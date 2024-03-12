@@ -20,7 +20,7 @@ jobs:
         uses: biomejs/setup-biome@v2
 
       - name: Code quality
-        run: npm run lint
+        run: biome ci ./src/
 
       - name: Run tests
         run: xvfb-run -a npm test
