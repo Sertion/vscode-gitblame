@@ -1,6 +1,6 @@
 # Change Log
 
-## 10.10.0 (March xx, 2024)
+## 10.10.0 (March 12, 2024)
 * Feature: Update extension to support [the future move to SHA-256 hashes for object names](https://github.com/git/git/blob/70661d28/Documentation/technical/hash-function-transition.txt)
 * Fix: Change from `rome` to `@biomejs/biome`
 * Fix: Updating dependencies
