@@ -32,7 +32,7 @@
     "vscode:prepublish": "npm run build",
     "build": "node esbuild.mjs",
     "package": "npx vsce package",
-    "lint": "biome check ./src",
+    "lint": "biome ci ./src",
     "pretest": "tsc --project tsconfig.test.json",
     "test": "npm run pretest && node ./out/test/run-test.js"
   },
