@@ -16,6 +16,9 @@ jobs:
       - name: Install Node Dependencies
         run: npm ci
 
+      - name: Setup Biome CLI
+        uses: biomejs/setup-biome@v2
+
       - name: Code quality
         run: npm run lint
 
