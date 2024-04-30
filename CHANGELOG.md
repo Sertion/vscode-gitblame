@@ -1,19 +1,23 @@
 # Change Log
 
+## 10.10.1 (April, 30, 2024)
+* Bug: *Status Bar block disappears after a change in extension settings [#155](https://github.com/Sertion/vscode-gitblame/issues/155)* Thanks to [ADTC](https://github.com/ADTC).
+* Fix: Updating dependencies
+
 ## 10.10.0 (March 12, 2024)
 * Feature: Update extension to support [the future move to SHA-256 hashes for object names](https://github.com/git/git/blob/70661d28/Documentation/technical/hash-function-transition.txt)
 * Fix: Change from `rome` to `@biomejs/biome`
 * Fix: Updating dependencies
 
 ## 10.9.0 (February 06, 2024)
-* Feature: Moving "Waiting for git blame response" to the tool tip and replacing the spinning icon with a non-spinning version while waiting for blame information for a line. [#167](https://github.com/Sertion/vscode-gitblame/issues/163) Thanks to [Benjamin Pasero](https://github.com/bpasero) and [Jasper Trooster](https://github.com/Japsert)
+* Feature: Moving "Waiting for git blame response" to the tool tip and replacing the spinning icon with a non-spinning version while waiting for blame information for a line. [#167](https://github.com/Sertion/vscode-gitblame/issues/163) Thanks to [Benjamin Pasero](https://github.com/bpasero) and [Jasper Trooster](https://github.com/Japsert).
 
 ## 10.8.0 (February 02, 2024)
 * Feature: *Define a custom theme color for the inline message [#168](https://github.com/Sertion/vscode-gitblame/issues/168)* Thanks to [Johannes Rieken ](https://github.com/jrieken)
   * You can [customise the inline blame message by overriding `gitblame.inlineMessage`](https://code.visualstudio.com/docs/getstarted/themes#_customizing-a-color-theme)
 
 ## 10.7.1 (January 24, 2024)
-* Bug: *Incorrect issues URL in changelog [#166](https://github.com/Sertion/vscode-gitblame/issues/166)* Thanks to [Minobi](https://github.com/Minobi)
+* Bug: *Incorrect issues URL in changelog [#166](https://github.com/Sertion/vscode-gitblame/issues/166)* Thanks to [Minobi](https://github.com/Minobi).
 
 ## 10.7.0 (January 20, 2024)
 * Feature: New setting `gitblame.revsFile` [#165](https://github.com/Sertion/vscode-gitblame/issues/165) Thanks to [mpawlowski-eyeo](https://github.com/mpawlowski-eyeo).
@@ -24,7 +28,7 @@
 * Fix: Updating dependencies
 
 ## 10.5.1 (September 24, 2023)
-* Bug: *TypeError: Cannot read properties of undefined (reading 'toLowerCase') [#155](https://github.com/Sertion/vscode-gitblame/issues/155)* Thanks to [Andre Figueiredo](https://github.com/andretf)
+* Bug: *TypeError: Cannot read properties of undefined (reading 'toLowerCase') [#155](https://github.com/Sertion/vscode-gitblame/issues/155)* Thanks to [Andre Figueiredo](https://github.com/andretf).
 * Fix: Builds now target ES2022
 * Fix: Updating dependencies
 

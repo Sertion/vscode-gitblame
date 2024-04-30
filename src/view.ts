@@ -19,18 +19,28 @@ import { getProperty } from "./util/property.js";
 import { toInlineTextView, toStatusBarTextView } from "./util/textdecorator.js";
 
 export class StatusBarView {
-	private readonly statusBar: StatusBarItem;
+	private statusBar: StatusBarItem;
 	private readonly decorationType: TextEditorDecorationType;
 	private readonly configChange: Disposable;
-	private ongoingViewUpdateRejects: Set<() => void> = new Set();
+	private readonly ongoingViewUpdateRejects: Set<() => void> = new Set();
+
+	private statusBarText = "";
+	private statusBarTooltip = "";
+	private statusBarCommand = false;
+	private statusBarPriority: number | undefined = undefined;
 
 	constructor() {
 		this.decorationType = window.createTextEditorDecorationType({});
+		this.statusBarPriority = getProperty("statusBarPositionPriority");
 
 		this.statusBar = this.createStatusBarItem();
 		this.configChange = workspace.onDidChangeConfiguration((e) => {
 			if (e.affectsConfiguration("gitblame")) {
-				this.createStatusBarItem();
+				const newPriority = getProperty("statusBarPositionPriority");
+				if (this.statusBarPriority !== newPriority) {
+					this.statusBarPriority = newPriority;
+					this.statusBar = this.createStatusBarItem();
+				}
 			}
 		});
 	}
@@ -92,23 +102,30 @@ export class StatusBarView {
 		return "gitblame.quickInfo";
 	}
 
+	private updateStatusBar(statusBar: StatusBarItem) {
+		statusBar.text = this.statusBarText;
+		statusBar.tooltip = this.statusBarTooltip;
+		statusBar.command = this.statusBarCommand ? this.command() : undefined;
+	}
+
 	private text(text: string, command: boolean): void {
-		this.statusBar.text = `$(git-commit) ${text.trimEnd()}`;
-		this.statusBar.tooltip = `git blame${
-			command ? "" : " - No info about the current line"
-		}`;
-		this.statusBar.command = command ? this.command() : undefined;
+		const suffix = command ? "" : " - No info about the current line";
+		this.statusBarText = `$(git-commit) ${text.trimEnd()}`;
+		this.statusBarTooltip = `git blame${suffix}`;
+		this.statusBarCommand = command;
+
+		this.updateStatusBar(this.statusBar);
 	}
 
 	private createStatusBarItem(): StatusBarItem {
-		if (this.statusBar) {
-			this.statusBar.dispose();
-		}
+		this.statusBar?.dispose();
 
 		const statusBar = window.createStatusBarItem(
 			StatusBarAlignment.Right,
-			getProperty("statusBarPositionPriority"),
+			this.statusBarPriority,
 		);
+
+		this.updateStatusBar(statusBar);
 
 		statusBar.show();
 
