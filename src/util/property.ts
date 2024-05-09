@@ -12,7 +12,8 @@ export type PropertiesMap = {
 	statusBarMessageClickAction:
 		| "Show info message"
 		| "Open tool URL"
-		| "Open git show";
+		| "Open git show"
+		| "Copy hash to clipboard";
 	inlineMessageFormat: string;
 	inlineMessageNoCommit: string;
 	inlineMessageEnabled: boolean;

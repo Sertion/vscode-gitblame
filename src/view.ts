@@ -98,6 +98,9 @@ export class StatusBarView {
 		if (action === "Open git show") {
 			return "gitblame.gitShow";
 		}
+		if (action === "Copy hash to clipboard") {
+			return "gitblame.addCommitHashToClipboard";
+		}
 
 		return "gitblame.quickInfo";
 	}

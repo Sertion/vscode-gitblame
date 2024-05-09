@@ -2,7 +2,7 @@
   "name": "gitblame",
   "displayName": "Git Blame",
   "description": "See git blame information in the status bar.",
-  "version": "10.10.1",
+  "version": "10.11.0",
   "publisher": "waderyan",
   "engines": {
     "vscode": "^1.82.0"
@@ -37,15 +37,15 @@
     "test": "npm run pretest && node ./out/test/run-test.js"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.7.2",
+    "@biomejs/biome": "1.7.3",
     "@types/mocha": "10.0.6",
     "@types/node": "18.15.3",
     "@types/sinon": "17.0.3",
     "@types/vscode": "1.82.0",
     "@vscode/test-electron": "2.3.9",
-    "esbuild": "0.20.2",
+    "esbuild": "0.21.1",
     "mocha": "10.4.0",
-    "sinon": "17.0.1",
+    "sinon": "17.0.2",
     "typescript": "5.4.5"
   },
   "homepage": "https://github.com/Sertion/vscode-gitblame/blob/master/README.md",
@@ -113,12 +113,14 @@
           "enum": [
             "Show info message",
             "Open tool URL",
-            "Open git show"
+            "Open git show",
+            "Copy hash to clipboard"
           ],
           "enumDescriptions": [
             "Show a info message with a short summary of the commit",
             "Attempt to directly open the tool URL",
-            "Run git show in a vscode terminal view"
+            "Run git show in a vscode terminal view",
+            "Copies the hash of the current line's commit to the clipboard"
           ]
         },
         "gitblame.statusBarMessageFormat": {

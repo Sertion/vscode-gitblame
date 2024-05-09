@@ -1,5 +1,9 @@
 # Change Log
 
+## 10.11.0 (May, 09, 2024)
+* Feature: *Copy commit hash on info message click [#171](https://github.com/Sertion/vscode-gitblame/issues/171)* Thanks to [Harsh](https://github.com/harshbhatt).
+* Fix: Updating dependencies
+
 ## 10.10.1 (April, 30, 2024)
 * Bug: *Status Bar block disappears after a change in extension settings [#155](https://github.com/Sertion/vscode-gitblame/issues/155)* Thanks to [ADTC](https://github.com/ADTC).
 * Fix: Updating dependencies
