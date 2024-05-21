@@ -91,7 +91,7 @@ suite("Promise Queue", (): void => {
 		assert.strictEqual(await call3, "UNIQUE_VALUE_3");
 	});
 
-	test("Mimimum 1 parallel queue size", async (): Promise<void> => {
+	test("Minimum 1 parallel queue size", async (): Promise<void> => {
 		const instance = new Queue<void>(-1);
 
 		assert.strictEqual(await instance.add(() => Promise.resolve()), undefined);
@@ -112,7 +112,7 @@ suite("Promise Queue", (): void => {
 		Sinon.assert.notCalled(spy2);
 		Sinon.assert.notCalled(spy3);
 
-		instance.updateParalell(3);
+		instance.updateParallel(3);
 
 		Sinon.assert.calledOnce(spy2);
 		Sinon.assert.calledOnce(spy3);
@@ -136,7 +136,7 @@ suite("Promise Queue", (): void => {
 		Sinon.assert.calledOnce(spy2);
 		Sinon.assert.notCalled(spy3);
 
-		instance.updateParalell(1);
+		instance.updateParallel(1);
 		instance.add(spy4);
 
 		await clock?.tickAsync(50);

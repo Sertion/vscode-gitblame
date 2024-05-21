@@ -8,7 +8,7 @@ import {
 	InfoTokens,
 	normalizeCommitInfoTokens,
 	parseTokens,
-} from "../../src/util/textdecorator.js";
+} from "../../src/util/text-decorator.js";
 
 suite("Date Calculations", (): void => {
 	test("Time ago in years", (): void => {
@@ -236,10 +236,10 @@ suite("Token Parser", (): void => {
 });
 
 suite("Text Decorator with CommitInfoToken", (): void => {
-	let faketimer: SinonFakeTimers | undefined;
+	let fakeTimer: SinonFakeTimers | undefined;
 	let normalizedCommitInfoTokens: InfoTokenNormalizedCommitInfo | undefined;
 	suiteSetup(() => {
-		faketimer = useFakeTimers({
+		fakeTimer = useFakeTimers({
 			now: 1_621_014_626_000,
 			toFake: ["Date"],
 			shouldAdvanceTime: false,
@@ -247,7 +247,7 @@ suite("Text Decorator with CommitInfoToken", (): void => {
 		normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
 	});
 	suiteTeardown(() => {
-		faketimer?.restore();
+		fakeTimer?.restore();
 	});
 	const exampleCommit: Commit = {
 		author: {
@@ -304,16 +304,16 @@ suite("Text Decorator with CommitInfoToken", (): void => {
 });
 
 suite("issue #119 regressions", () => {
-	let faketimer: SinonFakeTimers | undefined;
+	let fakeTimer: SinonFakeTimers | undefined;
 	suiteSetup(() => {
-		faketimer = useFakeTimers({
+		fakeTimer = useFakeTimers({
 			now: 1_621_014_626_000,
 			toFake: ["Date"],
 			shouldAdvanceTime: false,
 		});
 	});
 	suiteTeardown(() => {
-		faketimer?.restore();
+		fakeTimer?.restore();
 	});
 	test("commit.summary before commit.hash_short", () => {
 		const exampleCommit: Commit = {

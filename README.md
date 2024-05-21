@@ -10,7 +10,7 @@ Features:
 
 ![Feature Usage](https://raw.githubusercontent.com/Sertion/vscode-gitblame/master/images/preview.png)
 
-Git blame adds git blame information to your vscode compatible view. See information about what commit last changed a line and how long ago it was. Click the message to see more information about the commit. It is possible to edit all of these information messages in the settings. There are multiple tokens avalible. These are described below.
+Git blame adds git blame information to your vscode compatible view. See information about what commit last changed a line and how long ago it was. Click the message to see more information about the commit. It is possible to edit all of these information messages in the settings. There are multiple tokens available. These are described below.
 
 Git Blame works very well with WSL but does not work with the web browser based vscode compatible editors.
 
@@ -105,7 +105,7 @@ Message on the current line when no commit can be found. _No available tokens_.
 
 > Default value: `false`
 
-To enable the inline git blame view. Shows blame information at the end of the current line if avalible.
+To enable the inline git blame view. Shows blame information at the end of the current line if available.
 
 ### `gitblame.inlineMessageMargin`
 > Type: `number`

@@ -29,4 +29,6 @@ export const activate = (context: ExtensionContext): void => {
 			app.runGitShow();
 		}),
 	);
+
+	app.updateView();
 };

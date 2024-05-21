@@ -1,24 +1,24 @@
 import { type FSWatcher, promises, watch } from "node:fs";
 
-import type { LineAttatchedCommit } from "./util/stream-parsing.js";
+import type { LineAttachedCommit } from "./util/stream-parsing.js";
 
 import { type Disposable, workspace } from "vscode";
 import { Logger } from "../util/logger.js";
 import { getProperty } from "../util/property.js";
 import { type Blame, File } from "./file.js";
 import { Queue } from "./queue.js";
-import { getGitFolder } from "./util/gitcommand.js";
-
-type Files =
-	| undefined
-	| {
-			file: File | undefined;
-			store: Promise<Blame | undefined>;
-			gitRoot: string;
-	  };
+import { getGitFolder } from "./util/git-command.js";
 
 export class Blamer {
-	private readonly files = new Map<string, Promise<Files>>();
+	private readonly metadata = new WeakMap<
+		Promise<Blame | undefined>,
+		| {
+				file: File;
+				gitRoot: string;
+		  }
+		| undefined
+	>();
+	private readonly files = new Map<string, Promise<Blame | undefined>>();
 	private readonly fsWatchers = new Map<string, FSWatcher>();
 	private readonly blameQueue = new Queue<Blame | undefined>(
 		getProperty("parallelBlames"),
@@ -28,43 +28,73 @@ export class Blamer {
 	public constructor() {
 		this.configChange = workspace.onDidChangeConfiguration((e) => {
 			if (e.affectsConfiguration("gitblame")) {
-				this.blameQueue.updateParalell(getProperty("parallelBlames"));
+				this.blameQueue.updateParallel(getProperty("parallelBlames"));
 			}
 		});
 	}
 
-	public async file(fileName: string): Promise<Blame | undefined> {
-		return this.get(fileName);
+	public async prepareFile(fileName: string): Promise<void> {
+		if (this.files.has(fileName)) {
+			return;
+		}
+
+		let resolve: (blame: Promise<Blame | undefined>) => void = () => {};
+		this.files.set(
+			fileName,
+			new Promise<Blame | undefined>((res) => {
+				resolve = res;
+			}),
+		);
+
+		const { file, gitRoot } = await this.create(fileName);
+
+		if (file === undefined) {
+			resolve(Promise.resolve(undefined));
+			return;
+		}
+
+		this.fsWatchers.set(
+			file.fileName,
+			watch(file.fileName, () => {
+				this.remove(file.fileName);
+			}),
+		);
+
+		const blame = this.blameQueue.add(() => file.getBlame());
+		this.metadata.set(blame, { file, gitRoot });
+		resolve(blame);
 	}
 
 	public async getLine(
 		fileName: string,
 		lineNumber: number,
-	): Promise<LineAttatchedCommit | undefined> {
+	): Promise<LineAttachedCommit | undefined> {
+		await this.prepareFile(fileName);
+
 		const commitLineNumber = lineNumber + 1;
-		const blameInfo = await this.get(fileName);
+		const blameInfo = await this.files.get(fileName);
 
 		return blameInfo?.get(commitLineNumber);
 	}
 
-	public async removeFromRepository(gitRepositoryPath: string): Promise<void> {
+	public removeFromRepository(gitRepositoryPath: string): void {
 		for (const [fileName, file] of this.files) {
-			const gitRoot = (await file)?.gitRoot;
-			if (gitRoot === gitRepositoryPath) {
+			const metadata = this.metadata.get(file);
+			if (metadata?.gitRoot === gitRepositoryPath) {
 				this.remove(fileName);
 			}
 		}
 	}
 
-	public async remove(fileName: string): Promise<void> {
-		(await (await this.files.get(fileName))?.file)?.dispose();
-		this.fsWatchers.get(fileName)?.close();
-		this.files.delete(fileName);
-		const fsWatcher = this.fsWatchers.get(fileName);
-		if (fsWatcher) {
-			this.fsWatchers.delete(fileName);
-			fsWatcher.close();
+	public remove(fileName: string): void {
+		const blame = this.files.get(fileName);
+		if (blame) {
+			this.metadata.get(blame)?.file?.dispose();
 		}
+
+		this.files.delete(fileName);
+		this.fsWatchers.get(fileName)?.close();
+		this.fsWatchers.delete(fileName);
 	}
 
 	public dispose(): void {
@@ -74,48 +104,18 @@ export class Blamer {
 		this.configChange.dispose();
 	}
 
-	private async get(fileName: string): Promise<Blame | undefined> {
-		if (this.files.has(fileName)) {
-			return (await this.files.get(fileName))?.store;
-		}
-
-		const setup = this.create(fileName).then(({ file, gitRoot }): Files => {
-			if (file) {
-				this.fsWatchers.set(
-					fileName,
-					watch(fileName, () => {
-						this.remove(fileName);
-					}),
-				);
-				return {
-					file,
-					store: this.blameQueue.add(() => file.getBlame()),
-					gitRoot,
-				};
-			}
-
-			return {
-				file,
-				store: Promise.resolve(undefined),
-				gitRoot,
-			};
-		});
-
-		this.files.set(fileName, setup);
-
-		return (await setup)?.store;
-	}
-
 	private async create(
 		fileName: string,
-	): Promise<{ gitRoot: string; file: File | undefined }> {
+	): Promise<
+		{ gitRoot: string; file: File } | { gitRoot: undefined; file: undefined }
+	> {
 		try {
 			await promises.access(fileName);
 
-			const gitRoot = getGitFolder(fileName);
-			if (await gitRoot) {
+			const gitRoot = await getGitFolder(fileName);
+			if (gitRoot) {
 				return {
-					gitRoot: await gitRoot,
+					gitRoot: gitRoot,
 					file: new File(fileName),
 				};
 			}
@@ -123,10 +123,10 @@ export class Blamer {
 			// NOOP
 		}
 
-		Logger.info(`Will not blame '${fileName}'. Outside the current workspace.`);
+		Logger.info(`Will not blame '${fileName}'. Not in a git repository.`);
 
 		return {
-			gitRoot: "",
+			gitRoot: undefined,
 			file: undefined,
 		};
 	}

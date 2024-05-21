@@ -1,10 +1,14 @@
 # Change Log
 
-## 10.11.0 (May, 09, 2024)
+## 11.0.0 (May xx, 2024)
+* Feature: Will no longer blame files with more lines than `gitblame.maxLineCount` (default `16384`) [#172](https://github.com/Sertion/vscode-gitblame/issues/172)* Thanks to [webextensions](https://github.com/webextensions).
+  * Fun fact: This number was selected as it is the last power of 2 lower than 20000. It has no other significance.
+
+## 10.11.0 (May 09, 2024)
 * Feature: *Copy commit hash on info message click [#171](https://github.com/Sertion/vscode-gitblame/issues/171)* Thanks to [Harsh](https://github.com/harshbhatt).
 * Fix: Updating dependencies
 
-## 10.10.1 (April, 30, 2024)
+## 10.10.1 (April 30, 2024)
 * Bug: *Status Bar block disappears after a change in extension settings [#155](https://github.com/Sertion/vscode-gitblame/issues/155)* Thanks to [ADTC](https://github.com/ADTC).
 * Fix: Updating dependencies
 
@@ -52,7 +56,7 @@
 
 ## 10.3.0 (June 23, 2023)
 * Bug: Spawns many Git processes and uses up CPU ([#144](https://github.com/Sertion/vscode-gitblame/issues/144)) Thanks to [Theo Crandall](https://github.com/thrandale)!
-  * New setting `gitblame.parallelBlames` controlls how many git blame processes that will run in parallel. Defaults to `2`.
+  * New setting `gitblame.parallelBlames` controls how many git blame processes that will run in parallel. Defaults to `2`.
 * Bug: Blame completing can sometimes update the status bar to info from the wrong file
 * Fix: Fewer dev dependencies
 
@@ -121,7 +125,7 @@
 * Fix: CHANGELOG.md link to contributor
 
 ## 8.2.0 (May 13, 2022)
-* Feature: Blame information as soon as it is avalible. This will allow some lines to show blame information while others still are waiting for `git blame`.
+* Feature: Blame information as soon as it is available. This will allow some lines to show blame information while others still are waiting for `git blame`.
 * Feature: Allow blaming symlinked files [#121](https://github.com/Sertion/vscode-gitblame/pull/121) (Thanks to [Angel Fraga Parodi](https://github.com/angelfraga))
 * Bug: Blame info persistent over file change and file close [#115](https://github.com/Sertion/vscode-gitblame/issues/115) (Thanks to [Wenfang Du](https://github.com/wenfangdu) and [Viktor Stenqvist](https://github.com/Yottster))
 * Bug: commit.summary before commit.hash_short causes display bug [#119](https://github.com/Sertion/vscode-gitblame/issues/119) (Thanks to [Cathryne Linenweaver](https://github.com/Cathryne))
@@ -182,7 +186,7 @@
 * Bug: Stuck Waiting for git blame response (6.0.0) [#95](https://github.com/Sertion/vscode-gitblame/issues/95) (Thanks to [Vadzim Dambrouski](https://github.com/pftbest))
 
 ## 6.0.0 (October 14, 2020)
-* Breaking change: Removing setting `gitblame.logNonCritical` as we no longer produce any ciritcal errors
+* Breaking change: Removing setting `gitblame.logNonCritical` as we no longer produce any critical errors
 * Breaking change: The token `${|mod}` now expands to `|mod`, previously `${|mod}`
 * Breaking change: Renamed output channel from "Extension: gitblame" to "gitblame"
 * Bug: "Waiting for git blame response" (5.0.1) [#92](https://github.com/Sertion/vscode-gitblame/issues/92) (Thanks to [Dominik Zogg](https://github.com/dominikzogg) and [Alex Shelmire](https://github.com/shelmire))
@@ -204,7 +208,7 @@
 ## 4.1.0 (July 09, 2020)
 * Feature: Improve time ago estimate [#83](https://github.com/Sertion/vscode-gitblame/pull/83) (Thanks to [Ben Langlois](https://github.com/BenLanglois))
 * Feature: Unable to open '': File is a directory. [#84](https://github.com/Sertion/vscode-gitblame/issues/84) (Thanks to [Matt Fletcher](https://github.com/MaffooBristol))
-* Bug: Refixing [#3](https://github.com/Sertion/vscode-gitblame/issues/3)
+* Bug: Re-fixing [#3](https://github.com/Sertion/vscode-gitblame/issues/3)
 * Fix: Updating dependencies
 * Fix: Updated linters means pushing around code
 
@@ -212,7 +216,7 @@
 * Bug: Undocumented change to [StatusBarItem api](https://code.visualstudio.com/api/references/vscode-api#StatusBarItem) [#82](https://github.com/Sertion/vscode-gitblame/issues/82) (Thanks to [Mike MacCana](https://github.com/mikemaccana))
 
 ## 4.0.0 (May 01, 2020)
-* Deprication: Removing all depricated message token
+* Deprecation: Removing all deprecated message token
 * Feature: It is now able to limit the length of the summary [#81](https://github.com/Sertion/vscode-gitblame/issues/81) (Thanks to [Diab Neiroukh](https://github.com/lazerl0rd))
 
 ## 3.2.0 (March 09, 2020)
@@ -230,19 +234,19 @@
 * Fix: Updating dependencies
 
 ## 3.0.1 (August 02, 2019)
-* Bug: Removing depricated token from default value for `gitblame.infoMessageFormat` [#57](https://github.com/Sertion/vscode-gitblame/issues/57) (Thanks to [Kyngo](https://github.com/Kyngo))
+* Bug: Removing deprecated token from default value for `gitblame.infoMessageFormat` [#57](https://github.com/Sertion/vscode-gitblame/issues/57) (Thanks to [Kyngo](https://github.com/Kyngo))
 
 ## 3.0.0 (July 27, 2019)
 * Bug: Fixing rare bug where swapping between different file views didn't update the view
-* Deprication: Removing the `.custom` tokens from status bar message
-* Deprication: The `.from` token now is identical to `.ago`
-* Deprication: Removing the `commit.filename` tokens from status bar message
-* Deprication: Removing custom spinner support (`gitblame.progressSpinner`)
-* Deprication: Removing log levels (`gitblame.logLevel`). It is replaced by `gitblame.logNonCritical` (defaults to `true`)
+* Deprecation: Removing the `.custom` tokens from status bar message
+* Deprecation: The `.from` token now is identical to `.ago`
+* Deprecation: Removing the `commit.filename` tokens from status bar message
+* Deprecation: Removing custom spinner support (`gitblame.progressSpinner`)
+* Deprecation: Removing log levels (`gitblame.logLevel`). It is replaced by `gitblame.logNonCritical` (defaults to `true`)
 * Feature: Blame cache is now tied to the open document. Closing the document will clear if from the cache
 * Feature: Move to the new `@types/vscode` and `vscode-test` packages
 * Feature: Move to new build system
-* Fix: Removeing or updating dependencies
+* Fix: Removing or updating dependencies
 
 The removal of the custom-token allows us to remove our dependency on moment. This lowers the extension bundle size from 850 kb to about 100 kb.
 
@@ -293,8 +297,8 @@ There is a new setting called `gitblame.pluralWebPathSubstrings`. It is an array
 * Feature: We now use `vscode.git` to find your git binary.
 * Fix: Change the default info message format to be prefixed by the date instead of the commit hash. It is in ISO 8601 with dashes for separator.
 * Fix: Updating Readme to better guide Bitbucket users to the `isWebPathPlural` setting.
-* Fix: Removed `internalHashLength` setting. We now alsways use the whole hash.
-* Fix: Moved back to using [`fs.watch`](https://nodejs.org/api/fs.html#fs_fs_watch_filename_options_listener) from [`workspace.FileSystemWatcher`](https://code.visualstudio.com/docs/extensionAPI/vscode-api#workspace.createFileSystemWatcher) after getting reposts that file watching is having issues.
+* Fix: Removed `internalHashLength` setting. We now always use the whole hash.
+* Fix: Moved back to using [`fs.watch`](https://nodejs.org/api/fs.html#fs_fs_watch_filename_options_listener) from [`workspace.FileSystemWatcher`](https://code.visualstudio.com/docs/extensionAPI/vscode-api#workspace.createFileSystemWatcher) after getting reports that file watching is having issues.
 * Fix: Better handling of ENOENT in git command runner. [#41](https://github.com/Sertion/vscode-gitblame/pull/41) (Thanks to [Yottster](https://github.com/Yottster))
 * Fix: Moved to strict TypeScript.
 * Fix: Updating dependencies
@@ -305,7 +309,7 @@ There is a new setting called `gitblame.pluralWebPathSubstrings`. It is an array
 
 ## 2.4.3 (August 01, 2018)
 
-* Bug: Showing unedited gitblame info template when running *Show quick Info* on unblameable line (Thanks to [BerndErnst](https://github.com/BerndErnst))
+* Bug: Showing unedited gitblame info template when running *Show quick Info* on un-blameable line (Thanks to [BerndErnst](https://github.com/BerndErnst))
 * Bug: Using a map instead of an object for storing git blame file cache. Now we can blame files named `__proto__` etc.
 
 ## 2.4.2 (April 05, 2018)
@@ -326,7 +330,7 @@ There is a new setting called `gitblame.pluralWebPathSubstrings`. It is an array
 
 ## 2.3.0 (March 24, 2018)
 
-* Feature: Atempting to auto detect if you use a known git web interface [#15](https://github.com/Sertion/vscode-gitblame/issues/15) (Thanks to [@Fidge123](https://github.com/Fidge123), [@sabrehagen](https://github.com/sabrehagen), [@henvic](https://github.com/henvic), and an extra thanks to [@neerolyte](https://github.com/neerolyte))
+* Feature: Attempting to auto detect if you use a known git web interface [#15](https://github.com/Sertion/vscode-gitblame/issues/15) (Thanks to [@Fidge123](https://github.com/Fidge123), [@sabrehagen](https://github.com/sabrehagen), [@henvic](https://github.com/henvic), and an extra thanks to [@neerolyte](https://github.com/neerolyte))
 * Feature: Added `gitblame.statusBarPositionPriority` for moving the status bar view [#25](https://github.com/Sertion/vscode-gitblame/issues/25) (Thanks to [@jvoigt](https://github.com/jvoigt))
 * Fix: Merging `GitBlame` and `GitBlameController` to `GitBlame`
 * Fix: Renaming `GitBlameFile*` to `GitFile*`

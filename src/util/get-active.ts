@@ -1,6 +1,6 @@
 import { window } from "vscode";
 
-import type { PartialTextEditor } from "./editorvalidator.js";
+import type { PartialTextEditor } from "./valid-editor.js";
 
 export const getActiveTextEditor = (): PartialTextEditor | undefined =>
 	window.activeTextEditor;

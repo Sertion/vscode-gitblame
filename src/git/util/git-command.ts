@@ -4,13 +4,14 @@ import { dirname, join } from "node:path";
 
 import { extensions } from "vscode";
 
-import type { GitExtension } from "../../../types/git";
-import { validEditor } from "../../util/editorvalidator.js";
-import { execute } from "../../util/execcommand.js";
+import type { GitExtension } from "../../../types/git.js";
+import { validEditor } from "../../util/valid-editor.js";
+import { execute } from "../../util/execute.js";
 import { getActiveTextEditor } from "../../util/get-active.js";
 import { Logger } from "../../util/logger.js";
 import { getProperty } from "../../util/property.js";
 import { split } from "../../util/split.js";
+import { Stream } from "node:stream";
 
 export const getGitCommand = (): string => {
 	const vscodeGit = extensions.getExtension<GitExtension>("vscode.git");
@@ -23,7 +24,7 @@ export const getGitCommand = (): string => {
 };
 
 const runGit = (cwd: string, ...args: string[]): Promise<string> =>
-	execute(getGitCommand(), args, { cwd: dirname(cwd) });
+	execute(getGitCommand(), args, { cwd: dirname(cwd), env: { LC_ALL: "C" } });
 
 export const getActiveFileOrigin = async (
 	remoteName: string,
@@ -90,6 +91,10 @@ export const blameProcess = (
 
 	return spawn(getGitCommand(), args, {
 		cwd: dirname(realpathFileName),
+		stdio: ["ignore", "pipe", "pipe"],
+		env: {
+			LC_ALL: "C",
+		},
 	});
 };
 
@@ -103,19 +108,17 @@ export const getRevsFile = async (
 
 	const gitRoot = await getGitFolder(realFileName);
 	const projectRoot = dirname(gitRoot);
+	const revsFiles = await Promise.allSettled(
+		possibleRevsFiles
+			.map((fileName) => join(projectRoot, fileName))
+			.map((path) => access(path).then(() => path)),
+	);
 
-	return (
-		await Promise.allSettled(
-			possibleRevsFiles
-				.map((fileName) => join(projectRoot, fileName))
-				.map((path) => access(path).then(() => path)),
-		)
-	)
+	return revsFiles
 		.filter(
 			(promise): promise is PromiseFulfilledResult<string> =>
 				promise.status === "fulfilled",
-		)
-		.map((promiseResult) => promiseResult.value)[0];
+		)[0]?.value
 };
 
 export const getRelativePathOfActiveFile = async (): Promise<string> => {

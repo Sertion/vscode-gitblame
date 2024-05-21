@@ -16,7 +16,7 @@ export type Commit = {
 	summary: string;
 };
 
-export type FileAttatchedCommit<T = Commit> = {
+export type FileAttachedCommit<T = Commit> = {
 	commit: T;
 	filename: string;
 };
@@ -26,7 +26,7 @@ export type Line = {
 	result: number;
 };
 
-export type LineAttatchedCommit<T = Commit> = FileAttatchedCommit<T> & {
+export type LineAttachedCommit<T = Commit> = FileAttachedCommit<T> & {
 	line: Line;
 };
 
@@ -51,31 +51,29 @@ const newCommitInfo = (hash: string): Commit => ({
 	summary: "",
 });
 
-const newLocationAttatchedCommit = (
+const newLocationAttachedCommit = (
 	commitInfo: Commit,
-): FileAttatchedCommit => ({
+): FileAttachedCommit => ({
 	commit: commitInfo,
 	filename: "",
 });
 
-function untilNextEventLoop(): Promise<void> {
-	return new Promise(setImmediate);
-}
-
-const takeABreakEveryNthChunk = 25;
+const WAIT_N_LINES = 10;
 
 async function* splitChunk(chunk: Buffer): AsyncGenerator<[string, string]> {
 	let lastIndex = 0;
+	let lineCount = 1;
 	while (lastIndex < chunk.length) {
 		const nextIndex = chunk.indexOf("\n", lastIndex);
 
 		yield split(chunk.toString("utf8", lastIndex, nextIndex));
 
 		// This is an attempt to mitigate main thread hogging.
-		if (nextIndex % takeABreakEveryNthChunk === 0) {
-			await untilNextEventLoop();
+		if (lineCount % WAIT_N_LINES === 0) {
+			await new Promise<void>(queueMicrotask);
 		}
 
+		lineCount += 1;
 		lastIndex = nextIndex + 1;
 	}
 }
@@ -115,7 +113,7 @@ const processLine = (key: string, value: string, commitInfo: Commit): void => {
 		commitInfo.summary = value;
 	} else if (isHash(key)) {
 		commitInfo.hash = key;
-	} else {
+	} else if (key.startsWith("author") || key.startsWith("committer")) {
 		processAuthorLine(key, value, commitInfo);
 	}
 };
@@ -132,19 +130,19 @@ function* processCoverage(coverage: string): Generator<Line> {
 }
 
 function* commitFilter(
-	fileAttatched: FileAttatchedCommit | undefined,
+	fileAttached: FileAttachedCommit | undefined,
 	lines: Generator<Line> | undefined,
 	registry: CommitRegistry,
-): Generator<LineAttatchedCommit> {
-	if (fileAttatched === undefined || lines === undefined) {
+): Generator<LineAttachedCommit> {
+	if (fileAttached === undefined || lines === undefined) {
 		return;
 	}
 
-	registry.set(fileAttatched.commit.hash, fileAttatched.commit);
+	registry.set(fileAttached.commit.hash, fileAttached.commit);
 
 	for (const line of lines) {
 		yield {
-			...fileAttatched,
+			...fileAttached,
 			line,
 		};
 	}
@@ -163,13 +161,13 @@ function* commitFilter(
 export async function* processChunk(
 	dataChunk: Buffer,
 	commitRegistry: CommitRegistry,
-): AsyncGenerator<LineAttatchedCommit, void> {
-	let commitLocation: FileAttatchedCommit | undefined;
+): AsyncGenerator<LineAttachedCommit, void> {
+	let commitLocation: FileAttachedCommit | undefined;
 	let coverageGenerator: Generator<Line> | undefined;
 
 	for await (const [key, value] of splitChunk(dataChunk)) {
 		if (isCoverageLine(key, value)) {
-			commitLocation = newLocationAttatchedCommit(
+			commitLocation = newLocationAttachedCommit(
 				commitRegistry.get(key) ?? newCommitInfo(key),
 			);
 			coverageGenerator = processCoverage(value);
@@ -186,23 +184,4 @@ export async function* processChunk(
 	}
 
 	yield* commitFilter(commitLocation, coverageGenerator, commitRegistry);
-}
-
-export async function* processStdout(
-	data: AsyncIterable<Buffer> | null,
-): AsyncGenerator<LineAttatchedCommit, void> {
-	const commitRegistry: CommitRegistry = new Map();
-	for await (const chunk of data ?? []) {
-		yield* processChunk(chunk, commitRegistry);
-	}
-}
-
-export async function processStderr(
-	data: AsyncIterable<string> | null,
-): Promise<void> {
-	for await (const error of data ?? []) {
-		if (typeof error === "string") {
-			throw new Error(error);
-		}
-	}
 }

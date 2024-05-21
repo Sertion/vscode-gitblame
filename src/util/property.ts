@@ -20,6 +20,7 @@ export type PropertiesMap = {
 	inlineMessageMargin: number;
 	delayBlame: number;
 	parallelBlames: number;
+	maxLineCount: number;
 	revsFile: string[];
 };
 

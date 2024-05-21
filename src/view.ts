@@ -12,11 +12,13 @@ import {
 
 import type { Commit } from "./git/util/stream-parsing.js";
 
-import { isUncomitted } from "./git/util/is-hash.js";
-import { type PartialTextEditor, validEditor } from "./util/editorvalidator.js";
+import { isUncommitted } from "./git/util/is-hash.js";
+import { type PartialTextEditor, validEditor } from "./util/valid-editor.js";
 import { getActiveTextEditor } from "./util/get-active.js";
 import { getProperty } from "./util/property.js";
-import { toInlineTextView, toStatusBarTextView } from "./util/textdecorator.js";
+import { toInlineTextView, toStatusBarTextView } from "./util/text-decorator.js";
+
+const MESSAGE_NO_INFO = "No info about the current line";
 
 export class StatusBarView {
 	private statusBar: StatusBarItem;
@@ -52,8 +54,8 @@ export class StatusBarView {
 	): void {
 		if (!commit) {
 			this.clear();
-		} else if (isUncomitted(commit)) {
-			this.text(getProperty("statusBarMessageNoCommit"), false);
+		} else if (isUncommitted(commit)) {
+			this.text(getProperty("statusBarMessageNoCommit"), false, MESSAGE_NO_INFO);
 			if (editor) {
 				void this.createLineDecoration(
 					getProperty("inlineMessageNoCommit"),
@@ -74,13 +76,21 @@ export class StatusBarView {
 	}
 
 	public clear(): void {
-		this.text("", false);
+		this.text("", false, MESSAGE_NO_INFO);
 		this.removeLineDecoration();
 	}
 
 	public activity(): void {
-		this.text("$(extensions-refresh)", false);
-		this.statusBar.tooltip = "git blame - Waiting for git blame response";
+		this.text("$(extensions-refresh)", false, "Waiting for git blame response");
+	}
+
+	public fileToLong(): void {
+		const maxLineCount = getProperty("maxLineCount");
+		this.text(
+			"",
+			false,
+			`No blame information is available. File has more than ${maxLineCount} lines`,
+		);
 	}
 
 	public dispose(): void {
@@ -111,8 +121,8 @@ export class StatusBarView {
 		statusBar.command = this.statusBarCommand ? this.command() : undefined;
 	}
 
-	private text(text: string, command: boolean): void {
-		const suffix = command ? "" : " - No info about the current line";
+	private text(text: string, command: boolean, tooltip = ""): void {
+		const suffix = command || !tooltip ? "" : ` - ${tooltip}`;
 		this.statusBarText = `$(git-commit) ${text.trimEnd()}`;
 		this.statusBarTooltip = `git blame${suffix}`;
 		this.statusBarCommand = command;

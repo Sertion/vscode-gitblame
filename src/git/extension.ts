@@ -10,9 +10,8 @@ import {
 	workspace,
 } from "vscode";
 
-import type { LineAttatchedCommit } from "./util/stream-parsing.js";
+import type { LineAttachedCommit } from "./util/stream-parsing.js";
 
-import { type Document, validEditor } from "../util/editorvalidator.js";
 import {
 	NO_FILE_OR_PLACE,
 	getActiveTextEditor,
@@ -23,12 +22,13 @@ import { getProperty } from "../util/property.js";
 import {
 	normalizeCommitInfoTokens,
 	parseTokens,
-} from "../util/textdecorator.js";
+} from "../util/text-decorator.js";
+import { type Document, validEditor } from "../util/valid-editor.js";
 import { StatusBarView } from "../view.js";
 import { Blamer } from "./blame.js";
 import { HeadWatch } from "./head-watch.js";
 import { getToolUrl } from "./util/get-tool-url.js";
-import { isUncomitted } from "./util/is-hash.js";
+import { isUncommitted } from "./util/is-hash.js";
 import { isHash } from "./util/is-hash.js";
 
 type ActionableMessageItem = MessageItem & {
@@ -47,12 +47,14 @@ export class Extension {
 		this.headWatcher = new HeadWatch();
 
 		this.disposable = this.setupListeners();
-
-		this.updateView();
 	}
 
 	public async blameLink(): Promise<void> {
-		const toolUrl = await getToolUrl(await this.commit(true));
+		const lineAware = await this.commit(true);
+		if (lineAware === undefined) {
+			return;
+		}
+		const toolUrl = await getToolUrl(lineAware);
 
 		if (toolUrl) {
 			commands.executeCommand("vscode.open", toolUrl);
@@ -62,9 +64,9 @@ export class Extension {
 	}
 
 	public async showMessage(): Promise<void> {
-		const lineAware = await this.commit();
+		const lineAware = await this.commit(false);
 
-		if (!lineAware || isUncomitted(lineAware.commit)) {
+		if (!lineAware || isUncommitted(lineAware.commit)) {
 			this.view.clear();
 			return;
 		}
@@ -98,7 +100,7 @@ export class Extension {
 	public async copyHash(): Promise<void> {
 		const lineAware = await this.commit(true);
 
-		if (lineAware && !isUncomitted(lineAware.commit)) {
+		if (lineAware && !isUncommitted(lineAware.commit)) {
 			await env.clipboard.writeText(lineAware.commit.hash);
 			infoMessage("Copied hash");
 		}
@@ -106,6 +108,9 @@ export class Extension {
 
 	public async copyToolUrl(): Promise<void> {
 		const lineAware = await this.commit(true);
+		if (lineAware === undefined) {
+			return;
+		}
 		const toolUrl = await getToolUrl(lineAware);
 
 		if (toolUrl) {
@@ -124,7 +129,10 @@ export class Extension {
 		}
 
 		const currentLine = await this.commit(true);
-		const hash = currentLine?.commit.hash ?? "HEAD";
+		if (currentLine === undefined) {
+			return;
+		}
+		const { hash } = currentLine.commit;
 
 		// Only ever allow HEAD or a git hash
 		if (!isHash(hash, true)) {
@@ -140,6 +148,40 @@ export class Extension {
 		});
 		terminal.sendText(`git show ${ignoreWhitespace}${hash}; exit 0`, true);
 		terminal.show();
+	}
+
+	public async updateView(
+		textEditor = getActiveTextEditor(),
+		useDelay = true,
+	): Promise<void> {
+		if (!this.view.preUpdate(textEditor)) {
+			return;
+		}
+
+		if (textEditor.document.lineCount > getProperty("maxLineCount")) {
+			this.view.fileToLong();
+			return;
+		}
+
+		this.headWatcher.addFile(textEditor.document.fileName);
+
+		const before = getFilePosition(textEditor);
+		const lineAware = await this.blame.getLine(
+			textEditor.document.fileName,
+			textEditor.selection.active.line,
+		);
+
+		const textEditorAfter = getActiveTextEditor();
+		if (!validEditor(textEditorAfter)) {
+			return;
+		}
+		const after = getFilePosition(textEditorAfter);
+
+		// Only update if we haven't moved since we started blaming
+		// or if we no longer have focus on any file
+		if (before === after || after === NO_FILE_OR_PLACE) {
+			this.view.set(lineAware?.commit, textEditor, useDelay);
+		}
 	}
 
 	public dispose(): void {
@@ -165,7 +207,7 @@ export class Extension {
 			window.onDidChangeActiveTextEditor((textEditor): void => {
 				if (validEditor(textEditor)) {
 					this.view.activity();
-					this.blame.file(textEditor.document.fileName);
+					this.blame.prepareFile(textEditor.document.fileName);
 					changeTextEditorSelection(textEditor);
 				} else {
 					this.view.clear();
@@ -189,43 +231,19 @@ export class Extension {
 		);
 	}
 
-	private async updateView(
-		textEditor = getActiveTextEditor(),
-		useDelay = true,
-	): Promise<void> {
-		if (!this.view.preUpdate(textEditor)) {
-			return;
-		}
-
-		this.headWatcher.addFile(textEditor.document.fileName);
-
-		const before = getFilePosition(textEditor);
-		const lineAware = await this.blame.getLine(
-			textEditor.document.fileName,
-			textEditor.selection.active.line,
-		);
-
-		const textEditorAfter = getActiveTextEditor();
-		if (!validEditor(textEditorAfter)) {
-			return;
-		}
-		const after = getFilePosition(textEditorAfter);
-
-		// Only update if we haven't moved since we started blaming
-		// or if we no longer have focus on any file
-		if (before === after || after === NO_FILE_OR_PLACE) {
-			this.view.set(lineAware?.commit, textEditor, useDelay);
-		}
-	}
-
 	private async commit(
-		noVisibleActivity = false,
-	): Promise<LineAttatchedCommit | undefined> {
-		const notBlame = () => errorMessage("Unable to blame current line");
+		noVisibleActivity: boolean,
+	): Promise<LineAttachedCommit | undefined> {
 		const editor = getActiveTextEditor();
 
 		if (!validEditor(editor)) {
-			notBlame();
+			errorMessage("Unable to blame current line");
+			return;
+		}
+
+		if (editor.document.lineCount > getProperty("maxLineCount")) {
+			errorMessage("Git Blame is disabled for the current file");
+			this.view.fileToLong();
 			return;
 		}
 
@@ -240,7 +258,7 @@ export class Extension {
 		);
 
 		if (!line) {
-			notBlame();
+			errorMessage("Unable to blame current line");
 		}
 
 		return line;

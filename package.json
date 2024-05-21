@@ -2,10 +2,11 @@
   "name": "gitblame",
   "displayName": "Git Blame",
   "description": "See git blame information in the status bar.",
-  "version": "10.11.0",
+  "version": "11.0.0",
   "publisher": "waderyan",
   "engines": {
-    "vscode": "^1.82.0"
+    "vscode": "^1.82.0",
+    "node": "^18.15.0"
   },
   "categories": [
     "Other"
@@ -61,7 +62,11 @@
     "vscode.git"
   ],
   "capabilities": {
-    "virtualWorkspaces": false
+    "virtualWorkspaces": false,
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Git Blame (extension) executes command line tools in the workspace"
+    }
   },
   "contributes": {
     "commands": [
@@ -194,6 +199,11 @@
           "minimum": 1,
           "default": 2,
           "description": "Limit allowed parallel git blame process count"
+        },
+        "gitblame.maxLineCount": {
+          "type": "number",
+          "default": 16384,
+          "markdownDescription": "Will skip blaming files with **more** lines than this value"
         },
         "gitblame.revsFile": {
           "type": "array",

@@ -1,20 +1,20 @@
 import { URL } from "node:url";
 import { Uri } from "vscode";
 
-import type { LineAttatchedCommit } from "./stream-parsing.js";
+import type { LineAttachedCommit } from "./stream-parsing.js";
 
 import { isUrl } from "../../util/is-url.js";
 import { errorMessage } from "../../util/message.js";
 import { getProperty } from "../../util/property.js";
 import { split } from "../../util/split.js";
-import { type InfoTokens, parseTokens } from "../../util/textdecorator.js";
+import { type InfoTokens, parseTokens } from "../../util/text-decorator.js";
 import {
 	getActiveFileOrigin,
 	getDefaultBranch,
 	getRelativePathOfActiveFile,
 	getRemoteUrl,
-} from "./gitcommand.js";
-import { isUncomitted } from "./is-hash.js";
+} from "./git-command.js";
+import { isUncommitted } from "./is-hash.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
 import { stripGitRemoteUrl, stripGitSuffix } from "./strip-git-remote-url.js";
@@ -83,7 +83,7 @@ const isToolUrlPlural = (origin: string): boolean =>
 	);
 
 export const generateUrlTokens = async (
-	lineAware: LineAttatchedCommit,
+	lineAware: LineAttachedCommit,
 ): Promise<ToolUrlTokens | undefined> => {
 	const remoteName = getProperty("remoteName");
 
@@ -96,7 +96,7 @@ export const generateUrlTokens = async (
 	const remoteUrl = stripGitRemoteUrl(await getRemoteUrl(remoteName));
 	const tool = originUrlToToolUrl(remoteUrl);
 	const filePath = await getRelativePathOfActiveFile();
-	const defaultbranch = await getDefaultBranch(remoteName);
+	const defaultBranch = await getDefaultBranch(remoteName);
 
 	return {
 		hash: lineAware.commit.hash,
@@ -104,7 +104,7 @@ export const generateUrlTokens = async (
 		"tool.commitpath": `/commit${isToolUrlPlural(remoteUrl) ? "s" : ""}/`,
 		"project.name": projectNameFromOrigin(origin),
 		"project.remote": remoteUrl,
-		"project.defaultbranch": defaultbranch,
+		"project.defaultbranch": defaultBranch,
 		"gitorigin.hostname": tool ? gitOriginHostname(tool) : "no-origin-url",
 		"gitorigin.path": gitRemotePath(stripGitSuffix(origin)),
 		"gitorigin.port": tool?.port ? `:${tool.port}` : "",
@@ -118,9 +118,9 @@ export const generateUrlTokens = async (
 };
 
 export const getToolUrl = async (
-	commit?: LineAttatchedCommit,
+	commit?: LineAttachedCommit,
 ): Promise<Uri | undefined> => {
-	if (!commit || isUncomitted(commit.commit)) {
+	if (!commit || isUncommitted(commit.commit)) {
 		return;
 	}
 	const tokens = await generateUrlTokens(commit);

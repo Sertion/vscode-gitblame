@@ -2,13 +2,13 @@ import * as assert from "node:assert";
 import { match, stub } from "sinon";
 import { Uri } from "vscode";
 
-import type { LineAttatchedCommit } from "../../src/git/util/stream-parsing.js";
+import type { LineAttachedCommit } from "../../src/git/util/stream-parsing.js";
 
 import { generateUrlTokens } from "../../src/git/util/get-tool-url.js";
-import * as execcommand from "../../src/util/execcommand.js";
+import * as execcommand from "../../src/util/execute.js";
 import * as getActive from "../../src/util/get-active.js";
 import * as property from "../../src/util/property.js";
-import { parseTokens } from "../../src/util/textdecorator.js";
+import { parseTokens } from "../../src/util/text-decorator.js";
 
 suite("Generate URL Tokens", () => {
 	const call = (
@@ -16,7 +16,7 @@ suite("Generate URL Tokens", () => {
 		arg?: string,
 	) => (typeof func === "function" ? func(arg) : func);
 
-	const exampleCommit: LineAttatchedCommit = {
+	const exampleCommit: LineAttachedCommit = {
 		commit: {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
@@ -50,6 +50,7 @@ suite("Generate URL Tokens", () => {
 				isUntitled: false,
 				fileName: "/fake.file",
 				uri: Uri.parse("/fake.file"),
+				lineCount: 1024,
 			},
 			selection: {
 				active: {
@@ -134,6 +135,7 @@ suite("Generate URL Tokens", () => {
 				isUntitled: false,
 				fileName: "/fake.file",
 				uri: Uri.parse("/fake.file"),
+				lineCount: 1024,
 			},
 			selection: {
 				active: {
@@ -218,6 +220,7 @@ suite("Generate URL Tokens", () => {
 				isUntitled: false,
 				fileName: "/fake.file",
 				uri: Uri.parse("/fake.file"),
+				lineCount: 1024,
 			},
 			selection: {
 				active: {
@@ -303,6 +306,7 @@ suite("Generate URL Tokens", () => {
 				isUntitled: false,
 				fileName: "/fake.file",
 				uri: Uri.parse("/fake.file"),
+				lineCount: 1024,
 			},
 			selection: {
 				active: {
@@ -392,6 +396,7 @@ suite("Generate URL Tokens", () => {
 				isUntitled: false,
 				fileName: "/fake.file",
 				uri: Uri.parse("/fake.file"),
+				lineCount: 1024,
 			},
 			selection: {
 				active: {
@@ -446,7 +451,7 @@ suite("Generate URL Tokens", () => {
 });
 
 suite("Use genrated URL tokens", () => {
-	const exampleCommit: LineAttatchedCommit = {
+	const exampleCommit: LineAttachedCommit = {
 		commit: {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
@@ -481,6 +486,7 @@ suite("Use genrated URL tokens", () => {
 				isUntitled: false,
 				fileName: "/fake.file",
 				uri: Uri.parse("/fake.file"),
+				lineCount: 1024,
 			},
 			selection: {
 				active: {

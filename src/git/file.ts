@@ -3,21 +3,22 @@ import { realpath } from "node:fs/promises";
 import { relative } from "node:path";
 
 import { Logger } from "../util/logger.js";
-import { blameProcess, getRevsFile } from "./util/gitcommand.js";
+import { blameProcess, getRevsFile } from "./util/git-command.js";
 import {
-	type LineAttatchedCommit,
-	processStderr,
-	processStdout,
+	type LineAttachedCommit,
+	CommitRegistry,
+	processChunk,
 } from "./util/stream-parsing.js";
+import { Duplex, PassThrough } from "node:stream";
 
-export type Blame = Map<number, LineAttatchedCommit | undefined>;
+export type Blame = Map<number, LineAttachedCommit | undefined>;
 
 export class File {
 	private store?: Promise<Blame | undefined>;
 	private process?: ChildProcess;
 	private killed = false;
 
-	public constructor(private readonly fileName: string) {}
+	public constructor(public readonly fileName: string) {}
 
 	public getBlame(): Promise<Blame | undefined> {
 		this.store ??= this.blame();
@@ -32,11 +33,18 @@ export class File {
 
 	private async *run(
 		realFileName: string,
-	): AsyncGenerator<LineAttatchedCommit> {
+	): AsyncGenerator<LineAttachedCommit> {
 		this.process = blameProcess(realFileName, await getRevsFile(realFileName));
 
-		yield* processStdout(this.process?.stdout);
-		await processStderr(this.process?.stderr);
+		for await (const chunk of this.process?.stdout ?? []) {
+			const commitRegistry: CommitRegistry = new Map();
+			yield* processChunk(chunk, commitRegistry);
+		}
+		for await (const error of this.process?.stderr ?? []) {
+			if (typeof error === "string") {
+				throw new Error(error);
+			}
+		}
 	}
 
 	private async blame(): Promise<Blame | undefined> {
@@ -44,8 +52,8 @@ export class File {
 		const realpathFileName = await realpath(this.fileName);
 
 		try {
-			for await (const lineAttatchedCommit of this.run(realpathFileName)) {
-				blameInfo.set(lineAttatchedCommit.line.result, lineAttatchedCommit);
+			for await (const lineAttachedCommit of this.run(realpathFileName)) {
+				blameInfo.set(lineAttachedCommit.line.result, lineAttachedCommit);
 			}
 		} catch (err) {
 			Logger.error(err);

@@ -6,14 +6,14 @@ import {
 	Commit,
 	CommitAuthor,
 	CommitRegistry,
-	LineAttatchedCommit,
+	LineAttachedCommit,
 	processChunk,
 } from "../../src/git/util/stream-parsing.js";
 
 type CommitAuthorStringDate = Omit<CommitAuthor, "date"> & {
 	date: string;
 };
-type CommitWithAutorStringDate = Omit<Commit, "author" | "committer"> & {
+type CommitWithAuthorStringDate = Omit<Commit, "author" | "committer"> & {
 	author: CommitAuthorStringDate;
 	committer: CommitAuthorStringDate;
 };
@@ -29,9 +29,9 @@ function load(fileName: string, buffer: boolean): string | Buffer {
 	);
 }
 function datesToString(
-	convert: LineAttatchedCommit[],
-): LineAttatchedCommit<CommitWithAutorStringDate>[] {
-	const converted: LineAttatchedCommit<CommitWithAutorStringDate>[] = [];
+	convert: LineAttachedCommit[],
+): LineAttachedCommit<CommitWithAuthorStringDate>[] {
+	const converted: LineAttachedCommit<CommitWithAuthorStringDate>[] = [];
 	for (const element of convert) {
 		converted.push({
 			...element,
@@ -59,7 +59,7 @@ suite("Chunk Processing", (): void => {
 		) as string[];
 
 		const registry: CommitRegistry = new Map();
-		const foundChunks: LineAttatchedCommit[] = [];
+		const foundChunks: LineAttachedCommit[] = [];
 		for await (const line of processChunk(chunk, registry)) {
 			foundChunks.push(line);
 		}
@@ -82,7 +82,7 @@ suite("Processing Errors", (): void => {
 
 		const registry: CommitRegistry = new Map();
 
-		const foundChunks: LineAttatchedCommit[] = [];
+		const foundChunks: LineAttachedCommit[] = [];
 		for (const chunk of chunks) {
 			for await (const line of processChunk(
 				Buffer.from(chunk, "utf-8"),

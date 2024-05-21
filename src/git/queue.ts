@@ -22,7 +22,7 @@ export class Queue<
 		});
 	}
 
-	public updateParalell(maxParallel: number): void {
+	public updateParallel(maxParallel: number): void {
 		const oldMax = this.maxParallel;
 		this.maxParallel = maxParallel;
 		const moreQueueSpace = Math.max(0, this.maxParallel - oldMax);

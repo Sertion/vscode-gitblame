@@ -17,10 +17,10 @@ suite("Split", (): void => {
 	test("Trim results", (): void => {
 		assert.deepStrictEqual(split("trim    result   "), ["trim", "result"]);
 	});
-	test("Single Amperstand", (): void => {
-		assert.deepStrictEqual(split("single&amperstand", "&"), [
+	test("Single Ampersand", (): void => {
+		assert.deepStrictEqual(split("single&ampersand", "&"), [
 			"single",
-			"amperstand",
+			"ampersand",
 		]);
 	});
 	test("Short second parameter", (): void => {
