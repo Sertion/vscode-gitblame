@@ -51,9 +51,7 @@ const newCommitInfo = (hash: string): Commit => ({
 	summary: "",
 });
 
-const newLocationAttachedCommit = (
-	commitInfo: Commit,
-): FileAttachedCommit => ({
+const newLocationAttachedCommit = (commitInfo: Commit): FileAttachedCommit => ({
 	commit: commitInfo,
 	filename: "",
 });

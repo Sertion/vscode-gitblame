@@ -5,11 +5,10 @@ import { relative } from "node:path";
 import { Logger } from "../util/logger.js";
 import { blameProcess, getRevsFile } from "./util/git-command.js";
 import {
+	type CommitRegistry,
 	type LineAttachedCommit,
-	CommitRegistry,
 	processChunk,
 } from "./util/stream-parsing.js";
-import { Duplex, PassThrough } from "node:stream";
 
 export type Blame = Map<number, LineAttachedCommit | undefined>;
 
@@ -31,9 +30,7 @@ export class File {
 		this.killed = true;
 	}
 
-	private async *run(
-		realFileName: string,
-	): AsyncGenerator<LineAttachedCommit> {
+	private async *run(realFileName: string): AsyncGenerator<LineAttachedCommit> {
 		this.process = blameProcess(realFileName, await getRevsFile(realFileName));
 
 		for await (const chunk of this.process?.stdout ?? []) {

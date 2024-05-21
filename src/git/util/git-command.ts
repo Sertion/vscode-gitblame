@@ -5,13 +5,12 @@ import { dirname, join } from "node:path";
 import { extensions } from "vscode";
 
 import type { GitExtension } from "../../../types/git.js";
-import { validEditor } from "../../util/valid-editor.js";
 import { execute } from "../../util/execute.js";
 import { getActiveTextEditor } from "../../util/get-active.js";
 import { Logger } from "../../util/logger.js";
 import { getProperty } from "../../util/property.js";
 import { split } from "../../util/split.js";
-import { Stream } from "node:stream";
+import { validEditor } from "../../util/valid-editor.js";
 
 export const getGitCommand = (): string => {
 	const vscodeGit = extensions.getExtension<GitExtension>("vscode.git");
@@ -114,11 +113,10 @@ export const getRevsFile = async (
 			.map((path) => access(path).then(() => path)),
 	);
 
-	return revsFiles
-		.filter(
-			(promise): promise is PromiseFulfilledResult<string> =>
-				promise.status === "fulfilled",
-		)[0]?.value
+	return revsFiles.filter(
+		(promise): promise is PromiseFulfilledResult<string> =>
+			promise.status === "fulfilled",
+	)[0]?.value;
 };
 
 export const getRelativePathOfActiveFile = async (): Promise<string> => {

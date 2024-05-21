@@ -4,7 +4,10 @@ import type {
 	TextEditor,
 } from "vscode";
 
-export type Document = Pick<TextDocument, "uri" | "isUntitled" | "fileName" | "lineCount">;
+export type Document = Pick<
+	TextDocument,
+	"uri" | "isUntitled" | "fileName" | "lineCount"
+>;
 export type Position = Pick<FullPosition, "line">;
 export type PartialSelection = {
 	active: Position;

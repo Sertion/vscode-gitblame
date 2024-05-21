@@ -13,10 +13,13 @@ import {
 import type { Commit } from "./git/util/stream-parsing.js";
 
 import { isUncommitted } from "./git/util/is-hash.js";
-import { type PartialTextEditor, validEditor } from "./util/valid-editor.js";
 import { getActiveTextEditor } from "./util/get-active.js";
 import { getProperty } from "./util/property.js";
-import { toInlineTextView, toStatusBarTextView } from "./util/text-decorator.js";
+import {
+	toInlineTextView,
+	toStatusBarTextView,
+} from "./util/text-decorator.js";
+import { type PartialTextEditor, validEditor } from "./util/valid-editor.js";
 
 const MESSAGE_NO_INFO = "No info about the current line";
 
@@ -55,7 +58,11 @@ export class StatusBarView {
 		if (!commit) {
 			this.clear();
 		} else if (isUncommitted(commit)) {
-			this.text(getProperty("statusBarMessageNoCommit"), false, MESSAGE_NO_INFO);
+			this.text(
+				getProperty("statusBarMessageNoCommit"),
+				false,
+				MESSAGE_NO_INFO,
+			);
 			if (editor) {
 				void this.createLineDecoration(
 					getProperty("inlineMessageNoCommit"),
