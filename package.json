@@ -49,7 +49,7 @@
     "sinon": "17.0.2",
     "typescript": "5.4.5"
   },
-  "homepage": "https://github.com/Sertion/vscode-gitblame/blob/master/README.md",
+  "homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
   "bugs": {
     "url": "https://github.com/Sertion/vscode-gitblame/issues"
   },
