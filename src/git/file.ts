@@ -33,8 +33,8 @@ export class File {
 	private async *run(realFileName: string): AsyncGenerator<LineAttachedCommit> {
 		this.process = blameProcess(realFileName, await getRevsFile(realFileName));
 
+		const commitRegistry: CommitRegistry = new Map();
 		for await (const chunk of this.process?.stdout ?? []) {
-			const commitRegistry: CommitRegistry = new Map();
 			yield* processChunk(chunk, commitRegistry);
 		}
 		for await (const error of this.process?.stderr ?? []) {

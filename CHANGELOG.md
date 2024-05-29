@@ -1,6 +1,9 @@
 # Change Log
 
-## 11.0.0 (May xx, 2024)
+## 11.0.1 (May 29, 2024)
+* Bug: Environment parameters are no longer sent to git commands [#174](https://github.com/Sertion/vscode-gitblame/issues/174) Thanks to [Martijn Hols](https://github.com/MartijnHols), [amc6](https://github.com/amc6), and especially [Alex Neo](https://github.com/alexneo2003)!
+
+## 11.0.0 (May 21, 2024)
 * Feature: Will no longer blame files with more lines than `gitblame.maxLineCount` (default `16384`) [#172](https://github.com/Sertion/vscode-gitblame/issues/172)* Thanks to [webextensions](https://github.com/webextensions).
   * Fun fact: This number was selected as it is the last power of 2 lower than 20000. It has no other significance.
 

@@ -23,7 +23,10 @@ export const getGitCommand = (): string => {
 };
 
 const runGit = (cwd: string, ...args: string[]): Promise<string> =>
-	execute(getGitCommand(), args, { cwd: dirname(cwd), env: { LC_ALL: "C" } });
+	execute(getGitCommand(), args, {
+		cwd: dirname(cwd),
+		env: { ...process.env, LC_ALL: "C" },
+	});
 
 export const getActiveFileOrigin = async (
 	remoteName: string,
@@ -92,6 +95,7 @@ export const blameProcess = (
 		cwd: dirname(realpathFileName),
 		stdio: ["ignore", "pipe", "pipe"],
 		env: {
+			...process.env,
 			LC_ALL: "C",
 		},
 	});
