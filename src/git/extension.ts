@@ -237,7 +237,9 @@ export class Extension {
 		const editor = getActiveTextEditor();
 
 		if (!validEditor(editor)) {
-			errorMessage("Unable to blame current line. Active view is not a file on disk.");
+			errorMessage(
+				"Unable to blame current line. Active view is not a file on disk.",
+			);
 			return;
 		}
 
@@ -258,7 +260,9 @@ export class Extension {
 		);
 
 		if (!line) {
-			errorMessage("Unable to blame current line. Unable to get blame information for line.");
+			errorMessage(
+				"Unable to blame current line. Unable to get blame information for line.",
+			);
 		}
 
 		return line;
