@@ -1,5 +1,8 @@
 # Change Log
 
+## 11.0.2 (July 17, 2024)
+* Fix: Updating dependencies
+
 ## 11.0.1 (May 29, 2024)
 * Bug: Environment parameters are no longer sent to git commands [#174](https://github.com/Sertion/vscode-gitblame/issues/174) Thanks to [Martijn Hols](https://github.com/MartijnHols), [amc6](https://github.com/amc6), and especially [Alex Neo](https://github.com/alexneo2003)!
 

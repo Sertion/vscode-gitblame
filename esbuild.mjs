@@ -5,7 +5,7 @@ await build({
 	bundle: true,
 	format: "cjs",
 	minify: true,
-	target: "node18.17",
+	target: "node20.9",
 	outfile: "./out/src/index.js",
 	external: [
 		"vscode",

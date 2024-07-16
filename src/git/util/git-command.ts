@@ -93,10 +93,11 @@ export const blameProcess = (
 
 	return spawn(getGitCommand(), args, {
 		cwd: dirname(realpathFileName),
-		stdio: ["ignore", "pipe", "pipe"],
+		stdio: ["ignore", null, null],
 		env: {
 			...process.env,
 			LC_ALL: "C",
+			GIT_PAGER: "cat",
 		},
 	});
 };
