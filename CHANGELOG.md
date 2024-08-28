@@ -1,6 +1,7 @@
 # Change Log
 
 ## 11.0.2 (July 17, 2024)
+* Feature: Adding logging behind the `debug` and `trace` levels.
 * Fix: Updating dependencies
 
 ## 11.0.1 (May 29, 2024)

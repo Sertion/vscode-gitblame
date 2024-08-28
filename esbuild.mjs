@@ -12,7 +12,8 @@ await build({
 		"node:child_process",
 		"node:fs",
 		"node:fs/promises",
-		"node:url",
 		"node:path",
+		"node:url",
+		"node:util",
 	],
 });

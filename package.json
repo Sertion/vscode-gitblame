@@ -32,7 +32,7 @@
   "scripts": {
     "vscode:prepublish": "npm run build",
     "build": "node esbuild.mjs",
-    "package": "npx vsce package",
+    "package": "npx @vscode/vsce package",
     "lint": "biome ci ./src",
     "pretest": "tsc --project tsconfig.test.json",
     "test": "npm run pretest && node ./out/test/run-test.js"
@@ -45,10 +45,10 @@
     "@types/sinonjs__fake-timers": "8.1.5",
     "@types/vscode": "1.91.0",
     "@vscode/test-electron": "2.4.1",
-    "esbuild": "0.23.0",
-    "mocha": "10.6.0",
+    "esbuild": "0.23.1",
+    "mocha": "10.7.3",
     "sinon": "18.0.0",
-    "typescript": "5.5.3"
+    "typescript": "5.5.4"
   },
   "homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
   "bugs": {

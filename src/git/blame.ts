@@ -38,7 +38,8 @@ export class Blamer {
 			return;
 		}
 
-		let resolve: (blame: Promise<Blame | undefined>) => void = () => {};
+		let resolve: (blame: Promise<Blame | undefined> | undefined) => void =
+			() => {};
 		this.files.set(
 			fileName,
 			new Promise<Blame | undefined>((res) => {
@@ -49,15 +50,27 @@ export class Blamer {
 		const { file, gitRoot } = await this.create(fileName);
 
 		if (file === undefined) {
-			resolve(Promise.resolve(undefined));
+			resolve(undefined);
 			return;
 		}
 
+		Logger.debug("Setting up file watcher for '%s'", file.fileName);
+
 		this.fsWatchers.set(
 			file.fileName,
-			watch(file.fileName, () => {
-				this.remove(file.fileName);
-			}),
+			watch(
+				file.fileName,
+				{
+					persistent: false,
+				},
+				() => {
+					Logger.debug(
+						"File watcher callback for '%s' executed",
+						file.fileName,
+					);
+					this.remove(file.fileName);
+				},
+			),
 		);
 
 		const blame = this.blameQueue.add(() => file.getBlame());
@@ -95,6 +108,7 @@ export class Blamer {
 		this.files.delete(fileName);
 		this.fsWatchers.get(fileName)?.close();
 		this.fsWatchers.delete(fileName);
+		Logger.debug("Cache for '%s' cleared. File watcher closed.", fileName);
 	}
 
 	public dispose(): void {

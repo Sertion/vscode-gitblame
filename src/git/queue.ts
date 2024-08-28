@@ -1,3 +1,5 @@
+import { Logger } from "../util/logger";
+
 export class Queue<
 	ReturnValue = void,
 	QueueFunction extends () => Promise<ReturnValue> = () => Promise<ReturnValue>,
@@ -17,6 +19,10 @@ export class Queue<
 			if (this.processing.size < this.maxParallel) {
 				this.startFunction(toQueue);
 			} else {
+				Logger.debug(
+					"Already running %s in parallel. Adding execution to queue.",
+					this.maxParallel,
+				);
 				this.list.push(toQueue);
 			}
 		});

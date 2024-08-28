@@ -35,6 +35,11 @@ export class File {
 
 		const commitRegistry: CommitRegistry = new Map();
 		for await (const chunk of this.process?.stdout ?? []) {
+			Logger.debug(
+				"Got chunk from '%s' git blame process. Size: %d",
+				realFileName,
+				chunk.length,
+			);
 			yield* processChunk(chunk, commitRegistry);
 		}
 		for await (const error of this.process?.stderr ?? []) {
@@ -50,6 +55,12 @@ export class File {
 
 		try {
 			for await (const lineAttachedCommit of this.run(realpathFileName)) {
+				Logger.trace(
+					"Found blame information for %s:%d: hash:%s",
+					realpathFileName,
+					lineAttachedCommit.line.result,
+					lineAttachedCommit.commit.hash,
+				);
 				blameInfo.set(lineAttachedCommit.line.result, lineAttachedCommit);
 			}
 		} catch (err) {

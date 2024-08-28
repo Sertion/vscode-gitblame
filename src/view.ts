@@ -14,6 +14,7 @@ import type { Commit } from "./git/util/stream-parsing.js";
 
 import { isUncommitted } from "./git/util/is-hash.js";
 import { getActiveTextEditor } from "./util/get-active.js";
+import { Logger } from "./util/logger.js";
 import { getProperty } from "./util/property.js";
 import {
 	toInlineTextView,
@@ -107,25 +108,25 @@ export class StatusBarView {
 	}
 
 	private command(): string {
-		const action = getProperty("statusBarMessageClickAction");
-
-		if (action === "Open tool URL") {
-			return "gitblame.online";
-		}
-		if (action === "Open git show") {
-			return "gitblame.gitShow";
-		}
-		if (action === "Copy hash to clipboard") {
-			return "gitblame.addCommitHashToClipboard";
-		}
-
-		return "gitblame.quickInfo";
+		return {
+			"Open tool URL": "gitblame.online",
+			"Open git show": "gitblame.gitShow",
+			"Copy hash to clipboard": "gitblame.addCommitHashToClipboard",
+			"Show info message": "gitblame.quickInfo",
+		}[getProperty("statusBarMessageClickAction")];
 	}
 
 	private updateStatusBar(statusBar: StatusBarItem) {
 		statusBar.text = this.statusBarText;
 		statusBar.tooltip = this.statusBarTooltip;
 		statusBar.command = this.statusBarCommand ? this.command() : undefined;
+
+		Logger.debug(
+			"Updating status bar item with: Text:'%s', tooltip:'git blame%s', command:%s",
+			statusBar.text,
+			statusBar.tooltip,
+			statusBar.command ?? "",
+		);
 	}
 
 	private text(text: string, command: boolean, tooltip = ""): void {
@@ -160,15 +161,15 @@ export class StatusBarView {
 		if (!getProperty("inlineMessageEnabled")) {
 			return;
 		}
-		const margin = getProperty("inlineMessageMargin");
-		const decorationPosition = new Position(
-			editor.selection.active.line,
-			Number.MAX_SAFE_INTEGER,
-		);
 
 		this.removeLineDecoration();
 		// Add new decoration
 		if (useDelay && (await this.delayUpdate(getProperty("delayBlame")))) {
+			const margin = getProperty("inlineMessageMargin");
+			const decorationPosition = new Position(
+				editor.selection.active.line,
+				Number.MAX_SAFE_INTEGER,
+			);
 			editor.setDecorations?.(this.decorationType, [
 				{
 					renderOptions: {
@@ -192,8 +193,8 @@ export class StatusBarView {
 	public preUpdate(
 		textEditor: PartialTextEditor | undefined,
 	): textEditor is PartialTextEditor {
-		this.clear();
 		if (!validEditor(textEditor)) {
+			this.clear();
 			return false;
 		}
 		for (const rejects of this.ongoingViewUpdateRejects) {

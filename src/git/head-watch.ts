@@ -1,5 +1,6 @@
 import { type FSWatcher, watch } from "node:fs";
 import { join, resolve } from "node:path";
+import { Logger } from "../util/logger.js";
 import { getGitFolder } from "./util/git-command.js";
 
 export type HeadChangeEvent = {
@@ -34,22 +35,32 @@ export class HeadWatch {
 		}
 
 		const repositoryRoot = resolve(gitRoot, "..");
+		const HEADFile = join(gitRoot, "HEAD");
 
 		this.heads.set(
 			gitRoot,
 			watch(
-				join(gitRoot, "HEAD"),
+				HEADFile,
 				{
 					persistent: false,
 				},
-				() => this.callback({ gitRoot, repositoryRoot }),
+				() => {
+					Logger.debug("File watcher callback for '%s' called.", HEADFile);
+					this.callback({ gitRoot, repositoryRoot });
+				},
 			),
 		);
+
+		Logger.debug("File watcher for '%s' created.", HEADFile);
 	}
 
 	public dispose(): void {
-		for (const [, headWatcher] of this.heads) {
+		for (const [gitRoot, headWatcher] of this.heads) {
 			headWatcher.close();
+			Logger.debug(
+				"File watcher for HEAD file in git root '%s' closed.",
+				gitRoot,
+			);
 		}
 		this.heads.clear();
 		this.filesWithFoundHeads.clear();
