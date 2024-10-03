@@ -4,6 +4,7 @@ import { isHash } from "./is-hash.js";
 export type CommitAuthor = {
 	name: string;
 	mail: string;
+	isCurrentUser: boolean;
 	timestamp: string;
 	date: Date;
 	tz: string;
@@ -36,6 +37,7 @@ const newCommitInfo = (hash: string): Commit => ({
 	author: {
 		mail: "",
 		name: "",
+		isCurrentUser: false,
 		timestamp: "",
 		date: new Date(),
 		tz: "",
@@ -43,6 +45,7 @@ const newCommitInfo = (hash: string): Commit => ({
 	committer: {
 		mail: "",
 		name: "",
+		isCurrentUser: false,
 		timestamp: "",
 		date: new Date(),
 		tz: "",
@@ -80,12 +83,16 @@ const fillOwner = (
 	owner: CommitAuthor,
 	dataPoint: string,
 	value: string,
+	currentUserEmail: string | undefined,
 ): void => {
 	if (dataPoint === "time") {
 		owner.timestamp = value;
 		owner.date = new Date(Number.parseInt(value, 10) * 1000);
-	} else if (dataPoint === "tz" || dataPoint === "mail") {
-		owner[dataPoint] = value;
+	} else if (dataPoint === "tz") {
+		owner.tz = value;
+	} else if (dataPoint === "mail") {
+		owner.mail = value;
+		owner.isCurrentUser = currentUserEmail === value;
 	} else if (dataPoint === "") {
 		owner.name = value;
 	}
@@ -95,24 +102,30 @@ const processAuthorLine = (
 	key: string,
 	value: string,
 	commitInfo: Commit,
+	currentUserEmail: string | undefined,
 ): void => {
 	const [author, dataPoint] = split(key, "-");
 
 	if (author === "author" || author === "committer") {
-		fillOwner(commitInfo[author], dataPoint, value);
+		fillOwner(commitInfo[author], dataPoint, value, currentUserEmail);
 	}
 };
 
 const isCoverageLine = (hash: string, coverage: string): boolean =>
 	isHash(hash) && /^\d+ \d+ \d+$/.test(coverage);
 
-const processLine = (key: string, value: string, commitInfo: Commit): void => {
+const processLine = (
+	key: string,
+	value: string,
+	commitInfo: Commit,
+	currentUserEmail: string | undefined,
+): void => {
 	if (key === "summary") {
 		commitInfo.summary = value;
 	} else if (isHash(key)) {
 		commitInfo.hash = key;
 	} else if (key.startsWith("author") || key.startsWith("committer")) {
-		processAuthorLine(key, value, commitInfo);
+		processAuthorLine(key, value, commitInfo, currentUserEmail);
 	}
 };
 
@@ -158,6 +171,7 @@ function* commitFilter(
  */
 export async function* processChunk(
 	dataChunk: Buffer,
+	currentUserEmail: string | undefined,
 	commitRegistry: CommitRegistry,
 ): AsyncGenerator<LineAttachedCommit, void> {
 	let commitLocation: FileAttachedCommit | undefined;
@@ -176,7 +190,7 @@ export async function* processChunk(
 				commitLocation.filename = value;
 				yield* commitFilter(commitLocation, coverageGenerator, commitRegistry);
 			} else {
-				processLine(key, value, commitLocation.commit);
+				processLine(key, value, commitLocation.commit, currentUserEmail);
 			}
 		}
 	}

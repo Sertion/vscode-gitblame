@@ -151,3 +151,15 @@ export const getDefaultBranch = async (remote: string): Promise<string> => {
 
 	return split(rawRemoteDefaultBranch, "/")[1];
 };
+
+export const getGitEmail = async (
+	realFileName: string,
+): Promise<string | undefined> => {
+	const email = await runGit(dirname(realFileName), "config", "user.email");
+
+	if (email === "") {
+		return undefined;
+	}
+
+	return `<${email}>`;
+};

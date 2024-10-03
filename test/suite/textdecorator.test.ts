@@ -1,11 +1,13 @@
 import * as assert from "node:assert";
-import { SinonFakeTimers, useFakeTimers } from "sinon";
+import { type SinonFakeTimers, stub, useFakeTimers } from "sinon";
 
-import { Commit } from "../../src/git/util/stream-parsing.js";
+import * as property from "../../src/util/property.js";
+
+import type { Commit } from "../../src/git/util/stream-parsing.js";
 import { between } from "../../src/util/ago.js";
 import {
-	InfoTokenNormalizedCommitInfo,
-	InfoTokens,
+	type InfoTokenNormalizedCommitInfo,
+	type InfoTokens,
 	normalizeCommitInfoTokens,
 	parseTokens,
 } from "../../src/util/text-decorator.js";
@@ -92,9 +94,8 @@ suite("Token Parser", (): void => {
 		value: (value?: string): string => {
 			if (value) {
 				return `${value}-example`;
-			} else {
-				return "-example";
 			}
+			return "-example";
 		},
 		"mixed.token": (): string => "mIxeD-ToKeN",
 	};
@@ -253,6 +254,7 @@ suite("Text Decorator with CommitInfoToken", (): void => {
 		author: {
 			mail: "<vdavydov.dev@gmail.com>",
 			name: "Vladimir Davydov",
+			isCurrentUser: false,
 			timestamp: "1423781950",
 			date: new Date(1_423_781_950_000),
 			tz: "-0800",
@@ -260,6 +262,7 @@ suite("Text Decorator with CommitInfoToken", (): void => {
 		committer: {
 			mail: "<torvalds@linux-foundation.org>",
 			name: "Linus Torvalds",
+			isCurrentUser: false,
 			timestamp: "1423796049",
 			date: new Date(1_423_796_049_000),
 			tz: "-0800",
@@ -320,6 +323,7 @@ suite("issue #119 regressions", () => {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
+				isCurrentUser: false,
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
@@ -327,6 +331,7 @@ suite("issue #119 regressions", () => {
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
+				isCurrentUser: false,
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
@@ -350,6 +355,7 @@ suite("issue #119 regressions", () => {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
+				isCurrentUser: false,
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
@@ -357,6 +363,7 @@ suite("issue #119 regressions", () => {
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
+				isCurrentUser: false,
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
@@ -380,6 +387,7 @@ suite("issue #119 regressions", () => {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
+				isCurrentUser: false,
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
@@ -387,6 +395,7 @@ suite("issue #119 regressions", () => {
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
+				isCurrentUser: false,
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
@@ -410,6 +419,7 @@ suite("issue #119 regressions", () => {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
+				isCurrentUser: false,
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
@@ -417,6 +427,7 @@ suite("issue #119 regressions", () => {
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
+				isCurrentUser: false,
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
@@ -442,6 +453,7 @@ suite("Text Sanitizing", () => {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov\u202e",
+				isCurrentUser: false,
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
@@ -449,6 +461,7 @@ suite("Text Sanitizing", () => {
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
+				isCurrentUser: false,
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
@@ -465,5 +478,51 @@ suite("Text Sanitizing", () => {
 			),
 			"Blame Vladimir Davydov (list_lru: introduce per-memcg lists)",
 		);
+	});
+});
+
+suite("Current User Replace", () => {
+	test("removes right-to-left override characters from text", () => {
+		const propertyStub = stub(property, "getProperty");
+		propertyStub.withArgs("currentUserAlias").returns("Current User Alias");
+
+		const exampleCommit: Commit = {
+			author: {
+				mail: "<vdavydov.dev@gmail.com>",
+				name: "Vladimir Davydov\u202e",
+				isCurrentUser: true,
+				timestamp: "1423781950",
+				date: new Date(1_423_781_950_000),
+				tz: "-0800",
+			},
+			committer: {
+				mail: "<torvalds@linux-foundation.org>",
+				name: "Linus Torvalds",
+				isCurrentUser: false,
+				timestamp: "1423796049",
+				date: new Date(1_423_796_049_000),
+				tz: "-0800",
+			},
+			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
+			summary: "list_lru: \u202eintroduce per-memcg lists",
+		};
+		const normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
+
+		assert.strictEqual(
+			parseTokens(
+				"Blame ${author.name} (${commit.summary})",
+				normalizedCommitInfoTokens,
+			),
+			"Blame Current User Alias (list_lru: introduce per-memcg lists)",
+		);
+		assert.strictEqual(
+			parseTokens(
+				"Blame ${committer.name} (${commit.summary})",
+				normalizedCommitInfoTokens,
+			),
+			"Blame Linus Torvalds (list_lru: introduce per-memcg lists)",
+		);
+
+		propertyStub.restore();
 	});
 });

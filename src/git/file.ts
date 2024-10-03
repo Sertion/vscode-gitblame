@@ -3,7 +3,7 @@ import { realpath } from "node:fs/promises";
 import { relative } from "node:path";
 
 import { Logger } from "../util/logger.js";
-import { blameProcess, getRevsFile } from "./util/git-command.js";
+import { blameProcess, getGitEmail, getRevsFile } from "./util/git-command.js";
 import {
 	type CommitRegistry,
 	type LineAttachedCommit,
@@ -30,17 +30,27 @@ export class File {
 		this.killed = true;
 	}
 
-	private async *run(realFileName: string): AsyncGenerator<LineAttachedCommit> {
-		this.process = blameProcess(realFileName, await getRevsFile(realFileName));
+	private async *run(file: string): AsyncGenerator<LineAttachedCommit> {
+		const [refs, email] = await Promise.all([
+			getRevsFile(file),
+			getGitEmail(file),
+		]);
+		this.process = blameProcess(file, refs);
+
+		Logger.debug(
+			"Email address for currentUser for file '%s' is '%s'",
+			file,
+			email ?? "VALUE_NOT_SET_IN_GIT_CONFIG",
+		);
 
 		const commitRegistry: CommitRegistry = new Map();
 		for await (const chunk of this.process?.stdout ?? []) {
 			Logger.debug(
 				"Got chunk from '%s' git blame process. Size: %d",
-				realFileName,
+				file,
 				chunk.length,
 			);
-			yield* processChunk(chunk, commitRegistry);
+			yield* processChunk(chunk, email, commitRegistry);
 		}
 		for await (const error of this.process?.stderr ?? []) {
 			if (typeof error === "string") {

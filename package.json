@@ -2,7 +2,7 @@
   "name": "gitblame",
   "displayName": "Git Blame",
   "description": "See git blame information in the status bar.",
-  "version": "11.0.2",
+  "version": "11.1.0",
   "publisher": "waderyan",
   "engines": {
     "vscode": "^1.91.0",
@@ -45,10 +45,10 @@
     "@types/sinonjs__fake-timers": "8.1.5",
     "@types/vscode": "1.91.0",
     "@vscode/test-electron": "2.4.1",
-    "esbuild": "0.23.1",
+    "esbuild": "0.24.0",
     "mocha": "10.7.3",
-    "sinon": "18.0.0",
-    "typescript": "5.5.4"
+    "sinon": "19.0.2",
+    "typescript": "5.6.2"
   },
   "homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
   "bugs": {
@@ -163,6 +163,11 @@
           "type": "number",
           "default": 2,
           "description": "The amount of margin between line and inline blame view"
+        },
+        "gitblame.currentUserAlias": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Replaces `${author.name}` and `${committer.name}` when the git config `user.email` matches the author's or committer's email address."
         },
         "gitblame.remoteName": {
           "type": "string",

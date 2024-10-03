@@ -46,15 +46,20 @@ export const normalizeCommitInfoTokens = ({
 		(length = ""): string => {
 			return target.substr(0, Number.parseInt(length || fallbackLength, 10));
 		};
+	const currentUserAlias = getProperty("currentUserAlias");
 
 	return {
 		"author.mail": author.mail,
-		"author.name": author.name,
+		"author.name":
+			author.isCurrentUser && currentUserAlias ? currentUserAlias : author.name,
 		"author.timestamp": author.timestamp,
 		"author.tz": author.tz,
 		"author.date": toIso(author),
 		"committer.mail": committer.mail,
-		"committer.name": committer.name,
+		"committer.name":
+			committer.isCurrentUser && currentUserAlias
+				? currentUserAlias
+				: committer.name,
 		"committer.timestamp": committer.timestamp,
 		"committer.tz": committer.tz,
 		"committer.date": toIso(committer),

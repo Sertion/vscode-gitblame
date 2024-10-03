@@ -18,6 +18,7 @@ export type PropertiesMap = {
 	inlineMessageNoCommit: string;
 	inlineMessageEnabled: boolean;
 	inlineMessageMargin: number;
+	currentUserAlias: string;
 	delayBlame: number;
 	parallelBlames: number;
 	maxLineCount: number;

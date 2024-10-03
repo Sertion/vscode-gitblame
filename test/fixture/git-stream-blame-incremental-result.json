@@ -4,6 +4,7 @@
             "author": {
                 "mail": "<not.committed.yet>",
                 "name": "Not Committed Yet",
+                "isCurrentUser": false,
                 "timestamp": "1601475715",
                 "date": "2020-09-30T14:21:55.000Z",
                 "tz": "+0200"
@@ -11,6 +12,7 @@
             "committer": {
                 "mail": "<not.committed.yet>",
                 "name": "Not Committed Yet",
+                "isCurrentUser": false,
                 "timestamp": "1601475715",
                 "date": "2020-09-30T14:21:55.000Z",
                 "tz": "+0200"
@@ -29,6 +31,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601153539",
                 "date": "2020-09-26T20:52:19.000Z",
                 "tz": "+0200"
@@ -36,6 +39,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601153539",
                 "date": "2020-09-26T20:52:19.000Z",
                 "tz": "+0200"
@@ -54,6 +58,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601153539",
                 "date": "2020-09-26T20:52:19.000Z",
                 "tz": "+0200"
@@ -61,6 +66,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601153539",
                 "date": "2020-09-26T20:52:19.000Z",
                 "tz": "+0200"
@@ -79,6 +85,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601153539",
                 "date": "2020-09-26T20:52:19.000Z",
                 "tz": "+0200"
@@ -86,6 +93,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601153539",
                 "date": "2020-09-26T20:52:19.000Z",
                 "tz": "+0200"
@@ -104,6 +112,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601153539",
                 "date": "2020-09-26T20:52:19.000Z",
                 "tz": "+0200"
@@ -111,6 +120,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601153539",
                 "date": "2020-09-26T20:52:19.000Z",
                 "tz": "+0200"
@@ -129,6 +139,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -136,6 +147,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -154,6 +166,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -161,6 +174,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -179,6 +193,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -186,6 +201,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -204,6 +220,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -211,6 +228,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -229,6 +247,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -236,6 +255,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -254,6 +274,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -261,6 +282,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -279,6 +301,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -286,6 +309,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -304,6 +328,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -311,6 +336,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -329,6 +355,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -336,6 +363,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -354,6 +382,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -361,6 +390,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -379,6 +409,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -386,6 +417,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -404,6 +436,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -411,6 +444,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -429,6 +463,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -436,6 +471,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1601138853",
                 "date": "2020-09-26T16:47:33.000Z",
                 "tz": "+0200"
@@ -454,6 +490,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -461,6 +498,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -479,6 +517,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -486,6 +525,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -504,6 +544,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -511,6 +552,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -529,6 +571,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -536,6 +579,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -554,6 +598,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -561,6 +606,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -579,6 +625,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -586,6 +633,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -604,6 +652,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -611,6 +660,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -629,6 +679,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -636,6 +687,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -654,6 +706,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -661,6 +714,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -679,6 +733,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -686,6 +741,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1579705267",
                 "date": "2020-01-22T15:01:07.000Z",
                 "tz": "+0100"
@@ -704,6 +760,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1562163115",
                 "date": "2019-07-03T14:11:55.000Z",
                 "tz": "+0200"
@@ -711,6 +768,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1562163115",
                 "date": "2019-07-03T14:11:55.000Z",
                 "tz": "+0200"
@@ -729,6 +787,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1562163115",
                 "date": "2019-07-03T14:11:55.000Z",
                 "tz": "+0200"
@@ -736,6 +795,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1562163115",
                 "date": "2019-07-03T14:11:55.000Z",
                 "tz": "+0200"
@@ -754,6 +814,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1562163115",
                 "date": "2019-07-03T14:11:55.000Z",
                 "tz": "+0200"
@@ -761,6 +822,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1562163115",
                 "date": "2019-07-03T14:11:55.000Z",
                 "tz": "+0200"
@@ -779,6 +841,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1562163115",
                 "date": "2019-07-03T14:11:55.000Z",
                 "tz": "+0200"
@@ -786,6 +849,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1562163115",
                 "date": "2019-07-03T14:11:55.000Z",
                 "tz": "+0200"
@@ -804,6 +868,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1561587471",
                 "date": "2019-06-26T22:17:51.000Z",
                 "tz": "+0200"
@@ -811,6 +876,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1561588275",
                 "date": "2019-06-26T22:31:15.000Z",
                 "tz": "+0200"
@@ -829,6 +895,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1561587471",
                 "date": "2019-06-26T22:17:51.000Z",
                 "tz": "+0200"
@@ -836,6 +903,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1561588275",
                 "date": "2019-06-26T22:31:15.000Z",
                 "tz": "+0200"
@@ -854,6 +922,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1520550992",
                 "date": "2018-03-08T23:16:32.000Z",
                 "tz": "+0100"
@@ -861,6 +930,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1520550992",
                 "date": "2018-03-08T23:16:32.000Z",
                 "tz": "+0100"
@@ -879,6 +949,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -886,6 +957,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -904,6 +976,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -911,6 +984,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -929,6 +1003,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -936,6 +1011,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -954,6 +1030,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -961,6 +1038,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -979,6 +1057,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -986,6 +1065,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -1004,6 +1084,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -1011,6 +1092,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -1029,6 +1111,7 @@
             "author": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"
@@ -1036,6 +1119,7 @@
             "committer": {
                 "mail": "<albin.jacobsson@gmail.com>",
                 "name": "Albin Jacobsson",
+                "isCurrentUser": false,
                 "timestamp": "1500502996",
                 "date": "2017-07-19T22:23:16.000Z",
                 "tz": "+0200"

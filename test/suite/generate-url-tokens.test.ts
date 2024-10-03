@@ -21,6 +21,7 @@ suite("Generate URL Tokens", () => {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
+				isCurrentUser: false,
 				timestamp: "1423781950",
 				date: new Date(1423781950000),
 				tz: "-0800",
@@ -28,6 +29,7 @@ suite("Generate URL Tokens", () => {
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
+				isCurrentUser: false,
 				timestamp: "1423796049",
 				date: new Date(1423796049000),
 				tz: "-0800",
@@ -115,7 +117,7 @@ suite("Generate URL Tokens", () => {
 		assert.strictEqual(call(tokens["gitorigin.path"], "0"), "Sertion");
 		assert.strictEqual(call(tokens["gitorigin.path"], "1"), "vscode-gitblame");
 		assert.strictEqual(
-			call(tokens["hash"]),
+			call(tokens.hash),
 			"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		);
 		assert.strictEqual(call(tokens["project.name"]), "vscode-gitblame");
@@ -200,7 +202,7 @@ suite("Generate URL Tokens", () => {
 		assert.strictEqual(call(tokens["gitorigin.path"], "0"), "Sertion");
 		assert.strictEqual(call(tokens["gitorigin.path"], "1"), "vscode-gitblame");
 		assert.strictEqual(
-			call(tokens["hash"]),
+			call(tokens.hash),
 			"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		);
 		assert.strictEqual(call(tokens["project.name"]), "vscode-gitblame");
@@ -285,7 +287,7 @@ suite("Generate URL Tokens", () => {
 		assert.strictEqual(call(tokens["gitorigin.path"], "0"), "Sertion");
 		assert.strictEqual(call(tokens["gitorigin.path"], "1"), "vscode-gitblame");
 		assert.strictEqual(
-			call(tokens["hash"]),
+			call(tokens.hash),
 			"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		);
 		assert.strictEqual(call(tokens["project.name"]), "vscode-gitblame");
@@ -375,7 +377,7 @@ suite("Generate URL Tokens", () => {
 		assert.strictEqual(call(tokens["gitorigin.path"], "0"), "project_x");
 		assert.strictEqual(call(tokens["gitorigin.path"], "1"), "test-repository");
 		assert.strictEqual(
-			call(tokens["hash"]),
+			call(tokens.hash),
 			"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		);
 		assert.strictEqual(call(tokens["project.name"]), "test-repository");
@@ -456,6 +458,7 @@ suite("Use genrated URL tokens", () => {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
+				isCurrentUser: false,
 				timestamp: "1423781950",
 				date: new Date(1423781950000),
 				tz: "-0800",
@@ -463,6 +466,7 @@ suite("Use genrated URL tokens", () => {
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
+				isCurrentUser: false,
 				timestamp: "1423796049",
 				date: new Date(1423796049000),
 				tz: "-0800",

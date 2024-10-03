@@ -3,10 +3,10 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import {
-	Commit,
-	CommitAuthor,
-	CommitRegistry,
-	LineAttachedCommit,
+	type Commit,
+	type CommitAuthor,
+	type CommitRegistry,
+	type LineAttachedCommit,
 	processChunk,
 } from "../../src/git/util/stream-parsing.js";
 
@@ -60,7 +60,11 @@ suite("Chunk Processing", (): void => {
 
 		const registry: CommitRegistry = new Map();
 		const foundChunks: LineAttachedCommit[] = [];
-		for await (const line of processChunk(chunk, registry)) {
+		for await (const line of processChunk(
+			chunk,
+			"not-a-real@email",
+			registry,
+		)) {
 			foundChunks.push(line);
 		}
 
@@ -86,6 +90,7 @@ suite("Processing Errors", (): void => {
 		for (const chunk of chunks) {
 			for await (const line of processChunk(
 				Buffer.from(chunk, "utf-8"),
+				"not-a-real@email",
 				registry,
 			)) {
 				foundChunks.push(line);

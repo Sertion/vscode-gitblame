@@ -114,6 +114,13 @@ To enable the inline git blame view. Shows blame information at the end of the c
 
 The amount of margin between line and inline blame view
 
+### `gitblame.currentUserAlias`
+> Type: `string` or `null`
+
+> Default value: `null`
+
+Replaces `${author.name}` and `${committer.name}` when the git config `user.email` matches the author's or committer's email address.
+
 ### `gitblame.delayBlame`
 > Type: `number`
 

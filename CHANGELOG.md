@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.1.0 (xxx xx, 2024)
+* Feature: Adding a new setting that modifies the `user.name` and `committer.name` token: `gitblame.currentUserAlias`. [#181](https://github.com/Sertion/vscode-gitblame/issues/181) Thanks to [Antecer](https://github.com/Antecer)
+ * When set its value will be printed instead of the name when the commit author or committer email matches the current git config `user.email`.
+ *
+* Fix: Updating dependencies
+
 ## 11.0.2 (July 17, 2024)
 * Feature: Adding logging behind the `debug` and `trace` levels.
 * Fix: Updating dependencies
