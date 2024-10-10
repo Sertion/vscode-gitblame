@@ -19,7 +19,7 @@ Git Blame works very well with WSL but does not work with the web browser based 
 ### `gitblame.commitUrl`
 > Type: `string`
 
-> Default value: `"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.basepath}/${hash}"`
+> Default value: `"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}"`
 
 Url where you can see the commit by hash
 
