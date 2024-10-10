@@ -9,6 +9,7 @@ out/**
 .gitignore
 .eslintrc
 .eslintignore
+CHANGELOG OLD.md
 esbuild.mjs
 tsconfig.json
 tsconfig.test.json
