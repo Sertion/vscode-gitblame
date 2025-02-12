@@ -93,7 +93,7 @@ export const generateUrlTokens = async (
 		return;
 	}
 
-	const remoteUrl = stripGitRemoteUrl(await getRemoteUrl(remoteName));
+	const remoteUrl = await getRemoteUrl(remoteName);
 	const tool = originUrlToToolUrl(remoteUrl);
 	const filePath = await getRelativePathOfActiveFile();
 	const defaultBranch = await getDefaultBranch(remoteName);
@@ -103,7 +103,7 @@ export const generateUrlTokens = async (
 		"tool.protocol": tool?.protocol ?? "https:",
 		"tool.commitpath": `/commit${isToolUrlPlural(remoteUrl) ? "s" : ""}/`,
 		"project.name": projectNameFromOrigin(origin),
-		"project.remote": remoteUrl,
+		"project.remote": stripGitRemoteUrl(remoteUrl),
 		"project.defaultbranch": defaultBranch,
 		"gitorigin.hostname": tool ? gitOriginHostname(tool) : "no-origin-url",
 		"gitorigin.path": gitRemotePath(stripGitSuffix(origin)),
