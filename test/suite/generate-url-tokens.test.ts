@@ -452,7 +452,7 @@ suite("Generate URL Tokens", () => {
 	});
 });
 
-suite("Use genrated URL tokens", () => {
+suite("Use generated URL tokens", () => {
 	const exampleCommit: LineAttachedCommit = {
 		commit: {
 			author: {
@@ -555,4 +555,79 @@ suite("Use genrated URL tokens", () => {
 			"https://git.company.com/project_x/test-repository/commit/60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		);
 	});
+
+	test("Url with port (#188 regression)", async () => {
+		const activeEditorStub = stub(getActive, "getActiveTextEditor");
+		const execcommandStub = stub(execcommand, "execute");
+		const propertyStub = stub(property, "getProperty");
+		activeEditorStub.returns({
+			document: {
+				isUntitled: false,
+				fileName: "/fake.file",
+				uri: Uri.parse("/fake.file"),
+				lineCount: 1024,
+			},
+			selection: {
+				active: {
+					line: 9,
+				},
+			},
+		});
+		execcommandStub
+			.withArgs(
+				match.string,
+				["symbolic-ref", "-q", "--short", "HEAD"],
+				match.object,
+			)
+			.resolves("master");
+		execcommandStub
+			.withArgs(match.string, ["config", "branch.master.remote"], match.object)
+			.resolves("origin");
+		execcommandStub
+			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
+			.resolves("http://git.company.com:8080/project_x/test-repository.git");
+		execcommandStub
+			.withArgs(
+				match.string,
+				["ls-remote", "--get-url", "origin"],
+				match.object,
+			)
+			.resolves("http://git.company.com:8080/project_x/test-repository.git");
+		execcommandStub
+			.withArgs(
+				match.string,
+				["ls-files", "--full-name", "--", "/fake.file"],
+				match.object,
+			)
+			.resolves("/fake.file");
+		execcommandStub
+			.withArgs(
+				match.string,
+				["rev-parse", "--abbrev-ref", "origin/HEAD"],
+				match.object,
+			)
+			.resolves("origin/main");
+		propertyStub.withArgs("remoteName").returns("origin");
+
+		const tokens = await generateUrlTokens(exampleCommit);
+
+		activeEditorStub.restore();
+		execcommandStub.restore();
+		propertyStub.restore();
+
+		if (tokens === undefined) {
+			assert.notStrictEqual(tokens, undefined);
+			return;
+		}
+
+		const parsedUrl = parseTokens(
+			"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
+			tokens,
+		);
+
+		assert.strictEqual(
+			parsedUrl,
+			"http://git.company.com:8080/project_x/test-repository/commit/60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
+		);
+	})
 });
