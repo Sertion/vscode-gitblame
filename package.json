@@ -31,7 +31,7 @@
   "main": "./out/src/index",
   "scripts": {
     "vscode:prepublish": "npm run build",
-    "build": "node esbuild.mts",
+    "build": "node esbuild.mjs",
     "package": "npx @vscode/vsce package",
     "lint": "biome ci ./src",
     "pretest": "tsc --project tsconfig.test.json",
