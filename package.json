@@ -2,11 +2,11 @@
   "name": "gitblame",
   "displayName": "Git Blame",
   "description": "See git blame information in the status bar.",
-  "version": "11.1.1",
+  "version": "11.1.2",
   "publisher": "waderyan",
   "engines": {
-    "vscode": "^1.91.0",
-    "node": "^20.9.0"
+    "vscode": ">=1.91.0",
+    "node": ">=20.9.0"
   },
   "categories": [
     "Other"
@@ -31,7 +31,7 @@
   "main": "./out/src/index",
   "scripts": {
     "vscode:prepublish": "npm run build",
-    "build": "node esbuild.mjs",
+    "build": "node esbuild.mts",
     "package": "npx @vscode/vsce package",
     "lint": "biome ci ./src",
     "pretest": "tsc --project tsconfig.test.json",
@@ -39,16 +39,16 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
-    "@types/mocha": "10.0.7",
+    "@types/mocha": "10.0.10",
     "@types/node": "20.14.6",
     "@types/sinon": "17.0.3",
     "@types/sinonjs__fake-timers": "8.1.5",
     "@types/vscode": "1.91.0",
     "@vscode/test-electron": "2.4.1",
-    "esbuild": "0.24.0",
+    "esbuild": "0.25.0",
     "mocha": "10.7.3",
     "sinon": "19.0.2",
-    "typescript": "5.6.2"
+    "typescript": "5.7.3"
   },
   "homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
   "bugs": {
