@@ -53,7 +53,7 @@ const gitOriginHostname = ({
 export const gitRemotePath = (
 	remote: string,
 ): string | ((index?: string) => string) => {
-	if (/^[a-z]+?@/.test(remote)) {
+	if (/^[a-z0-9-]+?@/.test(remote)) {
 		const [, path] = split(remote, ":");
 		return (index = ""): string => {
 			if (index === "") {
