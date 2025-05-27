@@ -40,6 +40,14 @@ suite("Get tool URL: gitRemotePath", (): void => {
 		assert.strictEqual(call(func, "1"), "to");
 		assert.strictEqual(call(func, "2"), "something");
 	});
+	test("org-1234@", (): void => {
+		const func = gitRemotePath("org-1234@example.com:path/to/something/");
+
+		assert.strictEqual(call(func), "/path/to/something/");
+		assert.strictEqual(call(func, "0"), "path");
+		assert.strictEqual(call(func, "1"), "to");
+		assert.strictEqual(call(func, "2"), "something");
+	});
 	test("http:// with port", (): void => {
 		const func = gitRemotePath("http://example.com:8080/path/to/something/");
 
