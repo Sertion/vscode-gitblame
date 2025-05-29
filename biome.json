@@ -5,7 +5,8 @@
 			"./.vscode/*",
 			"./.github/*",
 			"./out/*",
-			"./types/*"
+			"./types/*",
+			"**/*.json"
 		]
 	},
 	"organizeImports": {

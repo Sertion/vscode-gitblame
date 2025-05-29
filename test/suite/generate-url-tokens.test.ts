@@ -629,5 +629,5 @@ suite("Use generated URL tokens", () => {
 			parsedUrl,
 			"http://git.company.com:8080/project_x/test-repository/commit/60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		);
-	})
+	});
 });
