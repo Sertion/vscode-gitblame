@@ -1,7 +1,11 @@
 # Change Log
 
+## 11.1.3 (May 29, 2025)
+* Bug:  Update remote URL parsing to support non-`git` ssh user [#189](https://github.com/Sertion/vscode-gitblame/pull/189). Thanks to [Nadock](https://github.com/Nadock)!
+* Fix: Updating dependencies
+
 ## 11.1.2 (February 14, 2025)
-* Bug: Fix gitorigin.port error for http(s) [#188](https://github.com/Sertion/vscode-gitblame/pull/182). Thanks to [yuanliuu](https://github.com/yuanliuu)!
+* Bug: Fix gitorigin.port error for http(s) [#188](https://github.com/Sertion/vscode-gitblame/pull/188). Thanks to [yuanliuu](https://github.com/yuanliuu)!
 * Fix: Updating dependencies
 * Fix: Update CHANGELOG.md format
 
