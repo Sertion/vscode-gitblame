@@ -9,7 +9,7 @@ export const originUrlToToolUrl = (url: string): URL | undefined => {
 
 	try {
 		uri = new URL(`${httpProtocol ?? "https"}://${stripGitRemoteUrl(url)}`);
-	} catch (err) {
+	} catch {
 		return;
 	}
 

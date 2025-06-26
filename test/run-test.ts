@@ -13,7 +13,7 @@ async function main(): Promise<void> {
 		if (exitCode !== 0) {
 			process.exit(1);
 		}
-	} catch (err) {
+	} catch {
 		process.exit(1);
 	}
 

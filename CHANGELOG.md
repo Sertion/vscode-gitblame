@@ -1,5 +1,9 @@
 # Change Log
 
+## 11.1.4 (June 25, 2025)
+* Bug: Extension causes high cpu load [#191](https://github.com/Sertion/vscode-gitblame/pull/191). Thanks to [Martin-vH](https://github.com/Martin-vH) and [NaterGator](https://github.com/NaterGator)!
+* Fix: Updating dependencies
+
 ## 11.1.3 (May 29, 2025)
 * Bug:  Update remote URL parsing to support non-`git` ssh user [#189](https://github.com/Sertion/vscode-gitblame/pull/189). Thanks to [Nadock](https://github.com/Nadock)!
 * Fix: Updating dependencies

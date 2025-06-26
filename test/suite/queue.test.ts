@@ -12,7 +12,7 @@ const sleep = <T>(time: number, response: T): Promise<T> => {
 };
 
 suite("Promise Queue", (): void => {
-	let clock: Sinon.SinonFakeTimers | undefined = undefined;
+	let clock: Sinon.SinonFakeTimers | undefined;
 
 	beforeEach(() => {
 		clock = Sinon.useFakeTimers();

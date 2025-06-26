@@ -4,7 +4,7 @@ export const isUrl = (check: string): boolean => {
 	let url: URL;
 	try {
 		url = new URL(check);
-	} catch (err) {
+	} catch {
 		return false;
 	}
 

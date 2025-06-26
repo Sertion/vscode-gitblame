@@ -71,7 +71,7 @@ async function* splitChunk(chunk: Buffer): AsyncGenerator<[string, string]> {
 
 		// This is an attempt to mitigate main thread hogging.
 		if (lineCount % WAIT_N_LINES === 0) {
-			await new Promise<void>(queueMicrotask);
+			await new Promise<void>((resolve) => setImmediate(resolve));
 		}
 
 		lineCount += 1;
