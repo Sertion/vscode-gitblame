@@ -1,21 +1,18 @@
 import { dirname } from "node:path";
 import {
+	commands,
 	Disposable,
+	env,
 	type MessageItem,
 	type TextEditor,
 	ThemeIcon,
-	commands,
-	env,
 	window,
 	workspace,
 } from "vscode";
-
-import type { LineAttachedCommit } from "./util/stream-parsing.js";
-
 import {
-	NO_FILE_OR_PLACE,
 	getActiveTextEditor,
 	getFilePosition,
+	NO_FILE_OR_PLACE,
 } from "../util/get-active.js";
 import { errorMessage, infoMessage } from "../util/message.js";
 import { getProperty } from "../util/property.js";
@@ -28,8 +25,8 @@ import { StatusBarView } from "../view.js";
 import { Blamer } from "./blame.js";
 import { HeadWatch } from "./head-watch.js";
 import { getToolUrl } from "./util/get-tool-url.js";
-import { isUncommitted } from "./util/is-hash.js";
-import { isHash } from "./util/is-hash.js";
+import { isHash, isUncommitted } from "./util/is-hash.js";
+import type { LineAttachedCommit } from "./util/stream-parsing.js";
 
 type ActionableMessageItem = MessageItem & {
 	action: () => void;

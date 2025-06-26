@@ -1,7 +1,7 @@
 import * as assert from "node:assert";
-import { Queue } from "../../src/git/queue.js";
-import * as Sinon from "sinon";
 import { afterEach, beforeEach } from "mocha";
+import * as Sinon from "sinon";
+import { Queue } from "../../src/git/queue.js";
 
 const sleep = <T>(time: number, response: T): Promise<T> => {
 	return new Promise((resolve) =>

@@ -1,1136 +1,1136 @@
 [
-    {
-        "commit": {
-            "author": {
-                "mail": "<not.committed.yet>",
-                "name": "Not Committed Yet",
-                "isCurrentUser": false,
-                "timestamp": "1601475715",
-                "date": "2020-09-30T14:21:55.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<not.committed.yet>",
-                "name": "Not Committed Yet",
-                "isCurrentUser": false,
-                "timestamp": "1601475715",
-                "date": "2020-09-30T14:21:55.000Z",
-                "tz": "+0200"
-            },
-            "hash": "0000000000000000000000000000000000000000",
-            "summary": "Version of src/git/stream.ts from src/git/stream.ts"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 6,
-            "result": 6
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601153539",
-                "date": "2020-09-26T20:52:19.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601153539",
-                "date": "2020-09-26T20:52:19.000Z",
-                "tz": "+0200"
-            },
-            "hash": "57463acc9ac14a81020067da1979b34c502b7478",
-            "summary": "Moving the parsing to its own file"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 4,
-            "result": 4
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601153539",
-                "date": "2020-09-26T20:52:19.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601153539",
-                "date": "2020-09-26T20:52:19.000Z",
-                "tz": "+0200"
-            },
-            "hash": "57463acc9ac14a81020067da1979b34c502b7478",
-            "summary": "Moving the parsing to its own file"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 33,
-            "result": 27
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601153539",
-                "date": "2020-09-26T20:52:19.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601153539",
-                "date": "2020-09-26T20:52:19.000Z",
-                "tz": "+0200"
-            },
-            "hash": "57463acc9ac14a81020067da1979b34c502b7478",
-            "summary": "Moving the parsing to its own file"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 34,
-            "result": 28
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601153539",
-                "date": "2020-09-26T20:52:19.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601153539",
-                "date": "2020-09-26T20:52:19.000Z",
-                "tz": "+0200"
-            },
-            "hash": "57463acc9ac14a81020067da1979b34c502b7478",
-            "summary": "Moving the parsing to its own file"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 36,
-            "result": 30
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 24,
-            "result": 5
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 34,
-            "result": 8
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 38,
-            "result": 12
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 39,
-            "result": 13
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 40,
-            "result": 14
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 41,
-            "result": 15
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 42,
-            "result": 16
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 44,
-            "result": 18
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 45,
-            "result": 19
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 46,
-            "result": 20
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 47,
-            "result": 21
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 65,
-            "result": 39
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1601138853",
-                "date": "2020-09-26T16:47:33.000Z",
-                "tz": "+0200"
-            },
-            "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
-            "summary": "Refactoring"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 66,
-            "result": 40
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 38,
-            "result": 10
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 39,
-            "result": 11
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 44,
-            "result": 22
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 45,
-            "result": 23
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 46,
-            "result": 24
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 49,
-            "result": 29
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 57,
-            "result": 33
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 58,
-            "result": 34
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 59,
-            "result": 35
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1579705267",
-                "date": "2020-01-22T15:01:07.000Z",
-                "tz": "+0100"
-            },
-            "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
-            "summary": "Closes #58"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 66,
-            "result": 38
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1562163115",
-                "date": "2019-07-03T14:11:55.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1562163115",
-                "date": "2019-07-03T14:11:55.000Z",
-                "tz": "+0200"
-            },
-            "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
-            "summary": "Add TSyringe for IoC"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 16,
-            "result": 7
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1562163115",
-                "date": "2019-07-03T14:11:55.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1562163115",
-                "date": "2019-07-03T14:11:55.000Z",
-                "tz": "+0200"
-            },
-            "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
-            "summary": "Add TSyringe for IoC"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 23,
-            "result": 9
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1562163115",
-                "date": "2019-07-03T14:11:55.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1562163115",
-                "date": "2019-07-03T14:11:55.000Z",
-                "tz": "+0200"
-            },
-            "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
-            "summary": "Add TSyringe for IoC"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 46,
-            "result": 36
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1562163115",
-                "date": "2019-07-03T14:11:55.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1562163115",
-                "date": "2019-07-03T14:11:55.000Z",
-                "tz": "+0200"
-            },
-            "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
-            "summary": "Add TSyringe for IoC"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 47,
-            "result": 37
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1561587471",
-                "date": "2019-06-26T22:17:51.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1561588275",
-                "date": "2019-06-26T22:31:15.000Z",
-                "tz": "+0200"
-            },
-            "hash": "41b858cfcf019fa34597e14719c910fa1409ee66",
-            "summary": "Factory is now responsible for workspace knowledge"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 1,
-            "result": 1
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1561587471",
-                "date": "2019-06-26T22:17:51.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1561588275",
-                "date": "2019-06-26T22:31:15.000Z",
-                "tz": "+0200"
-            },
-            "hash": "41b858cfcf019fa34597e14719c910fa1409ee66",
-            "summary": "Factory is now responsible for workspace knowledge"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 4,
-            "result": 3
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1520550992",
-                "date": "2018-03-08T23:16:32.000Z",
-                "tz": "+0100"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1520550992",
-                "date": "2018-03-08T23:16:32.000Z",
-                "tz": "+0100"
-            },
-            "hash": "a8cb1e0ba4f8f03ab685bb51a1ac83cc299c020d",
-            "summary": "Adding TSLint and linting the whole project"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 47,
-            "result": 31
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
-            "summary": "2.0.0 - New blame engine and clearer logging"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 3,
-            "result": 2
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
-            "summary": "2.0.0 - New blame engine and clearer logging"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 40,
-            "result": 17
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
-            "summary": "2.0.0 - New blame engine and clearer logging"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 42,
-            "result": 25
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
-            "summary": "2.0.0 - New blame engine and clearer logging"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 43,
-            "result": 26
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
-            "summary": "2.0.0 - New blame engine and clearer logging"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 59,
-            "result": 32
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
-            "summary": "2.0.0 - New blame engine and clearer logging"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 70,
-            "result": 41
-        }
-    },
-    {
-        "commit": {
-            "author": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "committer": {
-                "mail": "<albin.jacobsson@gmail.com>",
-                "name": "Albin Jacobsson",
-                "isCurrentUser": false,
-                "timestamp": "1500502996",
-                "date": "2017-07-19T22:23:16.000Z",
-                "tz": "+0200"
-            },
-            "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
-            "summary": "2.0.0 - New blame engine and clearer logging"
-        },
-        "filename": "src/git/stream.ts",
-        "line": {
-            "source": 176,
-            "result": 42
-        }
-    }
+	{
+		"commit": {
+			"author": {
+				"mail": "<not.committed.yet>",
+				"name": "Not Committed Yet",
+				"isCurrentUser": false,
+				"timestamp": "1601475715",
+				"date": "2020-09-30T14:21:55.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<not.committed.yet>",
+				"name": "Not Committed Yet",
+				"isCurrentUser": false,
+				"timestamp": "1601475715",
+				"date": "2020-09-30T14:21:55.000Z",
+				"tz": "+0200"
+			},
+			"hash": "0000000000000000000000000000000000000000",
+			"summary": "Version of src/git/stream.ts from src/git/stream.ts"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 6,
+			"result": 6
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601153539",
+				"date": "2020-09-26T20:52:19.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601153539",
+				"date": "2020-09-26T20:52:19.000Z",
+				"tz": "+0200"
+			},
+			"hash": "57463acc9ac14a81020067da1979b34c502b7478",
+			"summary": "Moving the parsing to its own file"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 4,
+			"result": 4
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601153539",
+				"date": "2020-09-26T20:52:19.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601153539",
+				"date": "2020-09-26T20:52:19.000Z",
+				"tz": "+0200"
+			},
+			"hash": "57463acc9ac14a81020067da1979b34c502b7478",
+			"summary": "Moving the parsing to its own file"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 33,
+			"result": 27
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601153539",
+				"date": "2020-09-26T20:52:19.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601153539",
+				"date": "2020-09-26T20:52:19.000Z",
+				"tz": "+0200"
+			},
+			"hash": "57463acc9ac14a81020067da1979b34c502b7478",
+			"summary": "Moving the parsing to its own file"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 34,
+			"result": 28
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601153539",
+				"date": "2020-09-26T20:52:19.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601153539",
+				"date": "2020-09-26T20:52:19.000Z",
+				"tz": "+0200"
+			},
+			"hash": "57463acc9ac14a81020067da1979b34c502b7478",
+			"summary": "Moving the parsing to its own file"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 36,
+			"result": 30
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 24,
+			"result": 5
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 34,
+			"result": 8
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 38,
+			"result": 12
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 39,
+			"result": 13
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 40,
+			"result": 14
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 41,
+			"result": 15
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 42,
+			"result": 16
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 44,
+			"result": 18
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 45,
+			"result": 19
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 46,
+			"result": 20
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 47,
+			"result": 21
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 65,
+			"result": 39
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1601138853",
+				"date": "2020-09-26T16:47:33.000Z",
+				"tz": "+0200"
+			},
+			"hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
+			"summary": "Refactoring"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 66,
+			"result": 40
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 38,
+			"result": 10
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 39,
+			"result": 11
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 44,
+			"result": 22
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 45,
+			"result": 23
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 46,
+			"result": 24
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 49,
+			"result": 29
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 57,
+			"result": 33
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 58,
+			"result": 34
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 59,
+			"result": 35
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1579705267",
+				"date": "2020-01-22T15:01:07.000Z",
+				"tz": "+0100"
+			},
+			"hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
+			"summary": "Closes #58"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 66,
+			"result": 38
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1562163115",
+				"date": "2019-07-03T14:11:55.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1562163115",
+				"date": "2019-07-03T14:11:55.000Z",
+				"tz": "+0200"
+			},
+			"hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
+			"summary": "Add TSyringe for IoC"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 16,
+			"result": 7
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1562163115",
+				"date": "2019-07-03T14:11:55.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1562163115",
+				"date": "2019-07-03T14:11:55.000Z",
+				"tz": "+0200"
+			},
+			"hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
+			"summary": "Add TSyringe for IoC"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 23,
+			"result": 9
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1562163115",
+				"date": "2019-07-03T14:11:55.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1562163115",
+				"date": "2019-07-03T14:11:55.000Z",
+				"tz": "+0200"
+			},
+			"hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
+			"summary": "Add TSyringe for IoC"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 46,
+			"result": 36
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1562163115",
+				"date": "2019-07-03T14:11:55.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1562163115",
+				"date": "2019-07-03T14:11:55.000Z",
+				"tz": "+0200"
+			},
+			"hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
+			"summary": "Add TSyringe for IoC"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 47,
+			"result": 37
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1561587471",
+				"date": "2019-06-26T22:17:51.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1561588275",
+				"date": "2019-06-26T22:31:15.000Z",
+				"tz": "+0200"
+			},
+			"hash": "41b858cfcf019fa34597e14719c910fa1409ee66",
+			"summary": "Factory is now responsible for workspace knowledge"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 1,
+			"result": 1
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1561587471",
+				"date": "2019-06-26T22:17:51.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1561588275",
+				"date": "2019-06-26T22:31:15.000Z",
+				"tz": "+0200"
+			},
+			"hash": "41b858cfcf019fa34597e14719c910fa1409ee66",
+			"summary": "Factory is now responsible for workspace knowledge"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 4,
+			"result": 3
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1520550992",
+				"date": "2018-03-08T23:16:32.000Z",
+				"tz": "+0100"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1520550992",
+				"date": "2018-03-08T23:16:32.000Z",
+				"tz": "+0100"
+			},
+			"hash": "a8cb1e0ba4f8f03ab685bb51a1ac83cc299c020d",
+			"summary": "Adding TSLint and linting the whole project"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 47,
+			"result": 31
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
+			"summary": "2.0.0 - New blame engine and clearer logging"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 3,
+			"result": 2
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
+			"summary": "2.0.0 - New blame engine and clearer logging"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 40,
+			"result": 17
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
+			"summary": "2.0.0 - New blame engine and clearer logging"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 42,
+			"result": 25
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
+			"summary": "2.0.0 - New blame engine and clearer logging"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 43,
+			"result": 26
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
+			"summary": "2.0.0 - New blame engine and clearer logging"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 59,
+			"result": 32
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
+			"summary": "2.0.0 - New blame engine and clearer logging"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 70,
+			"result": 41
+		}
+	},
+	{
+		"commit": {
+			"author": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"committer": {
+				"mail": "<albin.jacobsson@gmail.com>",
+				"name": "Albin Jacobsson",
+				"isCurrentUser": false,
+				"timestamp": "1500502996",
+				"date": "2017-07-19T22:23:16.000Z",
+				"tz": "+0200"
+			},
+			"hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
+			"summary": "2.0.0 - New blame engine and clearer logging"
+		},
+		"filename": "src/git/stream.ts",
+		"line": {
+			"source": 176,
+			"result": 42
+		}
+	}
 ]

@@ -9,10 +9,8 @@ import {
 	window,
 	workspace,
 } from "vscode";
-
-import type { Commit } from "./git/util/stream-parsing.js";
-
 import { isUncommitted } from "./git/util/is-hash.js";
+import type { Commit } from "./git/util/stream-parsing.js";
 import { getActiveTextEditor } from "./util/get-active.js";
 import { Logger } from "./util/logger.js";
 import { getProperty } from "./util/property.js";

@@ -1,10 +1,8 @@
 import * as assert from "node:assert";
 import { type SinonFakeTimers, stub, useFakeTimers } from "sinon";
-
-import * as property from "../../src/util/property.js";
-
 import type { Commit } from "../../src/git/util/stream-parsing.js";
 import { between } from "../../src/util/ago.js";
+import * as property from "../../src/util/property.js";
 import {
 	type InfoTokenNormalizedCommitInfo,
 	type InfoTokens,

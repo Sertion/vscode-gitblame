@@ -1,5 +1,5 @@
-import { resolve } from "node:path";
 import { opendir } from "node:fs/promises";
+import { resolve } from "node:path";
 
 import * as Mocha from "mocha";
 

@@ -1,8 +1,5 @@
 import { URL } from "node:url";
 import { Uri } from "vscode";
-
-import type { LineAttachedCommit } from "./stream-parsing.js";
-
 import { isUrl } from "../../util/is-url.js";
 import { errorMessage } from "../../util/message.js";
 import { getProperty } from "../../util/property.js";
@@ -17,6 +14,7 @@ import {
 import { isUncommitted } from "./is-hash.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
+import type { LineAttachedCommit } from "./stream-parsing.js";
 import { stripGitRemoteUrl, stripGitSuffix } from "./strip-git-remote-url.js";
 
 export type ToolUrlTokens = {

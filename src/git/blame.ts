@@ -1,13 +1,11 @@
 import { type FSWatcher, promises, watch } from "node:fs";
-
-import type { LineAttachedCommit } from "./util/stream-parsing.js";
-
 import { type Disposable, workspace } from "vscode";
 import { Logger } from "../util/logger.js";
 import { getProperty } from "../util/property.js";
 import { type Blame, File } from "./file.js";
 import { Queue } from "./queue.js";
 import { getGitFolder } from "./util/git-command.js";
+import type { LineAttachedCommit } from "./util/stream-parsing.js";
 
 export class Blamer {
 	private readonly metadata = new WeakMap<

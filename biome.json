@@ -1,10 +1,7 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"includes": [
-			"src/**/*",
-			"test/**/*"
-		]
+		"includes": ["src/**/*", "test/**/*"]
 	},
 	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {

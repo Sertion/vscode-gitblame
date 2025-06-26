@@ -1,10 +1,8 @@
 import * as assert from "node:assert";
 import { match, stub } from "sinon";
 import { Uri } from "vscode";
-
-import type { LineAttachedCommit } from "../../src/git/util/stream-parsing.js";
-
 import { generateUrlTokens } from "../../src/git/util/get-tool-url.js";
+import type { LineAttachedCommit } from "../../src/git/util/stream-parsing.js";
 import * as execcommand from "../../src/util/execute.js";
 import * as getActive from "../../src/util/get-active.js";
 import * as property from "../../src/util/property.js";
