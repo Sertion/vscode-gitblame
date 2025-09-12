@@ -6,7 +6,7 @@
   "publisher": "waderyan",
   "engines": {
     "vscode": ">=1.91.0",
-    "node": ">=20.9.0"
+    "node": ">=22.9.0"
   },
   "categories": [
     "Other"
@@ -38,17 +38,17 @@
     "test": "npm run pretest && node ./out/test/run-test.js"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.5",
+    "@biomejs/biome": "2.2.4",
     "@types/mocha": "10.0.10",
-    "@types/node": "20.14.6",
+    "@types/node": "22.9.0",
     "@types/sinon": "17.0.4",
     "@types/sinonjs__fake-timers": "8.1.5",
     "@types/vscode": "1.91.0",
     "@vscode/test-electron": "2.5.2",
-    "esbuild": "0.25.5",
+    "esbuild": "0.25.9",
     "mocha": "11.7.1.0",
     "sinon": "21.0.0",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
   "bugs": {
