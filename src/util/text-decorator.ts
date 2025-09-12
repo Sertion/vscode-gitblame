@@ -36,7 +36,9 @@ export const normalizeCommitInfoTokens = ({
 	summary,
 }: Commit): InfoTokenNormalizedCommitInfo => {
 	const now = new Date();
-	const toIso = ({ date }: CommitAuthor) => date.toISOString().slice(0, 10);
+	// sv-SE is close enough to ISO8601
+	const toIso = ({ date }: CommitAuthor) =>
+		new Intl.DateTimeFormat("sv-SE", { dateStyle: "short" }).format(date);
 
 	const ago = between(now, author.date);
 	const cAgo = between(now, committer.date);
