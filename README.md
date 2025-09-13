@@ -42,7 +42,7 @@ Available tokens:
 * `${gitorigin.path,n}` - the nth part of the git origin path (e.g. if the git origin is `https://github.com/ckb-next/ckb-next.git` `${gitorigin.path,1}` will return `ckb-next.git`)
 * `${gitorigin.port}` - the git origin port (if it uses http/https) including prefixed `:`
 * `${tool.protocol}` - `http:` or `https:`
-* `${tool.commitpath}` - `/commit/` or `/commits`
+* `${tool.commitpath}` - `/commit/` or `/commits/`
 
 ### `gitblame.pluralWebPathSubstrings`
 > Type: `string[]`
