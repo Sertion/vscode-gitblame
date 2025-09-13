@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.2.0 (Septepmber 13, 2025)
+* Bug: `author.date` and `committer.date` now show the correct date in all time zones. Thanks to [Viktor Stenqvist](https://github.com/Yottster)!
+* Feature: Adding setting to enable `gitblame.extendedHoverInformation` for inline, status bar, or both.
+ * When enabled it shows extended information about the commit (summary, time, author, committer [if different form author])
+* Fix: Updating dependencies
+
 ## 11.1.4 (June 25, 2025)
 * Bug: Extension causes high cpu load [#191](https://github.com/Sertion/vscode-gitblame/pull/191). Thanks to [Martin-vH](https://github.com/Martin-vH) and [NaterGator](https://github.com/NaterGator)!
 * Fix: Updating dependencies
