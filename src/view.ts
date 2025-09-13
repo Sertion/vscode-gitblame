@@ -1,10 +1,10 @@
 import {
 	type Disposable,
+	MarkdownString,
 	Position,
 	Range,
 	StatusBarAlignment,
 	type StatusBarItem,
-	type TextEditorDecorationType,
 	ThemeColor,
 	window,
 	workspace,
@@ -24,19 +24,18 @@ const MESSAGE_NO_INFO = "No info about the current line";
 
 export class StatusBarView {
 	private statusBar: StatusBarItem;
-	private readonly decorationType: TextEditorDecorationType;
+	private readonly decorationType = window.createTextEditorDecorationType({});
 	private readonly configChange: Disposable;
 	private readonly ongoingViewUpdateRejects: Set<() => void> = new Set();
 
 	private statusBarText = "";
-	private statusBarTooltip = "";
+	private statusBarTooltip: MarkdownString = new MarkdownString();
 	private statusBarCommand = false;
-	private statusBarPriority: number | undefined = undefined;
+	private statusBarPriority: number | undefined = getProperty(
+		"statusBarPositionPriority",
+	);
 
 	constructor() {
-		this.decorationType = window.createTextEditorDecorationType({});
-		this.statusBarPriority = getProperty("statusBarPositionPriority");
-
 		this.statusBar = this.createStatusBarItem();
 		this.configChange = workspace.onDidChangeConfiguration((e) => {
 			if (e.affectsConfiguration("gitblame")) {
@@ -57,9 +56,8 @@ export class StatusBarView {
 		if (!commit) {
 			this.clear();
 		} else if (isUncommitted(commit)) {
-			this.text(
+			this.updateTextNoCommand(
 				getProperty("statusBarMessageNoCommit"),
-				false,
 				MESSAGE_NO_INFO,
 			);
 			if (editor) {
@@ -70,31 +68,29 @@ export class StatusBarView {
 				);
 			}
 		} else {
-			this.text(toStatusBarTextView(commit), true);
+			this.text(commit);
 			if (editor) {
-				void this.createLineDecoration(
-					toInlineTextView(commit),
-					editor,
-					useDelay,
-				);
+				void this.createLineDecoration(commit, editor, useDelay);
 			}
 		}
 	}
 
 	public clear(): void {
-		this.text("", false, MESSAGE_NO_INFO);
+		this.updateTextNoCommand("", MESSAGE_NO_INFO);
 		this.removeLineDecoration();
 	}
 
 	public activity(): void {
-		this.text("$(extensions-refresh)", false, "Waiting for git blame response");
+		this.updateTextNoCommand(
+			"$(extensions-refresh)",
+			"Waiting for git blame response",
+		);
 	}
 
 	public fileToLong(): void {
 		const maxLineCount = getProperty("maxLineCount");
-		this.text(
+		this.updateTextNoCommand(
 			"",
-			false,
 			`No blame information is available. File has more than ${maxLineCount} lines`,
 		);
 	}
@@ -122,18 +118,66 @@ export class StatusBarView {
 		Logger.debug(
 			"Updating status bar item with: Text:'%s', tooltip:'git blame%s', command:%s",
 			statusBar.text,
-			statusBar.tooltip,
+			statusBar.tooltip.value,
 			statusBar.command ?? "",
 		);
 	}
 
-	private text(text: string, command: boolean, tooltip = ""): void {
-		const suffix = command || !tooltip ? "" : ` - ${tooltip}`;
-		this.statusBarText = `$(git-commit) ${text.trimEnd()}`;
-		this.statusBarTooltip = `git blame${suffix}`;
-		this.statusBarCommand = command;
+	private text(commit: Commit): void {
+		this.statusBarCommand = true;
+		this.statusBarText = `$(git-commit) ${toStatusBarTextView(commit)}`;
+		this.statusBarTooltip = this.generateFancyTooltip(commit, "status");
 
 		this.updateStatusBar(this.statusBar);
+	}
+
+	private updateTextNoCommand(text: string, tooltip: string): void {
+		this.statusBarCommand = false;
+		this.statusBarTooltip = new MarkdownString();
+		this.statusBarText = `$(git-commit) ${text.trimEnd()}`;
+		this.statusBarTooltip.appendText(`git blame - ${tooltip}`);
+
+		this.updateStatusBar(this.statusBar);
+	}
+
+	private generateFancyTooltip(
+		commit: Commit,
+		from: "inline" | "status",
+	): MarkdownString {
+		const fancyToolTip = new MarkdownString();
+
+		if (!getProperty("extendedHoverInformation")?.includes(from)) {
+			fancyToolTip.appendText("git blame");
+			return fancyToolTip;
+		}
+
+		fancyToolTip.isTrusted = true;
+		fancyToolTip.supportHtml = true;
+		fancyToolTip.appendMarkdown("__git blame__<br>");
+		fancyToolTip.appendMarkdown(
+			`__Summary:__ ${commit.summary.replaceAll("<", "&lt;")}<br>`,
+		);
+
+		// sv-SE is close enough to ISO8601
+		fancyToolTip.appendMarkdown(
+			`__Time:__ ${new Intl.DateTimeFormat("sv-SE", { dateStyle: "short", timeStyle: "medium" }).format(commit.author.date)}<br>`,
+		);
+
+		const currentUserAlias = getProperty("currentUserAlias");
+
+		if (currentUserAlias && commit.author.isCurrentUser) {
+			fancyToolTip.appendMarkdown(`__Author:__ ${currentUserAlias}<br>`);
+		} else {
+			fancyToolTip.appendMarkdown(`__Author:__ ${commit.author.name}<br>`);
+		}
+
+		if (commit.author.name !== commit.committer.name) {
+			fancyToolTip.appendMarkdown(
+				`__Committer:__ ${commit.committer.name}<br>`,
+			);
+		}
+
+		return fancyToolTip;
 	}
 
 	private createStatusBarItem(): StatusBarItem {
@@ -143,6 +187,7 @@ export class StatusBarView {
 			StatusBarAlignment.Right,
 			this.statusBarPriority,
 		);
+		statusBar.name = "Git blame information";
 
 		this.updateStatusBar(statusBar);
 
@@ -152,7 +197,7 @@ export class StatusBarView {
 	}
 
 	private async createLineDecoration(
-		text: string,
+		text: string | Commit,
 		editor: PartialTextEditor,
 		useDelay: boolean,
 	): Promise<void> {
@@ -168,11 +213,18 @@ export class StatusBarView {
 				editor.selection.active.line,
 				Number.MAX_SAFE_INTEGER,
 			);
+			const hoverMessage =
+				typeof text === "string"
+					? undefined
+					: this.generateFancyTooltip(text, "inline");
+
 			editor.setDecorations?.(this.decorationType, [
 				{
+					hoverMessage,
 					renderOptions: {
 						after: {
-							contentText: text,
+							contentText:
+								typeof text === "string" ? text : toInlineTextView(text),
 							margin: `0 0 0 ${margin}rem`,
 							color: new ThemeColor("gitblame.inlineMessage"),
 						},

@@ -23,6 +23,7 @@ export type PropertiesMap = {
 	parallelBlames: number;
 	maxLineCount: number;
 	revsFile: string[];
+	extendedHoverInformation: "off" | "inline-status" | "inline" | "status";
 };
 
 // getConfiguration has an unfortunate typing that does not

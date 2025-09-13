@@ -215,6 +215,28 @@
           "type": "array",
           "default": [],
           "markdownDescription": "List of refs-file names to look for relative to the closest `.git`-folder. The first file in the list that is accessible will be used with the `-S`-argument in `git blame`."
+        },
+        "gitblame.extendedHoverInformation": {
+          "type": "string",
+          "default": "off",
+          "enum": [
+            "off",
+            "inline-status",
+            "inline",
+            "status"
+          ],
+          "enumItemLabels": [
+            "Disable",
+            "Inline and status bar",
+            "Only inline",
+            "Only status bar"
+          ],
+          "enumDescriptions": [
+            "Do not show extended hover information",
+            "Show extended hover information for both inline and status bar",
+            "Show extended hover information only for inline view",
+            "Show extended hover information only for the status bar item"
+          ]
         }
       }
     }

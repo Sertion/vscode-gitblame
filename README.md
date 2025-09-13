@@ -135,6 +135,19 @@ This setting adds a delay (in milliseconds) before the blame is displayed
 
 Limit how many git blame processes the extension can run in parallel. This can help with high CPU usage.
 
+### `gitblame.extendedHoverInformation`
+> Type: `string`
+
+> Default value: `"off"`
+
+When and where to show extended hover information.
+
+Availiable values:
+* `"off"`
+* `"inline-status"`
+* `"inline"`
+* `"status"`
+
 ### `gitblame.revsFile`
 > Type: `string[]`
 
