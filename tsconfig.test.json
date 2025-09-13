@@ -1,14 +1,8 @@
 {
+    "extends": "./tsconfig.json",
     "compilerOptions": {
         "module": "CommonJS",
-        "moduleResolution": "node",
-        "target": "es2020",
-        "strict": true,
         "outDir": "./out",
-        "lib": [
-            "ES2020",
-            "ESNext.Intl"
-        ],
         "sourceMap": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
@@ -17,7 +11,4 @@
         "src/index.ts",
         "test/**/*"
     ],
-    "exclude": [
-        "node_modules"
-    ]
 }

@@ -4,8 +4,9 @@
         "moduleResolution": "node",
         "target": "ES2022",
         "lib": [
-            "ES2020",
-            "ES2022",
+            "es2020",
+            "es2021",
+            "es2022",
             "ESNext.Intl"
         ],
         "strict": true,
