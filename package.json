@@ -38,17 +38,17 @@
     "test": "npm run pretest && node ./out/test/run-test.js"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.4",
+    "@biomejs/biome": "2.3.8",
     "@types/mocha": "10.0.10",
     "@types/node": "22.9.0",
-    "@types/sinon": "17.0.4",
-    "@types/sinonjs__fake-timers": "8.1.5",
+    "@types/sinon": "21.0.0",
+    "@types/sinonjs__fake-timers": "15.0.1",
     "@types/vscode": "1.91.0",
     "@vscode/test-electron": "2.5.2",
-    "esbuild": "0.25.9",
+    "esbuild": "0.27.0",
     "mocha": "11.7.1.0",
     "sinon": "21.0.0",
-    "typescript": "5.9.2"
+    "typescript": "5.9.3"
   },
   "homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
   "bugs": {
