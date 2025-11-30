@@ -4,7 +4,10 @@ export const stripGitSuffix = (rawUrl: string): string =>
 export const stripGitRemoteUrl = (rawUrl: string): string =>
 	// Remove .git-suffix
 	stripGitSuffix(rawUrl)
-		// Remove protocol, username and/or password
-		.replace(/^([a-z-]+:\/\/)?([\w%:\\]+?@)?/i, "")
-		// Convert hostname:path to hostname/path
-		.replace(/:([a-z_.~+%-][a-z0-9_.~+%-]+)\/?/i, "/$1/");
+		// Remove protocol
+		.replace(/^[a-z][a-z0-9+.-]*:\/\//i, "")
+		// Remove username and password
+		.replace(/^[^@]+@/, "")
+		// hostname[:port]:path to hostname[:port]/path
+		.replace(/^([^/:]+):(?=\D)/, "$1/")
+		.replace(/\/$/, "");
