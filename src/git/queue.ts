@@ -5,7 +5,13 @@ export class Queue<
 	QueueFunction extends () => Promise<ReturnValue> = () => Promise<ReturnValue>,
 > {
 	private readonly list: QueueFunction[] = [];
-	private readonly storage = new Map<QueueFunction, (r: ReturnValue) => void>();
+	private readonly storage = new Map<
+		QueueFunction,
+		{
+			resolve: (r: ReturnValue) => void;
+			reject: () => void;
+		}
+	>();
 	private readonly processing = new Set<QueueFunction>();
 	private _maxParallel?: number;
 
@@ -14,8 +20,8 @@ export class Queue<
 	}
 
 	public add(toQueue: QueueFunction): Promise<ReturnValue> {
-		return new Promise<ReturnValue>((resolve) => {
-			this.storage.set(toQueue, resolve);
+		return new Promise<ReturnValue>((resolve, reject) => {
+			this.storage.set(toQueue, { resolve, reject });
 			if (this.processing.size < this.maxParallel) {
 				this.startFunction(toQueue);
 			} else {
@@ -48,11 +54,11 @@ export class Queue<
 
 	private startFunction(func: QueueFunction): void {
 		this.processing.add(func);
-		const resolve = this.storage.get(func);
+		const handlers = this.storage.get(func);
 		this.storage.delete(func);
-		if (resolve) {
+		if (handlers) {
 			func()
-				.then(resolve)
+				.then(handlers.resolve, handlers.reject)
 				.finally(() => {
 					this.processing.delete(func);
 					this.runNext();
