@@ -4,6 +4,7 @@ import {
 	Disposable,
 	env,
 	type MessageItem,
+	type TextDocument,
 	type TextEditor,
 	ThemeIcon,
 	window,
@@ -20,7 +21,11 @@ import {
 	normalizeCommitInfoTokens,
 	parseTokens,
 } from "../util/text-decorator.js";
-import { type Document, validEditor } from "../util/valid-editor.js";
+import {
+	type Document,
+	type PartialTextEditor,
+	validEditor,
+} from "../util/valid-editor.js";
 import { StatusBarView } from "../view.js";
 import { Blamer } from "./blame.js";
 import { HeadWatch } from "./head-watch.js";
@@ -49,14 +54,15 @@ export class Extension {
 	public async blameLink(): Promise<void> {
 		const lineAware = await this.commit(true);
 		if (lineAware === undefined) {
+			await errorMessage("No commit to copy link from");
 			return;
 		}
 		const toolUrl = await getToolUrl(lineAware);
 
 		if (toolUrl) {
-			commands.executeCommand("vscode.open", toolUrl);
+			await commands.executeCommand("vscode.open", toolUrl);
 		} else {
-			errorMessage("Empty gitblame.commitUrl");
+			await errorMessage("Empty gitblame.commitUrl");
 		}
 	}
 
@@ -65,6 +71,7 @@ export class Extension {
 
 		if (!lineAware || isUncommitted(lineAware.commit)) {
 			this.view.clear();
+			await errorMessage("No commit to show");
 			return;
 		}
 
@@ -73,10 +80,10 @@ export class Extension {
 			normalizeCommitInfoTokens(lineAware.commit),
 		);
 		const toolUrl = await getToolUrl(lineAware);
-		const action: ActionableMessageItem[] = [];
+		const actions: ActionableMessageItem[] = [];
 
 		if (toolUrl) {
-			action.push({
+			actions.push({
 				title: "Online",
 				action() {
 					commands.executeCommand("vscode.open", toolUrl);
@@ -84,14 +91,14 @@ export class Extension {
 			});
 		}
 
-		action.push({
+		actions.push({
 			title: "Terminal",
 			action: () => this.runGitShow(),
 		});
 
 		this.view.set(lineAware.commit, getActiveTextEditor());
 
-		(await infoMessage(message, action))?.action();
+		(await infoMessage(message, actions))?.action();
 	}
 
 	public async copyHash(): Promise<void> {
@@ -99,22 +106,25 @@ export class Extension {
 
 		if (lineAware && !isUncommitted(lineAware.commit)) {
 			await env.clipboard.writeText(lineAware.commit.hash);
-			infoMessage("Copied hash");
+			await infoMessage("Copied hash");
+		} else {
+			await errorMessage("No commit to copy hash from");
 		}
 	}
 
 	public async copyToolUrl(): Promise<void> {
 		const lineAware = await this.commit(true);
 		if (lineAware === undefined) {
+			await errorMessage("No commit to copy link from");
 			return;
 		}
 		const toolUrl = await getToolUrl(lineAware);
 
 		if (toolUrl) {
 			await env.clipboard.writeText(toolUrl.toString());
-			infoMessage("Copied tool URL");
+			await infoMessage("Copied tool URL");
 		} else {
-			errorMessage("gitblame.commitUrl config empty");
+			await errorMessage("gitblame.commitUrl config empty");
 		}
 	}
 
@@ -132,7 +142,7 @@ export class Extension {
 		const { hash } = currentLine.commit;
 
 		// Only ever allow HEAD or a git hash
-		if (!isHash(hash, true)) {
+		if (hash !== "HEAD" && !isHash(hash)) {
 			return;
 		}
 
@@ -148,25 +158,19 @@ export class Extension {
 	}
 
 	public async updateView(
-		textEditor = getActiveTextEditor(),
+		editor = getActiveTextEditor(),
 		useDelay = true,
 	): Promise<void> {
-		if (!this.view.preUpdate(textEditor)) {
+		if (!this.view.preUpdate(editor)) {
 			return;
 		}
 
-		if (textEditor.document.lineCount > getProperty("maxLineCount")) {
-			this.view.fileToLong();
+		if (this.isFileMaxLineCount(editor.document)) {
 			return;
 		}
 
-		this.headWatcher.addFile(textEditor.document.fileName);
-
-		const before = getFilePosition(textEditor);
-		const lineAware = await this.blame.getLine(
-			textEditor.document.fileName,
-			textEditor.selection.active.line,
-		);
+		const before = getFilePosition(editor);
+		const line = await this.getLine(editor);
 
 		const textEditorAfter = getActiveTextEditor();
 		if (!validEditor(textEditorAfter)) {
@@ -177,7 +181,7 @@ export class Extension {
 		// Only update if we haven't moved since we started blaming
 		// or if we no longer have focus on any file
 		if (before === after || after === NO_FILE_OR_PLACE) {
-			this.view.set(lineAware?.commit, textEditor, useDelay);
+			this.view.set(line?.commit, textEditorAfter, useDelay);
 		}
 	}
 
@@ -213,8 +217,10 @@ export class Extension {
 			window.onDidChangeTextEditorSelection(({ textEditor }) => {
 				changeTextEditorSelection(textEditor);
 			}),
-			workspace.onDidSaveTextDocument((): void => {
-				this.updateView();
+			workspace.onDidSaveTextDocument((document: TextDocument): void => {
+				if (getActiveTextEditor()?.document === document) {
+					this.updateView();
+				}
 			}),
 			workspace.onDidCloseTextDocument((document: Document): void => {
 				this.blame.remove(document.fileName);
@@ -229,39 +235,52 @@ export class Extension {
 	}
 
 	private async commit(
-		noVisibleActivity: boolean,
+		hideActivity: boolean,
 	): Promise<LineAttachedCommit | undefined> {
 		const editor = getActiveTextEditor();
 
 		if (!validEditor(editor)) {
-			errorMessage(
+			void errorMessage(
 				"Unable to blame current line. Active view is not a file on disk.",
 			);
 			return;
 		}
 
-		if (editor.document.lineCount > getProperty("maxLineCount")) {
-			errorMessage("Git Blame is disabled for the current file");
-			this.view.fileToLong();
+		if (this.isFileMaxLineCount(editor.document)) {
+			void errorMessage("Git Blame is disabled for the current file");
 			return;
 		}
 
-		if (!noVisibleActivity) {
+		if (!hideActivity) {
 			this.view.activity();
 		}
 
-		this.headWatcher.addFile(editor.document.fileName);
-		const line = await this.blame.getLine(
-			editor.document.fileName,
-			editor.selection.active.line,
-		);
+		const line = await this.getLine(editor);
 
 		if (!line) {
-			errorMessage(
+			void errorMessage(
 				"Unable to blame current line. Unable to get blame information for line.",
 			);
 		}
 
 		return line;
+	}
+
+	private isFileMaxLineCount(document: Document): boolean {
+		if (document.lineCount > getProperty("maxLineCount")) {
+			this.view.fileTooLong();
+			return true;
+		}
+		return false;
+	}
+
+	private async getLine(
+		editor: PartialTextEditor,
+	): Promise<LineAttachedCommit | undefined> {
+		this.headWatcher.addFile(editor.document.fileName);
+		return await this.blame.getLine(
+			editor.document.fileName,
+			editor.selection.active.line,
+		);
 	}
 }

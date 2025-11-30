@@ -17,12 +17,12 @@ export type Commit = {
 	summary: string;
 };
 
-export type FileAttachedCommit<T = Commit> = {
+type FileAttachedCommit<T = Commit> = {
 	commit: T;
 	filename: string;
 };
 
-export type Line = {
+type Line = {
 	source: number;
 	result: number;
 };
@@ -185,13 +185,15 @@ export async function* processChunk(
 			coverageGenerator = processCoverage(value);
 		}
 
-		if (commitLocation) {
-			if (key === "filename") {
-				commitLocation.filename = value;
-				yield* commitFilter(commitLocation, coverageGenerator, commitRegistry);
-			} else {
-				processLine(key, value, commitLocation.commit, currentUserEmail);
-			}
+		if (!commitLocation) {
+			continue;
+		}
+
+		if (key === "filename") {
+			commitLocation.filename = value;
+			yield* commitFilter(commitLocation, coverageGenerator, commitRegistry);
+		} else {
+			processLine(key, value, commitLocation.commit, currentUserEmail);
 		}
 	}
 

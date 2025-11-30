@@ -72,6 +72,6 @@ export class HeadWatch {
 			return "";
 		}
 
-		return path[0].toLowerCase() + path.substr(1);
+		return path[0].toLowerCase() + path.slice(1);
 	}
 }

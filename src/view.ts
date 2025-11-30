@@ -87,7 +87,7 @@ export class StatusBarView {
 		);
 	}
 
-	public fileToLong(): void {
+	public fileTooLong(): void {
 		const maxLineCount = getProperty("maxLineCount");
 		this.updateTextNoCommand(
 			"",
@@ -96,7 +96,7 @@ export class StatusBarView {
 	}
 
 	public dispose(): void {
-		this.statusBar?.dispose();
+		this.statusBar.dispose();
 		this.decorationType.dispose();
 		this.configChange.dispose();
 	}
@@ -261,7 +261,10 @@ export class StatusBarView {
 			try {
 				return await new Promise((resolve, reject) => {
 					this.ongoingViewUpdateRejects.add(reject);
-					setTimeout(() => resolve(true), delay);
+					setTimeout(() => {
+						this.ongoingViewUpdateRejects.delete(reject);
+						resolve(true);
+					}, delay);
 				});
 			} catch {
 				return false;

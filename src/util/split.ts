@@ -5,5 +5,5 @@ export const split = (target: string, char = " "): [string, string] => {
 		return [target, ""];
 	}
 
-	return [target.substr(0, index), target.substr(index + 1).trim()];
+	return [target.slice(0, index), target.slice(index + 1).trim()];
 };

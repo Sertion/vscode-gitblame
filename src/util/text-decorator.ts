@@ -45,7 +45,7 @@ export const normalizeCommitInfoTokens = ({
 	const shortness =
 		(target: string, fallbackLength: string) =>
 		(length = ""): string => {
-			return target.substr(0, Number.parseInt(length || fallbackLength, 10));
+			return target.slice(0, Number.parseInt(length || fallbackLength, 10));
 		};
 	const currentUserAlias = getProperty("currentUserAlias");
 
