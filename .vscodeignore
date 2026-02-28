@@ -1,19 +1,9 @@
-.github/**
-.vscode/**
-test/**
-src/**
-types/**
-out/**
+**/*
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
 !out/src/index.js
-**/*.map
-.gitignore
-.eslintrc
-.eslintignore
-CHANGELOG OLD.md
-esbuild.mjs
-tsconfig.json
-tsconfig.test.json
-package-lock.json
-node_modules
-rollup.config.js
-**/preview.png
+!images/git_icon.png
+!out/src/extension-*.js
+!out/src/chunk-*.js

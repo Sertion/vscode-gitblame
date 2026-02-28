@@ -1,17 +1,17 @@
 import { type FSWatcher, promises, watch } from "node:fs";
 import { type Disposable, workspace } from "vscode";
-import { Logger } from "../util/logger.js";
-import { getProperty } from "../util/property.js";
-import { type Blame, File } from "./file.js";
-import { Queue } from "./queue.js";
-import { getGitFolder } from "./util/git-command.js";
-import type { LineAttachedCommit } from "./util/stream-parsing.js";
+import { type Blame, BlamedFile } from "./blamed-file.js";
+import { getGitFolder } from "./git/command/getGitFolder.js";
+import { Queue } from "./git/queue.js";
+import type { LineAttachedCommit } from "./git/stream-parsing.js";
+import { Logger } from "./logger.js";
+import { getProperty } from "./property.js";
 
 export class Blamer {
 	private readonly metadata = new WeakMap<
 		Promise<Blame | undefined>,
 		| {
-				file: File;
+				file: BlamedFile;
 				gitRoot: string;
 		  }
 		| undefined
@@ -119,7 +119,8 @@ export class Blamer {
 	private async create(
 		fileName: string,
 	): Promise<
-		{ gitRoot: string; file: File } | { gitRoot: undefined; file: undefined }
+		| { gitRoot: string; file: BlamedFile }
+		| { gitRoot: undefined; file: undefined }
 	> {
 		try {
 			await promises.access(fileName);
@@ -128,7 +129,7 @@ export class Blamer {
 			if (gitRoot) {
 				return {
 					gitRoot: gitRoot,
-					file: new File(fileName),
+					file: new BlamedFile(fileName),
 				};
 			}
 		} catch {

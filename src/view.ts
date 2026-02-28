@@ -9,16 +9,16 @@ import {
 	window,
 	workspace,
 } from "vscode";
-import { isUncommitted } from "./git/util/is-hash.js";
-import type { Commit } from "./git/util/stream-parsing.js";
-import { getActiveTextEditor } from "./util/get-active.js";
-import { Logger } from "./util/logger.js";
-import { getProperty } from "./util/property.js";
+import { getActiveTextEditor } from "./get-active.js";
+import { isUncommitted } from "./git/is-hash.js";
+import type { Commit } from "./git/stream-parsing.js";
+import { Logger } from "./logger.js";
+import { getProperty } from "./property.js";
 import {
 	toInlineTextView,
 	toStatusBarTextView,
-} from "./util/text-decorator.js";
-import { type PartialTextEditor, validEditor } from "./util/valid-editor.js";
+} from "./string-stuff/text-decorator.js";
+import { type PartialTextEditor, validEditor } from "./valid-editor.js";
 
 const MESSAGE_NO_INFO = "No info about the current line";
 

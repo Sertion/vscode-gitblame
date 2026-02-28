@@ -1,8 +1,8 @@
 import * as assert from "node:assert";
 import { stub } from "sinon";
 
-import { originUrlToToolUrl } from "../../src/git/util/origin-url-to-tool-url.js";
-import * as prop from "../../src/util/property.js";
+import { originUrlToToolUrl } from "../../src/git/origin-url-to-tool-url.js";
+import * as prop from "../../src/property.js";
 
 suite("Web URL formatting", (): void => {
 	test("https://", (): void => {

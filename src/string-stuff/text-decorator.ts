@@ -1,6 +1,6 @@
-import type { Commit, CommitAuthor } from "../git/util/stream-parsing.js";
-import { between } from "./ago.js";
-import { getProperty } from "./property.js";
+import { between } from "../ago.js";
+import type { Commit, CommitAuthor } from "../git/stream-parsing.js";
+import { getProperty } from "../property.js";
 
 type InfoTokenFunctionWithParameter = (value?: string) => string;
 type InfoTokenFunction = InfoTokenFunctionWithParameter | string;

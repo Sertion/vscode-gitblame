@@ -1,5 +1,5 @@
 import * as assert from "node:assert";
-import { split } from "../../src/util/split.js";
+import { split } from "../../src/string-stuff/split.js";
 
 suite("Split", (): void => {
 	test("Single Space", (): void => {

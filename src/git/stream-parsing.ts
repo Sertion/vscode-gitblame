@@ -1,4 +1,4 @@
-import { split } from "../../util/split.js";
+import { split } from "../string-stuff/split.js";
 import { isHash } from "./is-hash.js";
 
 export type CommitAuthor = {

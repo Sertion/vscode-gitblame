@@ -1,14 +1,14 @@
 import * as assert from "node:assert";
 import { type SinonFakeTimers, stub, useFakeTimers } from "sinon";
-import type { Commit } from "../../src/git/util/stream-parsing.js";
-import { between } from "../../src/util/ago.js";
-import * as property from "../../src/util/property.js";
+import { between } from "../../src/ago.js";
+import type { Commit } from "../../src/git/stream-parsing.js";
+import * as property from "../../src/property.js";
 import {
 	type InfoTokenNormalizedCommitInfo,
 	type InfoTokens,
 	normalizeCommitInfoTokens,
 	parseTokens,
-} from "../../src/util/text-decorator.js";
+} from "../../src/string-stuff/text-decorator.js";
 
 suite("Date Calculations", (): void => {
 	test("Time ago in years", (): void => {

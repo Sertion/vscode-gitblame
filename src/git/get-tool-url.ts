@@ -1,16 +1,17 @@
 import { URL } from "node:url";
 import { Uri } from "vscode";
-import { isUrl } from "../../util/is-url.js";
-import { errorMessage } from "../../util/message.js";
-import { getProperty } from "../../util/property.js";
-import { split } from "../../util/split.js";
-import { type InfoTokens, parseTokens } from "../../util/text-decorator.js";
+import { errorMessage } from "../message.js";
+import { getProperty } from "../property.js";
+import { isUrl } from "../string-stuff/is-url.js";
+import { split } from "../string-stuff/split.js";
 import {
-	getActiveFileOrigin,
-	getDefaultBranch,
-	getRelativePathOfActiveFile,
-	getRemoteUrl,
-} from "./git-command.js";
+	type InfoTokens,
+	parseTokens,
+} from "../string-stuff/text-decorator.js";
+import { getActiveFileOrigin } from "./command/getActiveFileOrigin.js";
+import { getDefaultBranch } from "./command/getDefaultBranch.js";
+import { getRelativePathOfActiveFile } from "./command/getRelativePathOfActiveFile.js";
+import { getRemoteUrl } from "./command/getRemoteUrl.js";
 import { isUncommitted } from "./is-hash.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
@@ -48,6 +49,9 @@ const gitOriginHostname = ({
 	};
 };
 
+/**
+ * @internal
+ */
 export const gitRemotePath = (
 	remote: string,
 ): string | ((index?: string) => string) => {
@@ -80,6 +84,9 @@ const isToolUrlPlural = (origin: string): boolean =>
 		origin.includes(substring),
 	);
 
+/**
+ * @internal
+ */
 export const generateUrlTokens = async (
 	lineAware: LineAttachedCommit,
 ): Promise<ToolUrlTokens | undefined> => {
@@ -115,9 +122,9 @@ export const generateUrlTokens = async (
 	};
 };
 
-export const getToolUrl = async (
+export async function getToolUrl(
 	commit?: LineAttachedCommit,
-): Promise<Uri | undefined> => {
+): Promise<Uri | undefined> {
 	if (!commit || isUncommitted(commit.commit)) {
 		return;
 	}
@@ -138,4 +145,4 @@ export const getToolUrl = async (
 			"commitUrl",
 		)}'`,
 	);
-};
+}

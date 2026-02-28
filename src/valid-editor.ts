@@ -8,8 +8,8 @@ export type Document = Pick<
 	TextDocument,
 	"uri" | "isUntitled" | "fileName" | "lineCount"
 >;
-export type Position = Pick<FullPosition, "line">;
-export type PartialSelection = {
+type Position = Pick<FullPosition, "line">;
+type PartialSelection = {
 	active: Position;
 };
 export type PartialTextEditor = {

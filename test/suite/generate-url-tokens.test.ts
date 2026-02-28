@@ -1,12 +1,12 @@
 import * as assert from "node:assert";
 import { match, stub } from "sinon";
 import { Uri } from "vscode";
-import { generateUrlTokens } from "../../src/git/util/get-tool-url.js";
-import type { LineAttachedCommit } from "../../src/git/util/stream-parsing.js";
-import * as execcommand from "../../src/util/execute.js";
-import * as getActive from "../../src/util/get-active.js";
-import * as property from "../../src/util/property.js";
-import { parseTokens } from "../../src/util/text-decorator.js";
+import * as getActive from "../../src/get-active.js";
+import * as execcommand from "../../src/git/command/execute.js";
+import { generateUrlTokens } from "../../src/git/get-tool-url.js";
+import type { LineAttachedCommit } from "../../src/git/stream-parsing.js";
+import * as property from "../../src/property.js";
+import { parseTokens } from "../../src/string-stuff/text-decorator.js";
 
 suite("Generate URL Tokens", () => {
 	const call = (

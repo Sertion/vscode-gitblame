@@ -1,34 +1,23 @@
 import { commands, type Disposable, type ExtensionContext } from "vscode";
 
-import { Extension } from "./git/extension.js";
-import { Logger } from "./util/logger.js";
+import { Logger } from "./logger.js";
 
 const registerCommand = (name: string, callback: () => void): Disposable => {
 	return commands.registerCommand(`gitblame.${name}`, callback);
 };
 
-export const activate = (context: ExtensionContext): void => {
-	const app = new Extension();
+export async function activate(context: ExtensionContext): Promise<void> {
+	const app = new (await import("./extension.js")).Extension();
 
 	context.subscriptions.push(
 		app,
 		Logger.getInstance(),
-		registerCommand("quickInfo", () => {
-			app.showMessage();
-		}),
-		registerCommand("online", () => {
-			app.blameLink();
-		}),
-		registerCommand("addCommitHashToClipboard", () => {
-			app.copyHash();
-		}),
-		registerCommand("addToolUrlToClipboard", () => {
-			app.copyToolUrl();
-		}),
-		registerCommand("gitShow", () => {
-			app.runGitShow();
-		}),
+		registerCommand("quickInfo", () => void app.showMessage()),
+		registerCommand("online", () => void app.blameLink()),
+		registerCommand("addCommitHashToClipboard", () => void app.copyHash()),
+		registerCommand("addToolUrlToClipboard", () => void app.copyToolUrl()),
+		registerCommand("gitShow", () => void app.runGitShow()),
 	);
 
 	app.updateView();
-};
+}

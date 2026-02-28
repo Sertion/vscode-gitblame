@@ -10,28 +10,28 @@ import {
 	window,
 	workspace,
 } from "vscode";
+import { Blamer } from "./blame.js";
 import {
 	getActiveTextEditor,
 	getFilePosition,
 	NO_FILE_OR_PLACE,
-} from "../util/get-active.js";
-import { errorMessage, infoMessage } from "../util/message.js";
-import { getProperty } from "../util/property.js";
+} from "./get-active.js";
+import { getToolUrl } from "./git/get-tool-url.js";
+import { HeadWatch } from "./git/head-watch.js";
+import { isHash, isUncommitted } from "./git/is-hash.js";
+import type { LineAttachedCommit } from "./git/stream-parsing.js";
+import { errorMessage, infoMessage } from "./message.js";
+import { getProperty } from "./property.js";
 import {
 	normalizeCommitInfoTokens,
 	parseTokens,
-} from "../util/text-decorator.js";
+} from "./string-stuff/text-decorator.js";
 import {
 	type Document,
 	type PartialTextEditor,
 	validEditor,
-} from "../util/valid-editor.js";
-import { StatusBarView } from "../view.js";
-import { Blamer } from "./blame.js";
-import { HeadWatch } from "./head-watch.js";
-import { getToolUrl } from "./util/get-tool-url.js";
-import { isHash, isUncommitted } from "./util/is-hash.js";
-import type { LineAttachedCommit } from "./util/stream-parsing.js";
+} from "./valid-editor.js";
+import { StatusBarView } from "./view.js";
 
 type ActionableMessageItem = MessageItem & {
 	action: () => void;

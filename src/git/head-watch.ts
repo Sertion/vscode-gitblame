@@ -1,7 +1,7 @@
 import { type FSWatcher, watch } from "node:fs";
 import { join, resolve } from "node:path";
-import { Logger } from "../util/logger.js";
-import { getGitFolder } from "./util/git-command.js";
+import { Logger } from "../logger.js";
+import { getGitFolder } from "./command/getGitFolder.js";
 
 export type HeadChangeEvent = {
 	gitRoot: string;

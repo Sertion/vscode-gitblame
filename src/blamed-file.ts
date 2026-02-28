@@ -1,18 +1,19 @@
 import type { ChildProcess } from "node:child_process";
 import { realpath } from "node:fs/promises";
 import { relative } from "node:path";
-
-import { Logger } from "../util/logger.js";
-import { blameProcess, getGitEmail, getRevsFile } from "./util/git-command.js";
+import { blameProcess } from "./git/command/blameProcess.js";
+import { getGitEmail } from "./git/command/getGitEmail.js";
+import { getRevsFile } from "./git/command/getRevsFile.js";
 import {
 	type CommitRegistry,
 	type LineAttachedCommit,
 	processChunk,
-} from "./util/stream-parsing.js";
+} from "./git/stream-parsing.js";
+import { Logger } from "./logger.js";
 
 export type Blame = Map<number, LineAttachedCommit | undefined>;
 
-export class File {
+export class BlamedFile {
 	private store?: Promise<Blame | undefined>;
 	private process?: ChildProcess;
 	private killed = false;

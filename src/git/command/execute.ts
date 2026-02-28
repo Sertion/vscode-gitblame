@@ -1,6 +1,6 @@
 import { type ExecOptions, execFile } from "node:child_process";
 
-import { Logger } from "./logger.js";
+import { Logger } from "../../logger.js";
 
 export const execute = async (
 	command: string,
