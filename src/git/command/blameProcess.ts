@@ -1,8 +1,8 @@
 import { type ChildProcess, spawn } from "node:child_process";
 import { dirname } from "node:path/posix";
-import { Logger } from "../../logger";
-import { getProperty } from "../../property";
-import { getGitCommand } from "./git-command";
+import { Logger } from "../../logger.js";
+import { getProperty } from "../../property.js";
+import { getGitCommand } from "./git-command.js";
 
 export const blameProcess = (
 	realpathFileName: string,

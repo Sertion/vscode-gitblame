@@ -22,7 +22,20 @@
 			},
 			"suspicious": {
 				"noTemplateCurlyInString": "off"
+			},
+			"correctness": {
+				"useImportExtensions": {
+					"level": "error",
+					"options": {
+						"forceJsExtensions": true
+					}
+				},
+				"noUnresolvedImports": "off",
+				"noUndeclaredDependencies": "off"
 			}
+		},
+		"domains": {
+			"project": "all"
 		}
 	}
 }

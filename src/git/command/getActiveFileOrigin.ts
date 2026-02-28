@@ -1,6 +1,6 @@
 import { getActiveTextEditor } from "../../get-active.js";
 import { validEditor } from "../../valid-editor.js";
-import { runGit } from "./git-command";
+import { git } from "./CachedGit.js";
 
 export const getActiveFileOrigin = async (
 	remoteName: string,
@@ -11,7 +11,7 @@ export const getActiveFileOrigin = async (
 		return "";
 	}
 
-	return runGit(
+	return git.run(
 		activeEditor.document.fileName,
 		"ls-remote",
 		"--get-url",

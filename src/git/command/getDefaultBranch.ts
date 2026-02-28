@@ -1,7 +1,7 @@
-import { getActiveTextEditor } from "../../get-active";
-import { split } from "../../string-stuff/split";
-import { validEditor } from "../../valid-editor";
-import { runGit } from "./git-command";
+import { getActiveTextEditor } from "../../get-active.js";
+import { split } from "../../string-stuff/split.js";
+import { validEditor } from "../../valid-editor.js";
+import { git } from "./CachedGit.js";
 
 export const getDefaultBranch = async (remote: string): Promise<string> => {
 	const activeEditor = getActiveTextEditor();
@@ -10,7 +10,7 @@ export const getDefaultBranch = async (remote: string): Promise<string> => {
 		return "";
 	}
 
-	const rawRemoteDefaultBranch = await runGit(
+	const rawRemoteDefaultBranch = await git.run(
 		activeEditor.document.fileName,
 		"rev-parse",
 		"--abbrev-ref",

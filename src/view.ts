@@ -35,6 +35,10 @@ export class StatusBarView {
 		"statusBarPositionPriority",
 	);
 
+	private lastCommand?: boolean;
+	private lastToolTip?: MarkdownString;
+	private toolTipMarkdownCache = new WeakMap<Commit, MarkdownString>();
+
 	constructor() {
 		this.statusBar = this.createStatusBarItem();
 		this.configChange = workspace.onDidChangeConfiguration((e) => {
@@ -111,6 +115,15 @@ export class StatusBarView {
 	}
 
 	private updateStatusBar(statusBar: StatusBarItem) {
+		if (
+			this.lastCommand === this.statusBarCommand &&
+			this.lastToolTip === this.statusBarTooltip
+		) {
+			Logger.debug(
+				"No need to update status bar as command and tooltip are unchanged.",
+			);
+			return;
+		}
 		statusBar.text = this.statusBarText;
 		statusBar.tooltip = this.statusBarTooltip;
 		statusBar.command = this.statusBarCommand ? this.command() : undefined;
@@ -144,6 +157,11 @@ export class StatusBarView {
 		commit: Commit,
 		from: "inline" | "status",
 	): MarkdownString {
+		const previousToolTip = this.toolTipMarkdownCache.get(commit);
+		if (previousToolTip) {
+			return previousToolTip;
+		}
+
 		const fancyToolTip = new MarkdownString();
 
 		if (!getProperty("extendedHoverInformation")?.includes(from)) {
@@ -176,6 +194,8 @@ export class StatusBarView {
 				`__Committer:__ ${commit.committer.name}<br>`,
 			);
 		}
+
+		this.toolTipMarkdownCache.set(commit, fancyToolTip);
 
 		return fancyToolTip;
 	}

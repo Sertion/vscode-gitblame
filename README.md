@@ -182,4 +182,4 @@ If your default terminal profile is set to `cmd.exe` `gitblame.gitShow` will not
 
 ## Acknowledgements
 
-* Logo by [Jason Long](https://twitter.com/jasonlong).
+* Logo is [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/) by [Jason Long](https://bsky.app/profile/jasonlong.me) accessible from [git-scm.com/community/logos](https://git-scm.com/community/logos).

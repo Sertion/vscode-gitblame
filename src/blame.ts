@@ -1,7 +1,7 @@
 import { type FSWatcher, promises, watch } from "node:fs";
 import { type Disposable, workspace } from "vscode";
 import { type Blame, BlamedFile } from "./blamed-file.js";
-import { getGitFolder } from "./git/command/getGitFolder.js";
+import { git } from "./git/command/CachedGit.js";
 import { Queue } from "./git/queue.js";
 import type { LineAttachedCommit } from "./git/stream-parsing.js";
 import { Logger } from "./logger.js";
@@ -125,12 +125,9 @@ export class Blamer {
 		try {
 			await promises.access(fileName);
 
-			const gitRoot = await getGitFolder(fileName);
+			const gitRoot = await git.getRepositoryFolder(fileName);
 			if (gitRoot) {
-				return {
-					gitRoot: gitRoot,
-					file: new BlamedFile(fileName),
-				};
+				return { gitRoot, file: new BlamedFile(fileName) };
 			}
 		} catch {
 			// NOOP
@@ -138,9 +135,6 @@ export class Blamer {
 
 		Logger.info(`Will not blame '${fileName}'. Not in a git repository.`);
 
-		return {
-			gitRoot: undefined,
-			file: undefined,
-		};
+		return { gitRoot: undefined, file: undefined };
 	}
 }

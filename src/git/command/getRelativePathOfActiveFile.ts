@@ -1,6 +1,6 @@
 import { getActiveTextEditor } from "../../get-active.js";
 import { validEditor } from "../../valid-editor.js";
-import { runGit } from "./git-command.js";
+import { git } from "./CachedGit.js";
 
 export const getRelativePathOfActiveFile = async (): Promise<string> => {
 	const activeEditor = getActiveTextEditor();
@@ -10,5 +10,5 @@ export const getRelativePathOfActiveFile = async (): Promise<string> => {
 	}
 
 	const { fileName } = activeEditor.document;
-	return runGit(fileName, "ls-files", "--full-name", "--", fileName);
+	return git.run(fileName, "ls-files", "--full-name", "--", fileName);
 };

@@ -1,9 +1,19 @@
 # Change Log
 
+## 12.0.0 (March 02, 2026)
+* Feature: The extension now caches even simple git calls and hopefully reduces CPU usage at the cost of a bit extra memory.
+* Feature: Gone through the commands and improved UI handling and error reporting.
+* Feature: Possible to set log level to different levels to get a deeper insight into what the extension is doing.
+* Fix: Now loads the extension as an ES module rather than CommonJS
+* Fix: Lessen the startup load impact from the extension by delaying loading most of it until it activates the first time.
+* Fix: Propper logo license acknowledgement
+* Fix: Spring cleaning internal file structure
+* Fix: Updating dependencies
+
 ## 11.2.0 (Septepmber 13, 2025)
 * Bug: `author.date` and `committer.date` now show the correct date in all time zones. Thanks to [Viktor Stenqvist](https://github.com/Yottster)!
 * Feature: Adding setting to enable `gitblame.extendedHoverInformation` for inline, status bar, or both.
- * When enabled it shows extended information about the commit (summary, time, author, committer [if different form author])
+ * When enabled it shows extended information about the commit (summary, time, author, committer [if different from author])
 * Fix: Updating dependencies
 
 ## 11.1.4 (June 25, 2025)

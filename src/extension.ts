@@ -16,6 +16,7 @@ import {
 	getFilePosition,
 	NO_FILE_OR_PLACE,
 } from "./get-active.js";
+import { git } from "./git/command/CachedGit.js";
 import { getToolUrl } from "./git/get-tool-url.js";
 import { HeadWatch } from "./git/head-watch.js";
 import { isHash, isUncommitted } from "./git/is-hash.js";
@@ -39,15 +40,11 @@ type ActionableMessageItem = MessageItem & {
 
 export class Extension {
 	private readonly disposable: Disposable;
-	private readonly blame: Blamer;
-	private readonly view: StatusBarView;
-	private readonly headWatcher: HeadWatch;
+	private readonly blame = new Blamer();
+	private readonly view = new StatusBarView();
+	private readonly headWatcher = new HeadWatch();
 
 	constructor() {
-		this.blame = new Blamer();
-		this.view = new StatusBarView();
-		this.headWatcher = new HeadWatch();
-
 		this.disposable = this.setupListeners();
 	}
 
@@ -277,7 +274,10 @@ export class Extension {
 	private async getLine(
 		editor: PartialTextEditor,
 	): Promise<LineAttachedCommit | undefined> {
-		this.headWatcher.addFile(editor.document.fileName);
+		this.headWatcher.addFile(
+			editor.document.fileName,
+			await git.getRepositoryFolder(editor.document.fileName),
+		);
 		return await this.blame.getLine(
 			editor.document.fileName,
 			editor.selection.active.line,

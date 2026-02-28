@@ -1,5 +1,6 @@
 import { URL } from "node:url";
 import { Uri } from "vscode";
+
 import { errorMessage } from "../message.js";
 import { getProperty } from "../property.js";
 import { isUrl } from "../string-stuff/is-url.js";

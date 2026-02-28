@@ -4,10 +4,11 @@
   "description": "See git blame information in the status bar.",
   "version": "11.2.0",
   "publisher": "waderyan",
+  "private": true,
   "type": "module",
   "engines": {
-    "vscode": ">=1.91.0",
-    "node": ">=22.9.0"
+    "vscode": ">=1.100.0",
+    "node": ">=22.22.0"
   },
   "categories": [
     "Other"
@@ -29,14 +30,15 @@
     "bitbucket"
   ],
   "qna": false,
-  "main": "./out/src/index",
+  "main": "./out/src/index.js",
   "scripts": {
     "vscode:prepublish": "npm run build",
     "build": "node esbuild.mjs",
     "package": "npx @vscode/vsce package",
     "lint": "biome ci ./src",
     "pretest": "tsc --project tsconfig.test.json",
-    "test": "npm run pretest && node ./out/test/run-test.js"
+    "test": "npm run pretest && node ./out/test/run-test.js",
+    "updateimage": "magick -background transparent images/git_icon.svg images/git_icon.png"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.4",
@@ -62,6 +64,9 @@
   },
   "extensionDependencies": [
     "vscode.git"
+  ],
+  "extensionKind": [
+    "workspace"
   ],
   "capabilities": {
     "virtualWorkspaces": false,

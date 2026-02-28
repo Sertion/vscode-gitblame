@@ -1,14 +1,10 @@
 import { dirname } from "node:path/posix";
-import { runGit } from "./git-command";
+import { git } from "./CachedGit.js";
 
 export const getGitEmail = async (
 	realFileName: string,
 ): Promise<string | undefined> => {
-	const email = await runGit(dirname(realFileName), "config", "user.email");
+	const email = await git.run(dirname(realFileName), "config", "user.email");
 
-	if (email === "") {
-		return undefined;
-	}
-
-	return `<${email}>`;
+	return email !== "" ? `<${email}>` : undefined;
 };

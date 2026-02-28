@@ -1,3 +1,4 @@
+import { scheduler } from "node:timers/promises";
 import { split } from "../string-stuff/split.js";
 import { isHash } from "./is-hash.js";
 
@@ -59,22 +60,22 @@ const newLocationAttachedCommit = (commitInfo: Commit): FileAttachedCommit => ({
 	filename: "",
 });
 
-const WAIT_N_LINES = 10;
+const MAX_CHUNK_TIME = 5;
+let lastChunkTime = 0;
 
 async function* splitChunk(chunk: Buffer): AsyncGenerator<[string, string]> {
 	let lastIndex = 0;
-	let lineCount = 1;
 	while (lastIndex < chunk.length) {
 		const nextIndex = chunk.indexOf("\n", lastIndex);
 
 		yield split(chunk.toString("utf8", lastIndex, nextIndex));
 
-		// This is an attempt to mitigate main thread hogging.
-		if (lineCount % WAIT_N_LINES === 0) {
-			await new Promise<void>((resolve) => setImmediate(resolve));
+		const now = performance.now();
+		if (now - lastChunkTime > MAX_CHUNK_TIME) {
+			await scheduler.yield();
+			lastChunkTime = now;
 		}
 
-		lineCount += 1;
 		lastIndex = nextIndex + 1;
 	}
 }

@@ -1,6 +1,6 @@
-import { getActiveTextEditor } from "../../get-active";
-import { validEditor } from "../../valid-editor";
-import { runGit } from "./git-command";
+import { getActiveTextEditor } from "../../get-active.js";
+import { validEditor } from "../../valid-editor.js";
+import { git } from "./CachedGit.js";
 
 export const getRemoteUrl = async (fallbackRemote: string): Promise<string> => {
 	const activeEditor = getActiveTextEditor();
@@ -10,19 +10,19 @@ export const getRemoteUrl = async (fallbackRemote: string): Promise<string> => {
 	}
 
 	const { fileName } = activeEditor.document;
-	const currentBranch = await runGit(
+	const currentBranch = await git.run(
 		fileName,
 		"symbolic-ref",
 		"-q",
 		"--short",
 		"HEAD",
 	);
-	const curRemote = await runGit(
+	const curRemote = await git.run(
 		fileName,
 		"config",
 		`branch.${currentBranch}.remote`,
 	);
-	return runGit(
+	return git.run(
 		fileName,
 		"config",
 		`remote.${curRemote || fallbackRemote}.url`,

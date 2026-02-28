@@ -28,6 +28,8 @@ export type InfoTokenNormalizedCommitInfo = {
 };
 
 type TokenReplaceGroup = [InfoTokenFunction, string?, string?];
+// sv-SE is close enough to ISO8601
+const DateFormater = new Intl.DateTimeFormat("sv-SE", { dateStyle: "short" });
 
 export const normalizeCommitInfoTokens = ({
 	author,
@@ -36,9 +38,7 @@ export const normalizeCommitInfoTokens = ({
 	summary,
 }: Commit): InfoTokenNormalizedCommitInfo => {
 	const now = new Date();
-	// sv-SE is close enough to ISO8601
-	const toIso = ({ date }: CommitAuthor) =>
-		new Intl.DateTimeFormat("sv-SE", { dateStyle: "short" }).format(date);
+	const toIso = ({ date }: CommitAuthor) => DateFormater.format(date);
 
 	const ago = between(now, author.date);
 	const cAgo = between(now, committer.date);

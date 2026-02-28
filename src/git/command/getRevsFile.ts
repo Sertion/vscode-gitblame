@@ -1,26 +1,28 @@
 import { access } from "node:fs/promises";
-import { dirname, join } from "node:path/posix";
-import { getProperty } from "../../property";
-import { getGitFolder } from "./getGitFolder";
+import { dirname, join } from "node:path";
+
+import { getProperty } from "../../property.js";
+import { git } from "./CachedGit.js";
 
 export const getRevsFile = async (
 	realFileName: string,
 ): Promise<string | undefined> => {
 	const possibleRevsFiles = getProperty("revsFile");
 	if (possibleRevsFiles.length === 0) {
-		return undefined;
+		return;
 	}
 
-	const gitRoot = await getGitFolder(realFileName);
-	const projectRoot = dirname(gitRoot);
+	const projectRoot = dirname(await git.getRepositoryFolder(realFileName));
 	const revsFiles = await Promise.allSettled(
-		possibleRevsFiles
-			.map((fileName) => join(projectRoot, fileName))
-			.map((path) => access(path).then(() => path)),
+		possibleRevsFiles.map(async (fileName) => {
+			const path = join(projectRoot, fileName);
+			await access(path);
+			return path;
+		}),
 	);
 
-	return revsFiles.filter(
+	return revsFiles.find(
 		(promise): promise is PromiseFulfilledResult<string> =>
 			promise.status === "fulfilled",
-	)[0]?.value;
+	)?.value;
 };

@@ -14,13 +14,13 @@ const timeUnits: [Intl.RelativeTimeFormatUnit, number][] = [
 	["hour", HOUR],
 	["minute", MINUTE],
 ];
+const RelativeTime = new Intl.RelativeTimeFormat(env.language);
 export const between = (now: Date, compare: Date): string => {
 	const diff = now.valueOf() - compare.valueOf();
-	const relativeTime = new Intl.RelativeTimeFormat(env.language);
 
 	for (const [unit, scale] of timeUnits) {
 		if (diff > scale) {
-			return relativeTime.format(-1 * Math.round(diff / scale), unit);
+			return RelativeTime.format(-1 * Math.round(diff / scale), unit);
 		}
 	}
 
