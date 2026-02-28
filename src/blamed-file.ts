@@ -4,11 +4,8 @@ import { relative } from "node:path";
 import { blameProcess } from "./git/command/blameProcess.js";
 import { getGitEmail } from "./git/command/getGitEmail.js";
 import { getRevsFile } from "./git/command/getRevsFile.js";
-import {
-	type CommitRegistry,
-	type LineAttachedCommit,
-	processChunk,
-} from "./git/stream-parsing.js";
+import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
+import { type CommitRegistry, processChunk } from "./git/stream-parsing.js";
 import { Logger } from "./logger.js";
 
 export type Blame = Map<number, LineAttachedCommit | undefined>;
@@ -28,7 +25,9 @@ export class BlamedFile {
 
 	public dispose(): void {
 		this.process?.kill();
+		this.process = undefined;
 		this.killed = true;
+		this.store?.then((e) => e?.clear());
 	}
 
 	private async *run(file: string): AsyncGenerator<LineAttachedCommit> {
@@ -39,21 +38,17 @@ export class BlamedFile {
 		this.process = blameProcess(file, refs);
 
 		Logger.debug(
-			"Email address for currentUser for file '%s' is '%s'",
-			file,
-			email ?? "VALUE_NOT_SET_IN_GIT_CONFIG",
+			`Email address for currentUser for file "${file}" is "${email ?? "VALUE_NOT_SET_IN_GIT_CONFIG"}"`,
 		);
 
 		const commitRegistry: CommitRegistry = new Map();
-		for await (const chunk of this.process?.stdout ?? []) {
+		for await (const chunk of this.process.stdout ?? []) {
 			Logger.debug(
-				"Got chunk from '%s' git blame process. Size: %d",
-				file,
-				chunk.length,
+				`Got chunk from "${file}" git blame process. Size: ${chunk.length}`,
 			);
 			yield* processChunk(chunk, email, commitRegistry);
 		}
-		for await (const error of this.process?.stderr ?? []) {
+		for await (const error of this.process.stderr ?? []) {
 			if (typeof error === "string") {
 				throw new Error(error);
 			}
@@ -67,10 +62,9 @@ export class BlamedFile {
 		try {
 			for await (const lineAttachedCommit of this.run(realpathFileName)) {
 				Logger.trace(
-					"Found blame information for %s:%d: hash:%s",
-					realpathFileName,
-					lineAttachedCommit.line.result,
-					lineAttachedCommit.commit.hash,
+					`Found blame information for ${realpathFileName}:${
+						lineAttachedCommit.line.result
+					}: hash:${lineAttachedCommit.commit.hash}`,
 				);
 				blameInfo.set(lineAttachedCommit.line.result, lineAttachedCommit);
 			}

@@ -26,8 +26,7 @@ export class Queue<
 				this.startFunction(toQueue);
 			} else {
 				Logger.debug(
-					"Already running %s in parallel. Adding execution to queue.",
-					this.maxParallel,
+					`Already running ${this.maxParallel} in parallel. Adding execution to queue.`,
 				);
 				this.list.push(toQueue);
 			}

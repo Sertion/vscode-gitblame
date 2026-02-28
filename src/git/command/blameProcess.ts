@@ -1,5 +1,6 @@
-import { type ChildProcess, spawn } from "node:child_process";
+import { type ChildProcessByStdio, spawn } from "node:child_process";
 import { dirname } from "node:path/posix";
+import type { Readable } from "node:stream";
 import { Logger } from "../../logger.js";
 import { getProperty } from "../../property.js";
 import { getGitCommand } from "./git-command.js";
@@ -7,7 +8,7 @@ import { getGitCommand } from "./git-command.js";
 export const blameProcess = (
 	realpathFileName: string,
 	revsFile: string | undefined,
-): ChildProcess => {
+): ChildProcessByStdio<null, Readable, Readable> => {
 	const args = ["blame", "-C", "--incremental", "--", realpathFileName];
 
 	if (getProperty("ignoreWhitespace")) {

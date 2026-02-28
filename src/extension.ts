@@ -20,7 +20,7 @@ import { git } from "./git/command/CachedGit.js";
 import { getToolUrl } from "./git/get-tool-url.js";
 import { HeadWatch } from "./git/head-watch.js";
 import { isHash, isUncommitted } from "./git/is-hash.js";
-import type { LineAttachedCommit } from "./git/stream-parsing.js";
+import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
 import { errorMessage, infoMessage } from "./message.js";
 import { getProperty } from "./property.js";
 import {

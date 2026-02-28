@@ -33,12 +33,12 @@ export class GitRepositoryWatcher {
 		this.watchers.set(
 			filePath,
 			watch(filePath, { persistent: false }, () => {
-				Logger.debug("File watcher callback for '%s' called.", filePath);
+				Logger.debug(`File watcher callback for "${filePath}" called.`);
 				this.callback({ gitRoot, repositoryRoot });
 			}),
 		);
 
-		Logger.debug("File watcher for '%s' created.", filePath);
+		Logger.debug(`File watcher for "${filePath}" created.`);
 
 		return gitRoot;
 	}
@@ -46,7 +46,7 @@ export class GitRepositoryWatcher {
 	public dispose(): void {
 		for (const [gitRoot, watcher] of this.watchers) {
 			watcher.close();
-			Logger.debug("File watcher git root '%s' closed.", gitRoot);
+			Logger.debug(`File watcher git root "${gitRoot}" closed.`);
 		}
 		this.watchers.clear();
 		this.callback = () => undefined;

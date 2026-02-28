@@ -1,80 +1,37 @@
 import { scheduler } from "node:timers/promises";
-import { split } from "../string-stuff/split.js";
+
+import { Logger } from "../logger.js";
+import { split, splitBuffer } from "../string-stuff/split.js";
+import { Commit } from "./Commit.js";
+import type { CommitAuthor } from "./CommitAuthor.js";
+import { FileAttachedCommit } from "./FileAttachedCommit.js";
 import { isHash } from "./is-hash.js";
-
-export type CommitAuthor = {
-	name: string;
-	mail: string;
-	isCurrentUser: boolean;
-	timestamp: string;
-	date: Date;
-	tz: string;
-};
-
-export type Commit = {
-	hash: string;
-	author: CommitAuthor;
-	committer: CommitAuthor;
-	summary: string;
-};
-
-type FileAttachedCommit<T = Commit> = {
-	commit: T;
-	filename: string;
-};
-
-type Line = {
-	source: number;
-	result: number;
-};
-
-export type LineAttachedCommit<T = Commit> = FileAttachedCommit<T> & {
-	line: Line;
-};
+import { Line, LineAttachedCommit } from "./LineAttachedCommit.js";
 
 export type CommitRegistry = Map<string, Commit>;
-
-const newCommitInfo = (hash: string): Commit => ({
-	author: {
-		mail: "",
-		name: "",
-		isCurrentUser: false,
-		timestamp: "",
-		date: new Date(),
-		tz: "",
-	},
-	committer: {
-		mail: "",
-		name: "",
-		isCurrentUser: false,
-		timestamp: "",
-		date: new Date(),
-		tz: "",
-	},
-	hash: hash,
-	summary: "",
-});
-
-const newLocationAttachedCommit = (commitInfo: Commit): FileAttachedCommit => ({
-	commit: commitInfo,
-	filename: "",
-});
 
 const MAX_CHUNK_TIME = 5;
 let lastChunkTime = 0;
 
 async function* splitChunk(chunk: Buffer): AsyncGenerator<[string, string]> {
+	lastChunkTime = performance.now();
 	let lastIndex = 0;
 	while (lastIndex < chunk.length) {
-		const nextIndex = chunk.indexOf("\n", lastIndex);
-
-		yield split(chunk.toString("utf8", lastIndex, nextIndex));
-
 		const now = performance.now();
-		if (now - lastChunkTime > MAX_CHUNK_TIME) {
+		const timeSpent = now - lastChunkTime;
+		if (timeSpent > MAX_CHUNK_TIME) {
+			Logger.debug(
+				`Running blame has taken more than ${MAX_CHUNK_TIME} ms (${
+					timeSpent
+				} ms). Yielding and continuing later.`,
+			);
 			await scheduler.yield();
 			lastChunkTime = now;
 		}
+
+		const nextIndex = chunk.indexOf("\n", lastIndex);
+
+		yield splitBuffer(chunk, lastIndex, nextIndex);
 
 		lastIndex = nextIndex + 1;
 	}
@@ -88,7 +45,7 @@ const fillOwner = (
 ): void => {
 	if (dataPoint === "time") {
 		owner.timestamp = value;
-		owner.date = new Date(Number.parseInt(value, 10) * 1000);
+		owner.date.setTime(Number.parseInt(value, 10) * 1000);
 	} else if (dataPoint === "tz") {
 		owner.tz = value;
 	} else if (dataPoint === "mail") {
@@ -134,10 +91,7 @@ function* processCoverage(coverage: string): Generator<Line> {
 	const [source, result, lines] = coverage.split(" ").map(Number);
 
 	for (let i = 0; i < lines; i++) {
-		yield {
-			source: source + i,
-			result: result + i,
-		};
+		yield new Line(source + i, result + i);
 	}
 }
 
@@ -153,10 +107,7 @@ function* commitFilter(
 	registry.set(fileAttached.commit.hash, fileAttached.commit);
 
 	for (const line of lines) {
-		yield {
-			...fileAttached,
-			line,
-		};
+		yield new LineAttachedCommit(fileAttached, line);
 	}
 }
 
@@ -180,8 +131,8 @@ export async function* processChunk(
 
 	for await (const [key, value] of splitChunk(dataChunk)) {
 		if (isCoverageLine(key, value)) {
-			commitLocation = newLocationAttachedCommit(
-				commitRegistry.get(key) ?? newCommitInfo(key),
+			commitLocation = new FileAttachedCommit(
+				commitRegistry.get(key) ?? new Commit(key),
 			);
 			coverageGenerator = processCoverage(value);
 		}

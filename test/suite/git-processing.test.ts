@@ -1,22 +1,11 @@
 import * as assert from "node:assert";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-
+import type { LineAttachedCommit } from "../../src/git/LineAttachedCommit.js";
 import {
-	type Commit,
-	type CommitAuthor,
 	type CommitRegistry,
-	type LineAttachedCommit,
 	processChunk,
 } from "../../src/git/stream-parsing.js";
-
-type CommitAuthorStringDate = Omit<CommitAuthor, "date"> & {
-	date: string;
-};
-type CommitWithAuthorStringDate = Omit<Commit, "author" | "committer"> & {
-	author: CommitAuthorStringDate;
-	committer: CommitAuthorStringDate;
-};
 
 function load(fileName: string, buffer: true): Buffer;
 function load(fileName: string, buffer: false): string;
@@ -30,8 +19,8 @@ function load(fileName: string, buffer: boolean): string | Buffer {
 }
 function datesToString(
 	convert: LineAttachedCommit[],
-): LineAttachedCommit<CommitWithAuthorStringDate>[] {
-	const converted: LineAttachedCommit<CommitWithAuthorStringDate>[] = [];
+): LineAttachedCommit<string>[] {
+	const converted: LineAttachedCommit<string>[] = [];
 	for (const element of convert) {
 		converted.push({
 			...element,
@@ -39,11 +28,11 @@ function datesToString(
 				...element.commit,
 				author: {
 					...element.commit.author,
-					date: element.commit.author.date.toJSON(),
+					date: JSON.stringify(element.commit.author.date),
 				},
 				committer: {
 					...element.commit.committer,
-					date: element.commit.committer.date.toJSON(),
+					date: JSON.stringify(element.commit.committer.date),
 				},
 			},
 		});

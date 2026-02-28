@@ -2,9 +2,10 @@ import * as assert from "node:assert";
 import { match, stub } from "sinon";
 import { Uri } from "vscode";
 import * as getActive from "../../src/get-active.js";
+import { CommitAuthor } from "../../src/git/CommitAuthor.js";
 import * as execcommand from "../../src/git/command/execute.js";
 import { generateUrlTokens } from "../../src/git/get-tool-url.js";
-import type { LineAttachedCommit } from "../../src/git/stream-parsing.js";
+import type { LineAttachedCommit } from "../../src/git/LineAttachedCommit.js";
 import * as property from "../../src/property.js";
 import { parseTokens } from "../../src/string-stuff/text-decorator.js";
 
@@ -14,24 +15,26 @@ suite("Generate URL Tokens", () => {
 		arg?: string,
 	) => (typeof func === "function" ? func(arg) : func);
 
+	const author = new CommitAuthor();
+	author.mail = "<vdavydov.dev@gmail.com>";
+	author.name = "Vladimir Davydov";
+	author.isCurrentUser = false;
+	author.timestamp = "1423781950";
+	author.date = new Date(1423781950000);
+	author.tz = "-0800";
+
+	const committer = new CommitAuthor();
+	committer.mail = "<torvalds@linux-foundation.org>";
+	committer.name = "Linus Torvalds";
+	committer.isCurrentUser = false;
+	committer.timestamp = "1423796049";
+	committer.date = new Date(1423796049000);
+	committer.tz = "-0800";
+
 	const exampleCommit: LineAttachedCommit = {
 		commit: {
-			author: {
-				mail: "<vdavydov.dev@gmail.com>",
-				name: "Vladimir Davydov",
-				isCurrentUser: false,
-				timestamp: "1423781950",
-				date: new Date(1423781950000),
-				tz: "-0800",
-			},
-			committer: {
-				mail: "<torvalds@linux-foundation.org>",
-				name: "Linus Torvalds",
-				isCurrentUser: false,
-				timestamp: "1423796049",
-				date: new Date(1423796049000),
-				tz: "-0800",
-			},
+			author,
+			committer,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: introduce per-memcg lists",
 		},
@@ -451,24 +454,26 @@ suite("Generate URL Tokens", () => {
 });
 
 suite("Use generated URL tokens", () => {
+	const author = new CommitAuthor();
+	author.mail = "<vdavydov.dev@gmail.com>";
+	author.name = "Vladimir Davydov";
+	author.isCurrentUser = false;
+	author.timestamp = "1423781950";
+	author.date = new Date(1423781950000);
+	author.tz = "-0800";
+
+	const committer = new CommitAuthor();
+	committer.mail = "<torvalds@linux-foundation.org>";
+	committer.name = "Linus Torvalds";
+	committer.isCurrentUser = false;
+	committer.timestamp = "1423796049";
+	committer.date = new Date(1423796049000);
+	committer.tz = "-0800";
+
 	const exampleCommit: LineAttachedCommit = {
 		commit: {
-			author: {
-				mail: "<vdavydov.dev@gmail.com>",
-				name: "Vladimir Davydov",
-				isCurrentUser: false,
-				timestamp: "1423781950",
-				date: new Date(1423781950000),
-				tz: "-0800",
-			},
-			committer: {
-				mail: "<torvalds@linux-foundation.org>",
-				name: "Linus Torvalds",
-				isCurrentUser: false,
-				timestamp: "1423796049",
-				date: new Date(1423796049000),
-				tz: "-0800",
-			},
+			author,
+			committer,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: introduce per-memcg lists",
 		},

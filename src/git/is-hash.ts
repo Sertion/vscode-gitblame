@@ -1,4 +1,4 @@
-import type { Commit } from "./stream-parsing.js";
+import type { Commit } from "./Commit.js";
 
 export function isHash(hash: string): boolean {
 	const length = hash.length;

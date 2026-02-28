@@ -14,9 +14,9 @@ import { getDefaultBranch } from "./command/getDefaultBranch.js";
 import { getRelativePathOfActiveFile } from "./command/getRelativePathOfActiveFile.js";
 import { getRemoteUrl } from "./command/getRemoteUrl.js";
 import { isUncommitted } from "./is-hash.js";
+import type { LineAttachedCommit } from "./LineAttachedCommit.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
-import type { LineAttachedCommit } from "./stream-parsing.js";
 import { stripGitRemoteUrl, stripGitSuffix } from "./strip-git-remote-url.js";
 
 export type ToolUrlTokens = {

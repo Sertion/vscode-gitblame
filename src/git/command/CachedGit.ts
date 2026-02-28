@@ -40,9 +40,7 @@ class CachedGitCommand {
 		const cached = this.commands.get(key);
 		if (cached !== undefined) {
 			Logger.debug(
-				'Using cached result for command "%s %s"',
-				command,
-				args.join(" "),
+				`Using cached result for command "${command} ${args.join(" ")}"`,
 			);
 			return cached;
 		}

@@ -1,4 +1,3 @@
-import { format } from "node:util";
 import { type LogOutputChannel, window } from "vscode";
 
 export class Logger {
@@ -26,12 +25,12 @@ export class Logger {
 		Logger.getInstance().out.info(info);
 	}
 
-	public static debug(debug: string, ...args: (string | number)[]): void {
-		Logger.getInstance().out.debug(format(debug, ...args));
+	public static debug(debug: string): void {
+		Logger.getInstance().out.debug(debug);
 	}
 
-	public static trace(debug: string, ...args: (string | number)[]): void {
-		Logger.getInstance().out.trace(format(debug, ...args));
+	public static trace(debug: string): void {
+		Logger.getInstance().out.trace(debug);
 	}
 
 	public dispose(): void {

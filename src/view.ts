@@ -10,8 +10,8 @@ import {
 	workspace,
 } from "vscode";
 import { getActiveTextEditor } from "./get-active.js";
+import type { Commit } from "./git/Commit.js";
 import { isUncommitted } from "./git/is-hash.js";
-import type { Commit } from "./git/stream-parsing.js";
 import { Logger } from "./logger.js";
 import { getProperty } from "./property.js";
 import {
@@ -128,11 +128,9 @@ export class StatusBarView {
 		statusBar.tooltip = this.statusBarTooltip;
 		statusBar.command = this.statusBarCommand ? this.command() : undefined;
 
+		const lb = "\n    ";
 		Logger.debug(
-			"Updating status bar item with: Text:'%s', tooltip:'git blame%s', command:%s",
-			statusBar.text,
-			statusBar.tooltip.value,
-			statusBar.command ?? "",
+			`Updating status bar item with:${lb}Text: "${statusBar.text}"${lb}Tooltip: "git blame${statusBar.tooltip.value}"${lb}Command: "${statusBar.command ?? ""}"`,
 		);
 	}
 

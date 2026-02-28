@@ -2,8 +2,8 @@ import { type FSWatcher, promises, watch } from "node:fs";
 import { type Disposable, workspace } from "vscode";
 import { type Blame, BlamedFile } from "./blamed-file.js";
 import { git } from "./git/command/CachedGit.js";
+import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
 import { Queue } from "./git/queue.js";
-import type { LineAttachedCommit } from "./git/stream-parsing.js";
 import { Logger } from "./logger.js";
 import { getProperty } from "./property.js";
 
@@ -52,7 +52,7 @@ export class Blamer {
 			return;
 		}
 
-		Logger.debug("Setting up file watcher for '%s'", file.fileName);
+		Logger.debug(`Setting up file watcher for "${file.fileName}"`);
 
 		this.fsWatchers.set(
 			file.fileName,
@@ -62,10 +62,7 @@ export class Blamer {
 					persistent: false,
 				},
 				() => {
-					Logger.debug(
-						"File watcher callback for '%s' executed",
-						file.fileName,
-					);
+					Logger.debug(`File watcher callback for "${file.fileName}" executed`);
 					this.remove(file.fileName);
 				},
 			),
@@ -106,7 +103,7 @@ export class Blamer {
 		this.files.delete(fileName);
 		this.fsWatchers.get(fileName)?.close();
 		this.fsWatchers.delete(fileName);
-		Logger.debug("Cache for '%s' cleared. File watcher closed.", fileName);
+		Logger.debug(`Cache for "${fileName}" cleared. File watcher closed.`);
 	}
 
 	public dispose(): void {
