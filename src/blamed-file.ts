@@ -42,7 +42,7 @@ export class BlamedFile {
 			`Email address for currentUser for file "${file}" is "${email ?? "VALUE_NOT_SET_IN_GIT_CONFIG"}"`,
 		);
 
-		const commitRegistry: CommitRegistry = new Map();
+		const commitRegistry: CommitRegistry = Object.create(null);
 		for await (const chunk of this.process.stdout ?? []) {
 			Logger.debug(
 				`Got chunk from "${file}" git blame process. Size: ${chunk.length}`,

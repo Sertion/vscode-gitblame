@@ -36,7 +36,7 @@ suite("Chunk Processing", (): void => {
 		);
 
 		const foundChunks: unknown[] = [];
-		for await (const line of processChunk(chunk, "@@", new Map())) {
+		for await (const line of processChunk(chunk, "@@", {})) {
 			foundChunks.push(datesToString(line));
 		}
 
@@ -54,7 +54,7 @@ suite("Processing Errors", (): void => {
 		) as string[];
 
 		const foundChunks: unknown[] = [];
-		const registry = new Map();
+		const registry = {};
 		for (const chunk of chunks) {
 			for await (const line of processChunk(
 				Buffer.from(chunk),

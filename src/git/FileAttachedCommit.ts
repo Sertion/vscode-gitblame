@@ -2,29 +2,25 @@ import { Commit, type RawCoverage } from "./Commit.js";
 import { Line } from "./Line.js";
 import { LineAttachedCommit } from "./LineAttachedCommit.js";
 
-export type CommitRegistry = Map<string, Commit>;
+export type CommitRegistry = Record<string, Commit>;
 
 export class FileAttachedCommit {
 	public static Create(
-		registry: Map<string, Commit>,
+		registry: CommitRegistry,
 		hash: string,
 		coverage: RawCoverage,
 	): FileAttachedCommit {
-		let commit = registry.get(hash);
-		if (!commit) {
-			commit = new Commit(hash);
-			registry.set(hash, commit);
-		}
-		return new FileAttachedCommit(commit, coverage);
+		registry[hash] ??= new Commit(hash);
+		return new FileAttachedCommit(registry[hash], new Lines(coverage));
 	}
 	public filename = "";
 	#lines: Lines;
 	#hasFilename = false;
 	private constructor(
 		public commit: Commit,
-		coverage: RawCoverage,
+		lines: Lines,
 	) {
-		this.#lines = new Lines(coverage);
+		this.#lines = lines;
 	}
 
 	public setByKey(
@@ -58,6 +54,9 @@ class Lines {
 	public result: number;
 	public length: number;
 	constructor(coverage: RawCoverage) {
-		[this.source, this.result, this.length] = coverage.split(" ").map(Number);
+		const parts = coverage.split(" ");
+		this.source = Number.parseInt(parts[0], 10);
+		this.result = Number.parseInt(parts[1], 10);
+		this.length = Number.parseInt(parts[2], 10);
 	}
 }
