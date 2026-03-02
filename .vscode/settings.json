@@ -1,4 +1,3 @@
-// Place your settings in this file to overwrite default and user settings.
 {
 	"search.exclude": {
 		"out": true,
@@ -11,6 +10,13 @@
 	"javascript.validate.enable": true,
 	"editor.showUnused": true,
 	"[typescript]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	}
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true,
+		"editor.codeLens": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports.biome": "always",
+			"source.fixAll.biome": "always"
+		}
+	},
+	"chat.disableAIFeatures": true
 }

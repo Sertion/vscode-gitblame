@@ -1,5 +1,5 @@
 import * as assert from "node:assert";
-import { projectNameFromOrigin } from "../../src/git/project-name-from-origin";
+import { projectNameFromOrigin } from "../../src/git/project-name-from-origin.js";
 
 suite("Origin to project name", (): void => {
 	test("https://", (): void => {

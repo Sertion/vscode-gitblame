@@ -1,6 +1,6 @@
 import { between } from "../ago.js";
-import type { Commit } from "../git/Commit.js";
-import type { CommitAuthor } from "../git/CommitAuthor.js";
+import type { Commit, CommitLike } from "../git/Commit.js";
+import type { CommitAuthorLike } from "../git/CommitAuthor.js";
 import { getProperty } from "../property.js";
 
 type InfoTokenFunctionWithParameter = (value?: string) => string;
@@ -37,9 +37,9 @@ export const normalizeCommitInfoTokens = ({
 	committer,
 	hash,
 	summary,
-}: Commit): InfoTokenNormalizedCommitInfo => {
+}: CommitLike): InfoTokenNormalizedCommitInfo => {
 	const now = new Date();
-	const toIso = ({ date }: CommitAuthor) => DateFormater.format(date);
+	const toIso = ({ date }: CommitAuthorLike) => DateFormater.format(date);
 
 	const ago = between(now, author.date);
 	const cAgo = between(now, committer.date);

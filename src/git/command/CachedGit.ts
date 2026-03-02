@@ -55,6 +55,11 @@ class CachedGitCommand {
 
 		return result;
 	}
+
+	public clear(): void {
+		this.commands.clear();
+		this.folderToGitRepository.clear();
+	}
 }
 
 export const git = new CachedGitCommand();

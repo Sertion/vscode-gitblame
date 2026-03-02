@@ -16,10 +16,10 @@ import {
 	getFilePosition,
 	NO_FILE_OR_PLACE,
 } from "./get-active.js";
+import { Commit } from "./git/Commit.js";
 import { git } from "./git/command/CachedGit.js";
 import { getToolUrl } from "./git/get-tool-url.js";
 import { HeadWatch } from "./git/head-watch.js";
-import { isHash, isUncommitted } from "./git/is-hash.js";
 import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
 import { errorMessage, infoMessage } from "./message.js";
 import { getProperty } from "./property.js";
@@ -66,7 +66,7 @@ export class Extension {
 	public async showMessage(): Promise<void> {
 		const lineAware = await this.commit(false);
 
-		if (!lineAware || isUncommitted(lineAware.commit)) {
+		if (!lineAware?.commit.isCommitted()) {
 			this.view.clear();
 			await errorMessage("No commit to show");
 			return;
@@ -101,7 +101,7 @@ export class Extension {
 	public async copyHash(): Promise<void> {
 		const lineAware = await this.commit(true);
 
-		if (lineAware && !isUncommitted(lineAware.commit)) {
+		if (lineAware?.commit.isCommitted()) {
 			await env.clipboard.writeText(lineAware.commit.hash);
 			await infoMessage("Copied hash");
 		} else {
@@ -139,7 +139,7 @@ export class Extension {
 		const { hash } = currentLine.commit;
 
 		// Only ever allow HEAD or a git hash
-		if (hash !== "HEAD" && !isHash(hash)) {
+		if (hash !== "HEAD" && !Commit.IsHash(hash)) {
 			return;
 		}
 

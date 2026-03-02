@@ -4,8 +4,9 @@ import { relative } from "node:path";
 import { blameProcess } from "./git/command/blameProcess.js";
 import { getGitEmail } from "./git/command/getGitEmail.js";
 import { getRevsFile } from "./git/command/getRevsFile.js";
+import type { CommitRegistry } from "./git/FileAttachedCommit.js";
 import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
-import { type CommitRegistry, processChunk } from "./git/stream-parsing.js";
+import { processChunk } from "./git/stream-parsing.js";
 import { Logger } from "./logger.js";
 
 export type Blame = Map<number, LineAttachedCommit | undefined>;

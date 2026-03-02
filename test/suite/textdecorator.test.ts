@@ -1,7 +1,8 @@
 import * as assert from "node:assert";
 import { type SinonFakeTimers, stub, useFakeTimers } from "sinon";
 import { between } from "../../src/ago.js";
-import type { Commit } from "../../src/git/Commit.js";
+import type { CommitLike } from "../../src/git/Commit.js";
+import type { CommitAuthor } from "../../src/git/CommitAuthor.js";
 import * as property from "../../src/property.js";
 import {
 	type InfoTokenNormalizedCommitInfo,
@@ -248,7 +249,7 @@ suite("Text Decorator with CommitInfoToken", (): void => {
 	suiteTeardown(() => {
 		fakeTimer?.restore();
 	});
-	const exampleCommit: Commit = {
+	const exampleCommit: CommitLike = {
 		author: {
 			mail: "<vdavydov.dev@gmail.com>",
 			name: "Vladimir Davydov",
@@ -256,7 +257,7 @@ suite("Text Decorator with CommitInfoToken", (): void => {
 			timestamp: "1423781950",
 			date: new Date(1_423_781_950_000),
 			tz: "-0800",
-		},
+		} as CommitAuthor,
 		committer: {
 			mail: "<torvalds@linux-foundation.org>",
 			name: "Linus Torvalds",
@@ -264,7 +265,7 @@ suite("Text Decorator with CommitInfoToken", (): void => {
 			timestamp: "1423796049",
 			date: new Date(1_423_796_049_000),
 			tz: "-0800",
-		},
+		} as CommitAuthor,
 		hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		summary: "list_lru: introduce per-memcg lists",
 	};
@@ -317,7 +318,7 @@ suite("issue #119 regressions", () => {
 		fakeTimer?.restore();
 	});
 	test("commit.summary before commit.hash_short", () => {
-		const exampleCommit: Commit = {
+		const exampleCommit: CommitLike = {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
@@ -325,7 +326,7 @@ suite("issue #119 regressions", () => {
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
@@ -333,7 +334,7 @@ suite("issue #119 regressions", () => {
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: introduce per-memcg lists",
 		};
@@ -349,7 +350,7 @@ suite("issue #119 regressions", () => {
 	});
 
 	test("commit.summary before shortened commit.hash_short", () => {
-		const exampleCommit: Commit = {
+		const exampleCommit: CommitLike = {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
@@ -357,7 +358,7 @@ suite("issue #119 regressions", () => {
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
@@ -365,7 +366,7 @@ suite("issue #119 regressions", () => {
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: introduce per-memcg lists",
 		};
@@ -381,7 +382,7 @@ suite("issue #119 regressions", () => {
 	});
 
 	test("commit.summary before shortened commit.hash", () => {
-		const exampleCommit: Commit = {
+		const exampleCommit: CommitLike = {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
@@ -389,7 +390,7 @@ suite("issue #119 regressions", () => {
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
@@ -397,7 +398,7 @@ suite("issue #119 regressions", () => {
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: introduce per-memcg lists",
 		};
@@ -413,7 +414,7 @@ suite("issue #119 regressions", () => {
 	});
 
 	test("commit.summary before shortened commit.summary", () => {
-		const exampleCommit: Commit = {
+		const exampleCommit: CommitLike = {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov",
@@ -421,7 +422,7 @@ suite("issue #119 regressions", () => {
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
@@ -429,7 +430,7 @@ suite("issue #119 regressions", () => {
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: introduce per-memcg lists",
 		};
@@ -447,7 +448,7 @@ suite("issue #119 regressions", () => {
 
 suite("Text Sanitizing", () => {
 	test("removes right-to-left override characters from text", () => {
-		const exampleCommit: Commit = {
+		const exampleCommit: CommitLike = {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov\u202e",
@@ -455,7 +456,7 @@ suite("Text Sanitizing", () => {
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
@@ -463,7 +464,7 @@ suite("Text Sanitizing", () => {
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: \u202eintroduce per-memcg lists",
 		};
@@ -484,7 +485,7 @@ suite("Current User Replace", () => {
 		const propertyStub = stub(property, "getProperty");
 		propertyStub.withArgs("currentUserAlias").returns("Current User Alias");
 
-		const exampleCommit: Commit = {
+		const exampleCommit: CommitLike = {
 			author: {
 				mail: "<vdavydov.dev@gmail.com>",
 				name: "Vladimir Davydov\u202e",
@@ -492,7 +493,7 @@ suite("Current User Replace", () => {
 				timestamp: "1423781950",
 				date: new Date(1_423_781_950_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			committer: {
 				mail: "<torvalds@linux-foundation.org>",
 				name: "Linus Torvalds",
@@ -500,7 +501,7 @@ suite("Current User Replace", () => {
 				timestamp: "1423796049",
 				date: new Date(1_423_796_049_000),
 				tz: "-0800",
-			},
+			} as CommitAuthor,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: \u202eintroduce per-memcg lists",
 		};

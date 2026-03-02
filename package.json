@@ -2,10 +2,9 @@
   "name": "gitblame",
   "displayName": "Git Blame",
   "description": "See git blame information in the status bar.",
-  "version": "11.2.0",
+  "version": "12.0.0",
   "publisher": "waderyan",
   "private": true,
-  "type": "module",
   "engines": {
     "vscode": ">=1.100.0",
     "node": ">=22.22.0"
@@ -37,7 +36,7 @@
     "package": "npx @vscode/vsce package",
     "lint": "biome ci ./src",
     "pretest": "tsc --project tsconfig.test.json",
-    "test": "npm run pretest && node ./out/test/run-test.js",
+    "test": "node ./out/test/run-test.js",
     "updateimage": "magick -background transparent images/git_icon.svg images/git_icon.png"
   },
   "devDependencies": {
@@ -49,7 +48,7 @@
     "@types/vscode": "1.91.0",
     "@vscode/test-electron": "2.5.2",
     "esbuild": "0.27.3",
-    "mocha": "12.0.0-beta-10",
+    "mocha": "11.7.0",
     "sinon": "21.0.1",
     "typescript": "5.9.3"
   },

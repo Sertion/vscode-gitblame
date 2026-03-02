@@ -1,8 +1,11 @@
 import * as assert from "node:assert";
+import { afterEach } from "mocha";
 import { match, stub } from "sinon";
 import { Uri } from "vscode";
 import * as getActive from "../../src/get-active.js";
+import type { Commit } from "../../src/git/Commit.js";
 import { CommitAuthor } from "../../src/git/CommitAuthor.js";
+import { git } from "../../src/git/command/CachedGit.js";
 import * as execcommand from "../../src/git/command/execute.js";
 import { generateUrlTokens } from "../../src/git/get-tool-url.js";
 import type { LineAttachedCommit } from "../../src/git/LineAttachedCommit.js";
@@ -37,13 +40,16 @@ suite("Generate URL Tokens", () => {
 			committer,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: introduce per-memcg lists",
-		},
+		} as unknown as Commit,
 		filename: "directory/example.file",
 		line: {
 			source: 10,
 			result: 100,
 		},
 	};
+
+	afterEach(() => git.clear());
+
 	test("http:// origin", async () => {
 		const activeEditorStub = stub(getActive, "getActiveTextEditor");
 		const execcommandStub = stub(execcommand, "execute");
@@ -476,7 +482,7 @@ suite("Use generated URL tokens", () => {
 			committer,
 			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 			summary: "list_lru: introduce per-memcg lists",
-		},
+		} as unknown as Commit,
 		filename: "directory/example.file",
 		line: {
 			source: 10,
@@ -484,6 +490,7 @@ suite("Use generated URL tokens", () => {
 		},
 	};
 
+	afterEach(() => git.clear());
 	test("Default value", async () => {
 		const activeEditorStub = stub(getActive, "getActiveTextEditor");
 		const execcommandStub = stub(execcommand, "execute");

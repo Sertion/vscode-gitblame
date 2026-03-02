@@ -11,7 +11,6 @@ import {
 } from "vscode";
 import { getActiveTextEditor } from "./get-active.js";
 import type { Commit } from "./git/Commit.js";
-import { isUncommitted } from "./git/is-hash.js";
 import { Logger } from "./logger.js";
 import { getProperty } from "./property.js";
 import {
@@ -59,7 +58,7 @@ export class StatusBarView {
 	): void {
 		if (!commit) {
 			this.clear();
-		} else if (isUncommitted(commit)) {
+		} else if (!commit.isCommitted()) {
 			this.updateTextNoCommand(
 				getProperty("statusBarMessageNoCommit"),
 				MESSAGE_NO_INFO,

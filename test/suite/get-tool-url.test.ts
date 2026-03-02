@@ -1,5 +1,6 @@
 import * as assert from "node:assert";
-
+import { afterEach } from "mocha";
+import { git } from "../../src/git/command/CachedGit.js";
 import { gitRemotePath } from "../../src/git/get-tool-url.js";
 
 suite("Get tool URL: gitRemotePath", (): void => {
@@ -7,6 +8,8 @@ suite("Get tool URL: gitRemotePath", (): void => {
 		func: string | ((param?: string) => string | undefined),
 		arg?: string,
 	) => (typeof func === "string" ? func : func(arg));
+
+	afterEach(() => git.clear());
 
 	test("http://", (): void => {
 		const func = gitRemotePath("http://example.com/path/to/something/");

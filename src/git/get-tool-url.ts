@@ -13,7 +13,6 @@ import { getActiveFileOrigin } from "./command/getActiveFileOrigin.js";
 import { getDefaultBranch } from "./command/getDefaultBranch.js";
 import { getRelativePathOfActiveFile } from "./command/getRelativePathOfActiveFile.js";
 import { getRemoteUrl } from "./command/getRemoteUrl.js";
-import { isUncommitted } from "./is-hash.js";
 import type { LineAttachedCommit } from "./LineAttachedCommit.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
@@ -126,7 +125,7 @@ export const generateUrlTokens = async (
 export async function getToolUrl(
 	commit?: LineAttachedCommit,
 ): Promise<Uri | undefined> {
-	if (!commit || isUncommitted(commit.commit)) {
+	if (!commit?.commit.isCommitted()) {
 		return;
 	}
 	const tokens = await generateUrlTokens(commit);

@@ -1,20 +1,15 @@
-import { FileAttachedCommit } from "./FileAttachedCommit.js";
+import type { Commit } from "./Commit.js";
+import type { FileAttachedCommit } from "./FileAttachedCommit.js";
+import type { Line } from "./Line.js";
 
-export class LineAttachedCommit<
-	T extends Date | string = Date,
-> extends FileAttachedCommit<T> {
+export class LineAttachedCommit {
+	public commit: Commit;
+	public filename: string;
 	constructor(
-		fileAttachedCommit: FileAttachedCommit<T>,
+		fileAttachedcommit: FileAttachedCommit,
 		public line: Line,
 	) {
-		super(fileAttachedCommit.commit);
-		this.filename = fileAttachedCommit.filename;
+		this.commit = fileAttachedcommit.commit;
+		this.filename = fileAttachedcommit.filename;
 	}
-}
-
-export class Line {
-	constructor(
-		public source: number,
-		public result: number,
-	) {}
 }
