@@ -1,5 +1,5 @@
 import { commands, type Disposable, type ExtensionContext } from "vscode";
-
+import { Extension } from "./extension.js";
 import { Logger } from "./logger.js";
 
 const registerCommand = (name: string, callback: () => void): Disposable => {
@@ -7,25 +7,17 @@ const registerCommand = (name: string, callback: () => void): Disposable => {
 };
 
 export function activate(context: ExtensionContext): void {
-	const app = import("./extension.js").then(({ Extension }) => new Extension());
+	const app = new Extension();
 
 	context.subscriptions.push(
-		{
-			dispose: () => void app.then((e) => e.dispose()),
-		},
+		app,
 		Logger.getInstance(),
-		registerCommand("quickInfo", () => void app.then((e) => e.showMessage())),
-		registerCommand("online", () => void app.then((e) => e.blameLink())),
-		registerCommand(
-			"addCommitHashToClipboard",
-			() => void app.then((e) => e.copyHash()),
-		),
-		registerCommand(
-			"addToolUrlToClipboard",
-			() => void app.then((e) => e.copyToolUrl()),
-		),
-		registerCommand("gitShow", () => void app.then((e) => e.runGitShow())),
+		registerCommand("quickInfo", () => void app.showMessage()),
+		registerCommand("online", () => void app.blameLink()),
+		registerCommand("addCommitHashToClipboard", () => void app.copyHash()),
+		registerCommand("addToolUrlToClipboard", () => void app.copyToolUrl()),
+		registerCommand("gitShow", () => void app.runGitShow()),
 	);
 
-	app.then((e) => e.updateView());
+	app.updateView();
 }

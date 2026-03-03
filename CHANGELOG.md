@@ -1,5 +1,8 @@
 # Change Log
 
+## 12.0.1 (March 03, 2026)
+* Bug: Fix issue where vscode completley hangs when trying to load extension.
+
 ## 12.0.0 (March 02, 2026)
 * Feature: The extension now caches even simple git calls and hopefully reduces CPU usage at the cost of a bit extra memory
 * Feature: Gone through the commands and improved UI handling and error reporting
