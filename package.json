@@ -9,6 +9,7 @@
     "vscode": ">=1.100.0",
     "node": ">=22.22.0"
   },
+  "type": "module",
   "categories": [
     "Other"
   ],
