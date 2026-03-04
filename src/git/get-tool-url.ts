@@ -1,6 +1,6 @@
 import { URL } from "node:url";
 import { Uri } from "vscode";
-
+import { Logger } from "../logger.js";
 import { errorMessage } from "../message.js";
 import { getProperty } from "../property.js";
 import { isUrl } from "../string-stuff/is-url.js";
@@ -94,11 +94,16 @@ export const generateUrlTokens = async (
 
 	const origin = await getActiveFileOrigin(remoteName);
 
-	if (origin === remoteName) {
+	if (origin === remoteName || origin === undefined) {
 		return;
 	}
 
 	const remoteUrl = await getRemoteUrl(remoteName);
+	if (remoteUrl === undefined) {
+		Logger.info("Unable to find remote URL. Can not provide URL");
+		return;
+	}
+
 	const tool = originUrlToToolUrl(remoteUrl);
 	const filePath = await getRelativePathOfActiveFile();
 	const defaultBranch = await getDefaultBranch(remoteName);
@@ -109,12 +114,12 @@ export const generateUrlTokens = async (
 		"tool.commitpath": `/commit${isToolUrlPlural(remoteUrl) ? "s" : ""}/`,
 		"project.name": projectNameFromOrigin(origin),
 		"project.remote": stripGitRemoteUrl(remoteUrl),
-		"project.defaultbranch": defaultBranch,
+		"project.defaultbranch": defaultBranch ?? "UNABLE-TO-FIND-DEFAULT-BRANCH",
 		"gitorigin.hostname": tool ? gitOriginHostname(tool) : "no-origin-url",
 		"gitorigin.path": gitRemotePath(stripGitSuffix(origin)),
 		"gitorigin.port": tool?.port ? `:${tool.port}` : "",
-		"file.path": filePath,
-		"file.path.result": filePath,
+		"file.path": filePath ?? "UNABLE-TO-FIND-FILE-PATH",
+		"file.path.result": filePath ?? "UNABLE-TO-FIND-FILE-PATH",
 		"file.path.source": lineAware.filename,
 		"file.line": lineAware.line.result.toString(),
 		"file.line.result": lineAware.line.result.toString(),

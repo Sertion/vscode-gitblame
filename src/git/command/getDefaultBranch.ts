@@ -3,7 +3,9 @@ import { split } from "../../string-stuff/split.js";
 import { validEditor } from "../../valid-editor.js";
 import { git } from "./CachedGit.js";
 
-export const getDefaultBranch = async (remote: string): Promise<string> => {
+export async function getDefaultBranch(
+	remote: string,
+): Promise<string | undefined> {
 	const activeEditor = getActiveTextEditor();
 
 	if (!validEditor(activeEditor)) {
@@ -17,5 +19,9 @@ export const getDefaultBranch = async (remote: string): Promise<string> => {
 		`${remote}/HEAD`,
 	);
 
+	if (!rawRemoteDefaultBranch) {
+		return;
+	}
+
 	return split(rawRemoteDefaultBranch, "/")[1];
-};
+}

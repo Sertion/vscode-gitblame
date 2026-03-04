@@ -4,15 +4,21 @@ import { dirname, join } from "node:path";
 import { getProperty } from "../../property.js";
 import { git } from "./CachedGit.js";
 
-export const getRevsFile = async (
+export async function getRevsFile(
 	realFileName: string,
-): Promise<string | undefined> => {
+): Promise<string | undefined> {
 	const possibleRevsFiles = getProperty("revsFile");
 	if (possibleRevsFiles.length === 0) {
 		return;
 	}
 
-	const projectRoot = dirname(await git.getRepositoryFolder(realFileName));
+	const gitRepo = await git.getRepositoryFolder(realFileName);
+
+	if (!gitRepo) {
+		return;
+	}
+
+	const projectRoot = dirname(gitRepo);
 	const revsFiles = await Promise.allSettled(
 		possibleRevsFiles.map(async (fileName) => {
 			const path = join(projectRoot, fileName);
@@ -25,4 +31,4 @@ export const getRevsFile = async (
 		(promise): promise is PromiseFulfilledResult<string> =>
 			promise.status === "fulfilled",
 	)?.value;
-};
+}

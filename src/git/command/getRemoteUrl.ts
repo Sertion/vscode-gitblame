@@ -2,7 +2,9 @@ import { getActiveTextEditor } from "../../get-active.js";
 import { validEditor } from "../../valid-editor.js";
 import { git } from "./CachedGit.js";
 
-export const getRemoteUrl = async (fallbackRemote: string): Promise<string> => {
+export async function getRemoteUrl(
+	fallbackRemote: string,
+): Promise<string | undefined> {
 	const activeEditor = getActiveTextEditor();
 
 	if (!validEditor(activeEditor)) {
@@ -27,4 +29,4 @@ export const getRemoteUrl = async (fallbackRemote: string): Promise<string> => {
 		"config",
 		`remote.${curRemote || fallbackRemote}.url`,
 	);
-};
+}

@@ -14,8 +14,12 @@ export class HeadWatch extends GitRepositoryWatcher {
 
 	public async addFile(
 		filePath: string,
-		gitRepositoryPath: string,
+		gitRepositoryPath: string | undefined,
 	): Promise<void> {
+		if (!gitRepositoryPath) {
+			return;
+		}
+
 		if (this.filesWithFoundHeads.has(filePath)) {
 			return;
 		}

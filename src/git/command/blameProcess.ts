@@ -19,10 +19,11 @@ export const blameProcess = (
 		args.splice(1, 0, "-S", revsFile);
 	}
 
-	Logger.info(`${getGitCommand()} ${args.join(" ")}`);
+	const cwd = dirname(realpathFileName);
+	Logger.info(`"${getGitCommand()} ${args.join(" ")}" in ${cwd}`);
 
 	return spawn(getGitCommand(), args, {
-		cwd: dirname(realpathFileName),
+		cwd,
 		stdio: ["ignore", null, null],
 		env: {
 			...process.env,

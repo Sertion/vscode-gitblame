@@ -6,8 +6,11 @@ import { getGitCommand } from "./git-command.js";
 
 class CachedGitCommand {
 	private gitConfigWatch = new GitRepositoryWatcher("config");
-	private commands = new Map<string, Promise<string>>();
-	private folderToGitRepository = new Map<string, Promise<string>>();
+	private commands = new Map<string, Promise<string | undefined>>();
+	private folderToGitRepository = new Map<
+		string,
+		Promise<string | undefined>
+	>();
 
 	constructor() {
 		this.gitConfigWatch.onChange(() => {
@@ -16,7 +19,9 @@ class CachedGitCommand {
 		});
 	}
 
-	public async getRepositoryFolder(fileName: string): Promise<string> {
+	public async getRepositoryFolder(
+		fileName: string,
+	): Promise<string | undefined> {
 		const directory = dirname(fileName);
 		const previousGitRepositoryFolder =
 			this.folderToGitRepository.get(directory);
@@ -24,19 +29,31 @@ class CachedGitCommand {
 			return previousGitRepositoryFolder;
 		}
 
-		const gitFolder = execute(
-			getGitCommand(),
-			["rev-parse", "--absolute-git-dir"],
-			{ cwd: directory },
-		);
-		this.folderToGitRepository.set(directory, gitFolder);
-		this.gitConfigWatch.addRepository(await gitFolder);
-		return gitFolder;
+		try {
+			const gitFolder = execute(
+				getGitCommand(),
+				["rev-parse", "--absolute-git-dir"],
+				{ cwd: directory },
+			).catch(() => undefined);
+			this.folderToGitRepository.set(directory, gitFolder);
+			const folder = await gitFolder;
+			if (folder) {
+				this.gitConfigWatch.addRepository(folder);
+			}
+			return gitFolder;
+		} catch {
+			Logger.info(`Failed to find git folder for "${fileName}". Not blaming.`);
+			return undefined;
+		}
 	}
 
-	public async run(cwd: string, ...args: string[]): Promise<string> {
+	public async run(
+		path: string,
+		...args: string[]
+	): Promise<string | undefined> {
 		const command = getGitCommand();
-		const key = `${command}@${args.join("@")}`;
+		const cwd = dirname(path);
+		const key = `${command}@${args.join("@")}@${cwd}`;
 		const cached = this.commands.get(key);
 		if (cached !== undefined) {
 			Logger.debug(
@@ -44,14 +61,13 @@ class CachedGitCommand {
 			);
 			return cached;
 		}
-		const dir = dirname(cwd);
+
 		const result = execute(command, args, {
-			cwd: dir,
+			cwd,
 			env: { ...process.env, LC_ALL: "C" },
-		});
+		}).catch(() => undefined);
 
 		this.commands.set(key, result);
-		await this.getRepositoryFolder(cwd);
 
 		return result;
 	}

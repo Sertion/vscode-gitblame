@@ -1,5 +1,5 @@
 import { type FSWatcher, watch } from "node:fs";
-import { join, normalize, resolve } from "node:path";
+import { join, resolve } from "node:path";
 import { Logger } from "../logger.js";
 
 export type HeadChangeEvent = {
@@ -20,7 +20,7 @@ export class GitRepositoryWatcher {
 	}
 
 	public async addRepository(gitRepositoryPath: string): Promise<string> {
-		const gitRoot = normalize(gitRepositoryPath);
+		const gitRoot = this.normalizeWindowsDrivePath(gitRepositoryPath);
 		const watched = this.watchers.has(gitRoot);
 
 		if (watched === true || gitRepositoryPath === "") {
@@ -50,5 +50,12 @@ export class GitRepositoryWatcher {
 		}
 		this.watchers.clear();
 		this.callback = () => undefined;
+	}
+
+	private normalizeWindowsDrivePath(path: string): string {
+		if (path.length < 1) {
+			return path.toUpperCase();
+		}
+		return path[0].toUpperCase() + path.slice(1);
 	}
 }

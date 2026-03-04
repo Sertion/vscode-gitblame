@@ -1,5 +1,8 @@
 # Change Log
 
+## 12.0.2 (March 04, 2026)
+* Bug: Extension sometimes fails to find git information on Windows [#203](https://github.com/Sertion/vscode-gitblame/issues/203). Thanks to [f4n0](https://github.com/f4n0)!
+
 ## 12.0.1 (March 03, 2026)
 * Bug: Fix issue where vscode completley hangs when trying to load extension.
 

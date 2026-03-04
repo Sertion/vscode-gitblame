@@ -68,14 +68,17 @@ suite("Generate URL Tokens", () => {
 			},
 		});
 		execcommandStub
+			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
+			.resolves("/a/path/.git/");
+		execcommandStub
 			.withArgs(
 				match.string,
 				["symbolic-ref", "-q", "--short", "HEAD"],
 				match.object,
 			)
-			.resolves("master");
+			.resolves("main");
 		execcommandStub
-			.withArgs(match.string, ["config", "branch.master.remote"], match.object)
+			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
 			.resolves("origin");
 		execcommandStub
 			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
@@ -153,14 +156,17 @@ suite("Generate URL Tokens", () => {
 			},
 		});
 		execcommandStub
+			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
+			.resolves("/a/path/.git/");
+		execcommandStub
 			.withArgs(
 				match.string,
 				["symbolic-ref", "-q", "--short", "HEAD"],
 				match.object,
 			)
-			.resolves("master");
+			.resolves("main");
 		execcommandStub
-			.withArgs(match.string, ["config", "branch.master.remote"], match.object)
+			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
 			.resolves("origin");
 		execcommandStub
 			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
@@ -238,14 +244,17 @@ suite("Generate URL Tokens", () => {
 			},
 		});
 		execcommandStub
+			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
+			.resolves("/a/path/.git/");
+		execcommandStub
 			.withArgs(
 				match.string,
 				["symbolic-ref", "-q", "--short", "HEAD"],
 				match.object,
 			)
-			.resolves("master");
+			.resolves("main");
 		execcommandStub
-			.withArgs(match.string, ["config", "branch.master.remote"], match.object)
+			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
 			.resolves("origin");
 		execcommandStub
 			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
@@ -329,9 +338,12 @@ suite("Generate URL Tokens", () => {
 				["symbolic-ref", "-q", "--short", "HEAD"],
 				match.object,
 			)
-			.resolves("master");
+			.resolves("main");
 		execcommandStub
-			.withArgs(match.string, ["config", "branch.master.remote"], match.object)
+			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
+			.resolves("/a/path/.git/");
+		execcommandStub
+			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
 			.resolves("origin");
 		execcommandStub
 			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
@@ -414,14 +426,17 @@ suite("Generate URL Tokens", () => {
 			},
 		});
 		execcommandStub
+			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
+			.resolves("/a/path/.git/");
+		execcommandStub
 			.withArgs(
 				match.string,
 				["symbolic-ref", "-q", "--short", "HEAD"],
 				match.object,
 			)
-			.resolves("master");
+			.resolves("main");
 		execcommandStub
-			.withArgs(match.string, ["config", "branch.master.remote"], match.object)
+			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
 			.resolves("");
 		execcommandStub
 			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
@@ -509,14 +524,17 @@ suite("Use generated URL tokens", () => {
 			},
 		});
 		execcommandStub
+			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
+			.resolves("/a/path/.git/");
+		execcommandStub
 			.withArgs(
 				match.string,
 				["symbolic-ref", "-q", "--short", "HEAD"],
 				match.object,
 			)
-			.resolves("master");
+			.resolves("main");
 		execcommandStub
-			.withArgs(match.string, ["config", "branch.master.remote"], match.object)
+			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
 			.resolves("origin");
 		execcommandStub
 			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
@@ -584,14 +602,17 @@ suite("Use generated URL tokens", () => {
 			},
 		});
 		execcommandStub
+			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
+			.resolves("/a/path/.git/");
+		execcommandStub
 			.withArgs(
 				match.string,
 				["symbolic-ref", "-q", "--short", "HEAD"],
 				match.object,
 			)
-			.resolves("master");
+			.resolves("main");
 		execcommandStub
-			.withArgs(match.string, ["config", "branch.master.remote"], match.object)
+			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
 			.resolves("origin");
 		execcommandStub
 			.withArgs(match.string, ["config", "remote.origin.url"], match.object)

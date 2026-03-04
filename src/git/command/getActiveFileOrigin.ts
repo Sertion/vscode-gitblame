@@ -2,9 +2,9 @@ import { getActiveTextEditor } from "../../get-active.js";
 import { validEditor } from "../../valid-editor.js";
 import { git } from "./CachedGit.js";
 
-export const getActiveFileOrigin = async (
+export async function getActiveFileOrigin(
 	remoteName: string,
-): Promise<string> => {
+): Promise<string | undefined> {
 	const activeEditor = getActiveTextEditor();
 
 	if (!validEditor(activeEditor)) {
@@ -17,4 +17,4 @@ export const getActiveFileOrigin = async (
 		"--get-url",
 		remoteName,
 	);
-};
+}
