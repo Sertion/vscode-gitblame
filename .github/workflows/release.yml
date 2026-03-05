@@ -1,5 +1,7 @@
 # Stolen from https://github.com/HaaLeo/publish-vscode-extension#readme
 name: Deploy Extension
+permissions:
+  contents: read
 
 on:
   workflow_dispatch:
