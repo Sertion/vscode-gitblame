@@ -223,33 +223,33 @@ export class StatusBarView {
 		}
 
 		this.removeLineDecoration();
-		// Add new decoration
-		if (useDelay && (await this.delayUpdate(getProperty("delayBlame")))) {
-			const margin = getProperty("inlineMessageMargin");
-			const decorationPosition = new Position(
-				editor.selection.active.line,
-				Number.MAX_SAFE_INTEGER,
-			);
-			const hoverMessage =
-				typeof text === "string"
-					? undefined
-					: this.generateFancyTooltip(text, "inline");
 
-			editor.setDecorations?.(this.decorationType, [
-				{
-					hoverMessage,
-					renderOptions: {
-						after: {
-							contentText:
-								typeof text === "string" ? text : toInlineTextView(text),
-							margin: `0 0 0 ${margin}rem`,
-							color: new ThemeColor("gitblame.inlineMessage"),
-						},
-					},
-					range: new Range(decorationPosition, decorationPosition),
-				},
-			]);
+		if (useDelay) {
+			await this.delayUpdate(getProperty("delayBlame"));
 		}
+
+		// Add new decoration
+		const decorationPosition = new Position(
+			editor.selection.active.line,
+			Number.MAX_SAFE_INTEGER,
+		);
+		const isString = typeof text === "string";
+
+		editor.setDecorations?.(this.decorationType, [
+			{
+				hoverMessage: isString
+					? undefined
+					: this.generateFancyTooltip(text, "inline"),
+				renderOptions: {
+					after: {
+						contentText: isString ? text : toInlineTextView(text),
+						margin: `0 0 0 ${getProperty("inlineMessageMargin")}rem`,
+						color: new ThemeColor("gitblame.inlineMessage"),
+					},
+				},
+				range: new Range(decorationPosition, decorationPosition),
+			},
+		]);
 	}
 
 	private removeLineDecoration(): void {

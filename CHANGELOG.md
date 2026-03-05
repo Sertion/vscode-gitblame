@@ -1,5 +1,8 @@
 # Change Log
 
+## 12.0.3 (March 05, 2026)
+* Bug: Extension fails to find CWD for blame command on Windows [#203](https://github.com/Sertion/vscode-gitblame/issues/203). Thanks to [f4n0](https://github.com/f4n0), [tangbzai](https://github.com/tangbzai), and [ChenZheng1376](https://github.com/ChenZheng1376)!
+
 ## 12.0.2 (March 04, 2026)
 * Bug: Extension sometimes fails to find git information on Windows [#203](https://github.com/Sertion/vscode-gitblame/issues/203). Thanks to [f4n0](https://github.com/f4n0)!
 
