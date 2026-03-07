@@ -1,22 +1,22 @@
 # Stolen from https://github.com/HaaLeo/publish-vscode-extension#readme
 name: Deploy Extension
 permissions:
-  contents: read
+    contents: read
 
 on:
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - name: Publish to Open VSX Registry
-        uses: HaaLeo/publish-vscode-extension@v1.6.2
-        id: publishToOpenVSX
-        with:
-          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+            - run: npm ci
+            - name: Publish to Open VSX Registry
+              uses: HaaLeo/publish-vscode-extension@ca5561daa085dee804bf9f37fe0165785a9b14db # 2.0.0 release
+              id: publishToOpenVSX
+              with:
+                  pat: ${{ secrets.OPEN_VSX_TOKEN }}
