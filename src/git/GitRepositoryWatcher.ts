@@ -13,7 +13,7 @@ export class GitRepositoryWatcher {
 	private readonly watchers: Map<string, FSWatcher> = new Map();
 	private callback: HeadChangeEventCallbackFunction = () => undefined;
 
-	public constructor(private file: string) {}
+	public constructor(private readonly file: string) {}
 
 	public onChange(callback: HeadChangeEventCallbackFunction): void {
 		this.callback = callback;

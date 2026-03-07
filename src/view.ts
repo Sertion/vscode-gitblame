@@ -29,14 +29,14 @@ export class StatusBarView {
 
 	private statusBarText = "";
 	private statusBarTooltip: MarkdownString = new MarkdownString();
-	private statusBarCommand = false;
 	private statusBarPriority: number | undefined = getProperty(
 		"statusBarPositionPriority",
 	);
 
-	private lastCommand?: boolean;
+	private command?: string;
+	private lastText?: string;
 	private lastToolTip?: MarkdownString;
-	private toolTipMarkdownCache = new WeakMap<Commit, MarkdownString>();
+	private readonly toolTipMarkdownCache = new WeakMap<Commit, MarkdownString>();
 
 	constructor() {
 		this.statusBar = this.createStatusBarItem();
@@ -47,6 +47,7 @@ export class StatusBarView {
 					this.statusBarPriority = newPriority;
 					this.statusBar = this.createStatusBarItem();
 				}
+				this.updateCommand();
 			}
 		});
 	}
@@ -58,23 +59,27 @@ export class StatusBarView {
 	): void {
 		if (!commit) {
 			this.clear();
-		} else if (!commit.isCommitted()) {
-			this.updateTextNoCommand(
-				getProperty("statusBarMessageNoCommit"),
-				MESSAGE_NO_INFO,
-			);
-			if (editor) {
-				void this.createLineDecoration(
-					getProperty("inlineMessageNoCommit"),
-					editor,
-					useDelay,
-				);
-			}
-		} else {
+			return;
+		}
+
+		if (commit.isCommitted()) {
 			this.text(commit);
 			if (editor) {
 				void this.createLineDecoration(commit, editor, useDelay);
 			}
+			return;
+		}
+
+		this.updateTextNoCommand(
+			getProperty("statusBarMessageNoCommit"),
+			MESSAGE_NO_INFO,
+		);
+		if (editor) {
+			void this.createLineDecoration(
+				getProperty("inlineMessageNoCommit"),
+				editor,
+				useDelay,
+			);
 		}
 	}
 
@@ -104,50 +109,46 @@ export class StatusBarView {
 		this.configChange.dispose();
 	}
 
-	private command(): string {
-		return {
+	private updateCommand() {
+		this.command = {
 			"Open tool URL": "gitblame.online",
 			"Open git show": "gitblame.gitShow",
 			"Copy hash to clipboard": "gitblame.addCommitHashToClipboard",
 			"Show info message": "gitblame.quickInfo",
 		}[getProperty("statusBarMessageClickAction")];
+
+		if (this.statusBar.command !== undefined) {
+			this.statusBar.command = this.command;
+		}
 	}
 
-	private updateStatusBar(statusBar: StatusBarItem) {
+	private updateStatusBar(statusBar: StatusBarItem, hasCommand: boolean) {
 		if (
-			this.lastCommand === this.statusBarCommand &&
-			this.lastToolTip === this.statusBarTooltip
+			this.lastToolTip === this.statusBarTooltip &&
+			this.lastText === this.statusBarText
 		) {
 			Logger.debug(
-				"No need to update status bar as command and tooltip are unchanged.",
+				"No need to update status bar as text and tooltip are unchanged.",
 			);
 			return;
 		}
 		statusBar.text = this.statusBarText;
 		statusBar.tooltip = this.statusBarTooltip;
-		statusBar.command = this.statusBarCommand ? this.command() : undefined;
-
-		const lb = "\n    ";
-		Logger.debug(
-			`Updating status bar item with:${lb}Text: "${statusBar.text}"${lb}Tooltip: "git blame${statusBar.tooltip.value}"${lb}Command: "${statusBar.command ?? ""}"`,
-		);
+		statusBar.command = hasCommand ? this.command : undefined;
 	}
 
 	private text(commit: Commit): void {
-		this.statusBarCommand = true;
 		this.statusBarText = `$(git-commit) ${toStatusBarTextView(commit)}`;
 		this.statusBarTooltip = this.generateFancyTooltip(commit, "status");
 
-		this.updateStatusBar(this.statusBar);
+		this.updateStatusBar(this.statusBar, true);
 	}
 
 	private updateTextNoCommand(text: string, tooltip: string): void {
-		this.statusBarCommand = false;
-		this.statusBarTooltip = new MarkdownString();
+		this.statusBarTooltip = new MarkdownString(`git blame - ${tooltip}`);
 		this.statusBarText = `$(git-commit) ${text.trimEnd()}`;
-		this.statusBarTooltip.appendText(`git blame - ${tooltip}`);
 
-		this.updateStatusBar(this.statusBar);
+		this.updateStatusBar(this.statusBar, false);
 	}
 
 	private generateFancyTooltip(
@@ -206,7 +207,7 @@ export class StatusBarView {
 		);
 		statusBar.name = "Git blame information";
 
-		this.updateStatusBar(statusBar);
+		this.updateStatusBar(statusBar, false);
 
 		statusBar.show();
 

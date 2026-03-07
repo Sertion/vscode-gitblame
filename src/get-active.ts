@@ -11,6 +11,6 @@ export const getFilePosition = ({
 	document,
 	selection,
 }: PartialTextEditor): string =>
-	document.uri.scheme !== "file"
-		? NO_FILE_OR_PLACE
-		: `${document.fileName}:${selection.active.line}`;
+	document.uri.scheme === "file"
+		? `${document.fileName}:${selection.active.line}`
+		: NO_FILE_OR_PLACE;

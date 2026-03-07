@@ -170,7 +170,7 @@ const modify = (value: string, modifier = ""): string => {
 };
 
 const sanitizeToken = (token: string): string => {
-	return token.replace(/\u202e/g, "");
+	return token.replaceAll("\u202e", "");
 };
 
 export const parseTokens = <T extends InfoTokens>(

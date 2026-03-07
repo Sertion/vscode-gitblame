@@ -5,5 +5,5 @@ export async function getGitEmail(
 ): Promise<string | undefined> {
 	const email = await git.run(realFileName, "config", "user.email");
 
-	return email !== "" ? `<${email}>` : undefined;
+	return email === "" ? undefined : `<${email}>`;
 }

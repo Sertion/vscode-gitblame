@@ -14,7 +14,7 @@ export class FileAttachedCommit {
 		return new FileAttachedCommit(registry[hash], new Lines(coverage));
 	}
 	public filename = "";
-	#lines: Lines;
+	readonly #lines: Lines;
 	#hasFilename = false;
 	private constructor(
 		public commit: Commit,
