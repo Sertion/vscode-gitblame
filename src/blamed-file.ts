@@ -67,10 +67,7 @@ export class BlamedFile {
 						lineAttachedCommit.line.result
 					}: hash:${lineAttachedCommit.commit.hash}`,
 				);
-				blameInfo.set(
-					lineAttachedCommit.line.result,
-					lineAttachedCommit,
-				);
+				blameInfo.set(lineAttachedCommit.line.result, lineAttachedCommit);
 			}
 		} catch (err) {
 			Logger.error(err);

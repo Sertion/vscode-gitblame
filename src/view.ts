@@ -36,10 +36,7 @@ export class StatusBarView {
 	private command?: string;
 	private lastText?: string;
 	private lastToolTip?: MarkdownString;
-	private readonly toolTipMarkdownCache = new WeakMap<
-		Commit,
-		MarkdownString
-	>();
+	private readonly toolTipMarkdownCache = new WeakMap<Commit, MarkdownString>();
 
 	constructor() {
 		this.statusBar = this.createStatusBarItem();
@@ -190,9 +187,7 @@ export class StatusBarView {
 		if (currentUserAlias && commit.author.isCurrentUser) {
 			fancyToolTip.appendMarkdown(`__Author:__ ${currentUserAlias}<br>`);
 		} else {
-			fancyToolTip.appendMarkdown(
-				`__Author:__ ${commit.author.name}<br>`,
-			);
+			fancyToolTip.appendMarkdown(`__Author:__ ${commit.author.name}<br>`);
 		}
 
 		if (commit.author.name !== commit.committer.name) {
