@@ -32,6 +32,7 @@ jobs:
     sonarqube:
         name: SonarQube
         runs-on: ubuntu-latest
+        environment: prime
         steps:
             - uses: actions/checkout@v4
               with:
