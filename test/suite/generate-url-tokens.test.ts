@@ -5,14 +5,14 @@ import { FileAttachedCommit } from "../../src/git/FileAttachedCommit.js";
 import { parseTokens } from "../../src/string-stuff/text-decorator.js";
 import { setupPropertyStore } from "../setupPropertyStore.js";
 
-suite("Generate URL Tokens", () => {
-	function call(
-		func: string | ((index: string | undefined) => string | undefined),
-		arg?: string,
-	) {
-		return typeof func === "function" ? func(arg) : func;
-	}
+function call(
+	func: string | ((index: string | undefined) => string | undefined),
+	arg?: string,
+) {
+	return typeof func === "function" ? func(arg) : func;
+}
 
+suite("Generate URL Tokens", () => {
 	const fileCommit = FileAttachedCommit.Create(
 		{},
 		"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
@@ -68,44 +68,24 @@ suite("Generate URL Tokens", () => {
 					_: Promise<string>,
 					args: string[],
 				): Promise<string> => {
-					const command = args.shift();
-					if (command === "config") {
-						if (args[0] === "branch.main.remote") return "origin";
-						if (args[0] === "remote.origin.url") {
+					switch (args.join(" ")) {
+						case "config branch.main.remote":
+							return "origin";
+						case "config remote.origin.url":
 							return "https://github.com/Sertion/vscode-gitblame.git";
-						}
-						return "";
-					}
-					if (
-						command === "ls-files" &&
-						args[0] === "--full-name" &&
-						args[1] === "--" &&
-						args[2] === "/fake.file"
-					) {
-						return "/fake.file";
-					}
-					if (
-						command === "ls-remote" &&
-						args[0] === "--get-url" &&
-						args[1] === "origin"
-					) {
-						return "https://github.com/Sertion/vscode-gitblame.git";
-					}
-					if (command === "rev-parse") {
-						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+						case "ls-files --full-name -- /fake.file":
+							return "/fake.file";
+						case "ls-remote --get-url origin":
+							return "https://github.com/Sertion/vscode-gitblame.git";
+						case "rev-parse --abbrev-ref origin/HEAD":
 							return "origin/main";
-						}
-						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+						case "rev-parse --absolute-git-dir":
+							return "/a/path/.git/";
+						case "symbolic-ref -q --short HEAD":
+							return "main";
+						default:
+							return "";
 					}
-					if (
-						command === "symbolic-ref" &&
-						args[0] === "-q" &&
-						args[1] === "--short" &&
-						args[2] === "HEAD"
-					) {
-						return "main";
-					}
-					return "";
 				},
 			},
 		});
@@ -149,44 +129,24 @@ suite("Generate URL Tokens", () => {
 					_: Promise<string>,
 					args: string[],
 				): Promise<string> => {
-					const command = args.shift();
-					if (command === "config") {
-						if (args[0] === "branch.main.remote") return "origin";
-						if (args[0] === "remote.origin.url") {
+					switch (args.join(" ")) {
+						case "config branch.main.remote":
+							return "origin";
+						case "config remote.origin.url":
 							return "git@github.com:Sertion/vscode-gitblame.git";
-						}
-						return "";
-					}
-					if (
-						command === "ls-files" &&
-						args[0] === "--full-name" &&
-						args[1] === "--" &&
-						args[2] === "/fake.file"
-					) {
-						return "/fake.file";
-					}
-					if (
-						command === "ls-remote" &&
-						args[0] === "--get-url" &&
-						args[1] === "origin"
-					) {
-						return "git@github.com:Sertion/vscode-gitblame.git";
-					}
-					if (command === "rev-parse") {
-						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+						case "ls-files --full-name -- /fake.file":
+							return "/fake.file";
+						case "ls-remote --get-url origin":
+							return "git@github.com:Sertion/vscode-gitblame.git";
+						case "rev-parse --abbrev-ref origin/HEAD":
 							return "origin/main";
-						}
-						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+						case "rev-parse --absolute-git-dir":
+							return "/a/path/.git/";
+						case "symbolic-ref -q --short HEAD":
+							return "main";
+						default:
+							return "";
 					}
-					if (
-						command === "symbolic-ref" &&
-						args[0] === "-q" &&
-						args[1] === "--short" &&
-						args[2] === "HEAD"
-					) {
-						return "main";
-					}
-					return "";
 				},
 			},
 		});
@@ -231,44 +191,24 @@ suite("Generate URL Tokens", () => {
 					_: Promise<string>,
 					args: string[],
 				): Promise<string> => {
-					const command = args.shift();
-					if (command === "config") {
-						if (args[0] === "branch.main.remote") return "origin";
-						if (args[0] === "remote.origin.url") {
+					switch (args.join(" ")) {
+						case "config branch.main.remote":
+							return "origin";
+						case "config remote.origin.url":
 							return "ssh://git@github.com/Sertion/vscode-gitblame.git";
-						}
-						return "";
-					}
-					if (
-						command === "ls-files" &&
-						args[0] === "--full-name" &&
-						args[1] === "--" &&
-						args[2] === "/fake.file"
-					) {
-						return "/fake.file";
-					}
-					if (
-						command === "ls-remote" &&
-						args[0] === "--get-url" &&
-						args[1] === "origin"
-					) {
-						return "ssh://git@github.com/Sertion/vscode-gitblame.git";
-					}
-					if (command === "rev-parse") {
-						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+						case "ls-files --full-name -- /fake.file":
+							return "/fake.file";
+						case "ls-remote --get-url origin":
+							return "ssh://git@github.com/Sertion/vscode-gitblame.git";
+						case "rev-parse --abbrev-ref origin/HEAD":
 							return "origin/main";
-						}
-						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+						case "rev-parse --absolute-git-dir":
+							return "/a/path/.git/";
+						case "symbolic-ref -q --short HEAD":
+							return "main";
+						default:
+							return "";
 					}
-					if (
-						command === "symbolic-ref" &&
-						args[0] === "-q" &&
-						args[1] === "--short" &&
-						args[2] === "HEAD"
-					) {
-						return "main";
-					}
-					return "";
 				},
 			},
 		});
@@ -314,44 +254,24 @@ suite("Generate URL Tokens", () => {
 					_: Promise<string>,
 					args: string[],
 				): Promise<string> => {
-					const command = args.shift();
-					if (command === "config") {
-						if (args[0] === "branch.main.remote") return "origin";
-						if (args[0] === "remote.origin.url") {
+					switch (args.join(" ")) {
+						case "config branch.main.remote":
+							return "origin";
+						case "config remote.origin.url":
 							return "ssh://git@git.company.com/project_x/test-repository.git";
-						}
-						return "";
-					}
-					if (
-						command === "ls-files" &&
-						args[0] === "--full-name" &&
-						args[1] === "--" &&
-						args[2] === "/fake.file"
-					) {
-						return "/fake.file";
-					}
-					if (
-						command === "ls-remote" &&
-						args[0] === "--get-url" &&
-						args[1] === "origin"
-					) {
-						return "ssh://git@git.company.com/project_x/test-repository.git";
-					}
-					if (command === "rev-parse") {
-						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+						case "ls-files --full-name -- /fake.file":
+							return "/fake.file";
+						case "ls-remote --get-url origin":
+							return "ssh://git@git.company.com/project_x/test-repository.git";
+						case "rev-parse --abbrev-ref origin/HEAD":
 							return "origin/main";
-						}
-						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+						case "rev-parse --absolute-git-dir":
+							return "/a/path/.git/";
+						case "symbolic-ref -q --short HEAD":
+							return "main";
+						default:
+							return "";
 					}
-					if (
-						command === "symbolic-ref" &&
-						args[0] === "-q" &&
-						args[1] === "--short" &&
-						args[2] === "HEAD"
-					) {
-						return "main";
-					}
-					return "";
 				},
 			},
 		});
@@ -401,44 +321,24 @@ suite("Generate URL Tokens", () => {
 					_: Promise<string>,
 					args: string[],
 				): Promise<string> => {
-					const command = args.shift();
-					if (command === "config") {
-						if (args[0] === "branch.main.remote") return "";
-						if (args[0] === "remote.origin.url") {
+					switch (args.join(" ")) {
+						case "config branch.main.remote":
 							return "";
-						}
-						return "";
-					}
-					if (
-						command === "ls-files" &&
-						args[0] === "--full-name" &&
-						args[1] === "--" &&
-						args[2] === "/fake.file"
-					) {
-						return "/fake.file";
-					}
-					if (
-						command === "ls-remote" &&
-						args[0] === "--get-url" &&
-						args[1] === "origin"
-					) {
-						return "origin";
-					}
-					if (command === "rev-parse") {
-						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+						case "config remote.origin.url":
+							return "";
+						case "ls-files --full-name -- /fake.file":
+							return "/fake.file";
+						case "ls-remote --get-url origin":
+							return "origin";
+						case "rev-parse --abbrev-ref origin/HEAD":
 							return "origin/main";
-						}
-						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+						case "rev-parse --absolute-git-dir":
+							return "/a/path/.git/";
+						case "symbolic-ref -q --short HEAD":
+							return "main";
+						default:
+							return "";
 					}
-					if (
-						command === "symbolic-ref" &&
-						args[0] === "-q" &&
-						args[1] === "--short" &&
-						args[2] === "HEAD"
-					) {
-						return "main";
-					}
-					return "";
 				},
 			},
 		});
@@ -490,44 +390,24 @@ suite("Use generated URL tokens", () => {
 					_: Promise<string>,
 					args: string[],
 				): Promise<string> => {
-					const command = args.shift();
-					if (command === "config") {
-						if (args[0] === "branch.main.remote") return "origin";
-						if (args[0] === "remote.origin.url") {
+					switch (args.join(" ")) {
+						case "config branch.main.remote":
+							return "origin";
+						case "config remote.origin.url":
 							return "ssh://git@git.company.com/project_x/test-repository.git";
-						}
-						return "";
-					}
-					if (
-						command === "ls-files" &&
-						args[0] === "--full-name" &&
-						args[1] === "--" &&
-						args[2] === "/fake.file"
-					) {
-						return "/fake.file";
-					}
-					if (
-						command === "ls-remote" &&
-						args[0] === "--get-url" &&
-						args[1] === "origin"
-					) {
-						return "ssh://git@git.company.com/project_x/test-repository.git";
-					}
-					if (command === "rev-parse") {
-						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+						case "ls-files --full-name -- /fake.file":
+							return "/fake.file";
+						case "ls-remote --get-url origin":
+							return "ssh://git@git.company.com/project_x/test-repository.git";
+						case "rev-parse --abbrev-ref origin/HEAD":
 							return "origin/main";
-						}
-						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+						case "rev-parse --absolute-git-dir":
+							return "/a/path/.git/";
+						case "symbolic-ref -q --short HEAD":
+							return "main";
+						default:
+							return "";
 					}
-					if (
-						command === "symbolic-ref" &&
-						args[0] === "-q" &&
-						args[1] === "--short" &&
-						args[2] === "HEAD"
-					) {
-						return "main";
-					}
-					return "";
 				},
 			},
 		});
@@ -562,44 +442,24 @@ suite("Use generated URL tokens", () => {
 					_: Promise<string>,
 					args: string[],
 				): Promise<string> => {
-					const command = args.shift();
-					if (command === "config") {
-						if (args[0] === "branch.main.remote") return "origin";
-						if (args[0] === "remote.origin.url") {
+					switch (args.join(" ")) {
+						case "config branch.main.remote":
+							return "origin";
+						case "config remote.origin.url":
 							return "http://git.company.com:8080/project_x/test-repository.git";
-						}
-						return "";
-					}
-					if (
-						command === "ls-files" &&
-						args[0] === "--full-name" &&
-						args[1] === "--" &&
-						args[2] === "/fake.file"
-					) {
-						return "/fake.file";
-					}
-					if (
-						command === "ls-remote" &&
-						args[0] === "--get-url" &&
-						args[1] === "origin"
-					) {
-						return "http://git.company.com:8080/project_x/test-repository.git";
-					}
-					if (command === "rev-parse") {
-						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+						case "ls-files --full-name -- /fake.file":
+							return "/fake.file";
+						case "ls-remote --get-url origin":
+							return "http://git.company.com:8080/project_x/test-repository.git";
+						case "rev-parse --abbrev-ref origin/HEAD":
 							return "origin/main";
-						}
-						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+						case "rev-parse --absolute-git-dir":
+							return "/a/path/.git/";
+						case "symbolic-ref -q --short HEAD":
+							return "main";
+						default:
+							return "";
 					}
-					if (
-						command === "symbolic-ref" &&
-						args[0] === "-q" &&
-						args[1] === "--short" &&
-						args[2] === "HEAD"
-					) {
-						return "main";
-					}
-					return "";
 				},
 			},
 		});

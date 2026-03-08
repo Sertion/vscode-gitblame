@@ -5,16 +5,12 @@ export async function infoMessage<T extends MessageItem>(
 	message: string,
 	item: undefined | T[] = [],
 ): Promise<T | undefined> {
-	return Promise.resolve(
-		(await getvscode())?.window.showInformationMessage(message, ...item),
-	);
+	return (await getvscode())?.window.showInformationMessage(message, ...item);
 }
 
 export async function errorMessage(
 	message: string,
 	...items: string[]
 ): Promise<string | undefined> {
-	return Promise.resolve(
-		(await getvscode())?.window.showErrorMessage(message, ...items),
-	);
+	return (await getvscode())?.window.showErrorMessage(message, ...items);
 }

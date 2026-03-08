@@ -3,7 +3,7 @@ import { URL } from "node:url";
 import { stripGitRemoteUrl } from "./strip-git-remote-url.js";
 
 export function originUrlToToolUrl(url: string): URL | undefined {
-	const httpProtocol = !url.startsWith("http://") ? "https" : "http";
+	const httpProtocol = url.startsWith("http://") ? "http" : "https";
 
 	let uri: URL;
 
