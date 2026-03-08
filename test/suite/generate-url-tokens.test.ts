@@ -1,121 +1,125 @@
 import * as assert from "node:assert";
-import { afterEach } from "mocha";
-import { match, stub } from "sinon";
-import { Uri } from "vscode";
-import * as getActive from "../../src/get-active.js";
-import type { Commit } from "../../src/git/Commit.js";
-import { CommitAuthor } from "../../src/git/CommitAuthor.js";
-import { git } from "../../src/git/command/CachedGit.js";
-import * as execcommand from "../../src/git/command/execute.js";
-import { generateUrlTokens } from "../../src/git/get-tool-url.js";
-import type { LineAttachedCommit } from "../../src/git/LineAttachedCommit.js";
-import * as property from "../../src/property.js";
+import test, { afterEach, beforeEach, mock, suite } from "node:test";
+import { setupCachedGit } from "../../src/git/command/CachedGit.js";
+import { FileAttachedCommit } from "../../src/git/FileAttachedCommit.js";
 import { parseTokens } from "../../src/string-stuff/text-decorator.js";
+import { setupPropertyStore } from "../setupPropertyStore.js";
 
 suite("Generate URL Tokens", () => {
-	const call = (
+	function call(
 		func: string | ((index: string | undefined) => string | undefined),
 		arg?: string,
-	) => (typeof func === "function" ? func(arg) : func);
+	) {
+		return typeof func === "function" ? func(arg) : func;
+	}
 
-	const author = new CommitAuthor();
-	author.mail = "<vdavydov.dev@gmail.com>";
-	author.name = "Vladimir Davydov";
-	author.isCurrentUser = false;
-	author.timestamp = "1423781950";
-	author.date = new Date(1423781950000);
-	author.tz = "-0800";
+	const fileCommit = FileAttachedCommit.Create(
+		{},
+		"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
+		"10 100 1",
+	);
+	fileCommit.setByKey("summary", "list_lru: introduce per-memcg lists");
+	fileCommit.setByKey("filename", "directory/example.file");
 
-	const committer = new CommitAuthor();
-	committer.mail = "<torvalds@linux-foundation.org>";
-	committer.name = "Linus Torvalds";
-	committer.isCurrentUser = false;
-	committer.timestamp = "1423796049";
-	committer.date = new Date(1423796049000);
-	committer.tz = "-0800";
+	fileCommit.setByKey("author-mail", "<vdavydov.dev@gmail.com>");
+	fileCommit.setByKey("author", "Vladimir Davydov");
+	fileCommit.setByKey("author-timestamp", "1423781950");
+	fileCommit.setByKey("author-date", "1423781950");
+	fileCommit.setByKey("author-tz", "-0800");
 
-	const exampleCommit: LineAttachedCommit = {
-		commit: {
-			author,
-			committer,
-			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-			summary: "list_lru: introduce per-memcg lists",
-		} as unknown as Commit,
-		filename: "directory/example.file",
-		line: {
-			source: 10,
-			result: 100,
-		},
-	};
+	fileCommit.setByKey("committer-mail", "<torvalds@linux-foundation.org>");
+	fileCommit.setByKey("committer", "Linus Torvalds");
+	fileCommit.setByKey("committer-timestamp", "1423796049");
+	fileCommit.setByKey("committer-date", "1423796049");
+	fileCommit.setByKey("committer-tz", "-0800");
 
-	afterEach(() => git.clear());
+	const exampleCommit = fileCommit.toLineAttachedCommits().next().value;
 
-	test("http:// origin", async () => {
-		const activeEditorStub = stub(getActive, "getActiveTextEditor");
-		const execcommandStub = stub(execcommand, "execute");
-		const propertyStub = stub(property, "getProperty");
-		activeEditorStub.returns({
-			document: {
-				isUntitled: false,
-				fileName: "/fake.file",
-				uri: Uri.parse("/fake.file"),
-				lineCount: 1024,
+	beforeEach(async (): Promise<void> => {
+		mock.module("../../src/get-active.js", {
+			namedExports: {
+				getActiveTextEditor: () => ({
+					document: {
+						isUntitled: false,
+						fileName: "/fake.file",
+						uri: {
+							scheme: "file",
+						},
+						lineCount: 1024,
+					},
+					selection: {
+						active: {
+							line: 1,
+						},
+					},
+				}),
 			},
-			selection: {
-				active: {
-					line: 1,
+		});
+	});
+	afterEach(() => {
+		import("../../src/git/command/CachedGit.js").then((e) => e.git.clear());
+		mock.restoreAll();
+	});
+
+	test("http:// origin", async (t) => {
+		t.mock.module("../../src/git/command/execute.js", {
+			namedExports: {
+				execute: async (
+					_: Promise<string>,
+					args: string[],
+				): Promise<string> => {
+					const command = args.shift();
+					if (command === "config") {
+						if (args[0] === "branch.main.remote") return "origin";
+						if (args[0] === "remote.origin.url") {
+							return "https://github.com/Sertion/vscode-gitblame.git";
+						}
+						return "";
+					}
+					if (
+						command === "ls-files" &&
+						args[0] === "--full-name" &&
+						args[1] === "--" &&
+						args[2] === "/fake.file"
+					) {
+						return "/fake.file";
+					}
+					if (
+						command === "ls-remote" &&
+						args[0] === "--get-url" &&
+						args[1] === "origin"
+					) {
+						return "https://github.com/Sertion/vscode-gitblame.git";
+					}
+					if (command === "rev-parse") {
+						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+							return "origin/main";
+						}
+						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+					}
+					if (
+						command === "symbolic-ref" &&
+						args[0] === "-q" &&
+						args[1] === "--short" &&
+						args[2] === "HEAD"
+					) {
+						return "main";
+					}
+					return "";
 				},
 			},
 		});
-		execcommandStub
-			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
-			.resolves("/a/path/.git/");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["symbolic-ref", "-q", "--short", "HEAD"],
-				match.object,
-			)
-			.resolves("main");
-		execcommandStub
-			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
-			.resolves("origin");
-		execcommandStub
-			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
-			.resolves("https://github.com/Sertion/vscode-gitblame.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-remote", "--get-url", "origin"],
-				match.object,
-			)
-			.resolves("https://github.com/Sertion/vscode-gitblame.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-files", "--full-name", "--", "/fake.file"],
-				match.object,
-			)
-			.resolves("/fake.file");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["rev-parse", "--abbrev-ref", "origin/HEAD"],
-				match.object,
-			)
-			.resolves("origin/main");
-		propertyStub.withArgs("remoteName").returns("origin");
+		await setupCachedGit();
+		const propertyStore = await setupPropertyStore();
+		propertyStore.setOverride("remoteName", "origin");
 
-		const tokens = await generateUrlTokens(exampleCommit);
+		const tokens = await (
+			await import("../../src/git/get-tool-url.js")
+		).generateUrlTokens(exampleCommit);
 
-		activeEditorStub.restore();
-		execcommandStub.restore();
-		propertyStub.restore();
+		propertyStore.clearOverrides();
 
-		if (tokens === undefined) {
-			assert.notStrictEqual(tokens, undefined);
-			return;
-		}
+		assert.ok(tokens);
 
 		assert.strictEqual(call(tokens["gitorigin.hostname"], ""), "github.com");
 		assert.strictEqual(call(tokens["gitorigin.hostname"], "0"), "github");
@@ -138,72 +142,66 @@ suite("Generate URL Tokens", () => {
 		assert.strictEqual(call(tokens["file.path"]), "/fake.file");
 	});
 
-	test("git@ origin", async () => {
-		const activeEditorStub = stub(getActive, "getActiveTextEditor");
-		const execcommandStub = stub(execcommand, "execute");
-		const propertyStub = stub(property, "getProperty");
-		activeEditorStub.returns({
-			document: {
-				isUntitled: false,
-				fileName: "/fake.file",
-				uri: Uri.parse("/fake.file"),
-				lineCount: 1024,
-			},
-			selection: {
-				active: {
-					line: 1,
+	test("git@ origin", async (t) => {
+		t.mock.module("../../src/git/command/execute.js", {
+			namedExports: {
+				execute: async (
+					_: Promise<string>,
+					args: string[],
+				): Promise<string> => {
+					const command = args.shift();
+					if (command === "config") {
+						if (args[0] === "branch.main.remote") return "origin";
+						if (args[0] === "remote.origin.url") {
+							return "git@github.com:Sertion/vscode-gitblame.git";
+						}
+						return "";
+					}
+					if (
+						command === "ls-files" &&
+						args[0] === "--full-name" &&
+						args[1] === "--" &&
+						args[2] === "/fake.file"
+					) {
+						return "/fake.file";
+					}
+					if (
+						command === "ls-remote" &&
+						args[0] === "--get-url" &&
+						args[1] === "origin"
+					) {
+						return "git@github.com:Sertion/vscode-gitblame.git";
+					}
+					if (command === "rev-parse") {
+						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+							return "origin/main";
+						}
+						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+					}
+					if (
+						command === "symbolic-ref" &&
+						args[0] === "-q" &&
+						args[1] === "--short" &&
+						args[2] === "HEAD"
+					) {
+						return "main";
+					}
+					return "";
 				},
 			},
 		});
-		execcommandStub
-			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
-			.resolves("/a/path/.git/");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["symbolic-ref", "-q", "--short", "HEAD"],
-				match.object,
-			)
-			.resolves("main");
-		execcommandStub
-			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
-			.resolves("origin");
-		execcommandStub
-			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
-			.resolves("git@github.com:Sertion/vscode-gitblame.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-remote", "--get-url", "origin"],
-				match.object,
-			)
-			.resolves("git@github.com:Sertion/vscode-gitblame.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-files", "--full-name", "--", "/fake.file"],
-				match.object,
-			)
-			.resolves("/fake.file");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["rev-parse", "--abbrev-ref", "origin/HEAD"],
-				match.object,
-			)
-			.resolves("origin/main");
-		propertyStub.withArgs("remoteName").returns("origin");
 
-		const tokens = await generateUrlTokens(exampleCommit);
+		await setupCachedGit();
+		const prop = await setupPropertyStore();
+		prop.setOverride("remoteName", "origin");
 
-		activeEditorStub.restore();
-		execcommandStub.restore();
-		propertyStub.restore();
+		const tokens = await (
+			await import("../../src/git/get-tool-url.js")
+		).generateUrlTokens(exampleCommit);
 
-		if (tokens === undefined) {
-			assert.notStrictEqual(tokens, undefined);
-			return;
-		}
+		prop.clearOverrides();
+
+		assert.ok(tokens);
 
 		assert.strictEqual(call(tokens["gitorigin.hostname"], ""), "github.com");
 		assert.strictEqual(call(tokens["gitorigin.hostname"], "0"), "github");
@@ -226,72 +224,66 @@ suite("Generate URL Tokens", () => {
 		assert.strictEqual(call(tokens["file.path"]), "/fake.file");
 	});
 
-	test("ssh://git@ origin", async () => {
-		const activeEditorStub = stub(getActive, "getActiveTextEditor");
-		const execcommandStub = stub(execcommand, "execute");
-		const propertyStub = stub(property, "getProperty");
-		activeEditorStub.returns({
-			document: {
-				isUntitled: false,
-				fileName: "/fake.file",
-				uri: Uri.parse("/fake.file"),
-				lineCount: 1024,
-			},
-			selection: {
-				active: {
-					line: 22,
+	test("ssh://git@ origin", async (t) => {
+		t.mock.module("../../src/git/command/execute.js", {
+			namedExports: {
+				execute: async (
+					_: Promise<string>,
+					args: string[],
+				): Promise<string> => {
+					const command = args.shift();
+					if (command === "config") {
+						if (args[0] === "branch.main.remote") return "origin";
+						if (args[0] === "remote.origin.url") {
+							return "ssh://git@github.com/Sertion/vscode-gitblame.git";
+						}
+						return "";
+					}
+					if (
+						command === "ls-files" &&
+						args[0] === "--full-name" &&
+						args[1] === "--" &&
+						args[2] === "/fake.file"
+					) {
+						return "/fake.file";
+					}
+					if (
+						command === "ls-remote" &&
+						args[0] === "--get-url" &&
+						args[1] === "origin"
+					) {
+						return "ssh://git@github.com/Sertion/vscode-gitblame.git";
+					}
+					if (command === "rev-parse") {
+						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+							return "origin/main";
+						}
+						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+					}
+					if (
+						command === "symbolic-ref" &&
+						args[0] === "-q" &&
+						args[1] === "--short" &&
+						args[2] === "HEAD"
+					) {
+						return "main";
+					}
+					return "";
 				},
 			},
 		});
-		execcommandStub
-			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
-			.resolves("/a/path/.git/");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["symbolic-ref", "-q", "--short", "HEAD"],
-				match.object,
-			)
-			.resolves("main");
-		execcommandStub
-			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
-			.resolves("origin");
-		execcommandStub
-			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
-			.resolves("ssh://git@github.com/Sertion/vscode-gitblame.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-remote", "--get-url", "origin"],
-				match.object,
-			)
-			.resolves("ssh://git@github.com/Sertion/vscode-gitblame.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-files", "--full-name", "--", "/fake.file"],
-				match.object,
-			)
-			.resolves("/fake.file");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["rev-parse", "--abbrev-ref", "origin/HEAD"],
-				match.object,
-			)
-			.resolves("origin/main");
-		propertyStub.withArgs("remoteName").returns("origin");
 
-		const tokens = await generateUrlTokens(exampleCommit);
+		await setupCachedGit();
+		const prop = await setupPropertyStore();
+		prop.setOverride("remoteName", "origin");
 
-		activeEditorStub.restore();
-		execcommandStub.restore();
-		propertyStub.restore();
+		const tokens = await (
+			await import("../../src/git/get-tool-url.js")
+		).generateUrlTokens(exampleCommit);
 
-		if (tokens === undefined) {
-			assert.notStrictEqual(tokens, undefined);
-			return;
-		}
+		prop.clearOverrides();
+
+		assert.ok(tokens);
 
 		assert.strictEqual(call(tokens["gitorigin.hostname"], ""), "github.com");
 		assert.strictEqual(call(tokens["gitorigin.hostname"], "0"), "github");
@@ -315,72 +307,66 @@ suite("Generate URL Tokens", () => {
 		assert.strictEqual(call(tokens["file.line"]), "100");
 	});
 
-	test("ssh://git@git.company.com/project_x/test-repository.git origin", async () => {
-		const activeEditorStub = stub(getActive, "getActiveTextEditor");
-		const execcommandStub = stub(execcommand, "execute");
-		const propertyStub = stub(property, "getProperty");
-		activeEditorStub.returns({
-			document: {
-				isUntitled: false,
-				fileName: "/fake.file",
-				uri: Uri.parse("/fake.file"),
-				lineCount: 1024,
-			},
-			selection: {
-				active: {
-					line: 9,
+	test("ssh://git@git.company.com/project_x/test-repository.git origin", async (t) => {
+		t.mock.module("../../src/git/command/execute.js", {
+			namedExports: {
+				execute: async (
+					_: Promise<string>,
+					args: string[],
+				): Promise<string> => {
+					const command = args.shift();
+					if (command === "config") {
+						if (args[0] === "branch.main.remote") return "origin";
+						if (args[0] === "remote.origin.url") {
+							return "ssh://git@git.company.com/project_x/test-repository.git";
+						}
+						return "";
+					}
+					if (
+						command === "ls-files" &&
+						args[0] === "--full-name" &&
+						args[1] === "--" &&
+						args[2] === "/fake.file"
+					) {
+						return "/fake.file";
+					}
+					if (
+						command === "ls-remote" &&
+						args[0] === "--get-url" &&
+						args[1] === "origin"
+					) {
+						return "ssh://git@git.company.com/project_x/test-repository.git";
+					}
+					if (command === "rev-parse") {
+						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+							return "origin/main";
+						}
+						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+					}
+					if (
+						command === "symbolic-ref" &&
+						args[0] === "-q" &&
+						args[1] === "--short" &&
+						args[2] === "HEAD"
+					) {
+						return "main";
+					}
+					return "";
 				},
 			},
 		});
-		execcommandStub
-			.withArgs(
-				match.string,
-				["symbolic-ref", "-q", "--short", "HEAD"],
-				match.object,
-			)
-			.resolves("main");
-		execcommandStub
-			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
-			.resolves("/a/path/.git/");
-		execcommandStub
-			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
-			.resolves("origin");
-		execcommandStub
-			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
-			.resolves("ssh://git@git.company.com/project_x/test-repository.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-remote", "--get-url", "origin"],
-				match.object,
-			)
-			.resolves("ssh://git@git.company.com/project_x/test-repository.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-files", "--full-name", "--", "/fake.file"],
-				match.object,
-			)
-			.resolves("/fake.file");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["rev-parse", "--abbrev-ref", "origin/HEAD"],
-				match.object,
-			)
-			.resolves("origin/main");
-		propertyStub.withArgs("remoteName").returns("origin");
 
-		const tokens = await generateUrlTokens(exampleCommit);
+		await setupCachedGit();
+		const prop = await setupPropertyStore();
+		prop.setOverride("remoteName", "origin");
 
-		activeEditorStub.restore();
-		execcommandStub.restore();
-		propertyStub.restore();
+		const tokens = await (
+			await import("../../src/git/get-tool-url.js")
+		).generateUrlTokens(exampleCommit);
 
-		if (tokens === undefined) {
-			assert.notStrictEqual(tokens, undefined);
-			return;
-		}
+		prop.clearOverrides();
+
+		assert.ok(tokens);
 
 		assert.strictEqual(
 			call(tokens["gitorigin.hostname"], ""),
@@ -408,170 +394,155 @@ suite("Generate URL Tokens", () => {
 		assert.strictEqual(call(tokens["file.line"]), "100");
 	});
 
-	test("local development (#128 regression)", async () => {
-		const activeEditorStub = stub(getActive, "getActiveTextEditor");
-		const execcommandStub = stub(execcommand, "execute");
-		const propertyStub = stub(property, "getProperty");
-		activeEditorStub.returns({
-			document: {
-				isUntitled: false,
-				fileName: "/fake.file",
-				uri: Uri.parse("/fake.file"),
-				lineCount: 1024,
-			},
-			selection: {
-				active: {
-					line: 9,
+	test("local development (#128 regression)", async (t) => {
+		t.mock.module("../../src/git/command/execute.js", {
+			namedExports: {
+				execute: async (
+					_: Promise<string>,
+					args: string[],
+				): Promise<string> => {
+					const command = args.shift();
+					if (command === "config") {
+						if (args[0] === "branch.main.remote") return "";
+						if (args[0] === "remote.origin.url") {
+							return "";
+						}
+						return "";
+					}
+					if (
+						command === "ls-files" &&
+						args[0] === "--full-name" &&
+						args[1] === "--" &&
+						args[2] === "/fake.file"
+					) {
+						return "/fake.file";
+					}
+					if (
+						command === "ls-remote" &&
+						args[0] === "--get-url" &&
+						args[1] === "origin"
+					) {
+						return "origin";
+					}
+					if (command === "rev-parse") {
+						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+							return "origin/main";
+						}
+						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+					}
+					if (
+						command === "symbolic-ref" &&
+						args[0] === "-q" &&
+						args[1] === "--short" &&
+						args[2] === "HEAD"
+					) {
+						return "main";
+					}
+					return "";
 				},
 			},
 		});
-		execcommandStub
-			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
-			.resolves("/a/path/.git/");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["symbolic-ref", "-q", "--short", "HEAD"],
-				match.object,
-			)
-			.resolves("main");
-		execcommandStub
-			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
-			.resolves("");
-		execcommandStub
-			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
-			.resolves("");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-remote", "--get-url", "origin"],
-				match.object,
-			)
-			.resolves("origin");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-files", "--full-name", "--", "/fake.file"],
-				match.object,
-			)
-			.resolves("/fake.file");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["rev-parse", "--abbrev-ref", "origin/HEAD"],
-				match.object,
-			)
-			.resolves("origin/main");
-		propertyStub.withArgs("remoteName").returns("origin");
 
-		const tokens = await generateUrlTokens(exampleCommit);
+		await setupCachedGit();
+		const prop = await setupPropertyStore();
+		prop.setOverride("remoteName", "origin");
 
-		activeEditorStub.restore();
-		execcommandStub.restore();
-		propertyStub.restore();
+		const tokens = await (
+			await import("../../src/git/get-tool-url.js")
+		).generateUrlTokens(exampleCommit);
+
+		prop.clearOverrides();
 
 		assert.strictEqual(tokens, undefined);
 	});
 });
 
 suite("Use generated URL tokens", () => {
-	const author = new CommitAuthor();
-	author.mail = "<vdavydov.dev@gmail.com>";
-	author.name = "Vladimir Davydov";
-	author.isCurrentUser = false;
-	author.timestamp = "1423781950";
-	author.date = new Date(1423781950000);
-	author.tz = "-0800";
+	const fileCommit = FileAttachedCommit.Create(
+		{},
+		"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
+		"10 100 1",
+	);
+	fileCommit.setByKey("summary", "list_lru: introduce per-memcg lists");
+	fileCommit.setByKey("filename", "directory/example.file");
 
-	const committer = new CommitAuthor();
-	committer.mail = "<torvalds@linux-foundation.org>";
-	committer.name = "Linus Torvalds";
-	committer.isCurrentUser = false;
-	committer.timestamp = "1423796049";
-	committer.date = new Date(1423796049000);
-	committer.tz = "-0800";
+	fileCommit.setByKey("author-mail", "<vdavydov.dev@gmail.com>");
+	fileCommit.setByKey("author", "Vladimir Davydov");
+	fileCommit.setByKey("author-timestamp", "1423781950");
+	fileCommit.setByKey("author-date", "1423781950");
+	fileCommit.setByKey("author-tz", "-0800");
 
-	const exampleCommit: LineAttachedCommit = {
-		commit: {
-			author,
-			committer,
-			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-			summary: "list_lru: introduce per-memcg lists",
-		} as unknown as Commit,
-		filename: "directory/example.file",
-		line: {
-			source: 10,
-			result: 100,
-		},
-	};
+	fileCommit.setByKey("committer-mail", "<torvalds@linux-foundation.org>");
+	fileCommit.setByKey("committer", "Linus Torvalds");
+	fileCommit.setByKey("committer-timestamp", "1423796049");
+	fileCommit.setByKey("committer-date", "1423796049");
+	fileCommit.setByKey("committer-tz", "-0800");
 
-	afterEach(() => git.clear());
-	test("Default value", async () => {
-		const activeEditorStub = stub(getActive, "getActiveTextEditor");
-		const execcommandStub = stub(execcommand, "execute");
-		const propertyStub = stub(property, "getProperty");
-		activeEditorStub.returns({
-			document: {
-				isUntitled: false,
-				fileName: "/fake.file",
-				uri: Uri.parse("/fake.file"),
-				lineCount: 1024,
-			},
-			selection: {
-				active: {
-					line: 9,
+	const exampleCommit = fileCommit.toLineAttachedCommits().next().value;
+
+	afterEach(() => {
+		import("../../src/git/command/CachedGit.js").then((e) => e.git.clear());
+	});
+	test("Default value", async (t) => {
+		t.mock.module("../../src/git/command/execute.js", {
+			namedExports: {
+				execute: async (
+					_: Promise<string>,
+					args: string[],
+				): Promise<string> => {
+					const command = args.shift();
+					if (command === "config") {
+						if (args[0] === "branch.main.remote") return "origin";
+						if (args[0] === "remote.origin.url") {
+							return "ssh://git@git.company.com/project_x/test-repository.git";
+						}
+						return "";
+					}
+					if (
+						command === "ls-files" &&
+						args[0] === "--full-name" &&
+						args[1] === "--" &&
+						args[2] === "/fake.file"
+					) {
+						return "/fake.file";
+					}
+					if (
+						command === "ls-remote" &&
+						args[0] === "--get-url" &&
+						args[1] === "origin"
+					) {
+						return "ssh://git@git.company.com/project_x/test-repository.git";
+					}
+					if (command === "rev-parse") {
+						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+							return "origin/main";
+						}
+						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+					}
+					if (
+						command === "symbolic-ref" &&
+						args[0] === "-q" &&
+						args[1] === "--short" &&
+						args[2] === "HEAD"
+					) {
+						return "main";
+					}
+					return "";
 				},
 			},
 		});
-		execcommandStub
-			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
-			.resolves("/a/path/.git/");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["symbolic-ref", "-q", "--short", "HEAD"],
-				match.object,
-			)
-			.resolves("main");
-		execcommandStub
-			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
-			.resolves("origin");
-		execcommandStub
-			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
-			.resolves("ssh://git@git.company.com/project_x/test-repository.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-remote", "--get-url", "origin"],
-				match.object,
-			)
-			.resolves("ssh://git@git.company.com/project_x/test-repository.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-files", "--full-name", "--", "/fake.file"],
-				match.object,
-			)
-			.resolves("/fake.file");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["rev-parse", "--abbrev-ref", "origin/HEAD"],
-				match.object,
-			)
-			.resolves("origin/main");
-		propertyStub.withArgs("remoteName").returns("origin");
 
-		const tokens = await generateUrlTokens(exampleCommit);
+		await setupCachedGit();
+		const prop = await setupPropertyStore();
+		prop.setOverride("remoteName", "origin");
 
-		activeEditorStub.restore();
-		execcommandStub.restore();
-		propertyStub.restore();
+		const tokens = await (
+			await import("../../src/git/get-tool-url.js")
+		).generateUrlTokens(exampleCommit);
 
-		if (tokens === undefined) {
-			assert.notStrictEqual(tokens, undefined);
-			return;
-		}
+		prop.clearOverrides();
+
+		assert.ok(tokens);
 
 		const parsedUrl = parseTokens(
 			"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
@@ -584,72 +555,66 @@ suite("Use generated URL tokens", () => {
 		);
 	});
 
-	test("Url with port (#188 regression)", async () => {
-		const activeEditorStub = stub(getActive, "getActiveTextEditor");
-		const execcommandStub = stub(execcommand, "execute");
-		const propertyStub = stub(property, "getProperty");
-		activeEditorStub.returns({
-			document: {
-				isUntitled: false,
-				fileName: "/fake.file",
-				uri: Uri.parse("/fake.file"),
-				lineCount: 1024,
-			},
-			selection: {
-				active: {
-					line: 9,
+	test("Url with port (#188 regression)", async (t) => {
+		t.mock.module("../../src/git/command/execute.js", {
+			namedExports: {
+				execute: async (
+					_: Promise<string>,
+					args: string[],
+				): Promise<string> => {
+					const command = args.shift();
+					if (command === "config") {
+						if (args[0] === "branch.main.remote") return "origin";
+						if (args[0] === "remote.origin.url") {
+							return "http://git.company.com:8080/project_x/test-repository.git";
+						}
+						return "";
+					}
+					if (
+						command === "ls-files" &&
+						args[0] === "--full-name" &&
+						args[1] === "--" &&
+						args[2] === "/fake.file"
+					) {
+						return "/fake.file";
+					}
+					if (
+						command === "ls-remote" &&
+						args[0] === "--get-url" &&
+						args[1] === "origin"
+					) {
+						return "http://git.company.com:8080/project_x/test-repository.git";
+					}
+					if (command === "rev-parse") {
+						if (args[0] === "--abbrev-ref" && args[1] === "origin/HEAD") {
+							return "origin/main";
+						}
+						if (args[0] === "--absolute-git-dir") return "/a/path/.git/";
+					}
+					if (
+						command === "symbolic-ref" &&
+						args[0] === "-q" &&
+						args[1] === "--short" &&
+						args[2] === "HEAD"
+					) {
+						return "main";
+					}
+					return "";
 				},
 			},
 		});
-		execcommandStub
-			.withArgs(match.string, ["rev-parse", "--absolute-git-dir"], match.object)
-			.resolves("/a/path/.git/");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["symbolic-ref", "-q", "--short", "HEAD"],
-				match.object,
-			)
-			.resolves("main");
-		execcommandStub
-			.withArgs(match.string, ["config", "branch.main.remote"], match.object)
-			.resolves("origin");
-		execcommandStub
-			.withArgs(match.string, ["config", "remote.origin.url"], match.object)
-			.resolves("http://git.company.com:8080/project_x/test-repository.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-remote", "--get-url", "origin"],
-				match.object,
-			)
-			.resolves("http://git.company.com:8080/project_x/test-repository.git");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["ls-files", "--full-name", "--", "/fake.file"],
-				match.object,
-			)
-			.resolves("/fake.file");
-		execcommandStub
-			.withArgs(
-				match.string,
-				["rev-parse", "--abbrev-ref", "origin/HEAD"],
-				match.object,
-			)
-			.resolves("origin/main");
-		propertyStub.withArgs("remoteName").returns("origin");
 
-		const tokens = await generateUrlTokens(exampleCommit);
+		await setupCachedGit();
+		const prop = await setupPropertyStore();
+		prop.setOverride("remoteName", "origin");
 
-		activeEditorStub.restore();
-		execcommandStub.restore();
-		propertyStub.restore();
+		const tokens = await (
+			await import("../../src/git/get-tool-url.js")
+		).generateUrlTokens(exampleCommit);
 
-		if (tokens === undefined) {
-			assert.notStrictEqual(tokens, undefined);
-			return;
-		}
+		prop.clearOverrides();
+
+		assert.ok(tokens);
 
 		const parsedUrl = parseTokens(
 			"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",

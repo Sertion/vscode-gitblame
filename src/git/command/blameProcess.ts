@@ -2,16 +2,16 @@ import { type ChildProcessByStdio, spawn } from "node:child_process";
 import { dirname } from "node:path";
 import type { Readable } from "node:stream";
 import { Logger } from "../../logger.js";
-import { getProperty } from "../../property.js";
+import { PropertyStore } from "../../PropertyStore.js";
 import { getGitCommand } from "./git-command.js";
 
-export function blameProcess(
+export async function blameProcess(
 	realpathFileName: string,
 	revsFile: string | undefined,
-): ChildProcessByStdio<null, Readable, Readable> {
+): Promise<ChildProcessByStdio<null, Readable, Readable>> {
 	const args = ["blame", "-C", "--incremental", "--", realpathFileName];
 
-	if (getProperty("ignoreWhitespace")) {
+	if (PropertyStore.get("ignoreWhitespace")) {
 		args.splice(1, 0, "-w");
 	}
 
@@ -20,9 +20,10 @@ export function blameProcess(
 	}
 
 	const cwd = dirname(realpathFileName);
-	Logger.info(`"${getGitCommand()} ${args.join(" ")}" in ${cwd}`);
+	const command = await getGitCommand();
+	Logger.info(`"${command} ${args.join(" ")}" in ${cwd}`);
 
-	return spawn(getGitCommand(), args, {
+	return spawn(command, args, {
 		cwd,
 		stdio: ["ignore", null, null],
 		env: {

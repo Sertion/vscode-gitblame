@@ -1,19 +1,21 @@
 {
-    "compilerOptions": {
-        "module": "ES2022",
-        "moduleResolution": "node",
-        "target": "ES2022",
-        "lib": [
-            "es2020",
-            "es2021",
-            "es2022",
-            "ESNext.Intl"
-        ],
-        "strict": true,
-        "outDir": "./out/src/",
-        "rootDir": "."
-    },
-    "exclude": [
-        "node_modules"
-    ]
+	"compilerOptions": {
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"target": "ES2022",
+		"lib": [
+			"es2020",
+			"es2021",
+			"es2022",
+			"esNext.Intl",
+			"es2023",
+			"es2024",
+		],
+		"strict": true,
+		"outDir": "./out/src/",
+		"rootDir": ".",
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+	},
+	"exclude": ["node_modules"],
 }

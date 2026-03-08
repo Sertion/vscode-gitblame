@@ -12,7 +12,7 @@ import {
 import { getActiveTextEditor } from "./get-active.js";
 import type { Commit } from "./git/Commit.js";
 import { Logger } from "./logger.js";
-import { getProperty } from "./property.js";
+import { PropertyStore } from "./PropertyStore.js";
 import {
 	toInlineTextView,
 	toStatusBarTextView,
@@ -29,7 +29,7 @@ export class StatusBarView {
 
 	private statusBarText = "";
 	private statusBarTooltip: MarkdownString = new MarkdownString();
-	private statusBarPriority: number | undefined = getProperty(
+	private statusBarPriority: number | undefined = PropertyStore.get(
 		"statusBarPositionPriority",
 	);
 
@@ -42,7 +42,7 @@ export class StatusBarView {
 		this.statusBar = this.createStatusBarItem();
 		this.configChange = workspace.onDidChangeConfiguration((e) => {
 			if (e.affectsConfiguration("gitblame")) {
-				const newPriority = getProperty("statusBarPositionPriority");
+				const newPriority = PropertyStore.get("statusBarPositionPriority");
 				if (this.statusBarPriority !== newPriority) {
 					this.statusBarPriority = newPriority;
 					this.statusBar = this.createStatusBarItem();
@@ -52,11 +52,11 @@ export class StatusBarView {
 		});
 	}
 
-	public set(
+	public async set(
 		commit: Commit | undefined,
 		editor: PartialTextEditor | undefined,
 		useDelay = true,
-	): void {
+	): Promise<void> {
 		if (!commit) {
 			this.clear();
 			return;
@@ -65,18 +65,18 @@ export class StatusBarView {
 		if (commit.isCommitted()) {
 			this.text(commit);
 			if (editor) {
-				void this.createLineDecoration(commit, editor, useDelay);
+				await this.createLineDecoration(commit, editor, useDelay);
 			}
 			return;
 		}
 
 		this.updateTextNoCommand(
-			getProperty("statusBarMessageNoCommit"),
+			PropertyStore.get("statusBarMessageNoCommit"),
 			MESSAGE_NO_INFO,
 		);
 		if (editor) {
-			void this.createLineDecoration(
-				getProperty("inlineMessageNoCommit"),
+			await this.createLineDecoration(
+				PropertyStore.get("inlineMessageNoCommit"),
 				editor,
 				useDelay,
 			);
@@ -96,7 +96,7 @@ export class StatusBarView {
 	}
 
 	public fileTooLong(): void {
-		const maxLineCount = getProperty("maxLineCount");
+		const maxLineCount = PropertyStore.get("maxLineCount");
 		this.updateTextNoCommand(
 			"",
 			`No blame information is available. File has more than ${maxLineCount} lines`,
@@ -115,7 +115,7 @@ export class StatusBarView {
 			"Open git show": "gitblame.gitShow",
 			"Copy hash to clipboard": "gitblame.addCommitHashToClipboard",
 			"Show info message": "gitblame.quickInfo",
-		}[getProperty("statusBarMessageClickAction")];
+		}[PropertyStore.get("statusBarMessageClickAction")];
 
 		if (this.statusBar.command !== undefined) {
 			this.statusBar.command = this.command;
@@ -165,7 +165,7 @@ export class StatusBarView {
 
 		const fancyToolTip = new MarkdownString();
 
-		if (!getProperty("extendedHoverInformation")?.includes(from)) {
+		if (!PropertyStore.get("extendedHoverInformation")?.includes(from)) {
 			fancyToolTip.appendText("git blame");
 			return fancyToolTip;
 		}
@@ -182,7 +182,7 @@ export class StatusBarView {
 			`__Time:__ ${new Intl.DateTimeFormat("sv-SE", { dateStyle: "short", timeStyle: "medium" }).format(commit.author.date)}<br>`,
 		);
 
-		const currentUserAlias = getProperty("currentUserAlias");
+		const currentUserAlias = PropertyStore.get("currentUserAlias");
 
 		if (currentUserAlias && commit.author.isCurrentUser) {
 			fancyToolTip.appendMarkdown(`__Author:__ ${currentUserAlias}<br>`);
@@ -222,14 +222,14 @@ export class StatusBarView {
 		editor: PartialTextEditor,
 		useDelay: boolean,
 	): Promise<void> {
-		if (!getProperty("inlineMessageEnabled")) {
+		if (!PropertyStore.get("inlineMessageEnabled")) {
 			return;
 		}
 
 		this.removeLineDecoration();
 
 		if (useDelay) {
-			await this.delayUpdate(getProperty("delayBlame"));
+			await this.delayUpdate(PropertyStore.get("delayBlame"));
 		}
 
 		// Add new decoration
@@ -247,7 +247,7 @@ export class StatusBarView {
 				renderOptions: {
 					after: {
 						contentText: isString ? text : toInlineTextView(text),
-						margin: `0 0 0 ${getProperty("inlineMessageMargin")}rem`,
+						margin: `0 0 0 ${PropertyStore.get("inlineMessageMargin")}rem`,
 						color: new ThemeColor("gitblame.inlineMessage"),
 					},
 				},

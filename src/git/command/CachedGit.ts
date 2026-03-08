@@ -1,7 +1,7 @@
 import { dirname } from "node:path";
 import { Logger } from "../../logger.js";
 import { GitRepositoryWatcher } from "../GitRepositoryWatcher.js";
-import { execute } from "./execute.js";
+import type { execute as executeType } from "./execute.js";
 import { getGitCommand } from "./git-command.js";
 
 class CachedGitCommand {
@@ -24,7 +24,7 @@ class CachedGitCommand {
 	): Promise<string | undefined> {
 		const directory = dirname(fileName);
 		const previousGitRepositoryFolder =
-			this.folderToGitRepository.get(directory);
+			await this.folderToGitRepository.get(directory);
 		if (previousGitRepositoryFolder !== undefined) {
 			return previousGitRepositoryFolder;
 		}
@@ -51,21 +51,20 @@ class CachedGitCommand {
 		path: string,
 		...args: string[]
 	): Promise<string | undefined> {
-		const command = getGitCommand();
 		const cwd = dirname(path);
-		const key = `${command}@${args.join("@")}@${cwd}`;
-		const cached = this.commands.get(key);
-		if (cached !== undefined) {
-			Logger.debug(
-				`Using cached result for command "${command} ${args.join(" ")}"`,
-			);
+		const key = `${args.join("@")}@${cwd}`;
+		const cached = await this.commands.get(key);
+		if (cached) {
+			Logger.debug(`Using cached result for command "<git> ${args.join(" ")}"`);
 			return cached;
 		}
 
-		const result = execute(command, args, {
-			cwd,
-			env: { ...process.env, LC_ALL: "C" },
-		}).catch(() => undefined);
+		const result = Promise.resolve(
+			execute(getGitCommand(), args, {
+				cwd,
+				env: { ...process.env, LC_ALL: "C" },
+			}),
+		).catch(() => undefined);
 
 		this.commands.set(key, result);
 
@@ -76,6 +75,11 @@ class CachedGitCommand {
 		this.commands.clear();
 		this.folderToGitRepository.clear();
 	}
+}
+
+let execute: typeof executeType;
+export async function setupCachedGit(): Promise<void> {
+	execute = (await import("./execute.js")).execute;
 }
 
 export const git = new CachedGitCommand();

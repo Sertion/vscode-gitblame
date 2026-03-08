@@ -2,18 +2,20 @@ import { URL } from "node:url";
 
 import { stripGitRemoteUrl } from "./strip-git-remote-url.js";
 
-export const originUrlToToolUrl = (url: string): URL | undefined => {
-	const httpProtocol = /^(https?):/.exec(url)?.[1];
+export function originUrlToToolUrl(url: string): URL | undefined {
+	const httpProtocol = !url.startsWith("http://") ? "https" : "http";
 
 	let uri: URL;
 
 	try {
-		uri = new URL(`${httpProtocol ?? "https"}://${stripGitRemoteUrl(url)}`);
+		uri = new URL(`${httpProtocol}://${stripGitRemoteUrl(url)}`);
 	} catch {
 		return;
 	}
 
-	uri.port = httpProtocol ? uri.port : "";
+	if (!url.startsWith("http://") && !url.startsWith("https://")) {
+		uri.port = "";
+	}
 
 	return uri;
-};
+}

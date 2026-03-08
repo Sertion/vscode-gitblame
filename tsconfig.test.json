@@ -1,12 +1,8 @@
 {
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-        "module": "commonjs",
-        "outDir": "./out",
-        "sourceMap": true
-    },
-    "include": [
-        "src/index.ts",
-        "test/**/*"
-    ],
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"sourceMap": true
+	},
+	"include": ["src/index.ts", "test/**/*"]
 }

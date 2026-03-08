@@ -1,17 +1,18 @@
 import * as assert from "node:assert";
-import { type SinonFakeTimers, stub, useFakeTimers } from "sinon";
+import test, { after, before, mock, suite } from "node:test";
 import { between } from "../../src/ago.js";
 import type { CommitLike } from "../../src/git/Commit.js";
 import type { CommitAuthor } from "../../src/git/CommitAuthor.js";
-import * as property from "../../src/property.js";
 import {
 	type InfoTokenNormalizedCommitInfo,
 	type InfoTokens,
 	normalizeCommitInfoTokens,
 	parseTokens,
 } from "../../src/string-stuff/text-decorator.js";
+import { setupPropertyStore } from "../setupPropertyStore.js";
 
-suite("Date Calculations", (): void => {
+suite("Date Calculations", async (): Promise<void> => {
+	await setupPropertyStore();
 	test("Time ago in years", (): void => {
 		assert.strictEqual(
 			between(new Date(2015, 2), new Date(2014, 1)),
@@ -87,7 +88,8 @@ suite("Date Calculations", (): void => {
 	});
 });
 
-suite("Token Parser", (): void => {
+suite("Token Parser", async (): Promise<void> => {
+	await setupPropertyStore();
 	const normalizedInfo: InfoTokens = {
 		"example.token": (): string => "example-token",
 		value: (value?: string): string => {
@@ -235,19 +237,18 @@ suite("Token Parser", (): void => {
 	});
 });
 
-suite("Text Decorator with CommitInfoToken", (): void => {
-	let fakeTimer: SinonFakeTimers | undefined;
+suite("Text Decorator with CommitInfoToken", async (): Promise<void> => {
+	await setupPropertyStore();
 	let normalizedCommitInfoTokens: InfoTokenNormalizedCommitInfo | undefined;
-	suiteSetup(() => {
-		fakeTimer = useFakeTimers({
+	before(() => {
+		mock.timers.enable({
+			apis: ["Date"],
 			now: 1_621_014_626_000,
-			toFake: ["Date"],
-			shouldAdvanceTime: false,
 		});
 		normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
 	});
-	suiteTeardown(() => {
-		fakeTimer?.restore();
+	after(() => {
+		mock.timers.reset();
 	});
 	const exampleCommit: CommitLike = {
 		author: {
@@ -305,17 +306,16 @@ suite("Text Decorator with CommitInfoToken", (): void => {
 	check("commit.hash_short,100|u", "60D3FD32A7A9DA4C8C93A9F89CFDA22A0B4C65CE");
 });
 
-suite("issue #119 regressions", () => {
-	let fakeTimer: SinonFakeTimers | undefined;
-	suiteSetup(() => {
-		fakeTimer = useFakeTimers({
+suite("issue #119 regressions", async (): Promise<void> => {
+	await setupPropertyStore();
+	before(() => {
+		mock.timers.enable({
+			apis: ["Date"],
 			now: 1_621_014_626_000,
-			toFake: ["Date"],
-			shouldAdvanceTime: false,
 		});
 	});
-	suiteTeardown(() => {
-		fakeTimer?.restore();
+	after(() => {
+		mock.timers.reset();
 	});
 	test("commit.summary before commit.hash_short", () => {
 		const exampleCommit: CommitLike = {
@@ -446,7 +446,8 @@ suite("issue #119 regressions", () => {
 	});
 });
 
-suite("Text Sanitizing", () => {
+suite("Text Sanitizing", async (): Promise<void> => {
+	await setupPropertyStore();
 	test("removes right-to-left override characters from text", () => {
 		const exampleCommit: CommitLike = {
 			author: {
@@ -480,10 +481,11 @@ suite("Text Sanitizing", () => {
 	});
 });
 
-suite("Current User Replace", () => {
-	test("removes right-to-left override characters from text", () => {
-		const propertyStub = stub(property, "getProperty");
-		propertyStub.withArgs("currentUserAlias").returns("Current User Alias");
+suite("Current User Replace", async (): Promise<void> => {
+	await setupPropertyStore();
+	test("removes right-to-left override characters from text", async () => {
+		const prop = await setupPropertyStore();
+		prop.setOverride("currentUserAlias", "Current User Alias");
 
 		const exampleCommit: CommitLike = {
 			author: {
@@ -522,6 +524,6 @@ suite("Current User Replace", () => {
 			"Blame Linus Torvalds (list_lru: introduce per-memcg lists)",
 		);
 
-		propertyStub.restore();
+		prop.clearOverrides();
 	});
 });

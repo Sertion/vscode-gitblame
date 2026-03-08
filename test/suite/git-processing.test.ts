@@ -1,15 +1,20 @@
 import * as assert from "node:assert";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import test, { suite } from "node:test";
 import type { LineAttachedCommit } from "../../src/git/LineAttachedCommit.js";
 import { processChunk } from "../../src/git/stream-parsing.js";
+import { Logger } from "../../src/logger.js";
 
 function load(fileName: string, buffer: true): Buffer;
 function load(fileName: string, buffer: false): string;
 function load(fileName: string, buffer: boolean): string | Buffer {
-	return readFileSync(resolve(__dirname, "../../../test/fixture", fileName), {
-		encoding: buffer ? null : "utf-8",
-	});
+	return readFileSync(
+		resolve(import.meta.dirname, "../../../test/fixture", fileName),
+		{
+			encoding: buffer ? null : "utf-8",
+		},
+	);
 }
 function datesToString(convert: LineAttachedCommit): unknown {
 	return {
@@ -29,6 +34,7 @@ function datesToString(convert: LineAttachedCommit): unknown {
 }
 
 suite("Chunk Processing", (): void => {
+	Logger.createInstance();
 	test("Process normal chunk", async (): Promise<void> => {
 		const chunk = load("git-stream-blame-incremental.chunks", true);
 		const result = JSON.parse(
@@ -45,6 +51,7 @@ suite("Chunk Processing", (): void => {
 });
 
 suite("Processing Errors", (): void => {
+	Logger.createInstance();
 	test("Git chunk not starting with commit information", async (): Promise<void> => {
 		const chunks = JSON.parse(
 			load("git-stream-blame-incremental-multi-chunk.json", false),

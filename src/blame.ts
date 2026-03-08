@@ -5,7 +5,7 @@ import { git } from "./git/command/CachedGit.js";
 import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
 import { Queue } from "./git/queue.js";
 import { Logger } from "./logger.js";
-import { getProperty } from "./property.js";
+import { PropertyStore } from "./PropertyStore.js";
 
 export class Blamer {
 	private readonly metadata = new WeakMap<
@@ -19,14 +19,14 @@ export class Blamer {
 	private readonly files = new Map<string, Promise<Blame | undefined>>();
 	private readonly fsWatchers = new Map<string, FSWatcher>();
 	private readonly blameQueue = new Queue<Blame | undefined>(
-		getProperty("parallelBlames"),
+		PropertyStore.get("parallelBlames"),
 	);
 	private readonly configChange: Disposable;
 
 	public constructor() {
 		this.configChange = workspace.onDidChangeConfiguration((e) => {
 			if (e.affectsConfiguration("gitblame")) {
-				this.blameQueue.updateParallel(getProperty("parallelBlames"));
+				this.blameQueue.updateParallel(PropertyStore.get("parallelBlames"));
 			}
 		});
 	}
@@ -126,8 +126,10 @@ export class Blamer {
 			if (gitRoot) {
 				return { gitRoot, file: new BlamedFile(fileName) };
 			}
-		} catch {
-			// NOOP
+		} catch (err) {
+			if (err instanceof Error) {
+				Logger.debug(err.message);
+			}
 		}
 
 		Logger.info(`Will not blame '${fileName}'. Not in a git repository.`);

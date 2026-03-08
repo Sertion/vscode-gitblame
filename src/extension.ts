@@ -22,7 +22,7 @@ import { getToolUrl } from "./git/get-tool-url.js";
 import { HeadWatch } from "./git/head-watch.js";
 import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
 import { errorMessage, infoMessage } from "./message.js";
-import { getProperty } from "./property.js";
+import { PropertyStore } from "./PropertyStore.js";
 import {
 	normalizeCommitInfoTokens,
 	parseTokens,
@@ -73,7 +73,7 @@ export class Extension {
 		}
 
 		const message = parseTokens(
-			getProperty("infoMessageFormat"),
+			PropertyStore.get("infoMessageFormat"),
 			normalizeCommitInfoTokens(lineAware.commit),
 		);
 		const toolUrl = await getToolUrl(lineAware);
@@ -143,7 +143,7 @@ export class Extension {
 			return;
 		}
 
-		const ignoreWhitespace = getProperty("ignoreWhitespace") ? "-w " : "";
+		const ignoreWhitespace = PropertyStore.get("ignoreWhitespace") ? "-w " : "";
 		const terminal = window.createTerminal({
 			name: `Git Blame: git show ${hash}`,
 			iconPath: new ThemeIcon("git-commit"),
@@ -264,7 +264,7 @@ export class Extension {
 	}
 
 	private isFileMaxLineCount(document: Document): boolean {
-		if (document.lineCount > getProperty("maxLineCount")) {
+		if (document.lineCount > PropertyStore.get("maxLineCount")) {
 			this.view.fileTooLong();
 			return true;
 		}

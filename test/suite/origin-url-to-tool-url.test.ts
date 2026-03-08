@@ -1,8 +1,7 @@
 import * as assert from "node:assert";
-import { stub } from "sinon";
-
+import test, { suite } from "node:test";
 import { originUrlToToolUrl } from "../../src/git/origin-url-to-tool-url.js";
-import * as prop from "../../src/property.js";
+import { setupPropertyStore } from "../setupPropertyStore.js";
 
 suite("Web URL formatting", (): void => {
 	test("https://", (): void => {
@@ -113,9 +112,9 @@ suite("Web URL formatting", (): void => {
 		);
 	});
 
-	test("https:// plural", (): void => {
-		const propertyStub = stub(prop, "getProperty");
-		propertyStub.withArgs("pluralWebPathSubstrings").returns(["example.com"]);
+	test("https:// plural", async (): Promise<void> => {
+		const props = await setupPropertyStore();
+		props.setOverride("pluralWebPathSubstrings", ["example.com"]);
 
 		assert.strictEqual(
 			originUrlToToolUrl("https://example.com/user/repo.git")?.toString(),
@@ -126,7 +125,7 @@ suite("Web URL formatting", (): void => {
 			"https://example.com/user/repo",
 		);
 
-		propertyStub.restore();
+		props.clearOverrides();
 	});
 
 	test("ssh:// short host no user", (): void => {

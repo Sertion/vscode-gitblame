@@ -1,14 +1,20 @@
-import { type MessageItem, window } from "vscode";
+import type { MessageItem } from "vscode";
+import { getvscode } from "./vscode-quarantine.js";
 
-export const infoMessage = <T extends MessageItem>(
+export async function infoMessage<T extends MessageItem>(
 	message: string,
 	item: undefined | T[] = [],
-): Promise<T | undefined> => {
-	return Promise.resolve(window.showInformationMessage(message, ...item));
-};
+): Promise<T | undefined> {
+	return Promise.resolve(
+		(await getvscode())?.window.showInformationMessage(message, ...item),
+	);
+}
 
-export const errorMessage = (
+export async function errorMessage(
 	message: string,
 	...items: string[]
-): Promise<string | undefined> =>
-	Promise.resolve(window.showErrorMessage(message, ...items));
+): Promise<string | undefined> {
+	return Promise.resolve(
+		(await getvscode())?.window.showErrorMessage(message, ...items),
+	);
+}

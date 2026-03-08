@@ -20,17 +20,17 @@ export class Queue<
 	}
 
 	public add(toQueue: QueueFunction): Promise<ReturnValue> {
-		return new Promise<ReturnValue>((resolve, reject) => {
-			this.storage.set(toQueue, { resolve, reject });
-			if (this.processing.size < this.maxParallel) {
-				this.startFunction(toQueue);
-			} else {
-				Logger.debug(
-					`Already running ${this.maxParallel} in parallel. Adding execution to queue.`,
-				);
-				this.list.push(toQueue);
-			}
-		});
+		const { promise, resolve, reject } = Promise.withResolvers<ReturnValue>();
+		this.storage.set(toQueue, { resolve, reject });
+		if (this.processing.size < this.maxParallel) {
+			this.startFunction(toQueue);
+		} else {
+			Logger.debug(
+				`Already running ${this.maxParallel} in parallel. Adding execution to queue.`,
+			);
+			this.list.push(toQueue);
+		}
+		return promise;
 	}
 
 	public updateParallel(maxParallel: number): void {
@@ -57,7 +57,8 @@ export class Queue<
 		this.storage.delete(func);
 		if (handlers) {
 			func()
-				.then(handlers.resolve, handlers.reject)
+				.then((e) => handlers.resolve(e))
+				.catch(() => handlers.reject())
 				.finally(() => {
 					this.processing.delete(func);
 					this.runNext();

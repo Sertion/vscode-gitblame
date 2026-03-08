@@ -13,7 +13,7 @@ export type Blame = Map<number, LineAttachedCommit | undefined>;
 
 export class BlamedFile {
 	private store?: Promise<Blame | undefined>;
-	private process?: ChildProcess;
+	private process?: Promise<ChildProcess>;
 	private killed = false;
 
 	public constructor(public readonly fileName: string) {}
@@ -25,7 +25,7 @@ export class BlamedFile {
 	}
 
 	public dispose(): void {
-		this.process?.kill();
+		this.process?.then((e) => e.kill());
 		this.process = undefined;
 		this.killed = true;
 		this.store?.then((e) => e?.clear());
@@ -43,13 +43,13 @@ export class BlamedFile {
 		);
 
 		const commitRegistry: CommitRegistry = Object.create(null);
-		for await (const chunk of this.process.stdout ?? []) {
+		for await (const chunk of (await this.process).stdout ?? []) {
 			Logger.debug(
 				`Got chunk from "${file}" git blame process. Size: ${chunk.length}`,
 			);
 			yield* processChunk(chunk, email, commitRegistry);
 		}
-		for await (const error of this.process.stderr ?? []) {
+		for await (const error of (await this.process).stderr ?? []) {
 			if (typeof error === "string") {
 				throw new Error(error);
 			}

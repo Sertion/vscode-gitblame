@@ -1,5 +1,8 @@
 import { CommitAuthor, type CommitAuthorLike } from "./CommitAuthor.js";
 
+/**
+ * Source, result, and length
+ */
 export type RawCoverage = `${number} ${number} ${number}`;
 
 const COVERAGE_REGEX = /^\d+ \d+ \d+$/;
@@ -21,8 +24,8 @@ export class Commit {
 		return COVERAGE_REGEX.test(coverage);
 	}
 
-	public author = new CommitAuthor();
-	public committer = new CommitAuthor();
+	public readonly author = new CommitAuthor();
+	public readonly committer = new CommitAuthor();
 	public summary = "";
 	#isUncommitted = true;
 
@@ -33,7 +36,7 @@ export class Commit {
 	public setByKey(
 		key: string,
 		value: string,
-		currentUserEmail: string | undefined,
+		currentUserEmail?: string | undefined,
 	): boolean {
 		if (key === "summary") {
 			this.summary = value;

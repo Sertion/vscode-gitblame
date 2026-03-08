@@ -1,7 +1,7 @@
 import { between } from "../ago.js";
 import type { Commit, CommitLike } from "../git/Commit.js";
 import type { CommitAuthorLike } from "../git/CommitAuthor.js";
-import { getProperty } from "../property.js";
+import { PropertyStore } from "../PropertyStore.js";
 
 type InfoTokenFunctionWithParameter = (value?: string) => string;
 type InfoTokenFunction = InfoTokenFunctionWithParameter | string;
@@ -48,7 +48,7 @@ export const normalizeCommitInfoTokens = ({
 		(length = ""): string => {
 			return target.slice(0, Number.parseInt(length || fallbackLength, 10));
 		};
-	const currentUserAlias = getProperty("currentUserAlias");
+	const currentUserAlias = PropertyStore.get("currentUserAlias");
 
 	return {
 		"author.mail": author.mail,
@@ -192,12 +192,12 @@ export const parseTokens = <T extends InfoTokens>(
 
 export const toStatusBarTextView = (commit: Commit): string =>
 	parseTokens(
-		getProperty("statusBarMessageFormat"),
+		PropertyStore.get("statusBarMessageFormat"),
 		normalizeCommitInfoTokens(commit),
 	);
 
 export const toInlineTextView = (commit: Commit): string =>
 	parseTokens(
-		getProperty("inlineMessageFormat"),
+		PropertyStore.get("inlineMessageFormat"),
 		normalizeCommitInfoTokens(commit),
 	);

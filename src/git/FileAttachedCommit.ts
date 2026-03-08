@@ -26,7 +26,7 @@ export class FileAttachedCommit {
 	public setByKey(
 		key: string,
 		value: string,
-		currentUserEmail: string | undefined,
+		currentUserEmail?: string | undefined,
 	): boolean {
 		if (key === "filename") {
 			this.filename = value;
@@ -50,9 +50,9 @@ export class FileAttachedCommit {
 }
 
 class Lines {
-	public source: number;
-	public result: number;
-	public length: number;
+	public readonly source: number;
+	public readonly result: number;
+	public readonly length: number;
 	constructor(coverage: RawCoverage) {
 		const parts = coverage.split(" ");
 		this.source = Number.parseInt(parts[0], 10);

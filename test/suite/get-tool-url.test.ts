@@ -1,7 +1,7 @@
 import * as assert from "node:assert";
-import { afterEach } from "mocha";
-import { git } from "../../src/git/command/CachedGit.js";
-import { gitRemotePath } from "../../src/git/get-tool-url.js";
+import test, { afterEach, before, suite } from "node:test";
+import type { git as gitType } from "../../src/git/command/CachedGit.js";
+import type { gitRemotePath as gitRemotePathType } from "../../src/git/get-tool-url.js";
 
 suite("Get tool URL: gitRemotePath", (): void => {
 	const call = (
@@ -9,6 +9,13 @@ suite("Get tool URL: gitRemotePath", (): void => {
 		arg?: string,
 	) => (typeof func === "string" ? func : func(arg));
 
+	let git: typeof gitType;
+	let gitRemotePath: typeof gitRemotePathType;
+	before(async () => {
+		git = (await import("../../src/git/command/CachedGit.js")).git;
+		gitRemotePath = (await import("../../src/git/get-tool-url.js"))
+			.gitRemotePath;
+	});
 	afterEach(() => git.clear());
 
 	test("http://", (): void => {

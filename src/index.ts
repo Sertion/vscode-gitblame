@@ -1,22 +1,38 @@
-import { commands, type Disposable, type ExtensionContext } from "vscode";
-import { Extension } from "./extension.js";
-import { Logger } from "./logger.js";
+import type { Disposable, ExtensionContext } from "vscode";
+import { setvscodeForActiveTextEditor } from "./get-active.js";
+import { setupCachedGit } from "./git/command/CachedGit.js";
+import { PropertyStore } from "./PropertyStore.js";
+import { getvscode } from "./vscode-quarantine.js";
 
-const registerCommand = (name: string, callback: () => void): Disposable => {
-	return commands.registerCommand(`gitblame.${name}`, callback);
-};
+async function registerCommand(
+	name: string,
+	callback: () => void,
+): Promise<Disposable | undefined> {
+	return (await getvscode())?.commands.registerCommand(
+		`gitblame.${name}`,
+		callback,
+	);
+}
 
-export function activate(context: ExtensionContext): void {
-	const app = new Extension();
+export async function activate(context: ExtensionContext): Promise<void> {
+	PropertyStore.createInstance();
+	setvscodeForActiveTextEditor();
+	await setupCachedGit();
 
-	context.subscriptions.push(
-		app,
-		Logger.getInstance(),
+	const Logger = (await import("./logger.js")).Logger;
+	const app = new (await import("./extension.js")).Extension();
+
+	context.subscriptions.push(app);
+
+	Promise.all([
+		Logger.createInstance(),
 		registerCommand("quickInfo", () => void app.showMessage()),
 		registerCommand("online", () => void app.blameLink()),
 		registerCommand("addCommitHashToClipboard", () => void app.copyHash()),
 		registerCommand("addToolUrlToClipboard", () => void app.copyToolUrl()),
 		registerCommand("gitShow", () => void app.runGitShow()),
+	]).then((disposables) =>
+		context.subscriptions.push(...disposables.filter((e) => !!e)),
 	);
 
 	app.updateView();

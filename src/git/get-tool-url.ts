@@ -1,14 +1,15 @@
 import { URL } from "node:url";
-import { Uri } from "vscode";
+import type { Uri as UriType } from "vscode";
 import { Logger } from "../logger.js";
 import { errorMessage } from "../message.js";
-import { getProperty } from "../property.js";
+import { PropertyStore } from "../PropertyStore.js";
 import { isUrl } from "../string-stuff/is-url.js";
 import { split } from "../string-stuff/split.js";
 import {
 	type InfoTokens,
 	parseTokens,
 } from "../string-stuff/text-decorator.js";
+import { getvscode } from "../vscode-quarantine.js";
 import { getActiveFileOrigin } from "./command/getActiveFileOrigin.js";
 import { getDefaultBranch } from "./command/getDefaultBranch.js";
 import { getRelativePathOfActiveFile } from "./command/getRelativePathOfActiveFile.js";
@@ -80,7 +81,7 @@ export const gitRemotePath = (
 };
 
 const isToolUrlPlural = (origin: string): boolean =>
-	(getProperty("pluralWebPathSubstrings") ?? []).some((substring) =>
+	(PropertyStore.get("pluralWebPathSubstrings") ?? []).some((substring) =>
 		origin.includes(substring),
 	);
 
@@ -90,15 +91,17 @@ const isToolUrlPlural = (origin: string): boolean =>
 export const generateUrlTokens = async (
 	lineAware: LineAttachedCommit,
 ): Promise<ToolUrlTokens | undefined> => {
-	const remoteName = getProperty("remoteName");
+	const remoteName = PropertyStore.get("remoteName");
 
 	const origin = await getActiveFileOrigin(remoteName);
 
+	console.log({ remoteName, origin });
 	if (origin === remoteName || origin === undefined) {
 		return;
 	}
 
 	const remoteUrl = await getRemoteUrl(remoteName);
+	console.log({ remoteUrl: remoteUrl === undefined });
 	if (remoteUrl === undefined) {
 		Logger.info("Unable to find remote URL. Can not provide URL");
 		return;
@@ -107,6 +110,8 @@ export const generateUrlTokens = async (
 	const tool = originUrlToToolUrl(remoteUrl);
 	const filePath = await getRelativePathOfActiveFile();
 	const defaultBranch = await getDefaultBranch(remoteName);
+
+	console.log({ tool, filePath, defaultBranch });
 
 	return {
 		hash: lineAware.commit.hash,
@@ -127,9 +132,10 @@ export const generateUrlTokens = async (
 	};
 };
 
+let Uri: typeof UriType | undefined;
 export async function getToolUrl(
 	commit?: LineAttachedCommit,
-): Promise<Uri | undefined> {
+): Promise<UriType | undefined> {
 	if (!commit?.commit.isCommitted()) {
 		return;
 	}
@@ -139,14 +145,18 @@ export async function getToolUrl(
 		return;
 	}
 
-	const parsedUrl = parseTokens(getProperty("commitUrl"), tokens);
+	const parsedUrl = parseTokens(PropertyStore.get("commitUrl"), tokens);
 
 	if (isUrl(parsedUrl)) {
+		Uri ??= (await getvscode())?.Uri;
+		if (Uri === undefined) {
+			return;
+		}
 		return Uri.parse(parsedUrl, true);
 	}
 
 	errorMessage(
-		`Malformed gitblame.commitUrl: '${parsedUrl}' from '${getProperty(
+		`Malformed gitblame.commitUrl: '${parsedUrl}' from '${PropertyStore.get(
 			"commitUrl",
 		)}'`,
 	);

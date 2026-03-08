@@ -1,68 +1,61 @@
 import * as assert from "node:assert";
-import { afterEach, beforeEach } from "mocha";
-import * as Sinon from "sinon";
-import { Queue } from "../../src/git/queue.js";
+import test, { before, suite } from "node:test";
+import { scheduler } from "node:timers/promises";
+import type { Queue as QueueType } from "../../src/git/queue.js";
+import { Logger } from "../../src/logger.js";
 
-const sleep = <T>(time: number, response: T): Promise<T> => {
-	return new Promise((resolve) =>
-		setTimeout(() => {
-			resolve(response);
-		}, time),
-	);
-};
+function sleep<T>(time: number, response: T): Promise<T> {
+	const { promise, resolve } = Promise.withResolvers<T>();
+	setTimeout(resolve, time, response);
+	return promise;
+}
 
-suite("Promise Queue", (): void => {
-	let clock: Sinon.SinonFakeTimers | undefined;
-
-	beforeEach(() => {
-		clock = Sinon.useFakeTimers();
-	});
-
-	afterEach(() => {
-		clock?.restore();
+suite("Promise Queue", { concurrency: true }, async (): Promise<void> => {
+	Logger.createInstance();
+	let Queue: typeof QueueType;
+	before(async () => {
+		Queue = (await import("../../src/git/queue.js")).Queue;
 	});
 
 	test("Create Instance", (): void => {
 		const instance = new Queue();
 
-		assert.deepStrictEqual(
-			instance instanceof Queue,
-			true,
-			"is instance of Queue",
-		);
+		assert.ok(instance instanceof Queue, "is instance of Queue");
 	});
 
-	test("Pass through when queue is short", async (): Promise<void> => {
+	test("Pass through when queue is short", async (t): Promise<void> => {
 		const instance = new Queue();
-		const spy = Sinon.spy(() => Promise.resolve());
+		const spy = t.mock.fn(() => Promise.resolve());
 
 		await instance.add(spy);
 
-		Sinon.assert.calledOnce(spy);
+		assert.strictEqual(spy.mock.callCount(), 1);
 	});
 
-	test("Don't run when adding to queue and it is to long, then run it when ready", async (): Promise<void> => {
+	test("Don't run when adding to queue and it is to long, then run it when ready", async (t): Promise<void> => {
+		t.mock.timers.enable({ apis: ["setTimeout"] });
+
 		const instance = new Queue<undefined>();
 
-		const spy1 = Sinon.spy(() => sleep(100, undefined));
-		const spy2 = Sinon.spy(() => sleep(100, undefined));
-		const spy3 = Sinon.spy(() => sleep(100, undefined));
+		const spy1 = t.mock.fn(() => sleep(100, undefined));
+		const spy2 = t.mock.fn(() => sleep(100, undefined));
+		const spy3 = t.mock.fn(() => sleep(100, undefined));
 
 		instance.add(spy1);
 		instance.add(spy2);
 		instance.add(spy3);
 
-		await clock?.tickAsync(50);
+		t.mock.timers.tick(50);
 
-		Sinon.assert.calledOnce(spy1);
-		Sinon.assert.calledOnce(spy2);
-		Sinon.assert.notCalled(spy3);
+		assert.strictEqual(spy1.mock.callCount(), 1);
+		assert.strictEqual(spy2.mock.callCount(), 1);
+		assert.strictEqual(spy3.mock.callCount(), 0);
 
-		await clock?.tickAsync(50);
+		t.mock.timers.tick(50);
 
-		Sinon.assert.calledOnce(spy2);
+		assert.strictEqual(spy2.mock.callCount(), 1);
 
-		await clock?.runAllAsync();
+		t.mock.timers.runAll();
 	});
 
 	test("Being able to use the value from the original promise", async (): Promise<void> => {
@@ -74,7 +67,11 @@ suite("Promise Queue", (): void => {
 		assert.strictEqual(result, "UNIQUE_VALUE");
 	});
 
-	test("Being able to use the value from the original promise after queue", async (): Promise<void> => {
+	test("Being able to use the value from the original promise after queue", {
+		timeout: 500,
+	}, async (t): Promise<void> => {
+		t.mock.timers.enable({ apis: ["setTimeout"] });
+
 		const instance = new Queue<string>();
 		const myFunc1 = () => sleep(100, "UNIQUE_VALUE_1");
 		const myFunc2 = () => sleep(100, "UNIQUE_VALUE_2");
@@ -84,7 +81,8 @@ suite("Promise Queue", (): void => {
 		const call2 = instance.add(myFunc2);
 		const call3 = instance.add(myFunc3);
 
-		await clock?.tickAsync(200);
+		t.mock.timers.tick(200);
+		await scheduler.yield();
 
 		assert.strictEqual(await call1, "UNIQUE_VALUE_1");
 		assert.strictEqual(await call2, "UNIQUE_VALUE_2");
@@ -97,58 +95,67 @@ suite("Promise Queue", (): void => {
 		assert.strictEqual(await instance.add(() => Promise.resolve()), undefined);
 	});
 
-	test("Increase max parallel runs more things", async (): Promise<void> => {
+	test("Increase max parallel runs more things", async (t): Promise<void> => {
+		t.mock.timers.enable({ apis: ["setTimeout"] });
+
 		const instance = new Queue<undefined>(1);
 
-		const spy1 = Sinon.spy(() => sleep(100, undefined));
-		const spy2 = Sinon.spy(() => sleep(100, undefined));
-		const spy3 = Sinon.spy(() => sleep(100, undefined));
+		const spy1 = t.mock.fn(() => sleep(100, undefined));
+		const spy2 = t.mock.fn(() => sleep(100, undefined));
+		const spy3 = t.mock.fn(() => sleep(100, undefined));
 
 		instance.add(spy1);
 		instance.add(spy2);
 		instance.add(spy3);
 
-		Sinon.assert.calledOnce(spy1);
-		Sinon.assert.notCalled(spy2);
-		Sinon.assert.notCalled(spy3);
+		assert.strictEqual(spy1.mock.callCount(), 1);
+		assert.strictEqual(spy2.mock.callCount(), 0);
+		assert.strictEqual(spy3.mock.callCount(), 0);
 
 		instance.updateParallel(3);
 
-		Sinon.assert.calledOnce(spy2);
-		Sinon.assert.calledOnce(spy3);
+		assert.strictEqual(spy2.mock.callCount(), 1);
+		assert.strictEqual(spy3.mock.callCount(), 1);
 
-		await clock?.runAllAsync();
+		t.mock.timers.runAll();
 	});
 
-	test("Decrease max parallel does not run more things", async (): Promise<void> => {
+	test("Decrease max parallel does not run more things", async (t): Promise<void> => {
+		t.mock.timers.enable({ apis: ["setTimeout"] });
+
 		const instance = new Queue<undefined>(2);
 
-		const spy1 = Sinon.spy(() => sleep(100, undefined));
-		const spy2 = Sinon.spy(() => sleep(100, undefined));
-		const spy3 = Sinon.spy(() => sleep(100, undefined));
-		const spy4 = Sinon.spy(() => sleep(100, undefined));
+		const spy1 = t.mock.fn(() => sleep(100, undefined));
+		const spy2 = t.mock.fn(() => sleep(100, undefined));
+		const spy3 = t.mock.fn(() => sleep(100, undefined));
+		const spy4 = t.mock.fn(() => sleep(100, undefined));
 
 		instance.add(spy1);
 		instance.add(spy2);
 		instance.add(spy3);
 
-		Sinon.assert.calledOnce(spy1);
-		Sinon.assert.calledOnce(spy2);
-		Sinon.assert.notCalled(spy3);
+		assert.strictEqual(spy1.mock.callCount(), 1, "Did not execute any");
+		assert.strictEqual(spy2.mock.callCount(), 1);
+		assert.strictEqual(spy3.mock.callCount(), 0, "Executed all three");
 
 		instance.updateParallel(1);
 		instance.add(spy4);
 
-		await clock?.tickAsync(50);
+		t.mock.timers.tick(50);
 
-		Sinon.assert.notCalled(spy3);
-		Sinon.assert.notCalled(spy4);
+		assert.strictEqual(spy3.mock.callCount(), 0, "Executed too early");
+		assert.strictEqual(spy4.mock.callCount(), 0);
 
-		await clock?.tickAsync(100);
+		t.mock.timers.tick(100);
+		await scheduler.yield();
 
-		Sinon.assert.calledOnce(spy3);
-		Sinon.assert.notCalled(spy4);
+		assert.strictEqual(spy3.mock.callCount(), 1, "Fail to execute after wait");
+		assert.strictEqual(
+			spy4.mock.callCount(),
+			0,
+			"Executed to early after wait",
+		);
 
-		await clock?.runAllAsync();
+		t.mock.timers.runAll();
 	});
 });

@@ -1,4 +1,4 @@
-import { env } from "vscode";
+import { getvscode } from "./vscode-quarantine.js";
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
@@ -14,7 +14,9 @@ const timeUnits: [Intl.RelativeTimeFormatUnit, number][] = [
 	["hour", HOUR],
 	["minute", MINUTE],
 ];
-const RelativeTime = new Intl.RelativeTimeFormat(env.language);
+const RelativeTime = new Intl.RelativeTimeFormat(
+	(await getvscode())?.env.language ?? "en",
+);
 export const between = (now: Date, compare: Date): string => {
 	const diff = now.valueOf() - compare.valueOf();
 

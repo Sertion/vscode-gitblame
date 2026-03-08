@@ -5,6 +5,7 @@
 	"version": "12.0.3",
 	"publisher": "waderyan",
 	"private": true,
+	"type": "module",
 	"engines": {
 		"vscode": ">=1.100.0",
 		"node": ">=22.22.0"
@@ -34,25 +35,19 @@
 		"vscode:prepublish": "npm run build",
 		"build": "node esbuild.mjs",
 		"package": "npx @vscode/vsce package",
-		"lint": "biome ci ./src",
-		"lint:fix": "biome lint ./src --fix",
-		"check": "biome check ./src",
-		"check:fix": "biome check ./src --fix",
+		"lint": "biome ci ./src ./test",
+		"lint:fix": "biome lint ./src ./test --fix",
+		"check": "biome check ./src ./test ",
+		"check:fix": "biome check ./src ./test --fix",
 		"pretest": "tsc --project tsconfig.test.json",
-		"test": "node ./out/test/run-test.js",
+		"test": "node --test --experimental-test-module-mocks out/**/*.test.js",
 		"updateimage": "magick -background transparent images/git_icon.svg images/git_icon.png"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.4",
-		"@types/mocha": "10.0.10",
 		"@types/node": "22.9.0",
-		"@types/sinon": "21.0.0",
-		"@types/sinonjs__fake-timers": "15.0.1",
 		"@types/vscode": "1.100.0",
-		"@vscode/test-electron": "2.5.2",
 		"esbuild": "0.27.3",
-		"mocha": "11.7.5",
-		"sinon": "21.0.1",
 		"typescript": "5.9.3"
 	},
 	"homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
@@ -191,9 +186,6 @@
 					"type": "boolean",
 					"default": false,
 					"markdownDescription": "Ignore whitespace changes when blaming (`-w` flag)"
-				},
-				"gitblame.isWebPathPlural": {
-					"deprecationMessage": "This setting has been replaced by gitblame.pluralWebPathSubstrings"
 				},
 				"gitblame.pluralWebPathSubstrings": {
 					"type": "array",

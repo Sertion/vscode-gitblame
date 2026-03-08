@@ -1,13 +1,12 @@
 import { access } from "node:fs/promises";
 import { dirname, join } from "node:path";
-
-import { getProperty } from "../../property.js";
+import { PropertyStore } from "../../PropertyStore.js";
 import { git } from "./CachedGit.js";
 
 export async function getRevsFile(
 	realFileName: string,
 ): Promise<string | undefined> {
-	const possibleRevsFiles = getProperty("revsFile");
+	const possibleRevsFiles = PropertyStore.get("revsFile");
 	if (possibleRevsFiles.length === 0) {
 		return;
 	}

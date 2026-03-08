@@ -3,13 +3,13 @@ import type { FileAttachedCommit } from "./FileAttachedCommit.js";
 import type { Line } from "./Line.js";
 
 export class LineAttachedCommit {
-	public commit: Commit;
-	public filename: string;
+	public readonly commit: Commit;
+	public readonly filename: string;
 	constructor(
-		fileAttachedcommit: FileAttachedCommit,
-		public line: Line,
+		{ commit, filename }: FileAttachedCommit,
+		public readonly line: Line,
 	) {
-		this.commit = fileAttachedcommit.commit;
-		this.filename = fileAttachedcommit.filename;
+		this.commit = commit;
+		this.filename = filename;
 	}
 }
