@@ -40,7 +40,7 @@
 		"check": "biome check ./src ./test ",
 		"check:fix": "biome check ./src ./test --fix",
 		"pretest": "tsc --project tsconfig.test.json",
-		"test": "node --test --experimental-test-module-mocks out/**/*.test.js",
+		"test": "node --test --experimental-test-module-mocks ./out/**/*.test.js",
 		"updateimage": "magick -background transparent images/git_icon.svg images/git_icon.png"
 	},
 	"devDependencies": {

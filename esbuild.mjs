@@ -8,10 +8,12 @@ const result = await build({
 	target: "node22.22",
 	outdir: "./out/src/",
 	metafile: !!process.env.METAFILE,
+	splitting: true,
 	external: ["vscode", "node:*"],
 });
 
 // Set METAFILE=1 to export a bundle analyze file for esbuild
+// Look at it here: https://esbuild.github.io/analyze/
 if (result.metafile) {
 	await import("node:fs/promises").then(({ writeFile }) => {
 		writeFile(

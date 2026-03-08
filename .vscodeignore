@@ -4,6 +4,9 @@
 !CHANGELOG.md
 !LICENSE
 !out/src/index.js
-!images/git_icon.png
+!images/git_icon.svg
 !out/src/extension-*.js
 !out/src/chunk-*.js
+!out/src/execute-*.js
+!out/src/logger-*.js
+!out/src/property-*.js
