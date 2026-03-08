@@ -12,6 +12,17 @@ function call(
 	return typeof func === "function" ? func(arg) : func;
 }
 
+const baseExecuteMock = {
+	"config branch.main.remote": "origin",
+	"config remote.origin.url": "https://github.com/Sertion/vscode-gitblame.git",
+	"ls-files --full-name -- /fake.file": "/fake.file",
+	"ls-remote --get-url origin":
+		"https://github.com/Sertion/vscode-gitblame.git",
+	"rev-parse --abbrev-ref origin/HEAD": "origin/main",
+	"rev-parse --absolute-git-dir": "/a/path/.git/",
+	"symbolic-ref -q --short HEAD": "main",
+};
+
 suite("Generate URL Tokens", () => {
 	const fileCommit = FileAttachedCommit.Create(
 		{},
@@ -64,29 +75,8 @@ suite("Generate URL Tokens", () => {
 	test("http:// origin", async (t) => {
 		t.mock.module("../../src/git/command/execute.js", {
 			namedExports: {
-				execute: async (
-					_: Promise<string>,
-					args: string[],
-				): Promise<string> => {
-					switch (args.join(" ")) {
-						case "config branch.main.remote":
-							return "origin";
-						case "config remote.origin.url":
-							return "https://github.com/Sertion/vscode-gitblame.git";
-						case "ls-files --full-name -- /fake.file":
-							return "/fake.file";
-						case "ls-remote --get-url origin":
-							return "https://github.com/Sertion/vscode-gitblame.git";
-						case "rev-parse --abbrev-ref origin/HEAD":
-							return "origin/main";
-						case "rev-parse --absolute-git-dir":
-							return "/a/path/.git/";
-						case "symbolic-ref -q --short HEAD":
-							return "main";
-						default:
-							return "";
-					}
-				},
+				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
+					baseExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
 			},
 		});
 		await setupCachedGit();
@@ -123,31 +113,16 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("git@ origin", async (t) => {
+		const thisExecuteMock = {
+			...baseExecuteMock,
+			"config remote.origin.url": "git@github.com:Sertion/vscode-gitblame.git",
+			"ls-remote --get-url origin":
+				"git@github.com:Sertion/vscode-gitblame.git",
+		};
 		t.mock.module("../../src/git/command/execute.js", {
 			namedExports: {
-				execute: async (
-					_: Promise<string>,
-					args: string[],
-				): Promise<string> => {
-					switch (args.join(" ")) {
-						case "config branch.main.remote":
-							return "origin";
-						case "config remote.origin.url":
-							return "git@github.com:Sertion/vscode-gitblame.git";
-						case "ls-files --full-name -- /fake.file":
-							return "/fake.file";
-						case "ls-remote --get-url origin":
-							return "git@github.com:Sertion/vscode-gitblame.git";
-						case "rev-parse --abbrev-ref origin/HEAD":
-							return "origin/main";
-						case "rev-parse --absolute-git-dir":
-							return "/a/path/.git/";
-						case "symbolic-ref -q --short HEAD":
-							return "main";
-						default:
-							return "";
-					}
-				},
+				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
+					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
 			},
 		});
 
@@ -185,31 +160,17 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("ssh://git@ origin", async (t) => {
+		const thisExecuteMock = {
+			...baseExecuteMock,
+			"config remote.origin.url":
+				"ssh://git@github.com/Sertion/vscode-gitblame.git",
+			"ls-remote --get-url origin":
+				"ssh://git@github.com/Sertion/vscode-gitblame.git",
+		};
 		t.mock.module("../../src/git/command/execute.js", {
 			namedExports: {
-				execute: async (
-					_: Promise<string>,
-					args: string[],
-				): Promise<string> => {
-					switch (args.join(" ")) {
-						case "config branch.main.remote":
-							return "origin";
-						case "config remote.origin.url":
-							return "ssh://git@github.com/Sertion/vscode-gitblame.git";
-						case "ls-files --full-name -- /fake.file":
-							return "/fake.file";
-						case "ls-remote --get-url origin":
-							return "ssh://git@github.com/Sertion/vscode-gitblame.git";
-						case "rev-parse --abbrev-ref origin/HEAD":
-							return "origin/main";
-						case "rev-parse --absolute-git-dir":
-							return "/a/path/.git/";
-						case "symbolic-ref -q --short HEAD":
-							return "main";
-						default:
-							return "";
-					}
-				},
+				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
+					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
 			},
 		});
 
@@ -248,31 +209,17 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("ssh://git@git.company.com/project_x/test-repository.git origin", async (t) => {
+		const thisExecuteMock = {
+			...baseExecuteMock,
+			"config remote.origin.url":
+				"ssh://git@git.company.com/project_x/test-repository.git",
+			"ls-remote --get-url origin":
+				"ssh://git@git.company.com/project_x/test-repository.git",
+		};
 		t.mock.module("../../src/git/command/execute.js", {
 			namedExports: {
-				execute: async (
-					_: Promise<string>,
-					args: string[],
-				): Promise<string> => {
-					switch (args.join(" ")) {
-						case "config branch.main.remote":
-							return "origin";
-						case "config remote.origin.url":
-							return "ssh://git@git.company.com/project_x/test-repository.git";
-						case "ls-files --full-name -- /fake.file":
-							return "/fake.file";
-						case "ls-remote --get-url origin":
-							return "ssh://git@git.company.com/project_x/test-repository.git";
-						case "rev-parse --abbrev-ref origin/HEAD":
-							return "origin/main";
-						case "rev-parse --absolute-git-dir":
-							return "/a/path/.git/";
-						case "symbolic-ref -q --short HEAD":
-							return "main";
-						default:
-							return "";
-					}
-				},
+				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
+					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
 			},
 		});
 
@@ -315,31 +262,16 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("local development (#128 regression)", async (t) => {
+		const thisExecuteMock = {
+			...baseExecuteMock,
+			"config branch.main.remote": "",
+			"config remote.origin.url": "",
+			"ls-remote --get-url origin": "origin",
+		};
 		t.mock.module("../../src/git/command/execute.js", {
 			namedExports: {
-				execute: async (
-					_: Promise<string>,
-					args: string[],
-				): Promise<string> => {
-					switch (args.join(" ")) {
-						case "config branch.main.remote":
-							return "";
-						case "config remote.origin.url":
-							return "";
-						case "ls-files --full-name -- /fake.file":
-							return "/fake.file";
-						case "ls-remote --get-url origin":
-							return "origin";
-						case "rev-parse --abbrev-ref origin/HEAD":
-							return "origin/main";
-						case "rev-parse --absolute-git-dir":
-							return "/a/path/.git/";
-						case "symbolic-ref -q --short HEAD":
-							return "main";
-						default:
-							return "";
-					}
-				},
+				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
+					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
 			},
 		});
 
@@ -384,31 +316,17 @@ suite("Use generated URL tokens", () => {
 		import("../../src/git/command/CachedGit.js").then((e) => e.git.clear());
 	});
 	test("Default value", async (t) => {
+		const thisExecuteMock = {
+			...baseExecuteMock,
+			"config remote.origin.url":
+				"ssh://git@git.company.com/project_x/test-repository.git",
+			"ls-remote --get-url origin":
+				"ssh://git@git.company.com/project_x/test-repository.git",
+		};
 		t.mock.module("../../src/git/command/execute.js", {
 			namedExports: {
-				execute: async (
-					_: Promise<string>,
-					args: string[],
-				): Promise<string> => {
-					switch (args.join(" ")) {
-						case "config branch.main.remote":
-							return "origin";
-						case "config remote.origin.url":
-							return "ssh://git@git.company.com/project_x/test-repository.git";
-						case "ls-files --full-name -- /fake.file":
-							return "/fake.file";
-						case "ls-remote --get-url origin":
-							return "ssh://git@git.company.com/project_x/test-repository.git";
-						case "rev-parse --abbrev-ref origin/HEAD":
-							return "origin/main";
-						case "rev-parse --absolute-git-dir":
-							return "/a/path/.git/";
-						case "symbolic-ref -q --short HEAD":
-							return "main";
-						default:
-							return "";
-					}
-				},
+				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
+					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
 			},
 		});
 
@@ -436,31 +354,17 @@ suite("Use generated URL tokens", () => {
 	});
 
 	test("Url with port (#188 regression)", async (t) => {
+		const thisExecuteMock = {
+			...baseExecuteMock,
+			"config remote.origin.url":
+				"http://git.company.com:8080/project_x/test-repository.git",
+			"ls-remote --get-url origin":
+				"http://git.company.com:8080/project_x/test-repository.git",
+		};
 		t.mock.module("../../src/git/command/execute.js", {
 			namedExports: {
-				execute: async (
-					_: Promise<string>,
-					args: string[],
-				): Promise<string> => {
-					switch (args.join(" ")) {
-						case "config branch.main.remote":
-							return "origin";
-						case "config remote.origin.url":
-							return "http://git.company.com:8080/project_x/test-repository.git";
-						case "ls-files --full-name -- /fake.file":
-							return "/fake.file";
-						case "ls-remote --get-url origin":
-							return "http://git.company.com:8080/project_x/test-repository.git";
-						case "rev-parse --abbrev-ref origin/HEAD":
-							return "origin/main";
-						case "rev-parse --absolute-git-dir":
-							return "/a/path/.git/";
-						case "symbolic-ref -q --short HEAD":
-							return "main";
-						default:
-							return "";
-					}
-				},
+				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
+					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
 			},
 		});
 
