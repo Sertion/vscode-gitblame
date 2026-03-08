@@ -3,12 +3,13 @@ import test, { afterEach, before, suite } from "node:test";
 import type { git as gitType } from "../../src/git/command/CachedGit.js";
 import type { gitRemotePath as gitRemotePathType } from "../../src/git/get-tool-url.js";
 
+function call(
+	func: string | ((param?: string) => string | undefined),
+	arg?: string,
+) {
+	return typeof func === "string" ? func : func(arg);
+}
 suite("Get tool URL: gitRemotePath", (): void => {
-	const call = (
-		func: string | ((param?: string) => string | undefined),
-		arg?: string,
-	) => (typeof func === "string" ? func : func(arg));
-
 	let git: typeof gitType;
 	let gitRemotePath: typeof gitRemotePathType;
 	before(async () => {

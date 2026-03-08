@@ -39,8 +39,10 @@
 		"lint:fix": "biome lint ./src ./test --fix",
 		"check": "biome check ./src ./test ",
 		"check:fix": "biome check ./src ./test --fix",
-		"pretest": "tsc --project tsconfig.test.json",
+		"update-test-snapshots": "npm run pretest && node --test --experimental-test-module-mocks --test-update-snapshots \"./**/*.test.js\" && cp ./out/test/suite/*.snapshot ./test/suite/",
+		"pretest": "tsc --project tsconfig.test.json && cp ./test/suite/*.snapshot ./out/test/suite/",
 		"test": "node --test --experimental-test-module-mocks \"./**/*.test.js\"",
+		"test-coverage": "node --test --experimental-test-module-mocks --experimental-test-coverage \"./**/*.test.js\"",
 		"updateimage": "magick -background transparent images/git_icon.svg images/git_icon.png"
 	},
 	"devDependencies": {

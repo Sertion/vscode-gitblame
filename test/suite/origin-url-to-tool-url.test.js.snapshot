@@ -1,0 +1,103 @@
+exports[`Web URL formatting > git@ 1`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > git@ 2`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > git@ with port 1`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > git@ with port 2`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > git@ with port and password 1`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > git@ with port and password 2`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > http:// with port 1`] = `
+"http://example.com:8080/user/repo"
+`;
+
+exports[`Web URL formatting > http:// with port 2`] = `
+"http://example.com:8080/user/repo"
+`;
+
+exports[`Web URL formatting > https:// 1`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > https:// 2`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > https:// plural 1`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > https:// plural 2`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > https:// with port 1`] = `
+"https://example.com:8080/user/repo"
+`;
+
+exports[`Web URL formatting > https:// with port 2`] = `
+"https://example.com:8080/user/repo"
+`;
+
+exports[`Web URL formatting > https:// with port, username and password 1`] = `
+"https://example.com:8080/user/repo"
+`;
+
+exports[`Web URL formatting > https:// with username and password 1`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > non-alphanumeric in path 1`] = `
+"https://example.com/us.er/repo"
+`;
+
+exports[`Web URL formatting > non-alphanumeric in path 2`] = `
+"https://example.com/user/re-po"
+`;
+
+exports[`Web URL formatting > non-alphanumeric in path 3`] = `
+"https://example.com/user/re%20po"
+`;
+
+exports[`Web URL formatting > non-alphanumeric in path 4`] = `
+"https://example.com/us.er/repo"
+`;
+
+exports[`Web URL formatting > ssh:// short host no user 1`] = `
+"https://host/SomeProject"
+`;
+
+exports[`Web URL formatting > ssh:// short host no user 2`] = `
+"https://host/SomeProject"
+`;
+
+exports[`Web URL formatting > username:password@ 1`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > username:password@ 2`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > username@ 1`] = `
+"https://example.com/user/repo"
+`;
+
+exports[`Web URL formatting > username@ 2`] = `
+"https://example.com/user/repo"
+`;

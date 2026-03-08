@@ -95,13 +95,11 @@ export const generateUrlTokens = async (
 
 	const origin = await getActiveFileOrigin(remoteName);
 
-	console.log({ remoteName, origin });
 	if (origin === remoteName || origin === undefined) {
 		return;
 	}
 
 	const remoteUrl = await getRemoteUrl(remoteName);
-	console.log({ remoteUrl: remoteUrl === undefined });
 	if (remoteUrl === undefined) {
 		Logger.info("Unable to find remote URL. Can not provide URL");
 		return;
@@ -110,8 +108,6 @@ export const generateUrlTokens = async (
 	const tool = originUrlToToolUrl(remoteUrl);
 	const filePath = await getRelativePathOfActiveFile();
 	const defaultBranch = await getDefaultBranch(remoteName);
-
-	console.log({ tool, filePath, defaultBranch });
 
 	return {
 		hash: lineAware.commit.hash,

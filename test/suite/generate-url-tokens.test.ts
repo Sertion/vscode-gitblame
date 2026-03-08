@@ -1,29 +1,25 @@
 import * as assert from "node:assert";
-import test, { afterEach, beforeEach, mock, suite } from "node:test";
+import test, {
+	afterEach,
+	beforeEach,
+	mock,
+	suite,
+	type TestContext,
+} from "node:test";
 import { setupCachedGit } from "../../src/git/command/CachedGit.js";
 import { FileAttachedCommit } from "../../src/git/FileAttachedCommit.js";
+import type { LineAttachedCommit } from "../../src/git/LineAttachedCommit.js";
 import { parseTokens } from "../../src/string-stuff/text-decorator.js";
 import { setupPropertyStore } from "../setupPropertyStore.js";
 
 function call(
-	func: string | ((index: string | undefined) => string | undefined),
+	func: string | ((param?: string) => string | undefined),
 	arg?: string,
 ) {
-	return typeof func === "function" ? func(arg) : func;
+	return typeof func === "string" ? func : func(arg);
 }
 
-const baseExecuteMock = {
-	"config branch.main.remote": "origin",
-	"config remote.origin.url": "https://github.com/Sertion/vscode-gitblame.git",
-	"ls-files --full-name -- /fake.file": "/fake.file",
-	"ls-remote --get-url origin":
-		"https://github.com/Sertion/vscode-gitblame.git",
-	"rev-parse --abbrev-ref origin/HEAD": "origin/main",
-	"rev-parse --absolute-git-dir": "/a/path/.git/",
-	"symbolic-ref -q --short HEAD": "main",
-};
-
-suite("Generate URL Tokens", () => {
+function getExampleCommit(): LineAttachedCommit {
 	const fileCommit = FileAttachedCommit.Create(
 		{},
 		"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
@@ -44,8 +40,36 @@ suite("Generate URL Tokens", () => {
 	fileCommit.setByKey("committer-date", "1423796049");
 	fileCommit.setByKey("committer-tz", "-0800");
 
-	const exampleCommit = fileCommit.toLineAttachedCommits().next().value;
+	return fileCommit.toLineAttachedCommits().next().value;
+}
 
+async function setupMocks(
+	t: TestContext,
+	executeMock: typeof baseExecuteMock,
+): Promise<ReturnType<typeof setupPropertyStore>> {
+	t.mock.module("../../src/git/command/execute.js", {
+		namedExports: {
+			execute: async (_: Promise<string>, args: string[]): Promise<string> =>
+				executeMock[args.join(" ") as keyof typeof executeMock] ?? "",
+		},
+	});
+	await setupCachedGit();
+	return await setupPropertyStore();
+}
+
+const baseExecuteMock = {
+	"config branch.main.remote": "origin",
+	"config remote.origin.url": "https://github.com/Sertion/vscode-gitblame.git",
+	"ls-files --full-name -- /fake.file": "/fake.file",
+	"ls-remote --get-url origin":
+		"https://github.com/Sertion/vscode-gitblame.git",
+	"rev-parse --abbrev-ref origin/HEAD": "origin/main",
+	"rev-parse --absolute-git-dir": "/a/path/.git/",
+	"symbolic-ref -q --short HEAD": "main",
+};
+
+suite("Generate URL Tokens", () => {
+	const exampleCommit = getExampleCommit();
 	beforeEach(async (): Promise<void> => {
 		mock.module("../../src/get-active.js", {
 			namedExports: {
@@ -73,14 +97,7 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("http:// origin", async (t) => {
-		t.mock.module("../../src/git/command/execute.js", {
-			namedExports: {
-				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
-					baseExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
-			},
-		});
-		await setupCachedGit();
-		const propertyStore = await setupPropertyStore();
+		const propertyStore = await setupMocks(t, baseExecuteMock);
 		propertyStore.setOverride("remoteName", "origin");
 
 		const tokens = await (
@@ -113,21 +130,12 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("git@ origin", async (t) => {
-		const thisExecuteMock = {
+		const prop = await setupMocks(t, {
 			...baseExecuteMock,
 			"config remote.origin.url": "git@github.com:Sertion/vscode-gitblame.git",
 			"ls-remote --get-url origin":
 				"git@github.com:Sertion/vscode-gitblame.git",
-		};
-		t.mock.module("../../src/git/command/execute.js", {
-			namedExports: {
-				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
-					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
-			},
 		});
-
-		await setupCachedGit();
-		const prop = await setupPropertyStore();
 		prop.setOverride("remoteName", "origin");
 
 		const tokens = await (
@@ -160,22 +168,13 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("ssh://git@ origin", async (t) => {
-		const thisExecuteMock = {
+		const prop = await setupMocks(t, {
 			...baseExecuteMock,
 			"config remote.origin.url":
 				"ssh://git@github.com/Sertion/vscode-gitblame.git",
 			"ls-remote --get-url origin":
 				"ssh://git@github.com/Sertion/vscode-gitblame.git",
-		};
-		t.mock.module("../../src/git/command/execute.js", {
-			namedExports: {
-				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
-					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
-			},
 		});
-
-		await setupCachedGit();
-		const prop = await setupPropertyStore();
 		prop.setOverride("remoteName", "origin");
 
 		const tokens = await (
@@ -209,22 +208,13 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("ssh://git@git.company.com/project_x/test-repository.git origin", async (t) => {
-		const thisExecuteMock = {
+		const prop = await setupMocks(t, {
 			...baseExecuteMock,
 			"config remote.origin.url":
 				"ssh://git@git.company.com/project_x/test-repository.git",
 			"ls-remote --get-url origin":
 				"ssh://git@git.company.com/project_x/test-repository.git",
-		};
-		t.mock.module("../../src/git/command/execute.js", {
-			namedExports: {
-				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
-					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
-			},
 		});
-
-		await setupCachedGit();
-		const prop = await setupPropertyStore();
 		prop.setOverride("remoteName", "origin");
 
 		const tokens = await (
@@ -262,21 +252,12 @@ suite("Generate URL Tokens", () => {
 	});
 
 	test("local development (#128 regression)", async (t) => {
-		const thisExecuteMock = {
+		const prop = await setupMocks(t, {
 			...baseExecuteMock,
 			"config branch.main.remote": "",
 			"config remote.origin.url": "",
 			"ls-remote --get-url origin": "origin",
-		};
-		t.mock.module("../../src/git/command/execute.js", {
-			namedExports: {
-				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
-					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
-			},
 		});
-
-		await setupCachedGit();
-		const prop = await setupPropertyStore();
 		prop.setOverride("remoteName", "origin");
 
 		const tokens = await (
@@ -290,48 +271,18 @@ suite("Generate URL Tokens", () => {
 });
 
 suite("Use generated URL tokens", () => {
-	const fileCommit = FileAttachedCommit.Create(
-		{},
-		"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-		"10 100 1",
-	);
-	fileCommit.setByKey("summary", "list_lru: introduce per-memcg lists");
-	fileCommit.setByKey("filename", "directory/example.file");
-
-	fileCommit.setByKey("author-mail", "<vdavydov.dev@gmail.com>");
-	fileCommit.setByKey("author", "Vladimir Davydov");
-	fileCommit.setByKey("author-timestamp", "1423781950");
-	fileCommit.setByKey("author-date", "1423781950");
-	fileCommit.setByKey("author-tz", "-0800");
-
-	fileCommit.setByKey("committer-mail", "<torvalds@linux-foundation.org>");
-	fileCommit.setByKey("committer", "Linus Torvalds");
-	fileCommit.setByKey("committer-timestamp", "1423796049");
-	fileCommit.setByKey("committer-date", "1423796049");
-	fileCommit.setByKey("committer-tz", "-0800");
-
-	const exampleCommit = fileCommit.toLineAttachedCommits().next().value;
-
+	const exampleCommit = getExampleCommit();
 	afterEach(() => {
 		import("../../src/git/command/CachedGit.js").then((e) => e.git.clear());
 	});
 	test("Default value", async (t) => {
-		const thisExecuteMock = {
+		const prop = await setupMocks(t, {
 			...baseExecuteMock,
 			"config remote.origin.url":
 				"ssh://git@git.company.com/project_x/test-repository.git",
 			"ls-remote --get-url origin":
 				"ssh://git@git.company.com/project_x/test-repository.git",
-		};
-		t.mock.module("../../src/git/command/execute.js", {
-			namedExports: {
-				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
-					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
-			},
 		});
-
-		await setupCachedGit();
-		const prop = await setupPropertyStore();
 		prop.setOverride("remoteName", "origin");
 
 		const tokens = await (
@@ -342,34 +293,23 @@ suite("Use generated URL tokens", () => {
 
 		assert.ok(tokens);
 
-		const parsedUrl = parseTokens(
-			"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
-			tokens,
-		);
-
 		assert.strictEqual(
-			parsedUrl,
+			parseTokens(
+				"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
+				tokens,
+			),
 			"https://git.company.com/project_x/test-repository/commit/60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		);
 	});
 
 	test("Url with port (#188 regression)", async (t) => {
-		const thisExecuteMock = {
+		const prop = await setupMocks(t, {
 			...baseExecuteMock,
 			"config remote.origin.url":
 				"http://git.company.com:8080/project_x/test-repository.git",
 			"ls-remote --get-url origin":
 				"http://git.company.com:8080/project_x/test-repository.git",
-		};
-		t.mock.module("../../src/git/command/execute.js", {
-			namedExports: {
-				execute: async (_: Promise<string>, args: string[]): Promise<string> =>
-					thisExecuteMock[args.join(" ") as keyof typeof baseExecuteMock] ?? "",
-			},
 		});
-
-		await setupCachedGit();
-		const prop = await setupPropertyStore();
 		prop.setOverride("remoteName", "origin");
 
 		const tokens = await (
@@ -380,13 +320,11 @@ suite("Use generated URL tokens", () => {
 
 		assert.ok(tokens);
 
-		const parsedUrl = parseTokens(
-			"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
-			tokens,
-		);
-
 		assert.strictEqual(
-			parsedUrl,
+			parseTokens(
+				"${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
+				tokens,
+			),
 			"http://git.company.com:8080/project_x/test-repository/commit/60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
 		);
 	});

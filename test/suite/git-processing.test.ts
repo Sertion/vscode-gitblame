@@ -1,8 +1,6 @@
-import * as assert from "node:assert";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test, { suite } from "node:test";
-import type { LineAttachedCommit } from "../../src/git/LineAttachedCommit.js";
 import { processChunk } from "../../src/git/stream-parsing.js";
 import { Logger } from "../../src/logger.js";
 
@@ -16,48 +14,26 @@ function load(fileName: string, buffer: boolean): string | Buffer {
 		},
 	);
 }
-function datesToString(convert: LineAttachedCommit): unknown {
-	return {
-		...convert,
-		commit: {
-			...convert.commit,
-			author: {
-				...convert.commit.author,
-				date: convert.commit.author.date.toJSON(),
-			},
-			committer: {
-				...convert.commit.committer,
-				date: convert.commit.committer.date.toJSON(),
-			},
-		},
-	};
-}
 
 suite("Chunk Processing", (): void => {
 	Logger.createInstance();
-	test("Process normal chunk", async (): Promise<void> => {
+	test("Process normal chunk", async (t): Promise<void> => {
 		const chunk = load("git-stream-blame-incremental.chunks", true);
-		const result = JSON.parse(
-			load("git-stream-blame-incremental-result.json", false),
-		);
 
 		const foundChunks: unknown[] = [];
 		for await (const line of processChunk(chunk, "@@", {})) {
-			foundChunks.push(datesToString(line));
+			foundChunks.push(line);
 		}
 
-		assert.deepEqual(foundChunks, result);
+		t.assert.snapshot(foundChunks);
 	});
 });
 
 suite("Processing Errors", (): void => {
 	Logger.createInstance();
-	test("Git chunk not starting with commit information", async (): Promise<void> => {
+	test("Git chunk not starting with commit information", async (t): Promise<void> => {
 		const chunks = JSON.parse(
 			load("git-stream-blame-incremental-multi-chunk.json", false),
-		) as string[];
-		const result = JSON.parse(
-			load("git-stream-blame-incremental-multi-chunk-result.json", false),
 		) as string[];
 
 		const foundChunks: unknown[] = [];
@@ -68,16 +44,10 @@ suite("Processing Errors", (): void => {
 				"@@",
 				registry,
 			)) {
-				foundChunks.push(datesToString(line));
+				foundChunks.push(line);
 			}
 		}
 
-		for (let index = 0; index < foundChunks.length; index++) {
-			assert.deepEqual(
-				foundChunks[index],
-				result[index],
-				`Element at index ${index} do not match`,
-			);
-		}
+		t.assert.snapshot(foundChunks);
 	});
 });

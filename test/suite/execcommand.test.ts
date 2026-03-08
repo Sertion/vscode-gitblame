@@ -20,7 +20,7 @@ suite("Execute Command", (): void => {
 		assert.ok(commandResult);
 	});
 
-	test("Unavailable commands should throw", async (): Promise<void> => {
-		assert.rejects(async () => await execute("not-a-real-command", []));
+	test("Unavailable commands should throw", async (t): Promise<void> => {
+		t.assert.rejects(async () => await execute("not-a-real-command", []));
 	});
 });
