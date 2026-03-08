@@ -90,7 +90,9 @@ export class Extension {
 
 		actions.push({
 			title: "Terminal",
-			action: () => this.runGitShow(),
+			action: () => {
+				this.runGitShow();
+			},
 		});
 
 		this.view.set(lineAware.commit, getActiveTextEditor());

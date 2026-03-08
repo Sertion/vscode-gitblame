@@ -14,7 +14,7 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 24
-            - run: npm ci
+            - run: npm ci --ignore-scripts
             - name: Publish to Open VSX Registry
               uses: HaaLeo/publish-vscode-extension@ca5561daa085dee804bf9f37fe0165785a9b14db # 2.0.0 release
               id: publishToOpenVSX
