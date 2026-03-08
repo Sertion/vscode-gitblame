@@ -3,3 +3,4 @@ dist
 *.vsix
 node_modules
 .vscode-test/
+lcov.info

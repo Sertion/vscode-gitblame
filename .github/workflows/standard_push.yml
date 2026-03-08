@@ -1,6 +1,4 @@
 name: CI
-permissions:
-    contents: read
 
 on:
     push:
@@ -11,6 +9,9 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
+        environment: prime
+        permissions:
+            contents: read
 
         steps:
             - uses: actions/checkout@v4
@@ -19,7 +20,7 @@ jobs:
                   node-version: 24
 
             - name: Install Node Dependencies
-              run: npm ci
+              run: npm ci --ignore-scripts
 
             - name: Setup Biome CLI
               uses: biomejs/setup-biome@29711cbb52afee00eb13aeb30636592f9edc0088 # v2.7.0
@@ -28,15 +29,8 @@ jobs:
               run: biome ci ./src/
 
             - name: Run tests
-              run: npm test
-    sonarqube:
-        name: SonarQube
-        runs-on: ubuntu-latest
-        environment: prime
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+              run: npm run test-coverage
+
             - name: SonarQube Scan
               uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 # v7.0.0
               env:
