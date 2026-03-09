@@ -39,10 +39,9 @@
 		"lint:fix": "biome lint ./src ./test --fix",
 		"check": "biome check ./src ./test ",
 		"check:fix": "biome check ./src ./test --fix",
-		"update-test-snapshots": "npm run pretest && node --test --experimental-test-module-mocks --test-update-snapshots \"./**/*.test.js\" && cp ./out/test/suite/*.snapshot ./test/suite/",
-		"test-coverage": "npm run pretest && node --enable-source-maps --test --experimental-test-module-mocks --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./lcov.info  \"./**/*.test.js\"",
-		"pretest": "tsc --project tsconfig.test.json && cp ./test/suite/*.snapshot ./out/test/suite/",
-		"test": "node --test --experimental-test-module-mocks \"./**/*.test.js\"",
+		"update-test-snapshots": "tsx --test --experimental-test-module-mocks --test-update-snapshots \"./**/*.test.js\"",
+		"test-coverage": "tsx --test --experimental-test-module-mocks --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./lcov.info  \"./**/*.test.ts\"",
+		"test": "tsx --test --experimental-test-module-mocks \"./**/*.test.js\"",
 		"updateimage": "magick -background transparent images/git_icon.svg images/git_icon.png"
 	},
 	"devDependencies": {
@@ -50,6 +49,7 @@
 		"@types/node": "22.9.0",
 		"@types/vscode": "1.100.0",
 		"esbuild": "0.27.3",
+		"tsx": "^4.21.0",
 		"typescript": "5.9.3"
 	},
 	"homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
