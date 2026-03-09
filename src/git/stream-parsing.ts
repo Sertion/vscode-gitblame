@@ -18,7 +18,7 @@ import type { LineAttachedCommit } from "./LineAttachedCommit.js";
  */
 export async function* processChunk(
 	dataChunk: Buffer,
-	currentUserEmail: string | undefined,
+	currentUserEmail: `<${string}>` | undefined,
 	registry: CommitRegistry,
 ): AsyncGenerator<LineAttachedCommit> {
 	let current: FileAttachedCommit | undefined;

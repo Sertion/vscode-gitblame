@@ -1,6 +1,7 @@
 import * as assert from "node:assert";
 import test, { suite } from "node:test";
-import { split } from "../../src/string-stuff/split.js";
+import { Logger } from "../../src/logger.js";
+import { split, splitChunk } from "../../src/string-stuff/split.js";
 
 type TestIteration<T, R> = {
 	name: string;
@@ -8,7 +9,7 @@ type TestIteration<T, R> = {
 	expect: R;
 };
 
-suite("Split", (): void => {
+suite("Split strings", (): void => {
 	const tests: TestIteration<Parameters<typeof split>, string[]>[] = [
 		{
 			name: "Single Space",
@@ -46,4 +47,48 @@ suite("Split", (): void => {
 	for (const { name, args, expect } of tests) {
 		test(name, () => assert.deepStrictEqual(split(...args), expect));
 	}
+});
+
+suite("Split chunk", () => {
+	Logger.createInstance();
+	test("Split empty chunk", async () => {
+		assert.deepEqual(await splitChunk(Buffer.from("")).next(), {
+			value: undefined,
+			done: true,
+		});
+	});
+
+	test("Split chunk with spaces", async () => {
+		const iterator = splitChunk(
+			Buffer.from("long string\nsecond long string\n"),
+		);
+		assert.deepEqual(await iterator.next(), {
+			value: ["long", "string"],
+			done: false,
+		});
+		assert.deepEqual(await iterator.next(), {
+			value: ["second", "long string"],
+			done: false,
+		});
+		assert.deepEqual(await iterator.next(), {
+			value: undefined,
+			done: true,
+		});
+	});
+
+	test("Split chunk without spaces", async () => {
+		const iterator = splitChunk(Buffer.from("longstring\nsecondlongstring\n"));
+		assert.deepEqual(await iterator.next(), {
+			value: ["longstring", ""],
+			done: false,
+		});
+		assert.deepEqual(await iterator.next(), {
+			value: ["secondlongstring", ""],
+			done: false,
+		});
+		assert.deepEqual(await iterator.next(), {
+			value: undefined,
+			done: true,
+		});
+	});
 });

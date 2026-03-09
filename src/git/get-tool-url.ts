@@ -33,14 +33,14 @@ export type ToolUrlTokens = {
 	"file.line.source": string;
 } & InfoTokens;
 
-const getPathIndex = (path: string, index?: string, splitOn = "/"): string => {
+function getPathIndex(path: string, index?: string, splitOn = "/"): string {
 	const parts = path.split(splitOn).filter((a) => !!a);
 	return parts[Number(index)] || "invalid-index";
-};
+}
 
-const gitOriginHostname = ({
+function gitOriginHostname({
 	hostname,
-}: URL): string | ((index?: string) => string) => {
+}: URL): string | ((index?: string) => string) {
 	return (index?: string): string => {
 		if (index === "") {
 			return hostname;
@@ -48,14 +48,14 @@ const gitOriginHostname = ({
 
 		return getPathIndex(hostname, index, ".");
 	};
-};
+}
 
 /**
  * @internal
  */
-export const gitRemotePath = (
+export function gitRemotePath(
 	remote: string,
-): string | ((index?: string) => string) => {
+): string | ((index?: string) => string) {
 	if (/^[a-z0-9-]+?@/.test(remote)) {
 		const [, path] = split(remote, ":");
 		return (index = ""): string => {
@@ -78,19 +78,20 @@ export const gitRemotePath = (
 	} catch {
 		return () => "no-remote-url";
 	}
-};
+}
 
-const isToolUrlPlural = (origin: string): boolean =>
-	(PropertyStore.get("pluralWebPathSubstrings") ?? []).some((substring) =>
+function isToolUrlPlural(origin: string): boolean {
+	return PropertyStore.get("pluralWebPathSubstrings").some((substring) =>
 		origin.includes(substring),
 	);
+}
 
 /**
  * @internal
  */
-export const generateUrlTokens = async (
+export async function generateUrlTokens(
 	lineAware: LineAttachedCommit,
-): Promise<ToolUrlTokens | undefined> => {
+): Promise<ToolUrlTokens | undefined> {
 	const remoteName = PropertyStore.get("remoteName");
 
 	const origin = await getActiveFileOrigin(remoteName);
@@ -126,7 +127,7 @@ export const generateUrlTokens = async (
 		"file.line.result": lineAware.line.result.toString(),
 		"file.line.source": lineAware.line.source.toString(),
 	};
-};
+}
 
 let Uri: typeof UriType | undefined;
 export async function getToolUrl(

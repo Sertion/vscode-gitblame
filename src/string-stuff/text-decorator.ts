@@ -28,16 +28,15 @@ export type InfoTokenNormalizedCommitInfo = {
 	"time.c_ago": string;
 };
 
-type TokenReplaceGroup = [InfoTokenFunction, string?, string?];
 // sv-SE is close enough to ISO8601
 const DateFormater = new Intl.DateTimeFormat("sv-SE", { dateStyle: "short" });
 
-export const normalizeCommitInfoTokens = ({
+export function normalizeCommitInfoTokens({
 	author,
 	committer,
 	hash,
 	summary,
-}: CommitLike): InfoTokenNormalizedCommitInfo => {
+}: CommitLike): InfoTokenNormalizedCommitInfo {
 	const now = new Date();
 	const toIso = ({ date }: CommitAuthorLike) => DateFormater.format(date);
 
@@ -71,7 +70,7 @@ export const normalizeCommitInfoTokens = ({
 		"time.ago": ago,
 		"time.c_ago": cAgo,
 	};
-};
+}
 
 enum MODE {
 	OUT = 0,
@@ -79,8 +78,12 @@ enum MODE {
 	START = 2,
 }
 
-const createIndexOrEnd =
-	(target: string, index: number, endIndex: number) => (char: string) => {
+function createIndexOrEnd(
+	target: string,
+	index: number,
+	endIndex: number,
+): (char: string) => number {
+	return (char: string) => {
 		const indexOfChar = target.indexOf(char, index);
 		if (indexOfChar === -1 || indexOfChar > endIndex) {
 			return endIndex;
@@ -88,15 +91,18 @@ const createIndexOrEnd =
 
 		return indexOfChar;
 	};
-const createSubSectionOrEmpty =
-	(target: string, endIndex: number) =>
-	(startIndex: number, lastIndex: number) => {
+}
+function createSubSectionOrEmpty(target: string, endIndex: number) {
+	return (startIndex: number, lastIndex: number) => {
 		if (lastIndex === startIndex || endIndex === startIndex) {
 			return "";
 		}
 
 		return target.substring(startIndex + 1, lastIndex);
 	};
+}
+
+type TokenReplaceGroup = [InfoTokenFunction, string?, string?];
 
 function createTokenReplaceGroup<T extends InfoTokens>(
 	infoTokens: T,
@@ -155,7 +161,7 @@ function* parse<T extends InfoTokens>(
 	yield [target.slice(lastSplit)];
 }
 
-const modify = (value: string, modifier = ""): string => {
+function modify(value: string, modifier = ""): string {
 	if (modifier === "u") {
 		return value.toUpperCase();
 	}
@@ -167,16 +173,16 @@ const modify = (value: string, modifier = ""): string => {
 	}
 
 	return value;
-};
+}
 
-const sanitizeToken = (token: string): string => {
+function sanitizeToken(token: string): string {
 	return token.replaceAll("\u202e", "");
-};
+}
 
-export const parseTokens = <T extends InfoTokens>(
+export function parseTokens<T extends InfoTokens>(
 	target: string,
 	infoTokens: T,
-): string => {
+): string {
 	let out = "";
 
 	for (const [funcStr, mod, param] of parse(target, infoTokens)) {
@@ -188,16 +194,18 @@ export const parseTokens = <T extends InfoTokens>(
 	}
 
 	return sanitizeToken(out);
-};
+}
 
-export const toStatusBarTextView = (commit: Commit): string =>
-	parseTokens(
+export function toStatusBarTextView(commit: Commit): string {
+	return parseTokens(
 		PropertyStore.get("statusBarMessageFormat"),
 		normalizeCommitInfoTokens(commit),
 	);
+}
 
-export const toInlineTextView = (commit: Commit): string =>
-	parseTokens(
+export function toInlineTextView(commit: Commit): string {
+	return parseTokens(
 		PropertyStore.get("inlineMessageFormat"),
 		normalizeCommitInfoTokens(commit),
 	);
+}

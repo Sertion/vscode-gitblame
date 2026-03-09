@@ -21,7 +21,7 @@ suite("Chunk Processing", (): void => {
 		const chunk = load("git-stream-blame-incremental.chunks", true);
 
 		const foundChunks: unknown[] = [];
-		for await (const line of processChunk(chunk, "@@", {})) {
+		for await (const line of processChunk(chunk, "<@@>", {})) {
 			foundChunks.push(line);
 		}
 
@@ -41,7 +41,7 @@ suite("Processing Errors", (): void => {
 		for (const chunk of chunks) {
 			for await (const line of processChunk(
 				Buffer.from(chunk),
-				"@@",
+				"<@@>",
 				registry,
 			)) {
 				foundChunks.push(line);

@@ -7,9 +7,8 @@ import test, {
 	type TestContext,
 } from "node:test";
 import { setupCachedGit } from "../../src/git/command/CachedGit.js";
-import { FileAttachedCommit } from "../../src/git/FileAttachedCommit.js";
-import type { LineAttachedCommit } from "../../src/git/LineAttachedCommit.js";
 import { parseTokens } from "../../src/string-stuff/text-decorator.js";
+import { getExampleCommit } from "../getExampleCommit.js";
 import { setupPropertyStore } from "../setupPropertyStore.js";
 
 function call(
@@ -17,30 +16,6 @@ function call(
 	arg?: string,
 ) {
 	return typeof func === "string" ? func : func(arg);
-}
-
-function getExampleCommit(): LineAttachedCommit {
-	const fileCommit = FileAttachedCommit.Create(
-		{},
-		"60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-		"10 100 1",
-	);
-	fileCommit.setByKey("summary", "list_lru: introduce per-memcg lists");
-	fileCommit.setByKey("filename", "directory/example.file");
-
-	fileCommit.setByKey("author-mail", "<vdavydov.dev@gmail.com>");
-	fileCommit.setByKey("author", "Vladimir Davydov");
-	fileCommit.setByKey("author-timestamp", "1423781950");
-	fileCommit.setByKey("author-date", "1423781950");
-	fileCommit.setByKey("author-tz", "-0800");
-
-	fileCommit.setByKey("committer-mail", "<torvalds@linux-foundation.org>");
-	fileCommit.setByKey("committer", "Linus Torvalds");
-	fileCommit.setByKey("committer-timestamp", "1423796049");
-	fileCommit.setByKey("committer-date", "1423796049");
-	fileCommit.setByKey("committer-tz", "-0800");
-
-	return fileCommit.toLineAttachedCommits().next().value;
 }
 
 async function setupMocks(

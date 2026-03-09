@@ -9,7 +9,7 @@ export type PropertiesMap = {
 	statusBarMessageFormat: string;
 	statusBarMessageNoCommit: string;
 	statusBarPositionPriority: number | undefined;
-	pluralWebPathSubstrings: string[] | undefined;
+	pluralWebPathSubstrings: string[];
 	statusBarMessageClickAction:
 		| "Show info message"
 		| "Open tool URL"
@@ -44,7 +44,7 @@ export class PropertyStore {
 			PropertyStore.instance,
 			"Unable to call PropertyStore.get before PropertyStore.createInstance",
 		);
-		return PropertyStore.instance?.getConfig(name);
+		return PropertyStore.instance.getConfig(name);
 	}
 
 	protected constructor(private readonly source: typeof getProperty) {}

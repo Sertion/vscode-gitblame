@@ -8,13 +8,11 @@ export type Document = Pick<
 	TextDocument,
 	"uri" | "isUntitled" | "fileName" | "lineCount"
 >;
-type Position = Pick<FullPosition, "line">;
-type PartialSelection = {
-	active: Position;
-};
 export type PartialTextEditor = {
 	readonly document: Document;
-	selection: PartialSelection;
+	selection: {
+		active: Pick<FullPosition, "line">;
+	};
 
 	setDecorations?: TextEditor["setDecorations"];
 };

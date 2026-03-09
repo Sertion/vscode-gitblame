@@ -26,7 +26,7 @@ export class FileAttachedCommit {
 	public setByKey(
 		key: string,
 		value: string,
-		currentUserEmail?: string | undefined,
+		currentUserEmail?: `<${string}>` | undefined,
 	): boolean {
 		if (key === "filename") {
 			this.filename = value;

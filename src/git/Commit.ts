@@ -36,7 +36,7 @@ export class Commit {
 	public setByKey(
 		key: string,
 		value: string,
-		currentUserEmail?: string | undefined,
+		currentUserEmail?: `<${string}>` | undefined,
 	): boolean {
 		if (key === "summary") {
 			this.summary = value;

@@ -1,14 +1,21 @@
 import * as assert from "node:assert";
-import test, { after, before, mock, suite } from "node:test";
+import test, {
+	after,
+	afterEach,
+	before,
+	beforeEach,
+	mock,
+	suite,
+} from "node:test";
 import { between } from "../../src/ago.js";
-import type { CommitLike } from "../../src/git/Commit.js";
-import type { CommitAuthor } from "../../src/git/CommitAuthor.js";
 import {
-	type InfoTokenNormalizedCommitInfo,
 	type InfoTokens,
 	normalizeCommitInfoTokens,
 	parseTokens,
+	toInlineTextView,
+	toStatusBarTextView,
 } from "../../src/string-stuff/text-decorator.js";
+import { getExampleCommit } from "../getExampleCommit.js";
 import { setupPropertyStore } from "../setupPropertyStore.js";
 
 suite("Date Calculations", async (): Promise<void> => {
@@ -235,48 +242,48 @@ suite("Token Parser", async (): Promise<void> => {
 			"This token ${is.not.closed,with_params|and_modifier",
 		);
 	});
+
+	test("Support token symbols individually", () => {
+		assert.strictEqual(
+			parseTokens("This dollar sign ($) is still around", {}),
+			"This dollar sign ($) is still around",
+		);
+		assert.strictEqual(
+			parseTokens("This bracket ({) is still around", {}),
+			"This bracket ({) is still around",
+		);
+		assert.strictEqual(
+			parseTokens("This bracket (}) is still around", {}),
+			"This bracket (}) is still around",
+		);
+		assert.strictEqual(
+			parseTokens("$ { } is still around", {}),
+			"$ { } is still around",
+		);
+	});
 });
 
 suite("Text Decorator with CommitInfoToken", async (): Promise<void> => {
-	await setupPropertyStore();
-	let normalizedCommitInfoTokens: InfoTokenNormalizedCommitInfo | undefined;
-	before(() => {
-		mock.timers.enable({
-			apis: ["Date"],
-			now: 1_621_014_626_000,
-		});
-		normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
+	mock.timers.enable({
+		apis: ["Date"],
+		now: 1_621_014_626_000,
 	});
 	after(() => {
 		mock.timers.reset();
 	});
-	const exampleCommit: CommitLike = {
-		author: {
-			mail: "<vdavydov.dev@gmail.com>",
-			name: "Vladimir Davydov",
-			isCurrentUser: false,
-			timestamp: "1423781950",
-			date: new Date(1_423_781_950_000),
-			tz: "-0800",
-		} as CommitAuthor,
-		committer: {
-			mail: "<torvalds@linux-foundation.org>",
-			name: "Linus Torvalds",
-			isCurrentUser: false,
-			timestamp: "1423796049",
-			date: new Date(1_423_796_049_000),
-			tz: "-0800",
-		} as CommitAuthor,
-		hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-		summary: "list_lru: introduce per-memcg lists",
-	};
-	const check = (token: string, expect: string): void => {
-		test(`Parse "\${${token}}"`, (): void =>
+	await setupPropertyStore();
+
+	function check(token: string, expect: string) {
+		test(`Parse "\${${token}}"`, (): void => {
+			const normalizedCommitInfoTokens = normalizeCommitInfoTokens(
+				getExampleCommit().commit,
+			);
 			assert.strictEqual(
 				parseTokens(`\${${token}}`, normalizedCommitInfoTokens ?? {}),
 				expect,
-			));
-	};
+			);
+		});
+	}
 
 	check("author.mail", "<vdavydov.dev@gmail.com>");
 	check("author.name", "Vladimir Davydov");
@@ -306,8 +313,56 @@ suite("Text Decorator with CommitInfoToken", async (): Promise<void> => {
 	check("commit.hash_short,100|u", "60D3FD32A7A9DA4C8C93A9F89CFDA22A0B4C65CE");
 });
 
+suite("Can generate output based on settings", async (): Promise<void> => {
+	before(() => {
+		mock.timers.enable({
+			apis: ["Date"],
+			now: 1_621_014_626_000,
+		});
+	});
+	after(() => {
+		mock.timers.reset();
+	});
+
+	let prop: Awaited<ReturnType<typeof setupPropertyStore>>;
+	beforeEach(async () => {
+		prop = await setupPropertyStore();
+	});
+	afterEach(() => prop.clearOverrides());
+	test("Default statusBarMessageFormat", (): void => {
+		assert.strictEqual(
+			toStatusBarTextView(getExampleCommit().commit),
+			"Blame Vladimir Davydov (6 years ago)",
+		);
+	});
+	test("Default inlineMessageFormat", (): void => {
+		assert.strictEqual(
+			toInlineTextView(getExampleCommit().commit),
+			"Blame Vladimir Davydov (6 years ago)",
+		);
+	});
+
+	test("Custom statusBarMessageFormat", (): void => {
+		prop.setOverride("statusBarMessageFormat", "Date: ${author.date}");
+		assert.strictEqual(
+			toStatusBarTextView(getExampleCommit().commit),
+			"Date: 2015-02-12",
+		);
+	});
+	test("Custom inlineMessageFormat", (): void => {
+		prop.setOverride("inlineMessageFormat", "Date: ${author.date}");
+		assert.strictEqual(
+			toInlineTextView(getExampleCommit().commit),
+			"Date: 2015-02-12",
+		);
+	});
+});
+
 suite("issue #119 regressions", async (): Promise<void> => {
 	await setupPropertyStore();
+	const normalizedCommitInfoTokens = normalizeCommitInfoTokens(
+		getExampleCommit().commit,
+	);
 	before(() => {
 		mock.timers.enable({
 			apis: ["Date"],
@@ -318,28 +373,6 @@ suite("issue #119 regressions", async (): Promise<void> => {
 		mock.timers.reset();
 	});
 	test("commit.summary before commit.hash_short", () => {
-		const exampleCommit: CommitLike = {
-			author: {
-				mail: "<vdavydov.dev@gmail.com>",
-				name: "Vladimir Davydov",
-				isCurrentUser: false,
-				timestamp: "1423781950",
-				date: new Date(1_423_781_950_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			committer: {
-				mail: "<torvalds@linux-foundation.org>",
-				name: "Linus Torvalds",
-				isCurrentUser: false,
-				timestamp: "1423796049",
-				date: new Date(1_423_796_049_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-			summary: "list_lru: introduce per-memcg lists",
-		};
-		const normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
-
 		assert.strictEqual(
 			parseTokens(
 				"${commit.summary} ${commit.hash_short}",
@@ -350,28 +383,6 @@ suite("issue #119 regressions", async (): Promise<void> => {
 	});
 
 	test("commit.summary before shortened commit.hash_short", () => {
-		const exampleCommit: CommitLike = {
-			author: {
-				mail: "<vdavydov.dev@gmail.com>",
-				name: "Vladimir Davydov",
-				isCurrentUser: false,
-				timestamp: "1423781950",
-				date: new Date(1_423_781_950_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			committer: {
-				mail: "<torvalds@linux-foundation.org>",
-				name: "Linus Torvalds",
-				isCurrentUser: false,
-				timestamp: "1423796049",
-				date: new Date(1_423_796_049_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-			summary: "list_lru: introduce per-memcg lists",
-		};
-		const normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
-
 		assert.strictEqual(
 			parseTokens(
 				"${commit.summary} ${commit.hash_short,7}",
@@ -382,28 +393,6 @@ suite("issue #119 regressions", async (): Promise<void> => {
 	});
 
 	test("commit.summary before shortened commit.hash", () => {
-		const exampleCommit: CommitLike = {
-			author: {
-				mail: "<vdavydov.dev@gmail.com>",
-				name: "Vladimir Davydov",
-				isCurrentUser: false,
-				timestamp: "1423781950",
-				date: new Date(1_423_781_950_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			committer: {
-				mail: "<torvalds@linux-foundation.org>",
-				name: "Linus Torvalds",
-				isCurrentUser: false,
-				timestamp: "1423796049",
-				date: new Date(1_423_796_049_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-			summary: "list_lru: introduce per-memcg lists",
-		};
-		const normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
-
 		assert.strictEqual(
 			parseTokens(
 				"${commit.summary} ${commit.hash,7}",
@@ -414,28 +403,6 @@ suite("issue #119 regressions", async (): Promise<void> => {
 	});
 
 	test("commit.summary before shortened commit.summary", () => {
-		const exampleCommit: CommitLike = {
-			author: {
-				mail: "<vdavydov.dev@gmail.com>",
-				name: "Vladimir Davydov",
-				isCurrentUser: false,
-				timestamp: "1423781950",
-				date: new Date(1_423_781_950_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			committer: {
-				mail: "<torvalds@linux-foundation.org>",
-				name: "Linus Torvalds",
-				isCurrentUser: false,
-				timestamp: "1423796049",
-				date: new Date(1_423_796_049_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-			summary: "list_lru: introduce per-memcg lists",
-		};
-		const normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
-
 		assert.strictEqual(
 			parseTokens(
 				"${commit.summary} ${commit.summary,7}",
@@ -448,29 +415,15 @@ suite("issue #119 regressions", async (): Promise<void> => {
 
 suite("Text Sanitizing", async (): Promise<void> => {
 	await setupPropertyStore();
+	const exampleCommit = getExampleCommit();
+	exampleCommit.commit.setByKey(
+		"summary",
+		"list_lru: \u202eintroduce per-memcg lists",
+	);
+	const normalizedCommitInfoTokens = normalizeCommitInfoTokens(
+		exampleCommit.commit,
+	);
 	test("removes right-to-left override characters from text", () => {
-		const exampleCommit: CommitLike = {
-			author: {
-				mail: "<vdavydov.dev@gmail.com>",
-				name: "Vladimir Davydov\u202e",
-				isCurrentUser: false,
-				timestamp: "1423781950",
-				date: new Date(1_423_781_950_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			committer: {
-				mail: "<torvalds@linux-foundation.org>",
-				name: "Linus Torvalds",
-				isCurrentUser: false,
-				timestamp: "1423796049",
-				date: new Date(1_423_796_049_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-			summary: "list_lru: \u202eintroduce per-memcg lists",
-		};
-		const normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
-
 		assert.strictEqual(
 			parseTokens(
 				"Blame ${author.name} (${commit.summary})",
@@ -482,39 +435,24 @@ suite("Text Sanitizing", async (): Promise<void> => {
 });
 
 suite("Current User Replace", async (): Promise<void> => {
-	await setupPropertyStore();
-	test("removes right-to-left override characters from text", async () => {
-		const prop = await setupPropertyStore();
-		prop.setOverride("currentUserAlias", "Current User Alias");
+	let prop: Awaited<ReturnType<typeof setupPropertyStore>>;
+	beforeEach(async () => {
+		prop = await setupPropertyStore();
+	});
+	afterEach(() => prop.clearOverrides());
 
-		const exampleCommit: CommitLike = {
-			author: {
-				mail: "<vdavydov.dev@gmail.com>",
-				name: "Vladimir Davydov\u202e",
-				isCurrentUser: true,
-				timestamp: "1423781950",
-				date: new Date(1_423_781_950_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			committer: {
-				mail: "<torvalds@linux-foundation.org>",
-				name: "Linus Torvalds",
-				isCurrentUser: false,
-				timestamp: "1423796049",
-				date: new Date(1_423_796_049_000),
-				tz: "-0800",
-			} as CommitAuthor,
-			hash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
-			summary: "list_lru: \u202eintroduce per-memcg lists",
-		};
-		const normalizedCommitInfoTokens = normalizeCommitInfoTokens(exampleCommit);
+	test("removes right-to-left override characters from text", async () => {
+		prop.setOverride("currentUserAlias", "CURRENT_USER");
+		const normalizedCommitInfoTokens = normalizeCommitInfoTokens(
+			getExampleCommit("<vdavydov.dev@gmail.com>").commit,
+		);
 
 		assert.strictEqual(
 			parseTokens(
 				"Blame ${author.name} (${commit.summary})",
 				normalizedCommitInfoTokens,
 			),
-			"Blame Current User Alias (list_lru: introduce per-memcg lists)",
+			"Blame CURRENT_USER (list_lru: introduce per-memcg lists)",
 		);
 		assert.strictEqual(
 			parseTokens(
@@ -523,7 +461,5 @@ suite("Current User Replace", async (): Promise<void> => {
 			),
 			"Blame Linus Torvalds (list_lru: introduce per-memcg lists)",
 		);
-
-		prop.clearOverrides();
 	});
 });

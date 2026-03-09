@@ -52,6 +52,10 @@ export async function* splitChunk(
 		// 10 is \n
 		const nextIndex = chunk.indexOf(10, lastIndex);
 
+		if (nextIndex === -1) {
+			return;
+		}
+
 		yield splitBuffer(chunk, lastIndex, nextIndex);
 
 		lastIndex = nextIndex + 1;
