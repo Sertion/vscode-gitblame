@@ -38,15 +38,9 @@ function getPathIndex(path: string, index?: string, splitOn = "/"): string {
 	return parts[Number(index)] || "invalid-index";
 }
 
-function gitOriginHostname({
-	hostname,
-}: URL): string | ((index?: string) => string) {
+function gitOriginHostname(url: URL): string | ((index?: string) => string) {
 	return (index?: string): string => {
-		if (index === "") {
-			return hostname;
-		}
-
-		return getPathIndex(hostname, index, ".");
+		return index === "" ? url.hostname : getPathIndex(url.hostname, index, ".");
 	};
 }
 
@@ -75,7 +69,12 @@ export function gitRemotePath(
 
 			return getPathIndex(pathname, index);
 		};
-	} catch {
+	} catch (err) {
+		if (err instanceof Error) {
+			Logger.debug(
+				`Failed to get git remote path token value: "${err.message}"`,
+			);
+		}
 		return () => "no-remote-url";
 	}
 }

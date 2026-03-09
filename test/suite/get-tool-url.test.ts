@@ -2,6 +2,7 @@ import * as assert from "node:assert";
 import test, { afterEach, before, suite } from "node:test";
 import type { git as gitType } from "../../src/git/command/CachedGit.js";
 import type { gitRemotePath as gitRemotePathType } from "../../src/git/get-tool-url.js";
+import { Logger } from "../../src/logger.js";
 
 function call(
 	func: string | ((param?: string) => string | undefined),
@@ -10,6 +11,7 @@ function call(
 	return typeof func === "string" ? func : func(arg);
 }
 suite("Get tool URL: gitRemotePath", (): void => {
+	Logger.createInstance();
 	let git: typeof gitType;
 	let gitRemotePath: typeof gitRemotePathType;
 	before(async () => {
@@ -88,12 +90,18 @@ suite("Get tool URL: gitRemotePath", (): void => {
 		const func = gitRemotePath("");
 
 		assert.strictEqual(call(func), "no-remote-url");
-		assert.strictEqual(call(func), "no-remote-url");
 	});
 	test("Weird input", (): void => {
 		const func = gitRemotePath("weird input");
 
 		assert.strictEqual(call(func), "no-remote-url");
-		assert.strictEqual(call(func), "no-remote-url");
+	});
+	test("Out of bounds input", (): void => {
+		const func = gitRemotePath("https://part/");
+
+		assert.strictEqual(
+			call(func, Number.MAX_SAFE_INTEGER.toString()),
+			"invalid-index",
+		);
 	});
 });
