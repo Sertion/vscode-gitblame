@@ -7,12 +7,9 @@ import { Logger } from "../../src/logger.js";
 function load(fileName: string, buffer: true): Buffer;
 function load(fileName: string, buffer: false): string;
 function load(fileName: string, buffer: boolean): string | Buffer {
-	return readFileSync(
-		resolve(import.meta.dirname, "../../../test/fixture", fileName),
-		{
-			encoding: buffer ? null : "utf-8",
-		},
-	);
+	return readFileSync(resolve(import.meta.dirname, "../fixture", fileName), {
+		encoding: buffer ? null : "utf-8",
+	});
 }
 
 suite("Chunk Processing", (): void => {

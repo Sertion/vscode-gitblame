@@ -1,39 +1,61 @@
 exports[`Chunk Processing > Process normal chunk 1`] = `
 [
   {
+    "commit": {
+      "author": {
+        "name": "Not Committed Yet",
+        "mail": "<not.committed.yet>",
+        "isCurrentUser": false,
+        "timestamp": "1601475715",
+        "date": "2020-09-30T14:21:55.000Z",
+        "tz": "+0200"
+      },
+      "committer": {
+        "name": "Not Committed Yet",
+        "mail": "<not.committed.yet>",
+        "isCurrentUser": false,
+        "timestamp": "1601475715",
+        "date": "2020-09-30T14:21:55.000Z",
+        "tz": "+0200"
+      },
+      "summary": "Version of src/git/stream.ts from src/git/stream.ts",
+      "hash": "0000000000000000000000000000000000000000"
+    },
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 6,
       "result": 6
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "0000000000000000000000000000000000000000",
       "author": {
-        "name": "Not Committed Yet",
-        "mail": "<not.committed.yet>",
+        "name": "Albin Jacobsson",
+        "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1601475715",
-        "date": "2020-09-30T14:21:55.000Z",
+        "timestamp": "1601153539",
+        "date": "2020-09-26T20:52:19.000Z",
         "tz": "+0200"
       },
       "committer": {
-        "name": "Not Committed Yet",
-        "mail": "<not.committed.yet>",
+        "name": "Albin Jacobsson",
+        "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1601475715",
-        "date": "2020-09-30T14:21:55.000Z",
+        "timestamp": "1601153539",
+        "date": "2020-09-26T20:52:19.000Z",
         "tz": "+0200"
       },
-      "summary": "Version of src/git/stream.ts from src/git/stream.ts"
+      "summary": "Moving the parsing to its own file",
+      "hash": "57463acc9ac14a81020067da1979b34c502b7478"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 4,
       "result": 4
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "57463acc9ac14a81020067da1979b34c502b7478",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -50,17 +72,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T20:52:19.000Z",
         "tz": "+0200"
       },
-      "summary": "Moving the parsing to its own file"
+      "summary": "Moving the parsing to its own file",
+      "hash": "57463acc9ac14a81020067da1979b34c502b7478"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 33,
       "result": 27
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "57463acc9ac14a81020067da1979b34c502b7478",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -77,17 +99,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T20:52:19.000Z",
         "tz": "+0200"
       },
-      "summary": "Moving the parsing to its own file"
+      "summary": "Moving the parsing to its own file",
+      "hash": "57463acc9ac14a81020067da1979b34c502b7478"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 34,
       "result": 28
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "57463acc9ac14a81020067da1979b34c502b7478",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -104,44 +126,44 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T20:52:19.000Z",
         "tz": "+0200"
       },
-      "summary": "Moving the parsing to its own file"
+      "summary": "Moving the parsing to its own file",
+      "hash": "57463acc9ac14a81020067da1979b34c502b7478"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 36,
       "result": 30
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "57463acc9ac14a81020067da1979b34c502b7478",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1601153539",
-        "date": "2020-09-26T20:52:19.000Z",
+        "timestamp": "1601138853",
+        "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
       "committer": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1601153539",
-        "date": "2020-09-26T20:52:19.000Z",
+        "timestamp": "1601138853",
+        "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Moving the parsing to its own file"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 24,
       "result": 5
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -158,17 +180,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 34,
       "result": 8
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -185,17 +207,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 38,
       "result": 12
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -212,17 +234,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 39,
       "result": 13
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -239,17 +261,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 40,
       "result": 14
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -266,17 +288,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 41,
       "result": 15
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -293,17 +315,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 42,
       "result": 16
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -320,17 +342,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 44,
       "result": 18
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -347,17 +369,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 45,
       "result": 19
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -374,17 +396,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 46,
       "result": 20
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -401,17 +423,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 47,
       "result": 21
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -428,17 +450,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 65,
       "result": 39
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -455,44 +477,44 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-09-26T16:47:33.000Z",
         "tz": "+0200"
       },
-      "summary": "Refactoring"
+      "summary": "Refactoring",
+      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 66,
       "result": 40
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "78049765bd69de4b7fc535ee4aeabb644bcf3028",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1601138853",
-        "date": "2020-09-26T16:47:33.000Z",
-        "tz": "+0200"
+        "timestamp": "1579705267",
+        "date": "2020-01-22T15:01:07.000Z",
+        "tz": "+0100"
       },
       "committer": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1601138853",
-        "date": "2020-09-26T16:47:33.000Z",
-        "tz": "+0200"
+        "timestamp": "1579705267",
+        "date": "2020-01-22T15:01:07.000Z",
+        "tz": "+0100"
       },
-      "summary": "Refactoring"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 38,
       "result": 10
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -509,17 +531,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 39,
       "result": 11
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -536,17 +558,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 44,
       "result": 22
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -563,17 +585,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 45,
       "result": 23
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -590,17 +612,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 46,
       "result": 24
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -617,17 +639,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 49,
       "result": 29
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -644,17 +666,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 57,
       "result": 33
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -671,17 +693,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 58,
       "result": 34
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -698,17 +720,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 59,
       "result": 35
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -725,44 +747,44 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2020-01-22T15:01:07.000Z",
         "tz": "+0100"
       },
-      "summary": "Closes #58"
+      "summary": "Closes #58",
+      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 66,
       "result": 38
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "09bf1237bf2290188cc626eddf9aa13c62593b4b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1579705267",
-        "date": "2020-01-22T15:01:07.000Z",
-        "tz": "+0100"
+        "timestamp": "1562163115",
+        "date": "2019-07-03T14:11:55.000Z",
+        "tz": "+0200"
       },
       "committer": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1579705267",
-        "date": "2020-01-22T15:01:07.000Z",
-        "tz": "+0100"
+        "timestamp": "1562163115",
+        "date": "2019-07-03T14:11:55.000Z",
+        "tz": "+0200"
       },
-      "summary": "Closes #58"
+      "summary": "Add TSyringe for IoC",
+      "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 16,
       "result": 7
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -779,17 +801,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2019-07-03T14:11:55.000Z",
         "tz": "+0200"
       },
-      "summary": "Add TSyringe for IoC"
+      "summary": "Add TSyringe for IoC",
+      "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 23,
       "result": 9
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -806,17 +828,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2019-07-03T14:11:55.000Z",
         "tz": "+0200"
       },
-      "summary": "Add TSyringe for IoC"
+      "summary": "Add TSyringe for IoC",
+      "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 46,
       "result": 36
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -833,44 +855,44 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2019-07-03T14:11:55.000Z",
         "tz": "+0200"
       },
-      "summary": "Add TSyringe for IoC"
+      "summary": "Add TSyringe for IoC",
+      "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 47,
       "result": 37
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "f6d2b098174aa630d59eae5fc99a01f3a591b8ad",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1562163115",
-        "date": "2019-07-03T14:11:55.000Z",
+        "timestamp": "1561587471",
+        "date": "2019-06-26T22:17:51.000Z",
         "tz": "+0200"
       },
       "committer": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1562163115",
-        "date": "2019-07-03T14:11:55.000Z",
+        "timestamp": "1561588275",
+        "date": "2019-06-26T22:31:15.000Z",
         "tz": "+0200"
       },
-      "summary": "Add TSyringe for IoC"
+      "summary": "Factory is now responsible for workspace knowledge",
+      "hash": "41b858cfcf019fa34597e14719c910fa1409ee66"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 1,
       "result": 1
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "41b858cfcf019fa34597e14719c910fa1409ee66",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -887,71 +909,71 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2019-06-26T22:31:15.000Z",
         "tz": "+0200"
       },
-      "summary": "Factory is now responsible for workspace knowledge"
+      "summary": "Factory is now responsible for workspace knowledge",
+      "hash": "41b858cfcf019fa34597e14719c910fa1409ee66"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 4,
       "result": 3
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "41b858cfcf019fa34597e14719c910fa1409ee66",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1561587471",
-        "date": "2019-06-26T22:17:51.000Z",
-        "tz": "+0200"
+        "timestamp": "1520550992",
+        "date": "2018-03-08T23:16:32.000Z",
+        "tz": "+0100"
       },
       "committer": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1561588275",
-        "date": "2019-06-26T22:31:15.000Z",
-        "tz": "+0200"
+        "timestamp": "1520550992",
+        "date": "2018-03-08T23:16:32.000Z",
+        "tz": "+0100"
       },
-      "summary": "Factory is now responsible for workspace knowledge"
+      "summary": "Adding TSLint and linting the whole project",
+      "hash": "a8cb1e0ba4f8f03ab685bb51a1ac83cc299c020d"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 47,
       "result": 31
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "a8cb1e0ba4f8f03ab685bb51a1ac83cc299c020d",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1520550992",
-        "date": "2018-03-08T23:16:32.000Z",
-        "tz": "+0100"
+        "timestamp": "1500502996",
+        "date": "2017-07-19T22:23:16.000Z",
+        "tz": "+0200"
       },
       "committer": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
         "isCurrentUser": false,
-        "timestamp": "1520550992",
-        "date": "2018-03-08T23:16:32.000Z",
-        "tz": "+0100"
+        "timestamp": "1500502996",
+        "date": "2017-07-19T22:23:16.000Z",
+        "tz": "+0200"
       },
-      "summary": "Adding TSLint and linting the whole project"
+      "summary": "2.0.0 - New blame engine and clearer logging",
+      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 3,
       "result": 2
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -968,17 +990,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2017-07-19T22:23:16.000Z",
         "tz": "+0200"
       },
-      "summary": "2.0.0 - New blame engine and clearer logging"
+      "summary": "2.0.0 - New blame engine and clearer logging",
+      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 40,
       "result": 17
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -995,17 +1017,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2017-07-19T22:23:16.000Z",
         "tz": "+0200"
       },
-      "summary": "2.0.0 - New blame engine and clearer logging"
+      "summary": "2.0.0 - New blame engine and clearer logging",
+      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 42,
       "result": 25
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -1022,17 +1044,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2017-07-19T22:23:16.000Z",
         "tz": "+0200"
       },
-      "summary": "2.0.0 - New blame engine and clearer logging"
+      "summary": "2.0.0 - New blame engine and clearer logging",
+      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 43,
       "result": 26
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -1049,17 +1071,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2017-07-19T22:23:16.000Z",
         "tz": "+0200"
       },
-      "summary": "2.0.0 - New blame engine and clearer logging"
+      "summary": "2.0.0 - New blame engine and clearer logging",
+      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 59,
       "result": 32
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -1076,17 +1098,17 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2017-07-19T22:23:16.000Z",
         "tz": "+0200"
       },
-      "summary": "2.0.0 - New blame engine and clearer logging"
+      "summary": "2.0.0 - New blame engine and clearer logging",
+      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 70,
       "result": 41
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
       "author": {
         "name": "Albin Jacobsson",
         "mail": "<albin.jacobsson@gmail.com>",
@@ -1103,36 +1125,14 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
         "date": "2017-07-19T22:23:16.000Z",
         "tz": "+0200"
       },
-      "summary": "2.0.0 - New blame engine and clearer logging"
+      "summary": "2.0.0 - New blame engine and clearer logging",
+      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b"
     },
-    "filename": "src/git/stream.ts"
-  },
-  {
+    "filename": "src/git/stream.ts",
     "line": {
       "source": 176,
       "result": 42
-    },
-    "commit": {
-      "hash": "3d238f6c9309c7314b3be7be7a4c3f6b3e3de80b",
-      "author": {
-        "name": "Albin Jacobsson",
-        "mail": "<albin.jacobsson@gmail.com>",
-        "isCurrentUser": false,
-        "timestamp": "1500502996",
-        "date": "2017-07-19T22:23:16.000Z",
-        "tz": "+0200"
-      },
-      "committer": {
-        "name": "Albin Jacobsson",
-        "mail": "<albin.jacobsson@gmail.com>",
-        "isCurrentUser": false,
-        "timestamp": "1500502996",
-        "date": "2017-07-19T22:23:16.000Z",
-        "tz": "+0200"
-      },
-      "summary": "2.0.0 - New blame engine and clearer logging"
-    },
-    "filename": "src/git/stream.ts"
+    }
   }
 ]
 `;
@@ -1140,12 +1140,34 @@ exports[`Chunk Processing > Process normal chunk 1`] = `
 exports[`Processing Errors > Git chunk not starting with commit information 1`] = `
 [
   {
+    "commit": {
+      "author": {
+        "name": "K Moon",
+        "mail": "<kmoon@chromium.org>",
+        "isCurrentUser": false,
+        "timestamp": "1568932927",
+        "date": "2019-09-19T22:42:07.000Z",
+        "tz": "+0000"
+      },
+      "committer": {
+        "name": "Commit Bot",
+        "mail": "<commit-bot@chromium.org>",
+        "isCurrentUser": false,
+        "timestamp": "1568932927",
+        "date": "2019-09-19T22:42:07.000Z",
+        "tz": "+0000"
+      },
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
+    },
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 66,
       "result": 66
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1162,17 +1184,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 67,
       "result": 67
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1189,17 +1211,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 68,
       "result": 68
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1216,17 +1238,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 69,
       "result": 69
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1243,17 +1265,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 70,
       "result": 70
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1270,17 +1292,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 71,
       "result": 71
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1297,17 +1319,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 72,
       "result": 72
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1324,17 +1346,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 73,
       "result": 73
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1351,17 +1373,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 74,
       "result": 74
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1378,17 +1400,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 75,
       "result": 75
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1405,17 +1427,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 76,
       "result": 76
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1432,17 +1454,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 77,
       "result": 77
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1459,17 +1481,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 78,
       "result": 78
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1486,17 +1508,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 79,
       "result": 79
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1513,17 +1535,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 119,
       "result": 119
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1540,17 +1562,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 120,
       "result": 120
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1567,17 +1589,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 121,
       "result": 121
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1594,17 +1616,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 122,
       "result": 122
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1621,17 +1643,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 123,
       "result": 123
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1648,17 +1670,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 126,
       "result": 126
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1675,17 +1697,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 127,
       "result": 127
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1702,17 +1724,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 128,
       "result": 128
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1729,17 +1751,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 129,
       "result": 129
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1756,17 +1778,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 130,
       "result": 130
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1783,17 +1805,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 131,
       "result": 131
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1810,17 +1832,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 132,
       "result": 132
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1837,17 +1859,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 133,
       "result": 133
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1864,44 +1886,44 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-09-19T22:42:07.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Increase precision of PDF layout dirty tracking",
+      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 134,
       "result": 134
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "6d326b9edbf4c2ee1c3ad155d16012acf3c0cc0c",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1568932927",
-        "date": "2019-09-19T22:42:07.000Z",
+        "timestamp": "1566519176",
+        "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
       "committer": {
         "name": "Commit Bot",
         "mail": "<commit-bot@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1568932927",
-        "date": "2019-09-19T22:42:07.000Z",
+        "timestamp": "1566519176",
+        "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Increase precision of PDF layout dirty tracking"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 77,
       "result": 84
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1918,17 +1940,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 82,
       "result": 89
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1945,17 +1967,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 83,
       "result": 90
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1972,17 +1994,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 84,
       "result": 91
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -1999,17 +2021,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 85,
       "result": 92
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2026,17 +2048,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 86,
       "result": 93
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2053,17 +2075,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 87,
       "result": 94
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2080,17 +2102,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 88,
       "result": 95
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2107,17 +2129,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 89,
       "result": 96
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2134,17 +2156,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 108,
       "result": 110
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2161,17 +2183,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 109,
       "result": 111
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2188,17 +2210,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 110,
       "result": 112
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2215,17 +2237,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 111,
       "result": 113
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2242,17 +2264,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 112,
       "result": 114
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2269,17 +2291,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 113,
       "result": 115
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2296,17 +2318,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 114,
       "result": 116
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2323,17 +2345,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 115,
       "result": 117
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2350,17 +2372,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 116,
       "result": 118
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2377,44 +2399,44 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-23T00:12:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Clarify page rectangles in DocumentLayout",
+      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 122,
       "result": 138
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "e4bd75222c6a9379a8e3e4aea5364934445d8bb1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1566519176",
-        "date": "2019-08-23T00:12:56.000Z",
+        "timestamp": "1565810396",
+        "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
       "committer": {
         "name": "Commit Bot",
         "mail": "<commit-bot@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1566519176",
-        "date": "2019-08-23T00:12:56.000Z",
+        "timestamp": "1565810396",
+        "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Clarify page rectangles in DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 8,
       "result": 8
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2431,17 +2453,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 11,
       "result": 11
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2458,17 +2480,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 79,
       "result": 86
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2485,17 +2507,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 80,
       "result": 87
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2512,17 +2534,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 81,
       "result": 88
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2539,17 +2561,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 83,
       "result": 97
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2566,17 +2588,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 84,
       "result": 98
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2593,17 +2615,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 85,
       "result": 99
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2620,17 +2642,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 86,
       "result": 100
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2647,17 +2669,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 87,
       "result": 101
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2674,17 +2696,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 88,
       "result": 102
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2701,17 +2723,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 89,
       "result": 103
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2728,17 +2750,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 90,
       "result": 104
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2755,17 +2777,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 91,
       "result": 105
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2782,17 +2804,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 92,
       "result": 106
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2809,17 +2831,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 93,
       "result": 107
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2836,44 +2858,44 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-14T19:19:56.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Move page layout rectangles into DocumentLayout",
+      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 105,
       "result": 137
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "ff7ec676a7222317628ca23a1409ebaf691c52b9",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565810396",
-        "date": "2019-08-14T19:19:56.000Z",
+        "timestamp": "1565208336",
+        "date": "2019-08-07T20:05:36.000Z",
         "tz": "+0000"
       },
       "committer": {
         "name": "Commit Bot",
         "mail": "<commit-bot@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565810396",
-        "date": "2019-08-14T19:19:56.000Z",
+        "timestamp": "1565208336",
+        "date": "2019-08-07T20:05:36.000Z",
         "tz": "+0000"
       },
-      "summary": "Move page layout rectangles into DocumentLayout"
+      "summary": "Refactor default page orientation to an enum",
+      "hash": "9a62bf44b280fa0260b5c63676f488126997869b"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 11,
       "result": 13
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "9a62bf44b280fa0260b5c63676f488126997869b",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2890,17 +2912,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-07T20:05:36.000Z",
         "tz": "+0000"
       },
-      "summary": "Refactor default page orientation to an enum"
+      "summary": "Refactor default page orientation to an enum",
+      "hash": "9a62bf44b280fa0260b5c63676f488126997869b"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 36,
       "result": 38
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "9a62bf44b280fa0260b5c63676f488126997869b",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2917,17 +2939,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-07T20:05:36.000Z",
         "tz": "+0000"
       },
-      "summary": "Refactor default page orientation to an enum"
+      "summary": "Refactor default page orientation to an enum",
+      "hash": "9a62bf44b280fa0260b5c63676f488126997869b"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 37,
       "result": 39
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "9a62bf44b280fa0260b5c63676f488126997869b",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2944,17 +2966,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-07T20:05:36.000Z",
         "tz": "+0000"
       },
-      "summary": "Refactor default page orientation to an enum"
+      "summary": "Refactor default page orientation to an enum",
+      "hash": "9a62bf44b280fa0260b5c63676f488126997869b"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 38,
       "result": 40
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "9a62bf44b280fa0260b5c63676f488126997869b",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -2971,71 +2993,71 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-07T20:05:36.000Z",
         "tz": "+0000"
       },
-      "summary": "Refactor default page orientation to an enum"
+      "summary": "Refactor default page orientation to an enum",
+      "hash": "9a62bf44b280fa0260b5c63676f488126997869b"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 47,
       "result": 49
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "9a62bf44b280fa0260b5c63676f488126997869b",
       "author": {
-        "name": "K Moon",
-        "mail": "<kmoon@chromium.org>",
+        "name": "Jeremy Chinsen",
+        "mail": "<chinsenj@google.com>",
         "isCurrentUser": false,
-        "timestamp": "1565208336",
-        "date": "2019-08-07T20:05:36.000Z",
+        "timestamp": "1565143134",
+        "date": "2019-08-07T01:58:54.000Z",
         "tz": "+0000"
       },
       "committer": {
         "name": "Commit Bot",
         "mail": "<commit-bot@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565208336",
-        "date": "2019-08-07T20:05:36.000Z",
+        "timestamp": "1565143134",
+        "date": "2019-08-07T01:58:54.000Z",
         "tz": "+0000"
       },
-      "summary": "Refactor default page orientation to an enum"
+      "summary": "Add Document::GetSingleViewLayout() and draw_utils::GetRectForSingleView().",
+      "hash": "08beb48cb405bad33ba7ee38ec413456da70163e"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 84,
       "result": 85
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "08beb48cb405bad33ba7ee38ec413456da70163e",
       "author": {
-        "name": "Jeremy Chinsen",
-        "mail": "<chinsenj@google.com>",
+        "name": "K Moon",
+        "mail": "<kmoon@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565143134",
-        "date": "2019-08-07T01:58:54.000Z",
+        "timestamp": "1565119532",
+        "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
       "committer": {
         "name": "Commit Bot",
         "mail": "<commit-bot@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565143134",
-        "date": "2019-08-07T01:58:54.000Z",
+        "timestamp": "1565119532",
+        "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Add Document::GetSingleViewLayout() and draw_utils::GetRectForSingleView()."
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 20,
       "result": 23
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3052,17 +3074,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 21,
       "result": 24
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3079,17 +3101,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 22,
       "result": 25
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3106,17 +3128,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 25,
       "result": 28
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3133,17 +3155,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 26,
       "result": 29
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3160,17 +3182,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 27,
       "result": 30
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3187,17 +3209,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 28,
       "result": 31
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3214,17 +3236,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 29,
       "result": 32
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3241,17 +3263,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 30,
       "result": 33
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3268,17 +3290,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 31,
       "result": 34
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3295,17 +3317,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 32,
       "result": 35
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3322,17 +3344,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 33,
       "result": 36
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3349,17 +3371,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 34,
       "result": 37
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3376,17 +3398,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 43,
       "result": 41
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3403,17 +3425,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 44,
       "result": 42
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3430,17 +3452,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 45,
       "result": 43
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3457,17 +3479,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 46,
       "result": 44
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3484,17 +3506,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 47,
       "result": 45
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3511,17 +3533,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 48,
       "result": 46
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3538,17 +3560,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 49,
       "result": 47
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3565,17 +3587,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 50,
       "result": 48
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3592,17 +3614,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 53,
       "result": 50
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3619,17 +3641,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 54,
       "result": 51
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3646,17 +3668,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 61,
       "result": 58
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3673,17 +3695,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 62,
       "result": 59
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3700,17 +3722,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 66,
       "result": 63
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3727,17 +3749,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 67,
       "result": 64
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -3754,44 +3776,44 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T19:25:32.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Split options from chrome_pdf::DocumentLayout",
+      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 93,
       "result": 124
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "eb9e000cfa6e1d9d407b3c5871cc7b617ba5fa57",
       "author": {
-        "name": "K Moon",
-        "mail": "<kmoon@chromium.org>",
+        "name": "Jeremy Chinsen",
+        "mail": "<chinsenj@google.com>",
         "isCurrentUser": false,
-        "timestamp": "1565119532",
-        "date": "2019-08-06T19:25:32.000Z",
+        "timestamp": "1565052017",
+        "date": "2019-08-06T00:40:17.000Z",
         "tz": "+0000"
       },
       "committer": {
         "name": "Commit Bot",
         "mail": "<commit-bot@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565119532",
-        "date": "2019-08-06T19:25:32.000Z",
+        "timestamp": "1565052017",
+        "date": "2019-08-06T00:40:17.000Z",
         "tz": "+0000"
       },
-      "summary": "Split options from chrome_pdf::DocumentLayout"
+      "summary": "Add DocumentLayout::GetTwoUpViewLayout() and PDFiumEngine::LoadPagesInTwoUpView().",
+      "hash": "d6fd27ce86e82f6f1b782e9398dbbb7343f883bd"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 8,
       "result": 9
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "d6fd27ce86e82f6f1b782e9398dbbb7343f883bd",
       "author": {
         "name": "Jeremy Chinsen",
         "mail": "<chinsenj@google.com>",
@@ -3808,17 +3830,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T00:40:17.000Z",
         "tz": "+0000"
       },
-      "summary": "Add DocumentLayout::GetTwoUpViewLayout() and PDFiumEngine::LoadPagesInTwoUpView()."
+      "summary": "Add DocumentLayout::GetTwoUpViewLayout() and PDFiumEngine::LoadPagesInTwoUpView().",
+      "hash": "d6fd27ce86e82f6f1b782e9398dbbb7343f883bd"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 9,
       "result": 10
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "d6fd27ce86e82f6f1b782e9398dbbb7343f883bd",
       "author": {
         "name": "Jeremy Chinsen",
         "mail": "<chinsenj@google.com>",
@@ -3835,17 +3857,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T00:40:17.000Z",
         "tz": "+0000"
       },
-      "summary": "Add DocumentLayout::GetTwoUpViewLayout() and PDFiumEngine::LoadPagesInTwoUpView()."
+      "summary": "Add DocumentLayout::GetTwoUpViewLayout() and PDFiumEngine::LoadPagesInTwoUpView().",
+      "hash": "d6fd27ce86e82f6f1b782e9398dbbb7343f883bd"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 11,
       "result": 14
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "d6fd27ce86e82f6f1b782e9398dbbb7343f883bd",
       "author": {
         "name": "Jeremy Chinsen",
         "mail": "<chinsenj@google.com>",
@@ -3862,44 +3884,44 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T00:40:17.000Z",
         "tz": "+0000"
       },
-      "summary": "Add DocumentLayout::GetTwoUpViewLayout() and PDFiumEngine::LoadPagesInTwoUpView()."
+      "summary": "Add DocumentLayout::GetTwoUpViewLayout() and PDFiumEngine::LoadPagesInTwoUpView().",
+      "hash": "d6fd27ce86e82f6f1b782e9398dbbb7343f883bd"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 59,
       "result": 108
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "d6fd27ce86e82f6f1b782e9398dbbb7343f883bd",
       "author": {
-        "name": "Jeremy Chinsen",
-        "mail": "<chinsenj@google.com>",
+        "name": "Lei Zhang",
+        "mail": "<thestig@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565052017",
-        "date": "2019-08-06T00:40:17.000Z",
+        "timestamp": "1565051283",
+        "date": "2019-08-06T00:28:03.000Z",
         "tz": "+0000"
       },
       "committer": {
         "name": "Commit Bot",
         "mail": "<commit-bot@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565052017",
-        "date": "2019-08-06T00:40:17.000Z",
+        "timestamp": "1565051283",
+        "date": "2019-08-06T00:28:03.000Z",
         "tz": "+0000"
       },
-      "summary": "Add DocumentLayout::GetTwoUpViewLayout() and PDFiumEngine::LoadPagesInTwoUpView()."
+      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout.",
+      "hash": "4906c103664937af53aba5d651626c5d5b003d52"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 8,
       "result": 12
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "4906c103664937af53aba5d651626c5d5b003d52",
       "author": {
         "name": "Lei Zhang",
         "mail": "<thestig@chromium.org>",
@@ -3916,17 +3938,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T00:28:03.000Z",
         "tz": "+0000"
       },
-      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout."
+      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout.",
+      "hash": "4906c103664937af53aba5d651626c5d5b003d52"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 21,
       "result": 52
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "4906c103664937af53aba5d651626c5d5b003d52",
       "author": {
         "name": "Lei Zhang",
         "mail": "<thestig@chromium.org>",
@@ -3943,17 +3965,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T00:28:03.000Z",
         "tz": "+0000"
       },
-      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout."
+      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout.",
+      "hash": "4906c103664937af53aba5d651626c5d5b003d52"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 22,
       "result": 53
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "4906c103664937af53aba5d651626c5d5b003d52",
       "author": {
         "name": "Lei Zhang",
         "mail": "<thestig@chromium.org>",
@@ -3970,17 +3992,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T00:28:03.000Z",
         "tz": "+0000"
       },
-      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout."
+      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout.",
+      "hash": "4906c103664937af53aba5d651626c5d5b003d52"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 23,
       "result": 54
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "4906c103664937af53aba5d651626c5d5b003d52",
       "author": {
         "name": "Lei Zhang",
         "mail": "<thestig@chromium.org>",
@@ -3997,44 +4019,44 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-08-06T00:28:03.000Z",
         "tz": "+0000"
       },
-      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout."
+      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout.",
+      "hash": "4906c103664937af53aba5d651626c5d5b003d52"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 24,
       "result": 55
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "4906c103664937af53aba5d651626c5d5b003d52",
       "author": {
-        "name": "Lei Zhang",
-        "mail": "<thestig@chromium.org>",
+        "name": "K Moon",
+        "mail": "<kmoon@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565051283",
-        "date": "2019-08-06T00:28:03.000Z",
+        "timestamp": "1564169270",
+        "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
       "committer": {
         "name": "Commit Bot",
         "mail": "<commit-bot@chromium.org>",
         "isCurrentUser": false,
-        "timestamp": "1565051283",
-        "date": "2019-08-06T00:28:03.000Z",
+        "timestamp": "1564169270",
+        "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Move document layout constants from PDFiumEngine to DocumentLayout."
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 1,
       "result": 1
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4051,17 +4073,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 2,
       "result": 2
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4078,17 +4100,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 3,
       "result": 3
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4105,17 +4127,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 4,
       "result": 4
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4132,17 +4154,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 5,
       "result": 5
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4159,17 +4181,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 6,
       "result": 6
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4186,17 +4208,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 7,
       "result": 7
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4213,17 +4235,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 8,
       "result": 15
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4240,17 +4262,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 9,
       "result": 16
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4267,17 +4289,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 10,
       "result": 17
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4294,17 +4316,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 11,
       "result": 18
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4321,17 +4343,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 12,
       "result": 19
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4348,17 +4370,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 13,
       "result": 20
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4375,17 +4397,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 14,
       "result": 21
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4402,17 +4424,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 15,
       "result": 22
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4429,17 +4451,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 18,
       "result": 26
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4456,17 +4478,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 19,
       "result": 27
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4483,17 +4505,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 20,
       "result": 56
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4510,17 +4532,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 21,
       "result": 57
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4537,17 +4559,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 24,
       "result": 60
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4564,17 +4586,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 25,
       "result": 61
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4591,17 +4613,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 26,
       "result": 62
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4618,17 +4640,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 38,
       "result": 65
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4645,17 +4667,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 41,
       "result": 80
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4672,17 +4694,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 42,
       "result": 81
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4699,17 +4721,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 43,
       "result": 82
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4726,17 +4748,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 44,
       "result": 83
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4753,17 +4775,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 56,
       "result": 109
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4780,17 +4802,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 63,
       "result": 125
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4807,17 +4829,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 64,
       "result": 135
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4834,17 +4856,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 65,
       "result": 136
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4861,17 +4883,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 66,
       "result": 139
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4888,17 +4910,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 67,
       "result": 140
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4915,17 +4937,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 68,
       "result": 141
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4942,17 +4964,17 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 69,
       "result": 142
-    },
+    }
+  },
+  {
     "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
       "author": {
         "name": "K Moon",
         "mail": "<kmoon@chromium.org>",
@@ -4969,36 +4991,14 @@ exports[`Processing Errors > Git chunk not starting with commit information 1`] 
         "date": "2019-07-26T19:27:50.000Z",
         "tz": "+0000"
       },
-      "summary": "Split layout state from PDFiumEngine"
+      "summary": "Split layout state from PDFiumEngine",
+      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1"
     },
-    "filename": "pdf/document_layout.h"
-  },
-  {
+    "filename": "pdf/document_layout.h",
     "line": {
       "source": 70,
       "result": 143
-    },
-    "commit": {
-      "hash": "bd80ce77af4144b5f79957a499361b8f6f0f71e1",
-      "author": {
-        "name": "K Moon",
-        "mail": "<kmoon@chromium.org>",
-        "isCurrentUser": false,
-        "timestamp": "1564169270",
-        "date": "2019-07-26T19:27:50.000Z",
-        "tz": "+0000"
-      },
-      "committer": {
-        "name": "Commit Bot",
-        "mail": "<commit-bot@chromium.org>",
-        "isCurrentUser": false,
-        "timestamp": "1564169270",
-        "date": "2019-07-26T19:27:50.000Z",
-        "tz": "+0000"
-      },
-      "summary": "Split layout state from PDFiumEngine"
-    },
-    "filename": "pdf/document_layout.h"
+    }
   }
 ]
 `;

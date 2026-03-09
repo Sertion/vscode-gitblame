@@ -39,9 +39,9 @@
 		"lint:fix": "biome lint ./src ./test --fix",
 		"check": "biome check ./src ./test ",
 		"check:fix": "biome check ./src ./test --fix",
-		"update-test-snapshots": "tsx --test --experimental-test-module-mocks --test-update-snapshots \"./**/*.test.js\"",
+		"update-test-snapshots": "tsx --test --experimental-test-module-mocks --test-update-snapshots \"./**/*.test.ts\"",
 		"test-coverage": "tsx --test --experimental-test-module-mocks --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./lcov.info  \"./**/*.test.ts\"",
-		"test": "tsx --test --experimental-test-module-mocks \"./**/*.test.js\"",
+		"test": "tsx --test --experimental-test-module-mocks \"./**/*.test.ts\"",
 		"updateimage": "magick -background transparent images/git_icon.svg images/git_icon.png"
 	},
 	"devDependencies": {
@@ -49,7 +49,7 @@
 		"@types/node": "22.9.0",
 		"@types/vscode": "1.100.0",
 		"esbuild": "0.27.3",
-		"tsx": "^4.21.0",
+		"tsx": "4.21.0",
 		"typescript": "5.9.3"
 	},
 	"homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
