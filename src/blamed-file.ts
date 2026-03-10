@@ -1,7 +1,6 @@
-import type { ChildProcess } from "node:child_process";
 import { realpath } from "node:fs/promises";
 import { relative } from "node:path";
-import { blameProcess } from "./git/command/blameProcess.js";
+import { type BlameProcess, blameProcess } from "./git/command/blameProcess.js";
 import { getGitEmail } from "./git/command/getGitEmail.js";
 import { getRevsFile } from "./git/command/getRevsFile.js";
 import type { CommitRegistry } from "./git/FileAttachedCommit.js";
@@ -13,10 +12,10 @@ export type Blame = Map<number, LineAttachedCommit | undefined>;
 
 export class BlamedFile {
 	private store?: Promise<Blame | undefined>;
-	private process?: Promise<ChildProcess>;
+	private process?: Promise<BlameProcess>;
 	private killed = false;
 
-	public constructor(public readonly fileName: string) {}
+	public constructor(public readonly filePath: string) {}
 
 	public getBlame(): Promise<Blame | undefined> {
 		this.store ??= this.blame();
@@ -43,13 +42,13 @@ export class BlamedFile {
 		);
 
 		const commitRegistry: CommitRegistry = Object.create(null);
-		for await (const chunk of (await this.process).stdout ?? []) {
+		for await (const chunk of (await this.process).stdout) {
 			Logger.debug(
 				`Got chunk from "${file}" git blame process. Size: ${chunk.length}`,
 			);
 			yield* processChunk(chunk, email, commitRegistry);
 		}
-		for await (const error of (await this.process).stderr ?? []) {
+		for await (const error of (await this.process).stderr) {
 			if (typeof error === "string") {
 				throw new Error(error);
 			}
@@ -58,7 +57,7 @@ export class BlamedFile {
 
 	private async blame(): Promise<Blame | undefined> {
 		const blameInfo: Blame = new Map();
-		const realpathFileName = await realpath(this.fileName);
+		const realpathFileName = await realpath(this.filePath);
 
 		try {
 			for await (const lineAttachedCommit of this.run(realpathFileName)) {
@@ -76,9 +75,9 @@ export class BlamedFile {
 
 		// Don't return partial git blame info when terminating a blame
 		if (!this.killed) {
-			if (relative(this.fileName, realpathFileName)) {
+			if (relative(this.filePath, realpathFileName)) {
 				Logger.info(
-					`Blamed "${realpathFileName}" (resolved via symlink from "${this.fileName}")`,
+					`Blamed "${realpathFileName}" (resolved via symlink from "${this.filePath}")`,
 				);
 			} else {
 				Logger.info(`Blamed "${realpathFileName}"`);

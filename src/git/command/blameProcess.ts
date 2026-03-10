@@ -5,10 +5,15 @@ import { Logger } from "../../logger.js";
 import { PropertyStore } from "../../PropertyStore.js";
 import { getGitCommand } from "./git-command.js";
 
+export type BlameProcess = Pick<
+	ChildProcessByStdio<null, Readable, Readable>,
+	"kill" | "stderr" | "stdout"
+>;
+
 export async function blameProcess(
 	realpathFileName: string,
 	revsFile: string | undefined,
-): Promise<ChildProcessByStdio<null, Readable, Readable>> {
+): Promise<BlameProcess> {
 	const args = ["blame", "-C", "--incremental", "--", realpathFileName];
 
 	if (PropertyStore.get("ignoreWhitespace")) {

@@ -17,10 +17,10 @@ export function getActiveTextEditor(): PartialTextEditor | undefined {
 
 export const NO_FILE_OR_PLACE = "N:-1";
 
-export const getFilePosition = ({
-	document,
-	selection,
-}: PartialTextEditor): string =>
-	document.uri.scheme === "file"
-		? `${document.fileName}:${selection.active.line}`
-		: NO_FILE_OR_PLACE;
+export function getFilePosition(partial: PartialTextEditor): string {
+	if (partial.document.uri.scheme === "file") {
+		return `${partial.document.fileName}:${partial.selection.active.line}`;
+	}
+
+	return NO_FILE_OR_PLACE;
+}

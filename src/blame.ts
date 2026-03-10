@@ -52,18 +52,18 @@ export class Blamer {
 			return;
 		}
 
-		Logger.debug(`Setting up file watcher for "${file.fileName}"`);
+		Logger.debug(`Setting up file watcher for "${file.filePath}"`);
 
 		this.fsWatchers.set(
-			file.fileName,
+			file.filePath,
 			watch(
-				file.fileName,
+				file.filePath,
 				{
 					persistent: false,
 				},
 				() => {
-					Logger.debug(`File watcher callback for "${file.fileName}" executed`);
-					this.remove(file.fileName);
+					Logger.debug(`File watcher callback for "${file.filePath}" executed`);
+					this.remove(file.filePath);
 				},
 			),
 		);

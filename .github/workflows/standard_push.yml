@@ -31,6 +31,9 @@ jobs:
               run: biome ci ./src/
 
             - name: Run tests
+              run: npm test
+
+            - name: Generate coverage
               run: npm run test-coverage
 
             - name: SonarQube Scan
