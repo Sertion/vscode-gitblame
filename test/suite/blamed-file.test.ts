@@ -1,4 +1,5 @@
 import assert from "node:assert";
+import { randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { Readable } from "node:stream";
@@ -41,13 +42,8 @@ suite("BlamedFile base cases", async () => {
 				access: () => Promise.resolve(),
 			},
 		});
-		/**
-		 * As `blameProcess.js` is mocked and blamed-file.js imports it we need to
-		 * append a search parameter here to distinguish the imports and force
-		 * a re-import for each time.
-		 */
-		// @ts-expect-error
-		BlamedFile = (await import("../../src/blamed-file.js?base")).BlamedFile;
+		BlamedFile = (await import(`../../src/blamed-file.js?${randomUUID()}`))
+			.BlamedFile;
 	});
 
 	after(() => mock.reset());
@@ -69,6 +65,14 @@ suite("BlamedFile base cases", async () => {
 		assert.ok(blame, "Unable to get blame");
 		t.assert.snapshot(Array.from(blame.entries()));
 	});
+
+	test("if a blamed file has been disposed the blame should be empty", async () => {
+		const blamed = new BlamedFile("/file");
+		await blamed.getBlame();
+		blamed.dispose();
+
+		assert.strictEqual((await blamed.getBlame())?.size, 0);
+	});
 });
 
 suite("BlamedFile error cases", async () => {
@@ -82,14 +86,11 @@ suite("BlamedFile error cases", async () => {
 				blameProcess: async (
 					_realpathFileName: string,
 					_revsFile: string | undefined,
-				): Promise<BlameProcess> => {
-					console.log("I run");
-					return {
-						kill: () => true,
-						stderr: Readable.from(["error"]),
-						stdout: Readable.from([]),
-					};
-				},
+				): Promise<BlameProcess> => ({
+					kill: () => true,
+					stderr: Readable.from(["error"]),
+					stdout: Readable.from([]),
+				}),
 			},
 			cache: false,
 		});
@@ -99,13 +100,8 @@ suite("BlamedFile error cases", async () => {
 				access: () => Promise.resolve(),
 			},
 		});
-		/**
-		 * As `blameProcess.js` is mocked and blamed-file.js imports it we need to
-		 * append a search parameter here to distinguish the imports and force
-		 * a re-import for each time.
-		 */
-		// @ts-expect-error
-		BlamedFile = (await import("../../src/blamed-file.js?error")).BlamedFile;
+		BlamedFile = (await import(`../../src/blamed-file.js?${randomUUID()}`))
+			.BlamedFile;
 	});
 
 	after(() => mock.reset());

@@ -1,4 +1,4 @@
-import { type FSWatcher, watch } from "node:fs";
+import { watch } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { Logger } from "../logger.js";
 
@@ -10,7 +10,7 @@ export type HeadChangeEvent = {
 type HeadChangeEventCallbackFunction = (event: HeadChangeEvent) => void;
 
 export class GitRepositoryWatcher {
-	private readonly watchers: Map<string, FSWatcher> = new Map();
+	private readonly watchers: Map<string, AbortController> = new Map();
 	private callback: HeadChangeEventCallbackFunction = () => undefined;
 
 	public constructor(private readonly file: string) {}
@@ -27,29 +27,51 @@ export class GitRepositoryWatcher {
 			return gitRoot;
 		}
 
-		const repositoryRoot = resolve(gitRoot, "..");
+		const root = resolve(gitRoot, "..");
 		const filePath = join(gitRoot, this.file);
+		const abort = new AbortController();
 
-		this.watchers.set(
-			filePath,
-			watch(filePath, { persistent: false }, () => {
-				Logger.debug(`File watcher callback for "${filePath}" called.`);
-				this.callback({ gitRoot, repositoryRoot });
-			}),
-		);
+		this.watchers.set(filePath, abort);
 
-		Logger.debug(`File watcher for "${filePath}" created.`);
+		void this.waitForChanges(filePath, gitRoot, root, abort.signal);
 
 		return gitRoot;
 	}
 
 	public dispose(): void {
 		for (const [gitRoot, watcher] of this.watchers) {
-			watcher.close();
+			watcher.abort();
 			Logger.debug(`File watcher git root "${gitRoot}" closed.`);
 		}
 		this.watchers.clear();
 		this.callback = () => undefined;
+	}
+
+	private async waitForChanges(
+		filePath: string,
+		gitRoot: string,
+		repositoryRoot: string,
+		signal: AbortSignal,
+	): Promise<void> {
+		try {
+			const watcher = watch(filePath, {
+				persistent: false,
+				signal,
+			});
+
+			Logger.debug(`File watcher for "${filePath}" created.`);
+
+			for await (const { filename, eventType } of watcher) {
+				Logger.debug(
+					`File watcher callback for "${filename}" called. Reason: "${eventType}"`,
+				);
+				this.callback({ gitRoot, repositoryRoot });
+			}
+		} catch (err) {
+			Logger.debug(
+				`Repository watcher for "${filePath}" failed with error: "${err}"`,
+			);
+		}
 	}
 
 	private normalizeWindowsDrivePath(path: string): string {

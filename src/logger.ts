@@ -1,17 +1,23 @@
 import * as assert from "node:assert";
-import type { LogOutputChannel } from "vscode";
 import { getvscode } from "./vscode-quarantine.js";
+
+export type LoggerPipe = {
+	error(message: unknown): void;
+	info(message: string): void;
+	debug(message: string): void;
+	trace(message: string): void;
+	dispose?(): void;
+};
 
 export class Logger {
 	private static instance?: Logger;
 
-	public static async createInstance(): Promise<Logger> {
-		const channel = (await getvscode())?.window.createOutputChannel(
-			"Git Blame",
-			{
+	public static async createInstance(override?: LoggerPipe): Promise<Logger> {
+		const channel =
+			override ??
+			(await getvscode())?.window.createOutputChannel("Git Blame", {
 				log: true,
-			},
-		);
+			});
 		Logger.instance = new Logger(channel);
 		return Logger.instance;
 	}
@@ -24,7 +30,7 @@ export class Logger {
 		return Logger.instance;
 	}
 
-	private constructor(private readonly out: LogOutputChannel | undefined) {}
+	private constructor(private readonly out: LoggerPipe | undefined) {}
 
 	public static error(error: unknown): void {
 		if (error instanceof Error) {
@@ -46,6 +52,6 @@ export class Logger {
 
 	public dispose(): void {
 		Logger.instance = undefined;
-		this.out?.dispose();
+		this.out?.dispose?.();
 	}
 }
