@@ -23,17 +23,9 @@ export class GitRepositoryWatcher {
 		const gitRoot = this.normalizeWindowsDrivePath(gitRepositoryPath);
 		const watched = this.watchers.has(gitRoot);
 
-		if (watched === true || gitRepositoryPath === "") {
-			return gitRoot;
+		if (!watched || gitRepositoryPath !== "") {
+			this.setupWatcher(gitRoot);
 		}
-
-		const root = resolve(gitRoot, "..");
-		const filePath = join(gitRoot, this.file);
-		const abort = new AbortController();
-
-		this.watchers.set(filePath, abort);
-
-		void this.waitForChanges(filePath, gitRoot, root, abort.signal);
 
 		return gitRoot;
 	}
@@ -45,6 +37,16 @@ export class GitRepositoryWatcher {
 		}
 		this.watchers.clear();
 		this.callback = () => undefined;
+	}
+
+	private setupWatcher(gitRoot: string): void {
+		const root = resolve(gitRoot, "..");
+		const filePath = join(gitRoot, this.file);
+		const abort = new AbortController();
+
+		this.watchers.set(filePath, abort);
+
+		void this.waitForChanges(filePath, gitRoot, root, abort.signal);
 	}
 
 	private async waitForChanges(
