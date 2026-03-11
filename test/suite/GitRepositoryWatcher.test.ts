@@ -17,7 +17,7 @@ suite("GitRepositoryWatcher", async () => {
 
 	beforeEach(async () => {
 		loggerPipe = {
-			debug: mock.fn() as (e: string) => void ,
+			debug: mock.fn() as (e: string) => void,
 		};
 		Logger.createInstance(loggerPipe);
 		const wResolvers = Promise.withResolvers<FileChangeInfo<string>>();

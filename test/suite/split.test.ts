@@ -2,7 +2,6 @@ import * as assert from "node:assert";
 import test, { mock, suite } from "node:test";
 import { Logger } from "../../src/logger.js";
 import { split, splitChunk } from "../../src/string-stuff/split.js";
-import { scheduler } from "node:timers/promises";
 
 type TestIteration<T, R> = {
 	name: string;
@@ -100,7 +99,9 @@ suite("Regression test for process locking when blaming takes too long", () => {
 		const fn = mock.fn();
 		Logger.createInstance({ debug: fn });
 
-		const iterator = splitChunk(Buffer.from(Array.from({length: 10}, () => "thing to find").join("\n")));
+		const iterator = splitChunk(
+			Buffer.from(Array.from({ length: 10 }, () => "thing to find").join("\n")),
+		);
 
 		await iterator.next();
 		await iterator.next();
@@ -115,5 +116,5 @@ suite("Regression test for process locking when blaming takes too long", () => {
 		assert.strictEqual(fn.mock.callCount(), 1);
 
 		mock.timers.reset();
-	})
+	});
 });
