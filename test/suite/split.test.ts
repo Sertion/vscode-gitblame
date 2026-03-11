@@ -1,7 +1,8 @@
 import * as assert from "node:assert";
-import test, { suite } from "node:test";
+import test, { mock, suite } from "node:test";
 import { Logger } from "../../src/logger.js";
 import { split, splitChunk } from "../../src/string-stuff/split.js";
+import { scheduler } from "node:timers/promises";
 
 type TestIteration<T, R> = {
 	name: string;
@@ -91,4 +92,28 @@ suite("Split chunk", () => {
 			done: true,
 		});
 	});
+});
+
+suite("Regression test for process locking when blaming takes too long", () => {
+	test("Splitting over a long time should yield to the scheduler", async () => {
+		mock.timers.enable({ apis: ["Date"], now: 0 });
+		const fn = mock.fn();
+		Logger.createInstance({ debug: fn });
+
+		const iterator = splitChunk(Buffer.from(Array.from({length: 10}, () => "thing to find").join("\n")));
+
+		await iterator.next();
+		await iterator.next();
+
+		assert.strictEqual(fn.mock.callCount(), 0);
+
+		mock.timers.setTime(2000);
+
+		await iterator.next();
+		await iterator.next();
+
+		assert.strictEqual(fn.mock.callCount(), 1);
+
+		mock.timers.reset();
+	})
 });

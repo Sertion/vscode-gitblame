@@ -30,14 +30,14 @@ function splitBuffer(
 }
 
 const MAX_CHUNK_TIME = 5;
-let lastChunkTime = 0;
 
 export async function* splitChunk(
 	chunk: Buffer,
 ): AsyncGenerator<[string, string]> {
+	let lastChunkTime = Date.now();
 	let lastIndex = 0;
 	while (lastIndex < chunk.length) {
-		const now = performance.now();
+		const now = Date.now();
 		const timeSpent = now - lastChunkTime;
 		if (timeSpent > MAX_CHUNK_TIME) {
 			Logger.debug(
