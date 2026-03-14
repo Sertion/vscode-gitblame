@@ -176,7 +176,7 @@ function modify(value: string, modifier = ""): string {
 }
 
 function sanitizeToken(token: string): string {
-	return token.replace(/\u202e/g, "");
+	return token.replaceAll("\u202e", "");
 }
 
 export function parseTokens<T extends InfoTokens>(
