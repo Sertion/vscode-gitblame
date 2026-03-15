@@ -8,7 +8,7 @@ export type PropertiesMap = {
 	infoMessageFormat: string;
 	statusBarMessageFormat: string;
 	statusBarMessageNoCommit: string;
-	statusBarPositionPriority: number | undefined;
+	statusBarPositionPriority: number;
 	pluralWebPathSubstrings: string[];
 	statusBarMessageClickAction:
 		| "Show info message"
@@ -28,7 +28,7 @@ export type PropertiesMap = {
 };
 
 export class PropertyStore {
-	protected static instance: PropertyStore | undefined;
+	protected static instance?: PropertyStore;
 	public static async createInstance(
 		getProperty?: (name: string) => unknown,
 	): Promise<PropertyStore> {

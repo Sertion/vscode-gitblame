@@ -1,6 +1,6 @@
 import { URL } from "node:url";
 
-export const isUrl = (check: string): boolean => {
+export function isUrl(check: string): boolean {
 	let url: URL;
 	try {
 		url = new URL(check);
@@ -16,4 +16,4 @@ export const isUrl = (check: string): boolean => {
 	}
 
 	return !!(url.hostname && url.pathname);
-};
+}

@@ -7,6 +7,7 @@ const result = await build({
 	minify: true,
 	target: "node22.22",
 	outdir: "./out/src/",
+	sourcemap: !!process.env.SOURCEMAPS,
 	metafile: !!process.env.METAFILE,
 	splitting: true,
 	external: ["vscode", "node:*"],

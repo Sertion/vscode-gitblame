@@ -1,10 +1,15 @@
 # Git Blame
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Sertion_vscode-gitblame&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Sertion_vscode-gitblame)
+
 Features:
-* See Git Blame information in the status bar for the currently selected line.
-* See Git Blame information on the last selected line in your editor.
+* See Git blame information in the status bar for the currently selected line.
+* See Git blame information in-line for your currently selected line.
+* See Git blame information on the last selected line in your editor.
 * Quick link to open the latest commit on the current line in the most popular online git tools.
 * Open `git show` for the latest commit on the current line in an vscode terminal.
+* Commands that can be bound to custom keyboard shortcuts.
+* Support for both SHA-1 and SHA-256 repositories.
 
 ## How to use
 
@@ -13,6 +18,18 @@ Features:
 Git blame adds git blame information to your vscode compatible view. See information about what commit last changed a line and how long ago it was. Click the message to see more information about the commit. It is possible to edit all of these information messages in the settings. There are multiple tokens available. These are described below.
 
 Git Blame works very well with WSL but does not work with the web browser based vscode compatible editors.
+
+## Commands
+### Show quick info
+The command `gitblame.quickInfo` opens a information message with the current line's blamed commit's information.
+### View last change online
+The command `gitblame.online` opens the configured url for the current line's online tool.
+### Copy hash to clipboard
+The command `gitblame.addCommitHashToClipboard` copies the current line's blamed commit hash to the clipboard.
+### Copy tool URL to clipboard
+The command `gitblame.addToolUrlToClipboard` copies the tool url for the current line's blamed commit to the clipboard.
+### Git show for current line hash
+The command `gitblame.gitShow` shows the current comit in a terminal using `git show $HASH`.
 
 ## Configuration
 

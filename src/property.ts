@@ -1,4 +1,5 @@
 import { workspace } from "vscode";
 
-export const getProperty = (name: string): unknown =>
-	workspace.getConfiguration("gitblame").get(name);
+export function getProperty(name: string): unknown {
+	return workspace.getConfiguration("gitblame").get(name);
+}

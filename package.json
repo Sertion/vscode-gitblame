@@ -1,8 +1,8 @@
 {
 	"name": "gitblame",
 	"displayName": "Git Blame",
-	"description": "See git blame information in the status bar.",
-	"version": "12.0.3",
+	"description": "See git blame information in the status bar or in-line.",
+	"version": "12.1.0",
 	"publisher": "waderyan",
 	"private": true,
 	"type": "module",
@@ -10,45 +10,23 @@
 		"vscode": ">=1.100.0",
 		"node": ">=22.22.0"
 	},
-	"categories": [
-		"Other"
-	],
-	"galleryBanner": {
-		"color": "#f0efe7",
-		"theme": "light"
-	},
-	"icon": "images/git_icon.png",
-	"activationEvents": [
-		"onStartupFinished"
-	],
-	"keywords": [
-		"git",
-		"gitblame",
-		"blame",
-		"github",
-		"gitlab",
-		"bitbucket"
-	],
-	"qna": false,
 	"main": "./out/src/index.js",
 	"scripts": {
 		"vscode:prepublish": "npm run build",
 		"build": "node esbuild.mjs",
+		"build-with-sourcemaps": "SOURCEMAPS=1 node esbuild.mjs",
 		"package": "npx @vscode/vsce package",
-		"lint": "biome ci ./src ./test",
-		"lint:fix": "biome lint ./src ./test --fix",
-		"check": "biome check ./src ./test ",
-		"check:fix": "biome check ./src ./test --fix",
+		"lint": "biome lint ./src ./test --fix",
+		"check": "biome check ./src ./test --fix",
 		"update-test-snapshots": "tsx --test --experimental-test-module-mocks --test-update-snapshots \"./**/*.test.ts\"",
 		"test-coverage": "tsx --test --experimental-test-module-mocks --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./lcov.info  \"./**/*.test.ts\"",
-		"test": "tsx --test --experimental-test-module-mocks \"./**/*.test.ts\"",
-		"updateimage": "magick -background transparent images/git_icon.svg images/git_icon.png"
+		"test": "tsx --test --experimental-test-module-mocks \"./**/*.test.ts\""
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.4",
+		"@biomejs/biome": "2.4.7",
 		"@types/node": "22.9.0",
 		"@types/vscode": "1.100.0",
-		"esbuild": "0.27.3",
+		"esbuild": "0.27.4",
 		"tsx": "4.21.0",
 		"typescript": "5.9.3"
 	},
@@ -61,9 +39,25 @@
 		"type": "git",
 		"url": "https://github.com/Sertion/vscode-gitblame"
 	},
-	"extensionDependencies": [
-		"vscode.git"
+	"categories": [
+		"Other"
 	],
+	"keywords": [
+		"git",
+		"gitblame",
+		"blame",
+		"codeberg",
+		"github",
+		"gitlab",
+		"bitbucket"
+	],
+	"icon": "images/git_icon_3d.png",
+	"activationEvents": [
+		"onEditSession:file",
+		"onFileSystem:file",
+		"workspaceContains:**/.git/HEAD"
+	],
+	"qna": false,
 	"extensionKind": [
 		"workspace"
 	],

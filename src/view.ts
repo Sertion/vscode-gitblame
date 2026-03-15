@@ -29,11 +29,10 @@ export class StatusBarView {
 
 	private statusBarText = "";
 	private statusBarTooltip: MarkdownString = new MarkdownString();
-	private statusBarPriority: number | undefined = PropertyStore.get(
+	private statusBarPriority: number = PropertyStore.get(
 		"statusBarPositionPriority",
 	);
 
-	private command?: string;
 	private lastText?: string;
 	private lastToolTip?: MarkdownString;
 	private readonly toolTipMarkdownCache = new WeakMap<Commit, MarkdownString>();
@@ -41,13 +40,13 @@ export class StatusBarView {
 	constructor() {
 		this.statusBar = this.createStatusBarItem();
 		this.configChange = workspace.onDidChangeConfiguration((e) => {
-			if (e.affectsConfiguration("gitblame")) {
+			if (e.affectsConfiguration("gitblame.statusBarPositionPriority")) {
 				const newPriority = PropertyStore.get("statusBarPositionPriority");
 				if (this.statusBarPriority !== newPriority) {
 					this.statusBarPriority = newPriority;
 					this.statusBar = this.createStatusBarItem();
+					this.statusBar.command = this.getCommand();
 				}
-				this.updateCommand();
 			}
 		});
 	}
@@ -109,17 +108,13 @@ export class StatusBarView {
 		this.configChange.dispose();
 	}
 
-	private updateCommand() {
-		this.command = {
+	private getCommand(): string {
+		return {
 			"Open tool URL": "gitblame.online",
 			"Open git show": "gitblame.gitShow",
 			"Copy hash to clipboard": "gitblame.addCommitHashToClipboard",
 			"Show info message": "gitblame.quickInfo",
 		}[PropertyStore.get("statusBarMessageClickAction")];
-
-		if (this.statusBar.command !== undefined) {
-			this.statusBar.command = this.command;
-		}
 	}
 
 	private updateStatusBar(statusBar: StatusBarItem, hasCommand: boolean) {
@@ -132,9 +127,10 @@ export class StatusBarView {
 			);
 			return;
 		}
+
 		statusBar.text = this.statusBarText;
 		statusBar.tooltip = this.statusBarTooltip;
-		statusBar.command = hasCommand ? this.command : undefined;
+		statusBar.command = hasCommand ? this.getCommand() : undefined;
 
 		this.lastText = this.statusBarText;
 		this.lastToolTip = this.statusBarTooltip;
@@ -280,13 +276,13 @@ export class StatusBarView {
 	private async delayUpdate(delay: number): Promise<boolean> {
 		if (delay > 0) {
 			try {
-				return await new Promise((resolve, reject) => {
-					this.ongoingViewUpdateRejects.add(reject);
-					setTimeout(() => {
-						this.ongoingViewUpdateRejects.delete(reject);
-						resolve(true);
-					}, delay);
-				});
+				const { promise, resolve, reject } = Promise.withResolvers<boolean>();
+				this.ongoingViewUpdateRejects.add(reject);
+				setTimeout(() => {
+					this.ongoingViewUpdateRejects.delete(reject);
+					resolve(true);
+				}, delay);
+				return promise;
 			} catch {
 				return false;
 			}

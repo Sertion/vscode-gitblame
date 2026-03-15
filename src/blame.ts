@@ -8,7 +8,7 @@ import { Logger } from "./logger.js";
 import { PropertyStore } from "./PropertyStore.js";
 
 export class Blamer {
-	private readonly metadata = new WeakMap<
+	private readonly metadata = new Map<
 		Promise<Blame | undefined>,
 		| {
 				file: BlamedFile;
@@ -25,52 +25,10 @@ export class Blamer {
 
 	public constructor() {
 		this.configChange = workspace.onDidChangeConfiguration((e) => {
-			if (e.affectsConfiguration("gitblame")) {
+			if (e.affectsConfiguration("gitblame.parallelBlames")) {
 				this.blameQueue.updateParallel(PropertyStore.get("parallelBlames"));
 			}
 		});
-	}
-
-	public async prepareFile(fileName: string): Promise<void> {
-		if (this.files.has(fileName)) {
-			return;
-		}
-
-		let resolve: (blame: Promise<Blame | undefined> | undefined) => void =
-			() => {};
-		this.files.set(
-			fileName,
-			new Promise<Blame | undefined>((res) => {
-				resolve = res;
-			}),
-		);
-
-		const { file, gitRoot } = await this.create(fileName);
-
-		if (file === undefined) {
-			resolve(undefined);
-			return;
-		}
-
-		Logger.debug(`Setting up file watcher for "${file.filePath}"`);
-
-		this.fsWatchers.set(
-			file.filePath,
-			watch(
-				file.filePath,
-				{
-					persistent: false,
-				},
-				() => {
-					Logger.debug(`File watcher callback for "${file.filePath}" executed`);
-					this.remove(file.filePath);
-				},
-			),
-		);
-
-		const blame = this.blameQueue.add(() => file.getBlame());
-		this.metadata.set(blame, { file, gitRoot });
-		resolve(blame);
 	}
 
 	public async getLine(
@@ -96,14 +54,17 @@ export class Blamer {
 
 	public remove(fileName: string): void {
 		const blame = this.files.get(fileName);
-		if (blame) {
-			this.metadata.get(blame)?.file?.dispose();
+		if (!blame) {
+			return;
 		}
+
+		this.metadata.get(blame)?.file?.dispose();
+		this.metadata.delete(blame);
 
 		this.files.delete(fileName);
 		this.fsWatchers.get(fileName)?.close();
 		this.fsWatchers.delete(fileName);
-		Logger.debug(`Cache for "${fileName}" cleared. File watcher closed.`);
+		Logger.info(`Cache for "${fileName}" cleared. File watcher closed.`);
 	}
 
 	public dispose(): void {
@@ -111,6 +72,38 @@ export class Blamer {
 			this.remove(fileName);
 		}
 		this.configChange.dispose();
+	}
+
+	private async prepareFile(fileName: string): Promise<void> {
+		if (this.files.has(fileName)) {
+			await this.files.get(fileName);
+			return;
+		}
+
+		const { promise, resolve } = Promise.withResolvers<Blame | undefined>();
+		Logger.debug(`Setting up blame cache for "${fileName}"`);
+		this.files.set(fileName, promise);
+
+		const { file, gitRoot } = await this.create(fileName);
+
+		if (file === undefined) {
+			resolve(undefined);
+			return;
+		}
+
+		Logger.debug(`Setting up file watcher for "${file.filePath}"`);
+
+		this.fsWatchers.set(
+			file.filePath,
+			watch(file.filePath, { persistent: false }, () => {
+				Logger.trace(`File watcher callback for "${file.filePath}" executed`);
+				this.remove(file.filePath);
+			}),
+		);
+
+		const blame = this.blameQueue.add(() => file.getBlame());
+		this.metadata.set(blame, { file, gitRoot });
+		resolve(blame);
 	}
 
 	private async create(

@@ -67,31 +67,27 @@ suite("Promise Queue", { concurrency: true }, async (): Promise<void> => {
 		assert.strictEqual(result, "UNIQUE_VALUE");
 	});
 
-	test(
-		"Being able to use the value from the original promise after queue",
-		{
-			timeout: 500,
-		},
-		async (t): Promise<void> => {
-			t.mock.timers.enable({ apis: ["setTimeout"] });
+	test("Being able to use the value from the original promise after queue", {
+		timeout: 500,
+	}, async (t): Promise<void> => {
+		t.mock.timers.enable({ apis: ["setTimeout"] });
 
-			const instance = new Queue<string>();
-			const myFunc1 = () => sleep(100, "UNIQUE_VALUE_1");
-			const myFunc2 = () => sleep(100, "UNIQUE_VALUE_2");
-			const myFunc3 = () => sleep(100, "UNIQUE_VALUE_3");
+		const instance = new Queue<string>();
+		const myFunc1 = () => sleep(100, "UNIQUE_VALUE_1");
+		const myFunc2 = () => sleep(100, "UNIQUE_VALUE_2");
+		const myFunc3 = () => sleep(100, "UNIQUE_VALUE_3");
 
-			const call1 = instance.add(myFunc1);
-			const call2 = instance.add(myFunc2);
-			const call3 = instance.add(myFunc3);
+		const call1 = instance.add(myFunc1);
+		const call2 = instance.add(myFunc2);
+		const call3 = instance.add(myFunc3);
 
-			t.mock.timers.tick(200);
-			await scheduler.yield();
+		t.mock.timers.tick(200);
+		await scheduler.yield();
 
-			assert.strictEqual(await call1, "UNIQUE_VALUE_1");
-			assert.strictEqual(await call2, "UNIQUE_VALUE_2");
-			assert.strictEqual(await call3, "UNIQUE_VALUE_3");
-		},
-	);
+		assert.strictEqual(await call1, "UNIQUE_VALUE_1");
+		assert.strictEqual(await call2, "UNIQUE_VALUE_2");
+		assert.strictEqual(await call3, "UNIQUE_VALUE_3");
+	});
 
 	test("Minimum 1 parallel queue size", async (): Promise<void> => {
 		const instance = new Queue<void>(-1);

@@ -1,5 +1,15 @@
 # Change Log
 
+## 12.1.0 (March 15, 2026)
+* Fix: Now loads the extension as an ES module rather than CommonJS (for real this time)
+* Fix: Document the commands in the README
+* Enhancement: Moved away from using `@vscode/test-cli` to use `node:test` for speed and security
+* Enhancement: Added test cases for more high level sections of the extension
+* Enhancement: Added [Sonarqube scans](https://sonarcloud.io/project/overview?id=Sertion_vscode-gitblame)
+* Enhancement: New 3D icon depicting the perspective you get on git by using the extension
+
+A note: This extension has been an interesting project and it is, in my mind, feature complete. This in combination with vscode just getting more and more bloated marks the end of new feature development. I will still keep the [repository on github](https://github.com/Sertion/vscode-gitblame) open for bug reports.
+
 ## 12.0.3 (March 05, 2026)
 * Bug: Extension fails to find CWD for blame command on Windows [#203](https://github.com/Sertion/vscode-gitblame/issues/203). Thanks to [f4n0](https://github.com/f4n0), [tangbzai](https://github.com/tangbzai), and [ChenZheng1376](https://github.com/ChenZheng1376)!
 

@@ -5,22 +5,22 @@ import {
 	env,
 	type MessageItem,
 	type TextDocument,
+	type TextDocumentChangeEvent,
 	type TextEditor,
+	type TextEditorSelectionChangeEvent,
 	ThemeIcon,
 	window,
 	workspace,
 } from "vscode";
 import { Blamer } from "./blame.js";
-import {
-	getActiveTextEditor,
-	getFilePosition,
-	NO_FILE_OR_PLACE,
-} from "./get-active.js";
+import { getActiveTextEditor, getFilePosition, NO_FILE } from "./get-active.js";
 import { Commit } from "./git/Commit.js";
 import { git } from "./git/command/CachedGit.js";
+import type { HeadChangeEvent } from "./git/GitRepositoryWatcher.js";
 import { getToolUrl } from "./git/get-tool-url.js";
 import { HeadWatch } from "./git/head-watch.js";
 import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
+import { Logger } from "./logger.js";
 import { errorMessage, infoMessage } from "./message.js";
 import { PropertyStore } from "./PropertyStore.js";
 import {
@@ -46,6 +46,7 @@ export class Extension {
 
 	constructor() {
 		this.disposable = this.setupListeners();
+		this.updateView();
 	}
 
 	public async blameLink(): Promise<void> {
@@ -68,7 +69,6 @@ export class Extension {
 
 		if (!lineAware?.commit.isCommitted()) {
 			this.view.clear();
-			await errorMessage("No commit to show");
 			return;
 		}
 
@@ -136,6 +136,7 @@ export class Extension {
 
 		const currentLine = await this.commit(true);
 		if (currentLine === undefined) {
+			void errorMessage("Unable to get commit for current file/line.");
 			return;
 		}
 		const { hash } = currentLine.commit;
@@ -179,7 +180,7 @@ export class Extension {
 
 		// Only update if we haven't moved since we started blaming
 		// or if we no longer have focus on any file
-		if (before === after || after === NO_FILE_OR_PLACE) {
+		if (before === after || after === NO_FILE) {
 			this.view.set(line?.commit, textEditorAfter, useDelay);
 		}
 	}
@@ -199,7 +200,7 @@ export class Extension {
 			}
 		};
 
-		this.headWatcher.onChange(({ repositoryRoot }) =>
+		this.headWatcher.onChange(({ repositoryRoot }: HeadChangeEvent) =>
 			this.blame.removeFromRepository(repositoryRoot),
 		);
 
@@ -207,15 +208,16 @@ export class Extension {
 			window.onDidChangeActiveTextEditor((textEditor): void => {
 				if (validEditor(textEditor)) {
 					this.view.activity();
-					this.blame.prepareFile(textEditor.document.fileName);
 					changeTextEditorSelection(textEditor);
 				} else {
 					this.view.clear();
 				}
 			}),
-			window.onDidChangeTextEditorSelection(({ textEditor }) => {
-				changeTextEditorSelection(textEditor);
-			}),
+			window.onDidChangeTextEditorSelection(
+				({ textEditor }: TextEditorSelectionChangeEvent) => {
+					changeTextEditorSelection(textEditor);
+				},
+			),
 			workspace.onDidSaveTextDocument((document: TextDocument): void => {
 				if (getActiveTextEditor()?.document === document) {
 					this.updateView();
@@ -224,12 +226,14 @@ export class Extension {
 			workspace.onDidCloseTextDocument((document: Document): void => {
 				this.blame.remove(document.fileName);
 			}),
-			workspace.onDidChangeTextDocument(({ document }) => {
-				const textEditor = getActiveTextEditor();
-				if (textEditor?.document === document) {
-					this.updateView(textEditor, false);
-				}
-			}),
+			workspace.onDidChangeTextDocument(
+				({ document }: TextDocumentChangeEvent) => {
+					const textEditor = getActiveTextEditor();
+					if (textEditor?.document === document) {
+						this.updateView(textEditor, false);
+					}
+				},
+			),
 		);
 	}
 
@@ -239,14 +243,14 @@ export class Extension {
 		const editor = getActiveTextEditor();
 
 		if (!validEditor(editor)) {
-			void errorMessage(
+			Logger.info(
 				"Unable to blame current line. Active view is not a file on disk.",
 			);
 			return;
 		}
 
 		if (this.isFileMaxLineCount(editor.document)) {
-			void errorMessage("Git Blame is disabled for the current file");
+			Logger.info("Git Blame is disabled for the current file");
 			return;
 		}
 
@@ -257,7 +261,7 @@ export class Extension {
 		const line = await this.getLine(editor);
 
 		if (!line) {
-			void errorMessage(
+			Logger.info(
 				"Unable to blame current line. Unable to get blame information for line.",
 			);
 		}

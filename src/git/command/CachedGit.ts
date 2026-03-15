@@ -40,7 +40,10 @@ class CachedGitCommand {
 			if (folder) {
 				this.gitConfigWatch.addRepository(folder);
 			}
-			return gitFolder;
+			Logger.trace(
+				`File "${fileName}" belong in a git repository: "${folder}"`,
+			);
+			return folder;
 		} catch {
 			Logger.info(`Failed to find git folder for "${fileName}". Not blaming.`);
 			return undefined;

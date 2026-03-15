@@ -12,7 +12,7 @@
 			],
 			"sourceMaps": true,
 			"outFiles": ["${workspaceRoot}/out/src/**/*.js"],
-			"preLaunchTask": "npm: pretest"
+			"preLaunchTask": "npm: build-with-sourcemaps"
 		}
 	]
 }

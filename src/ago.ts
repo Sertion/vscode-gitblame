@@ -17,7 +17,7 @@ const timeUnits: [Intl.RelativeTimeFormatUnit, number][] = [
 const RelativeTime = new Intl.RelativeTimeFormat(
 	(await getvscode())?.env.language ?? "en",
 );
-export const between = (now: Date, compare: Date): string => {
+export function between(now: Date, compare: Date): string {
 	const diff = now.valueOf() - compare.valueOf();
 
 	for (const [unit, scale] of timeUnits) {
@@ -27,4 +27,4 @@ export const between = (now: Date, compare: Date): string => {
 	}
 
 	return "right now";
-};
+}

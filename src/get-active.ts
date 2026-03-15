@@ -15,12 +15,12 @@ export function getActiveTextEditor(): PartialTextEditor | undefined {
 	return vscodeWindow?.activeTextEditor;
 }
 
-export const NO_FILE_OR_PLACE = "N:-1";
+export const NO_FILE = "N:-1";
 
 export function getFilePosition(partial: PartialTextEditor): string {
 	if (partial.document.uri.scheme === "file") {
 		return `${partial.document.fileName}:${partial.selection.active.line}`;
 	}
 
-	return NO_FILE_OR_PLACE;
+	return NO_FILE;
 }
