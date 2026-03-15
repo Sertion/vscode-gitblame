@@ -17,6 +17,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 	await Promise.all<Disposable | undefined>([
 		import("./extension.js").then((i) => {
 			app = new i.Extension();
+			app.updateView();
 			return app;
 		}),
 		import("./logger.js").then((i) => i.Logger.createInstance()),

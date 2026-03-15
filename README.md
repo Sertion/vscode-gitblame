@@ -7,7 +7,7 @@ Features:
 * See Git blame information in-line for your currently selected line.
 * See Git blame information on the last selected line in your editor.
 * Quick link to open the latest commit on the current line in the most popular online git tools.
-* Open `git show` for the latest commit on the current line in an vscode terminal.
+* Open `git show` for the latest commit on the current line in an editor terminal.
 * Commands that can be bound to custom keyboard shortcuts.
 * Support for both SHA-1 and SHA-256 repositories.
 
@@ -17,7 +17,7 @@ Features:
 
 Git blame adds git blame information to your vscode compatible view. See information about what commit last changed a line and how long ago it was. Click the message to see more information about the commit. It is possible to edit all of these information messages in the settings. There are multiple tokens available. These are described below.
 
-Git Blame works very well with WSL but does not work with the web browser based vscode compatible editors.
+Git Blame works very well with WSL but does not work with the web browser based editors.
 
 ## Commands
 ### Show quick info

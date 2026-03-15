@@ -46,7 +46,6 @@ export class Extension {
 
 	constructor() {
 		this.disposable = this.setupListeners();
-		this.updateView();
 	}
 
 	public async blameLink(): Promise<void> {
