@@ -28,6 +28,6 @@ export async function getRevsFile(
 
 	return revsFiles.find(
 		(promise): promise is PromiseFulfilledResult<string> =>
-			promise.status === "fulfilled",
+			promise.status === "fulfilled" && promise.value !== undefined,
 	)?.value;
 }

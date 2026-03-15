@@ -13,7 +13,6 @@ export async function infoMessage<T extends MessageItem>(
 
 export async function errorMessage(
 	message: string,
-	...items: string[]
 ): Promise<string | undefined> {
-	return (await getvscode())?.window.showErrorMessage(message, ...items);
+	return (await getvscode())?.window.showErrorMessage(message);
 }

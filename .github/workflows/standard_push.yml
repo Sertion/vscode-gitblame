@@ -25,7 +25,7 @@ jobs:
               run: npm ci --ignore-scripts
 
             - name: Setup Biome CLI
-              uses: biomejs/setup-biome@29711cbb52afee00eb13aeb30636592f9edc0088 # v2.7.0
+              uses: biomejs/setup-biome@4c91541eaada48f67d7dbd7833600ce162b68f51 # v2.7.1
 
             - name: Code quality
               run: biome ci ./src/

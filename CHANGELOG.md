@@ -1,6 +1,7 @@
 # Change Log
 
-## 12.1.0 (March 15, 2026)
+## 12.1.0 (March 1x, 2026)
+* Bug: Fixed an issue when configuring multiple files in `revFile` and the first one was unreachable all following files where ignored
 * Fix: Now loads the extension as an ES module rather than CommonJS (for real this time)
 * Fix: Document the commands in the README
 * Enhancement: Moved away from using `@vscode/test-cli` to use `node:test` for speed and security
