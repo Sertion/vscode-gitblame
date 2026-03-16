@@ -1,6 +1,8 @@
 export class Line {
-	constructor(
-		public source: number,
-		public result: number,
-	) {}
+	public source: number;
+	public result: number;
+	constructor(source: number, result: number) {
+		this.source = source;
+		this.result = result;
+	}
 }

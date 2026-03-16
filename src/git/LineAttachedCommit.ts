@@ -5,11 +5,10 @@ import type { Line } from "./Line.js";
 export class LineAttachedCommit {
 	public readonly commit: Commit;
 	public readonly filename: string;
-	constructor(
-		{ commit, filename }: FileAttachedCommit,
-		public readonly line: Line,
-	) {
+	public readonly line: Line;
+	constructor({ commit, filename }: FileAttachedCommit, line: Line) {
 		this.commit = commit;
 		this.filename = filename;
+		this.line = line;
 	}
 }

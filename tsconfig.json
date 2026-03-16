@@ -15,6 +15,7 @@
 		"outDir": "./out/src/",
 		"rootDir": ".",
 		"resolveJsonModule": true,
+		"erasableSyntaxOnly": true,
 		"allowSyntheticDefaultImports": true,
 	},
 	"exclude": ["node_modules"],

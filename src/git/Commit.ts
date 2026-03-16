@@ -27,9 +27,10 @@ export class Commit {
 	public readonly author = new CommitAuthor();
 	public readonly committer = new CommitAuthor();
 	public summary = "";
+	public hash: string;
 	#isUncommitted = true;
 
-	constructor(public hash: string) {
+	constructor(hash: string) {
 		this.hash = hash;
 		this.updateHashStatus(hash);
 	}

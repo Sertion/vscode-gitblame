@@ -12,8 +12,11 @@ type HeadChangeEventCallbackFunction = (event: HeadChangeEvent) => void;
 export class GitRepositoryWatcher {
 	private readonly watchers: Map<string, AbortController> = new Map();
 	private callback: HeadChangeEventCallbackFunction = () => undefined;
+	private readonly file: string;
 
-	public constructor(private readonly file: string) {}
+	public constructor(file: string) {
+		this.file = file;
+	}
 
 	public onChange(callback: HeadChangeEventCallbackFunction): void {
 		this.callback = callback;

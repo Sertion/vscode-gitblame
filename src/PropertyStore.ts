@@ -47,7 +47,11 @@ export class PropertyStore {
 		return PropertyStore.instance.getConfig(name);
 	}
 
-	protected constructor(private readonly source: typeof getProperty) {}
+	private readonly source: typeof getProperty;
+
+	protected constructor(source: typeof getProperty) {
+		this.source = source;
+	}
 
 	protected getConfig<Key extends keyof PropertiesMap>(
 		name: Key,

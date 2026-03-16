@@ -72,11 +72,7 @@ export function normalizeCommitInfoTokens({
 	};
 }
 
-enum MODE {
-	OUT = 0,
-	IN = 1,
-	START = 2,
-}
+const MODE = { OUT: 0, IN: 1, START: 2 } as const;
 
 function createIndexOrEnd(
 	target: string,
@@ -133,7 +129,7 @@ function* parse<T extends InfoTokens>(
 ): Generator<TokenReplaceGroup> {
 	let lastSplit = 0;
 	let startIndex = 0;
-	let mode = MODE.OUT;
+	let mode: (typeof MODE)[keyof typeof MODE] = MODE.OUT;
 
 	for (let index = 0; index < target.length; index++) {
 		if (mode === MODE.OUT && target[index] === "$") {

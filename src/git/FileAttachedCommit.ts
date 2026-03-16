@@ -14,12 +14,11 @@ export class FileAttachedCommit {
 		return new FileAttachedCommit(registry[hash], new Lines(coverage));
 	}
 	public filename = "";
+	public commit: Commit;
 	readonly #lines: Lines;
 	#hasFilename = false;
-	private constructor(
-		public commit: Commit,
-		lines: Lines,
-	) {
+	private constructor(commit: Commit, lines: Lines) {
+		this.commit = commit;
 		this.#lines = lines;
 	}
 

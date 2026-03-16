@@ -30,7 +30,11 @@ export class Logger {
 		return Logger.instance;
 	}
 
-	private constructor(private readonly out: LoggerPipe | undefined) {}
+	private readonly out: LoggerPipe | undefined;
+
+	private constructor(out: LoggerPipe | undefined) {
+		this.out = out;
+	}
 
 	public static error(error: unknown): void {
 		if (error instanceof Error) {

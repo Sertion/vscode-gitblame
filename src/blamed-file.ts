@@ -14,8 +14,11 @@ export class BlamedFile {
 	private store?: Promise<Blame | undefined>;
 	private process?: Promise<BlameProcess>;
 	private killed = false;
+	public readonly filePath: string;
 
-	public constructor(public readonly filePath: string) {}
+	public constructor(filePath: string) {
+		this.filePath = filePath;
+	}
 
 	public getBlame(): Promise<Blame | undefined> {
 		this.store ??= this.blame();
