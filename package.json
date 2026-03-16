@@ -233,6 +233,11 @@
 						"Show extended hover information only for inline view",
 						"Show extended hover information only for the status bar item"
 					]
+				},
+				"gitblame.detectMoveOrCopyFromOtherFiles": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Detect lines moved or copied from other files when blaming (`-C` flag)"
 				}
 			}
 		}
