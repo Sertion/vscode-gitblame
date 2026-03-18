@@ -238,11 +238,6 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Detect lines moved or copied from other files when blaming (`-C` flag)"
-				},
-				"gitblame.gitBlameArgs": {
-					"type": "array",
-					"default": [],
-					"markdownDescription": "Additional arguments to pass to the `git blame` command"
 				}
 			}
 		}

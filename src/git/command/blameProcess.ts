@@ -14,8 +14,7 @@ export async function blameProcess(
 	realpathFileName: string,
 	revsFile: string | undefined,
 ): Promise<BlameProcess> {
-	const userArgs = PropertyStore.get("gitBlameArgs");
-	const args = ["blame", ...userArgs, "--incremental", "--", realpathFileName];
+	const args = ["blame", "--incremental", "--", realpathFileName];
 
 	if (PropertyStore.get("ignoreWhitespace")) {
 		args.splice(1, 0, "-w");

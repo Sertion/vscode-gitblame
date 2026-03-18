@@ -26,7 +26,6 @@ export type PropertiesMap = {
 	revsFile: string[];
 	extendedHoverInformation: "off" | "inline-status" | "inline" | "status";
 	detectMoveOrCopyFromOtherFiles: boolean;
-	gitBlameArgs: string[];
 };
 
 export class PropertyStore {
