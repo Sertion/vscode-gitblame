@@ -9,7 +9,6 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
-        environment: prime
         permissions:
             contents: read
 
