@@ -236,7 +236,7 @@
 				},
 				"gitblame.detectMoveOrCopyFromOtherFiles": {
 					"type": "boolean",
-					"default": true,
+					"default": false,
 					"markdownDescription": "Detect lines moved or copied from other files when blaming (`-C` flag)"
 				}
 			}
