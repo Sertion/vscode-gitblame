@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.0 (xxx xx, 2026)
+* Feature: Add detectMoveOrCopyFromOtherFiles to make -C flag optional [#204](https://github.com/Sertion/vscode-gitblame/pull/204). Thanks to [Jérôme Lécuyer](https://github.com/Jiogo18)!
+* Breaking: If you relied on having the `-C` flag tracking moved lines over file borders in a commit please set the new `gitblame.detectMoveOrCopyFromOtherFiles` setting to `1` or "Same commit" in the settings editor.
+
+A note: This extension has been an interesting project and it is, in my mind, feature complete. This in combination with vscode just getting more and more bloated marks the end of new feature development. I will still keep the [repository on github](https://github.com/Sertion/vscode-gitblame) open for bug reports.
+
 ## 12.1.0 (March 16, 2026)
 * Bug: Fixed an issue when configuring multiple files in `revFile` and the first one was unreachable all following files where ignored
 * Fix: Now loads the extension as an ES module rather than CommonJS (for real this time)
@@ -8,8 +14,6 @@
 * Enhancement: Added test cases for more high level sections of the extension
 * Enhancement: Added [Sonarqube scans](https://sonarcloud.io/project/overview?id=Sertion_vscode-gitblame)
 * Enhancement: New 3D icon depicting the perspective you get on git by using the extension
-
-A note: This extension has been an interesting project and it is, in my mind, feature complete. This in combination with vscode just getting more and more bloated marks the end of new feature development. I will still keep the [repository on github](https://github.com/Sertion/vscode-gitblame) open for bug reports.
 
 ## 12.0.3 (March 05, 2026)
 * Bug: Extension fails to find CWD for blame command on Windows [#203](https://github.com/Sertion/vscode-gitblame/issues/203). Thanks to [f4n0](https://github.com/f4n0), [tangbzai](https://github.com/tangbzai), and [ChenZheng1376](https://github.com/ChenZheng1376)!

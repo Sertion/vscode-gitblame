@@ -14,19 +14,23 @@ export async function blameProcess(
 	realpathFileName: string,
 	revsFile: string | undefined,
 ): Promise<BlameProcess> {
-	const args = ["blame", "--incremental", "--", realpathFileName];
+	const extraArgs: string[] = [];
 
 	if (PropertyStore.get("ignoreWhitespace")) {
-		args.splice(1, 0, "-w");
+		extraArgs.push("-w");
 	}
 
 	if (revsFile) {
-		args.splice(1, 0, "-S", revsFile);
+		extraArgs.push("-S", revsFile);
 	}
 
-	if (PropertyStore.get("detectMoveOrCopyFromOtherFiles")) {
-		args.splice(1, 0, "-C");
+	const moveCount = PropertyStore.get("detectMoveOrCopyFromOtherFiles");
+	const cCount = Number.isInteger(moveCount) ? moveCount : 0;
+	for (let i = 0; i < cCount; i++) {
+		extraArgs.push("-C");
 	}
+
+	const args = ["blame", ...extraArgs, "--incremental", "--", realpathFileName];
 
 	const cwd = dirname(realpathFileName);
 	const command = await getGitCommand();

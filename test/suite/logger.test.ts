@@ -44,5 +44,5 @@ suite("Logger", () => {
 		Logger.error(Symbol.for("Error"));
 
 		assert.strictEqual(error.mock.callCount(), 0);
-	})
+	});
 });

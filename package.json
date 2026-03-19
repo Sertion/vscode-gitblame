@@ -2,7 +2,7 @@
 	"name": "gitblame",
 	"displayName": "Git Blame",
 	"description": "See git blame information in the status bar or in-line.",
-	"version": "12.1.0",
+	"version": "13.0.0",
 	"publisher": "waderyan",
 	"private": true,
 	"type": "module",
@@ -110,11 +110,13 @@
 				"gitblame.infoMessageFormat": {
 					"type": "string",
 					"default": "${commit.summary}",
+					"scope": "resource",
 					"description": "Customize the info message"
 				},
 				"gitblame.statusBarMessageClickAction": {
 					"type": "string",
 					"default": "Show info message",
+					"scope": "resource",
 					"enum": [
 						"Show info message",
 						"Open tool URL",
@@ -131,56 +133,67 @@
 				"gitblame.statusBarMessageFormat": {
 					"type": "string",
 					"default": "Blame ${author.name} (${time.ago})",
+					"scope": "resource",
 					"description": "Customize the status bar message"
 				},
 				"gitblame.statusBarMessageNoCommit": {
 					"type": "string",
 					"default": "Not Committed Yet",
+					"scope": "resource",
 					"description": "Customize the status bar message"
 				},
 				"gitblame.statusBarPositionPriority": {
 					"type": "number",
 					"default": 500,
+					"scope": "resource",
 					"description": "Priority where the status bar view should be placed"
 				},
 				"gitblame.inlineMessageEnabled": {
 					"type": "boolean",
 					"default": false,
+					"scope": "resource",
 					"description": "Show blame information inline (next to the code)"
 				},
 				"gitblame.inlineMessageFormat": {
 					"type": "string",
 					"default": "Blame ${author.name} (${time.ago})",
+					"scope": "resource",
 					"description": "Customize the inline message"
 				},
 				"gitblame.inlineMessageNoCommit": {
 					"type": "string",
 					"default": "Not Committed Yet",
+					"scope": "resource",
 					"description": "Customize the inline message"
 				},
 				"gitblame.inlineMessageMargin": {
 					"type": "number",
 					"default": 2,
+					"scope": "resource",
 					"description": "The amount of margin between line and inline blame view"
 				},
 				"gitblame.currentUserAlias": {
 					"type": "string",
 					"default": "",
+					"scope": "resource",
 					"markdownDescription": "Replaces `${author.name}` and `${committer.name}` when the git config `user.email` matches the author's or committer's email address."
 				},
 				"gitblame.remoteName": {
 					"type": "string",
 					"default": "origin",
+					"scope": "resource",
 					"description": "The name of the git remote used to build the URL."
 				},
 				"gitblame.commitUrl": {
 					"type": "string",
 					"default": "${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
+					"scope": "resource",
 					"markdownDescription": "The link to an online tool to view a commit (use `${hash}` for the commit hash)."
 				},
 				"gitblame.ignoreWhitespace": {
 					"type": "boolean",
 					"default": false,
+					"scope": "resource",
 					"markdownDescription": "Ignore whitespace changes when blaming (`-w` flag)"
 				},
 				"gitblame.pluralWebPathSubstrings": {
@@ -189,32 +202,38 @@
 						"bitbucket",
 						"atlassian"
 					],
+					"scope": "resource",
 					"markdownDescription": "An array of substrings that, when present in the git origin URL, adds an extra _s_ to the url after _commit_ in `gitblame.commitUrl`'s default behavior"
 				},
 				"gitblame.delayBlame": {
 					"type": "number",
 					"default": 0,
+					"scope": "resource",
 					"description": "This setting adds a delay (in milliseconds) before the blame is displayed"
 				},
 				"gitblame.parallelBlames": {
 					"type": "number",
 					"minimum": 1,
 					"default": 2,
+					"scope": "resource",
 					"description": "Limit allowed parallel git blame process count"
 				},
 				"gitblame.maxLineCount": {
 					"type": "number",
 					"default": 16384,
+					"scope": "resource",
 					"markdownDescription": "Will skip blaming files with **more** lines than this value"
 				},
 				"gitblame.revsFile": {
 					"type": "array",
 					"default": [],
+					"scope": "resource",
 					"markdownDescription": "List of refs-file names to look for relative to the closest `.git`-folder. The first file in the list that is accessible will be used with the `-S`-argument in `git blame`."
 				},
 				"gitblame.extendedHoverInformation": {
 					"type": "string",
 					"default": "off",
+					"scope": "resource",
 					"enum": [
 						"off",
 						"inline-status",
@@ -235,9 +254,28 @@
 					]
 				},
 				"gitblame.detectMoveOrCopyFromOtherFiles": {
-					"type": "boolean",
-					"default": false,
-					"markdownDescription": "Detect lines moved or copied from other files when blaming (`-C` flag)"
+					"type": "number",
+					"default": 0,
+					"scope": "resource",
+					"markdownDescription": "Detect lines moved or copied from other files when blaming (`-C` flag)",
+					"enum": [
+						0,
+						1,
+						2,
+						3
+					],
+					"enumItemLabels": [
+						"Do not detect",
+						"Same commit",
+						"Same commit and file creation",
+						"All"
+					],
+					"enumDescriptions": [
+						"Do not look for copied or moved lines",
+						"Looks for copies from other files in the commit that modified the line (slow) (`-C`)",
+						"Looks for copies from other files in the commit that creates the file (slower) (`-C -C`)",
+						"Looks for copies from other files in any commit (slowest) (`-C -C -C`)"
+					]
 				}
 			}
 		}
