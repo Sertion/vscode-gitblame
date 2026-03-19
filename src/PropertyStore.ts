@@ -25,6 +25,7 @@ export type PropertiesMap = {
 	maxLineCount: number;
 	revsFile: string[];
 	extendedHoverInformation: "off" | "inline-status" | "inline" | "status";
+	detectMoveOrCopyFromOtherFiles: boolean;
 };
 
 export class PropertyStore {

@@ -14,7 +14,7 @@ export async function blameProcess(
 	realpathFileName: string,
 	revsFile: string | undefined,
 ): Promise<BlameProcess> {
-	const args = ["blame", "-C", "--incremental", "--", realpathFileName];
+	const args = ["blame", "--incremental", "--", realpathFileName];
 
 	if (PropertyStore.get("ignoreWhitespace")) {
 		args.splice(1, 0, "-w");
@@ -22,6 +22,10 @@ export async function blameProcess(
 
 	if (revsFile) {
 		args.splice(1, 0, "-S", revsFile);
+	}
+
+	if (PropertyStore.get("detectMoveOrCopyFromOtherFiles")) {
+		args.splice(1, 0, "-C");
 	}
 
 	const cwd = dirname(realpathFileName);
