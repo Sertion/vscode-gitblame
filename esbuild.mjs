@@ -1,4 +1,4 @@
-import { build } from "esbuild";
+import { analyzeMetafile, build } from "esbuild";
 
 const result = await build({
 	entryPoints: ["./src/index.ts"],
@@ -6,7 +6,7 @@ const result = await build({
 	format: "esm",
 	minify: true,
 	target: "node22.22",
-	outdir: "./out/src/",
+	outdir: "./out/",
 	sourcemap: !!process.env.SOURCEMAPS,
 	metafile: !!process.env.METAFILE,
 	splitting: true,
@@ -22,4 +22,7 @@ if (result.metafile) {
 			JSON.stringify(result.metafile),
 		);
 	});
+	console.log(await analyzeMetafile(result.metafile, {
+		verbose: true,
+	}));
 }

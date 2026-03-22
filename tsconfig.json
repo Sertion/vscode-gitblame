@@ -12,7 +12,7 @@
 			"es2024",
 		],
 		"strict": true,
-		"outDir": "./out/src/",
+		"outDir": "./out/",
 		"rootDir": ".",
 		"resolveJsonModule": true,
 		"erasableSyntaxOnly": true,
