@@ -3,6 +3,7 @@
 ## 13.0.0 (xxx xx, 2026)
 * Feature: Add detectMoveOrCopyFromOtherFiles to make -C flag optional [#204](https://github.com/Sertion/vscode-gitblame/pull/204). Thanks to [Jérôme Lécuyer](https://github.com/Jiogo18)!
 * Breaking: If you relied on having the `-C` flag tracking moved lines over file borders in a commit please set the new `gitblame.detectMoveOrCopyFromOtherFiles` setting to `1` or "Same commit" in the settings editor.
+* Fix: Moved to a more robust way of keeping an eye out for git changes that purge the cache.
 
 A note: This extension has been an interesting project and it is, in my mind, feature complete. This in combination with vscode just getting more and more bloated marks the end of new feature development. I will still keep the [repository on github](https://github.com/Sertion/vscode-gitblame) open for bug reports.
 

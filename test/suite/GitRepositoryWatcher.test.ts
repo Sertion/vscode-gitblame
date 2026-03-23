@@ -45,11 +45,14 @@ suite("GitRepositoryWatcher", async () => {
 	});
 
 	test("create instance", () => {
-		assert.ok(new GitRepositoryWatcher("") instanceof GitRepositoryWatcher);
+		assert.ok(new GitRepositoryWatcher() instanceof GitRepositoryWatcher);
 	});
 
 	test("should be able to add repository", async () => {
-		const instance = new GitRepositoryWatcher("file");
+		const instance = new GitRepositoryWatcher({
+			gitPath: "file",
+			isDirectory: true,
+		});
 
 		assert.strictEqual(
 			await instance.addRepository("/git/repository/path/.git"),
@@ -69,7 +72,10 @@ suite("GitRepositoryWatcher", async () => {
 	});
 
 	test("should call callback on watch event", async () => {
-		const instance = new GitRepositoryWatcher("file");
+		const instance = new GitRepositoryWatcher({
+			gitPath: "file",
+			isDirectory: false,
+		});
 		const fn = mock.fn();
 
 		instance.onChange(fn);
@@ -90,7 +96,10 @@ suite("GitRepositoryWatcher", async () => {
 	});
 
 	test("should handle watch error without crashing", async () => {
-		const instance = new GitRepositoryWatcher("file");
+		const instance = new GitRepositoryWatcher({
+			gitPath: "file",
+			isDirectory: true,
+		});
 
 		await instance.addRepository("/git/repository/path/.git");
 

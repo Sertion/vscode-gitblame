@@ -18,7 +18,7 @@ import { Commit } from "./git/Commit.js";
 import { git } from "./git/command/CachedGit.js";
 import type { HeadChangeEvent } from "./git/GitRepositoryWatcher.js";
 import { getToolUrl } from "./git/get-tool-url.js";
-import { HeadWatch } from "./git/head-watch.js";
+import { GitWatch } from "./git/git-watch.js";
 import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
 import { Logger } from "./logger.js";
 import { errorMessage, infoMessage } from "./message.js";
@@ -42,7 +42,7 @@ export class Extension {
 	private readonly disposable: Disposable;
 	private readonly blame = new Blamer();
 	private readonly view = new StatusBarView();
-	private readonly headWatcher = new HeadWatch();
+	private readonly gitWatcher = new GitWatch();
 
 	constructor() {
 		this.disposable = this.setupListeners();
@@ -188,7 +188,7 @@ export class Extension {
 		this.view.dispose();
 		this.disposable.dispose();
 		this.blame.dispose();
-		this.headWatcher.dispose();
+		this.gitWatcher.dispose();
 	}
 
 	private setupListeners(): Disposable {
@@ -199,7 +199,7 @@ export class Extension {
 			}
 		};
 
-		this.headWatcher.onChange(({ repositoryRoot }: HeadChangeEvent) =>
+		this.gitWatcher.onChange(({ repositoryRoot }: HeadChangeEvent) =>
 			this.blame.removeFromRepository(repositoryRoot),
 		);
 
@@ -279,10 +279,15 @@ export class Extension {
 	private async getLine(
 		editor: PartialTextEditor,
 	): Promise<LineAttachedCommit | undefined> {
-		this.headWatcher.addFile(
+		const repositoryPath = await git.getRepositoryFolder(
 			editor.document.fileName,
-			await git.getRepositoryFolder(editor.document.fileName),
 		);
+
+		if (!repositoryPath) {
+			return undefined;
+		}
+
+		this.gitWatcher.addFile(editor.document.fileName, repositoryPath);
 		return await this.blame.getLine(
 			editor.document.fileName,
 			editor.selection.active.line,

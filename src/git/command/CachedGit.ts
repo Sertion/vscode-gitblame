@@ -5,7 +5,10 @@ import type { execute as executeType } from "./execute.js";
 import { getGitCommand } from "./git-command.js";
 
 class CachedGitCommand {
-	private readonly gitConfigWatch = new GitRepositoryWatcher("config");
+	private readonly gitConfigWatch = new GitRepositoryWatcher({
+		gitPath: "config",
+		isDirectory: false,
+	});
 	private readonly commands = new Map<string, Promise<string | undefined>>();
 	private readonly folderToGitRepository = new Map<
 		string,

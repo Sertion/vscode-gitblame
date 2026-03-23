@@ -7,26 +7,42 @@ export type HeadChangeEvent = {
 	repositoryRoot: string;
 };
 
+type RepositoryTarget = {
+	gitPath: string;
+	isDirectory: boolean;
+};
+
 type HeadChangeEventCallbackFunction = (event: HeadChangeEvent) => void;
 
 export class GitRepositoryWatcher {
 	private readonly watchers: Map<string, AbortController> = new Map();
 	private callback: HeadChangeEventCallbackFunction = () => undefined;
-	private readonly file: string;
+	private readonly targets: ReadonlyArray<RepositoryTarget>;
 
-	public constructor(file: string) {
-		this.file = file;
+	public constructor(...targets: RepositoryTarget[]) {
+		this.targets = targets;
 	}
 
 	public onChange(callback: HeadChangeEventCallbackFunction): void {
 		this.callback = callback;
 	}
 
+	/**
+	 *
+	 * @param gitRepositoryPath Full absolute path to the `.git` folder
+	 * The return value from `git rev-parse --absolute-git-dir`
+	 * @example
+	 * ```/home/user/projects/my-project/.git```
+	 * @returns the path, with normalized drive letter
+	 */
 	public async addRepository(gitRepositoryPath: string): Promise<string> {
+		if (gitRepositoryPath === "") {
+			return "";
+		}
 		const gitRoot = this.normalizeWindowsDrivePath(gitRepositoryPath);
 		const watched = this.watchers.has(gitRoot);
 
-		if (!watched || gitRepositoryPath !== "") {
+		if (!watched) {
 			this.setupWatcher(gitRoot);
 		}
 
@@ -44,44 +60,57 @@ export class GitRepositoryWatcher {
 
 	private setupWatcher(gitRoot: string): void {
 		const root = resolve(gitRoot, "..");
-		const filePath = join(gitRoot, this.file);
 		const abort = new AbortController();
 
-		this.watchers.set(filePath, abort);
+		this.watchers.set(gitRoot, abort);
 
-		void this.waitForChanges(filePath, gitRoot, root, abort.signal);
+		for (const target of this.targets) {
+			void this.waitForChanges(target, gitRoot, root, abort.signal);
+		}
 	}
 
 	private async waitForChanges(
-		filePath: string,
+		target: RepositoryTarget,
 		gitRoot: string,
 		repositoryRoot: string,
 		signal: AbortSignal,
 	): Promise<void> {
 		try {
-			const watcher = watch(filePath, {
+			const fullPath = join(gitRoot, target.gitPath);
+			const watcher = watch(fullPath, {
 				persistent: false,
+				recursive: target.isDirectory,
 				signal,
 			});
 
-			Logger.debug(`File watcher for "${filePath}" created.`);
+			Logger.debug(
+				`${target.isDirectory ? "Recursive file" : "File"} watcher for "${target.gitPath}" created.`,
+			);
+			let lastTime = 0;
 
 			for await (const { filename, eventType } of watcher) {
+				if (Date.now() - lastTime <= 10) {
+					Logger.debug(
+						`File watcher callback for "${join(fullPath, filename ?? "__UNKNOWN_FILE__")}" called. Reason: "${eventType}". Already processed callback within 10ms. Skipping.`,
+					);
+					continue;
+				}
 				Logger.debug(
-					`File watcher callback for "${filename}" called. Reason: "${eventType}"`,
+					`File watcher callback for "${join(fullPath, filename ?? "__UNKNOWN_FILE__")}" called. Reason: "${eventType}"`,
 				);
 				this.callback({ gitRoot, repositoryRoot });
+				lastTime = Date.now();
 			}
 		} catch (err) {
 			Logger.debug(
-				`Repository watcher for "${filePath}" failed with error: "${err}"`,
+				`Repository watcher for "${target}" failed with error: "${err}"`,
 			);
 		}
 	}
 
 	private normalizeWindowsDrivePath(path: string): string {
-		if (path.length < 1) {
-			return path.toUpperCase();
+		if (!path) {
+			return path;
 		}
 		return path[0].toUpperCase() + path.slice(1);
 	}

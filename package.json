@@ -10,7 +10,7 @@
 		"vscode": ">=1.100.0",
 		"node": ">=22.22.0"
 	},
-	"main": "./out/src/index.js",
+	"main": "./out/index.js",
 	"scripts": {
 		"vscode:prepublish": "npm run build",
 		"build": "node esbuild.mjs",
