@@ -1,9 +1,9 @@
 # Change Log
 
-## 13.0.0 (xxx xx, 2026)
+## 13.0.0 (March 24, 2026)
 * Feature: Add detectMoveOrCopyFromOtherFiles to make -C flag optional [#204](https://github.com/Sertion/vscode-gitblame/pull/204). Thanks to [Jérôme Lécuyer](https://github.com/Jiogo18)!
 * Feature: Add current HEAD hash to tool URL tokens (`project.currenthash`). Thanks to [Tim Vergenz](https://github.com/vergenzt) for [the suggestion](https://github.com/Sertion/vscode-gitblame/issues/185)!
-* Feature: Add current branch name to tool URL tokens (`project.currentbranch`). Thanks to [Tim Vergenz](https://github.com/vergenzt) for [the suggestion](https://github.com/Sertion/vscode-gitblame/issues/185)
+* Feature: Add current branch name to tool URL tokens (`project.currentbranch`). Thanks to [Tim Vergenz](https://github.com/vergenzt) for [the suggestion](https://github.com/Sertion/vscode-gitblame/issues/185)!
 * Breaking: If you relied on having the `-C` flag tracking moved lines over file borders in a commit please set the new `gitblame.detectMoveOrCopyFromOtherFiles` setting to `1` or "Same commit" in the settings editor.
 * Fix: Moved to a more robust way of keeping an eye out for git changes that purge the cache.
 

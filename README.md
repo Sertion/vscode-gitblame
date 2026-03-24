@@ -15,9 +15,9 @@ Features:
 
 ![Feature Usage](https://raw.githubusercontent.com/Sertion/vscode-gitblame/master/images/preview.png)
 
-Git blame adds git blame information to your vscode compatible view. See information about what commit last changed a line and how long ago it was. Click the message to see more information about the commit. It is possible to edit all of these information messages in the settings. There are multiple tokens available. These are described below.
+*Git Blame* adds git blame information to your vscode compatible view. See information about what commit last changed a line and how long ago it was. Click the message to see more information about the commit. It is possible to edit all of these information messages in the settings. There are multiple tokens available. These are described below.
 
-Git Blame works very well with WSL but does not work with the web browser based editors.
+*Git Blame* works very well with WSL but does not work with the web browser based editors.
 
 ## Commands
 ### Show quick info
@@ -172,7 +172,20 @@ Availiable values:
 
 > Default value: `[]`
 
-List of refs-file names to look for relative to the closest `.git`-folder. The first file in the list that is [accessible](https://nodejs.org/docs/latest-v18.x/api/fs.html#fspromisesaccesspath-mode) will be used with the [`-S` argument](https://git-scm.com/docs/git-blame#Documentation/git-blame.txt--Sltrevs-filegt) in `git blame`.
+List of refs-file names to look for relative to the closest `.git`-folder. The first file in the list that is [accessible](https://nodejs.org/docs/latest-v22.x/api/fs.html#fspromisesaccesspath-mode) will be used with the [`-S` argument](https://git-scm.com/docs/git-blame#Documentation/git-blame.txt--Sltrevs-filegt) in `git blame`.
+
+### `gitblame.detectMoveOrCopyFromOtherFiles`
+> Type: `number`
+
+> Default value: `0`
+
+How many [`-C`-flags](https://git-scm.com/docs/git-blame#Documentation/git-blame.txt--Cnum) to add to the `git blame` command. The `<num>` argument is not used.
+
+Availiable values:
+* `0`
+* `1`
+* `2`
+* `3`
 
 ### Message Tokens
 
@@ -201,4 +214,4 @@ If your default terminal profile is set to `cmd.exe` `gitblame.gitShow` will not
 
 ## Acknowledgements
 
-* Logo is [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/) by [Jason Long](https://bsky.app/profile/jasonlong.me) accessible from [git-scm.com/community/logos](https://git-scm.com/community/logos).
+* Logo is a derivative of [git-scm.com/community/logos](https://git-scm.com/community/logos) ([CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/)) by [Jason Long](https://bsky.app/profile/jasonlong.me).
