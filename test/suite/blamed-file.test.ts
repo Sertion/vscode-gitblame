@@ -16,23 +16,24 @@ suite("BlamedFile base cases", async () => {
 		await setupPropertyStore();
 		await setupCachedGit();
 		Logger.createInstance();
+		const chunk = await readFile(
+			resolve(
+				import.meta.dirname,
+				"../fixture/git-stream-blame-incremental.chunks",
+			),
+			{ encoding: null },
+		);
 		mock.module("../../src/git/command/blameProcess.js", {
 			namedExports: {
 				blameProcess: async (
 					_realpathFileName: string,
 					_revsFile: string | undefined,
-				): Promise<BlameProcess> => ({
-					kill: () => true,
-					stderr: Readable.from([]),
-					stdout: Readable.from(
-						await readFile(
-							resolve(
-								import.meta.dirname,
-								"../fixture/git-stream-blame-incremental.chunks",
-							),
-						),
-					),
-				}),
+				): Promise<BlameProcess> =>
+					Promise.resolve({
+						kill: () => true,
+						stderr: Readable.from([]),
+						stdout: Readable.from(chunk),
+					}),
 			},
 			cache: false,
 		});
