@@ -53,10 +53,7 @@ class CachedGitCommand {
 		}
 	}
 
-	public async run(
-		path: string,
-		...args: string[]
-	): Promise<string | undefined> {
+	public async run(path: string, ...args: string[]): Promise<string> {
 		const cwd = dirname(path);
 		const key = `${args.join("@")}@${cwd}`;
 		const cached = await this.commands.get(key);
@@ -65,16 +62,25 @@ class CachedGitCommand {
 			return cached;
 		}
 
-		const result = Promise.resolve(
-			execute(getGitCommand(), args, {
-				cwd,
-				env: { ...process.env, LC_ALL: "C" },
-			}),
-		).catch(() => undefined);
+		try {
+			const result = Promise.resolve(
+				execute(getGitCommand(), args, {
+					cwd,
+					env: { ...process.env, LC_ALL: "C" },
+				}),
+			);
 
-		this.commands.set(key, result);
+			this.commands.set(key, result);
 
-		return result;
+			return await result;
+		} catch (err) {
+			if (err instanceof Error) {
+				Logger.error(
+					`Unable to call "<git> ${args.join(" ")}". Error: ${err.message}`,
+				);
+			}
+			throw err;
+		}
 	}
 
 	public clear(): void {

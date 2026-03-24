@@ -10,10 +10,7 @@ import {
 	parseTokens,
 } from "../string-stuff/text-decorator.js";
 import { getvscode } from "../vscode-quarantine.js";
-import { getActiveFileOrigin } from "./command/getActiveFileOrigin.js";
-import { getDefaultBranch } from "./command/getDefaultBranch.js";
-import { getRelativePathOfActiveFile } from "./command/getRelativePathOfActiveFile.js";
-import { getRemoteUrl } from "./command/getRemoteUrl.js";
+import { getGeneralGitInfo } from "./command/getGeneralGitInfo.js";
 import type { LineAttachedCommit } from "./LineAttachedCommit.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
@@ -23,6 +20,8 @@ export type ToolUrlTokens = {
 	hash: string;
 	"project.name": string;
 	"project.remote": string;
+	"project.currentbranch": string;
+	"project.defaultbranch": string;
 	"gitorigin.hostname": string | ((index?: string) => string | undefined);
 	"gitorigin.path": string | ((index?: string) => string | undefined);
 	"file.path": string;
@@ -91,36 +90,28 @@ function isToolUrlPlural(origin: string): boolean {
 export async function generateUrlTokens(
 	lineAware: LineAttachedCommit,
 ): Promise<ToolUrlTokens | undefined> {
-	const remoteName = PropertyStore.get("remoteName");
-
-	const origin = await getActiveFileOrigin(remoteName);
-
-	if (origin === remoteName || origin === undefined) {
+	const generalGit = await getGeneralGitInfo(PropertyStore.get("remoteName"));
+	if (generalGit === undefined || generalGit.remoteUrl === "") {
+		Logger.info("Unable to find remote URL. Can not provide URL.");
 		return;
 	}
 
-	const remoteUrl = await getRemoteUrl(remoteName);
-	if (remoteUrl === undefined) {
-		Logger.info("Unable to find remote URL. Can not provide URL");
-		return;
-	}
-
-	const tool = originUrlToToolUrl(remoteUrl);
-	const filePath = await getRelativePathOfActiveFile();
-	const defaultBranch = await getDefaultBranch(remoteName);
+	const tool = originUrlToToolUrl(generalGit.remoteUrl);
 
 	return {
 		hash: lineAware.commit.hash,
 		"tool.protocol": tool?.protocol ?? "https:",
-		"tool.commitpath": `/commit${isToolUrlPlural(remoteUrl) ? "s" : ""}/`,
-		"project.name": projectNameFromOrigin(origin),
-		"project.remote": stripGitRemoteUrl(remoteUrl),
-		"project.defaultbranch": defaultBranch ?? "UNABLE-TO-FIND-DEFAULT-BRANCH",
+		"tool.commitpath": `/commit${isToolUrlPlural(generalGit.remoteUrl) ? "s" : ""}/`,
+		"project.name": projectNameFromOrigin(generalGit.fileOrigin),
+		"project.remote": stripGitRemoteUrl(generalGit.remoteUrl),
+		"project.currentbranch": generalGit.currentBranch,
+		"project.defaultbranch": generalGit.defaultBranch,
+		"project.currenthash": generalGit.currentHash,
 		"gitorigin.hostname": tool ? gitOriginHostname(tool) : "no-origin-url",
-		"gitorigin.path": gitRemotePath(stripGitSuffix(origin)),
+		"gitorigin.path": gitRemotePath(stripGitSuffix(generalGit.fileOrigin)),
 		"gitorigin.port": tool?.port ? `:${tool.port}` : "",
-		"file.path": filePath ?? "UNABLE-TO-FIND-FILE-PATH",
-		"file.path.result": filePath ?? "UNABLE-TO-FIND-FILE-PATH",
+		"file.path": generalGit.relativePathOfActiveFile,
+		"file.path.result": generalGit.relativePathOfActiveFile,
 		"file.path.source": lineAware.filename,
 		"file.line": lineAware.line.result.toString(),
 		"file.line.result": lineAware.line.result.toString(),

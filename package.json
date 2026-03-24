@@ -28,7 +28,7 @@
 		"@types/vscode": "1.100.0",
 		"esbuild": "0.27.4",
 		"tsx": "4.21.0",
-		"typescript": "5.9.3"
+		"typescript": "6.0.2"
 	},
 	"homepage": "https://github.com/Sertion/vscode-gitblame/blob/main/README.md",
 	"bugs": {

@@ -50,14 +50,16 @@ Available tokens:
 * `${file.line}` - the line number of the line in the final file
 * `${file.line.result}` - the line number of the line in the final file
 * `${file.line.source}` - the line number of the line in the original file
-* `${project.defaultbranch}` - The current projects default branch
+* `${project.defaultbranch}` - the current project's default branch
+* `${project.currentbranch}` - the current project's current branch
+* `${project.currenthash}` - the current project's current branch's `HEAD`
 * `${project.name}` - your project name (e.g. `project_name` in `https://github.com/user/project_name.git`)
 * `${project.remote}` - the current default remote's URL with the protocol, port-specifiers, and trailing `.git` stripped. (e.g. `github.com/user/project_name` in `https://github.com/user/project_name.git`)
 * `${gitorigin.hostname}` - the git origin domain (e.g. `github.com` in `https://github.com/ckb-next/ckb-next.git`)
 * `${gitorigin.hostname,n}` - the nth part of the git origin domain (e.g. if the git origin is `https://github.com/ckb-next/ckb-next.git` `${gitorigin.hostname,1}` will return `com`)
 * `${gitorigin.path}` - the git origin path (e.g. `/ckb-next/ckb-next.git` in `https://github.com/ckb-next/ckb-next.git`)
 * `${gitorigin.path,n}` - the nth part of the git origin path (e.g. if the git origin is `https://github.com/ckb-next/ckb-next.git` `${gitorigin.path,1}` will return `ckb-next.git`)
-* `${gitorigin.port}` - the git origin port (if it uses http/https) including prefixed `:`
+* `${gitorigin.port}` - the git origin port (if it uses http/https) including `:` prefix when set to a value
 * `${tool.protocol}` - `http:` or `https:`
 * `${tool.commitpath}` - `/commit/` or `/commits/`
 

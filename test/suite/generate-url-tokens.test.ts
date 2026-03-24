@@ -7,6 +7,7 @@ import test, {
 	type TestContext,
 } from "node:test";
 import { setupCachedGit } from "../../src/git/command/CachedGit.js";
+import { Logger } from "../../src/logger.js";
 import { parseTokens } from "../../src/string-stuff/text-decorator.js";
 import { getExampleCommit } from "../getExampleCommit.js";
 import { setupPropertyStore } from "../setupPropertyStore.js";
@@ -44,6 +45,7 @@ const baseExecuteMock = {
 };
 
 suite("Generate URL Tokens", () => {
+	Logger.createInstance();
 	const exampleCommit = getExampleCommit();
 	beforeEach(async (): Promise<void> => {
 		mock.module("../../src/get-active.js", {

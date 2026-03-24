@@ -1,3 +1,5 @@
+import { type } from "node:os";
+
 import type { Extension } from "vscode";
 import type { GitExtension } from "../../../types/git.ts";
 import { Logger } from "../../logger.js";
@@ -5,6 +7,7 @@ import { getvscode } from "../../vscode-quarantine.js";
 
 let vscodeGit: Extension<GitExtension> | undefined;
 export async function getGitCommand(): Promise<string> {
+	const fallbackGit = type().startsWith("Windows") ? "git.exe" : "git";
 	try {
 		vscodeGit ??= (await getvscode())?.extensions.getExtension<GitExtension>(
 			"vscode.git",
@@ -15,11 +18,12 @@ export async function getGitCommand(): Promise<string> {
 		}
 	} catch {
 		Logger.info(
-			"`vscode.git` has not started yet or is not installed, falling back on `git.path` or `git` from $PATH. This is expected during startup",
+			`\`vscode.git\` has not started yet or is not installed, falling back on \`git.path\` or \`${fallbackGit}\` from $PATH. This is expected during startup`,
 		);
 	}
 
 	return (
-		(await getvscode())?.workspace.getConfiguration("git").get("path") ?? "git"
+		(await getvscode())?.workspace.getConfiguration("git").get("path") ??
+		fallbackGit
 	);
 }
