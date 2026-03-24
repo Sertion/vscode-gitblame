@@ -54,7 +54,7 @@ export class Blamer {
 
 	public remove(fileName: string): void {
 		const blame = this.files.get(fileName);
-		if (!blame) {
+		if (blame === undefined) {
 			return;
 		}
 
