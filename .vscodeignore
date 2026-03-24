@@ -3,10 +3,10 @@
 !README.md
 !CHANGELOG.md
 !LICENSE
-!out/src/index.js
 !images/git_icon_3d.png
-!out/src/extension-*.js
-!out/src/chunk-*.js
-!out/src/execute-*.js
-!out/src/logger-*.js
-!out/src/property-*.js
+!out/index.js
+!out/extension-*.js
+!out/chunk-*.js
+!out/execute-*.js
+!out/logger-*.js
+!out/property-*.js
