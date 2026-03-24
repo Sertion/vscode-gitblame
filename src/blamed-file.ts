@@ -72,6 +72,7 @@ export class BlamedFile {
 				blameInfo.set(lineAttachedCommit.line.result, lineAttachedCommit);
 			}
 		} catch (err) {
+			console.log("BlamedFile.blame Error: ", err);
 			Logger.error(err);
 			this.dispose();
 		}
