@@ -75,8 +75,8 @@ export class GitRepositoryWatcher {
 		repositoryRoot: string,
 		signal: AbortSignal,
 	): Promise<void> {
+		const fullPath = join(gitRoot, target.gitPath);
 		try {
-			const fullPath = join(gitRoot, target.gitPath);
 			const watcher = watch(fullPath, {
 				persistent: false,
 				recursive: target.isDirectory,
@@ -103,7 +103,7 @@ export class GitRepositoryWatcher {
 			}
 		} catch (err) {
 			Logger.debug(
-				`Repository watcher for "${target}" failed with error: "${err}"`,
+				`Repository watcher for "${fullPath}" failed with error: "${err}"`,
 			);
 		}
 	}

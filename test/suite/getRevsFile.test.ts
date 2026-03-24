@@ -27,9 +27,9 @@ const baseExecuteMock = {
 
 suite("Get revs files", () => {
 	Logger.createInstance();
-	afterEach(() => {
-		import("../../src/git/command/CachedGit.js").then((e) => e.git.clear());
-	});
+	afterEach(() =>
+		import("../../src/git/command/CachedGit.js").then(({ git }) => git.clear()),
+	);
 
 	test("Default revs file property", async () => {
 		await setupPropertyStore();

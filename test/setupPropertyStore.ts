@@ -8,8 +8,8 @@ class MockedPropertyStore extends PropertyStore {
 
 	public constructor(source: typeof getProperty) {
 		super(source);
-		// Needs to be here to appease the linter
 		this.overrides = {};
+		PropertyStore.instance = this;
 	}
 
 	public setOverride<Key extends keyof PropertiesMap>(
@@ -21,17 +21,12 @@ class MockedPropertyStore extends PropertyStore {
 
 	public clearOverrides(): void {
 		this.overrides = {};
-		PropertyStore.instance = undefined;
 	}
 
 	protected getConfig<Key extends keyof PropertiesMap>(
 		name: Key,
 	): PropertiesMap[Key] {
 		return this.overrides[name] ?? super.getConfig(name);
-	}
-
-	public setThisAsSource(): void {
-		PropertyStore.instance = this;
 	}
 }
 
@@ -43,7 +38,5 @@ export async function setupPropertyStore(): Promise<MockedPropertyStore> {
 		properties[key.replace("gitblame.", "")] = prop.default;
 	}
 
-	const store = new MockedPropertyStore((key) => properties[key]);
-	store.setThisAsSource();
-	return store;
+	return new MockedPropertyStore((key) => properties[key]);
 }
