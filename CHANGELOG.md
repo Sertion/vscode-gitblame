@@ -1,5 +1,8 @@
 # Change Log
 
+## 13.0.1 (March 29, 2026)
+* Bug: Fails to display the informational message on an unpublished branch [#205](https://github.com/Sertion/vscode-gitblame/issues/205). Thanks to [Jérôme Lécuyer](https://github.com/Jiogo18)!
+
 ## 13.0.0 (March 24, 2026)
 * Feature: Add detectMoveOrCopyFromOtherFiles to make -C flag optional [#204](https://github.com/Sertion/vscode-gitblame/pull/204). Thanks to [Jérôme Lécuyer](https://github.com/Jiogo18)!
 * Feature: Add current HEAD hash to tool URL tokens (`project.currenthash`). Thanks to [Tim Vergenz](https://github.com/vergenzt) for [the suggestion](https://github.com/Sertion/vscode-gitblame/issues/185)!
