@@ -37,12 +37,15 @@ export async function getGeneralGitInfo(fallbackRemote: string): Promise<
 	);
 	const currentRemote = currentBranch
 		.then((c) => git.run(fileName, "config", `branch.${c}.remote`))
-		.then((c) => c || fallbackRemote, () => fallbackRemote);
+		.then(
+			(c) => c || fallbackRemote,
+			() => fallbackRemote,
+		);
 
 	return {
-		remoteUrl: await currentRemote.then((c) =>
-			git.run(fileName, "config", `remote.${c}.url`),
-		).catch(() => ""),
+		remoteUrl: await currentRemote
+			.then((c) => git.run(fileName, "config", `remote.${c}.url`))
+			.catch(() => ""),
 		defaultBranch: await currentBranch.then((c) =>
 			git
 				.run(fileName, "rev-parse", "--abbrev-ref", `${c}/HEAD`)
