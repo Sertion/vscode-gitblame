@@ -13,8 +13,8 @@
 	"main": "./out/index.js",
 	"scripts": {
 		"vscode:prepublish": "npm run build",
-		"build": "node esbuild.mjs",
-		"build-with-sourcemaps": "SOURCEMAPS=1 node esbuild.mjs",
+		"build": "tsx esbuild.mts",
+		"build-with-sourcemaps": "SOURCEMAPS=1 tsx esbuild.mts",
 		"package": "npx @vscode/vsce package",
 		"lint": "biome lint ./src ./test --fix",
 		"check": "biome check ./src ./test --fix",
@@ -23,7 +23,7 @@
 		"test": "tsx --test --experimental-test-module-mocks \"./**/*.test.ts\""
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.9",
+		"@biomejs/biome": "2.4.10",
 		"@types/node": "22.9.0",
 		"@types/vscode": "1.100.0",
 		"esbuild": "0.27.4",
