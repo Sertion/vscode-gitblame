@@ -195,11 +195,13 @@ Availiable values:
 | `${commit.hash_short,length}` | Yes      | `length`  |             7 | the first `length` characters of the 40-bit (or 64-bit) hash unique to the commit |
 | `${commit.summary}`           | Yes      | `length`  |         65536 | the first `length` characters of the first line of the commit message |
 | `${author.name}`              | No       | -         | -             | the commit author's name |
+| `${author.first_name}`        | No       | -         | -             | the commit author's first name |
 | `${author.mail}`              | No       | -         | -             | the commit author's e-mail |
 | `${author.timestamp}`         | No       | -         | -             | timestamp for the commit author's commit |
 | `${author.tz}`                | No       | -         | -             | the commit author's time zone |
 | `${author.date}`              | No       | -         | -             | the commit author's date (ex: 1990-09-16) |
 | `${committer.name}`           | No       | -         | -             | the committer's name |
+| `${committer.first_name}`     | No       | -         | -             | the committer's first name |
 | `${committer.mail}`           | No       | -         | -             | the committer's e-mail |
 | `${committer.timestamp}`      | No       | -         | -             | timestamp for the committer's commit |
 | `${committer.tz}`             | No       | -         | -             | the committer's time zone |

@@ -2,6 +2,7 @@ import { between } from "../ago.js";
 import type { Commit, CommitLike } from "../git/Commit.js";
 import type { CommitAuthorLike } from "../git/CommitAuthor.js";
 import { PropertyStore } from "../PropertyStore.js";
+import { split } from "./split.js";
 
 type InfoTokenFunctionWithParameter = (value?: string) => string;
 type InfoTokenFunction = InfoTokenFunctionWithParameter | string;
@@ -13,6 +14,7 @@ export type InfoTokens = {
 export type InfoTokenNormalizedCommitInfo = {
 	"author.mail": string;
 	"author.name": string;
+	"author.first_name": string;
 	"author.timestamp": string;
 	"author.tz": string;
 	"author.date": string;
@@ -21,6 +23,7 @@ export type InfoTokenNormalizedCommitInfo = {
 	"commit.summary": InfoTokenFunctionWithParameter;
 	"committer.mail": string;
 	"committer.name": string;
+	"committer.first_name": string;
 	"committer.timestamp": string;
 	"committer.tz": string;
 	"committer.date": string;
@@ -47,12 +50,17 @@ export function normalizeCommitInfoTokens({
 		(length = ""): string => {
 			return target.slice(0, Number.parseInt(length || fallbackLength, 10));
 		};
+	const firstSplit = (target: string) => split(target)[0];
 	const currentUserAlias = PropertyStore.get("currentUserAlias");
 
 	return {
 		"author.mail": author.mail,
 		"author.name":
 			author.isCurrentUser && currentUserAlias ? currentUserAlias : author.name,
+		"author.first_name":
+			author.isCurrentUser && currentUserAlias
+				? currentUserAlias
+				: firstSplit(author.name),
 		"author.timestamp": author.timestamp,
 		"author.tz": author.tz,
 		"author.date": toIso(author),
@@ -61,6 +69,10 @@ export function normalizeCommitInfoTokens({
 			committer.isCurrentUser && currentUserAlias
 				? currentUserAlias
 				: committer.name,
+		"committer.first_name":
+			committer.isCurrentUser && currentUserAlias
+				? currentUserAlias
+				: firstSplit(committer.name),
 		"committer.timestamp": committer.timestamp,
 		"committer.tz": committer.tz,
 		"committer.date": toIso(committer),

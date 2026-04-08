@@ -294,6 +294,7 @@ suite("Text Decorator with CommitInfoToken", async (): Promise<void> => {
 
 	check("committer.mail", "<torvalds@linux-foundation.org>");
 	check("committer.name", "Linus Torvalds");
+	check("committer.first_name", "Linus");
 	check("committer.tz", "-0800");
 	check("committer.date", "2015-02-13");
 
@@ -460,6 +461,13 @@ suite("Current User Replace", async (): Promise<void> => {
 				normalizedCommitInfoTokens,
 			),
 			"Blame Linus Torvalds (list_lru: introduce per-memcg lists)",
+		);
+		assert.strictEqual(
+			parseTokens(
+				"Blame ${committer.first_name} (${commit.summary})",
+				normalizedCommitInfoTokens,
+			),
+			"Blame Linus (list_lru: introduce per-memcg lists)",
 		);
 	});
 });
