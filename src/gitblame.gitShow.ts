@@ -7,7 +7,9 @@ import { errorMessage } from "./message.js";
 import { PropertyStore } from "./PropertyStore.js";
 import { validEditor } from "./valid-editor.js";
 
-export async function gitShow(extension: Pick<Extension, "commit"> | undefined): Promise<void> {
+export async function gitShow(
+	extension: Pick<Extension, "commit"> | undefined,
+): Promise<void> {
 	const editor = getActiveTextEditor();
 
 	if (!validEditor(editor)) {
