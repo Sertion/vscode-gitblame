@@ -3,7 +3,7 @@ import { getToolUrl } from "./git/get-tool-url.js";
 import { errorMessage, infoMessage } from "./message.js";
 
 export async function addToolUrlToClipboard(
-	extension: Extension | undefined,
+	extension: Pick<Extension, "commit"> | undefined,
 	addToClipboard: (send: string) => Thenable<void>,
 ): Promise<void> {
 	const lineAware = await extension?.commit(false);

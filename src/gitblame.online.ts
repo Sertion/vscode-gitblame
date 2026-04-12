@@ -1,11 +1,10 @@
-import type { Uri } from "vscode";
 import type { Extension } from "./extension.js";
 import { getToolUrl } from "./git/get-tool-url.js";
 import { errorMessage } from "./message.js";
 
 export async function online(
-	extension: Extension | undefined,
-	executeCommand: (command: string, url: Uri) => Thenable<void>,
+	extension: Pick<Extension, "commit"> | undefined,
+	executeCommand: (command: string, url: URL) => Thenable<void>,
 ): Promise<void> {
 	const lineAware = await extension?.commit(false);
 	if (lineAware === undefined) {

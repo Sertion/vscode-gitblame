@@ -2,7 +2,7 @@ import type { Extension } from "./extension.js";
 import { errorMessage, infoMessage } from "./message.js";
 
 export async function addCommitHashToClipboard(
-	extension: Extension | undefined,
+	extension: Pick<Extension, "commit"> | undefined,
 	addToClipboard: (send: string) => Thenable<void>,
 ): Promise<void> {
 	const lineAware = await extension?.commit(false);

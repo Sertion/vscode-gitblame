@@ -13,7 +13,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
 	setvscodeForActiveTextEditor();
 	await setupCachedGit();
 
-	const vscodeCommands = getvscode().then((e) => e?.commands);
+	const vscode = getvscode();
+	const vscodeCommands = vscode.then((e) => e?.commands);
 
 	let app: Extension | undefined;
 
@@ -27,14 +28,26 @@ export async function activate(context: ExtensionContext): Promise<void> {
 		vscodeCommands.then((e) =>
 			e?.registerCommand("gitblame.quickInfo", () =>
 				import("./gitblame.quickInfo.js").then((c) =>
-					c.quickInfo(app, commands.executeCommand),
+					c.quickInfo(app, (command: string, url: URL) =>
+						vscode.then((v) =>
+							v
+								? commands.executeCommand(command, v.Uri.parse(url.toString()))
+								: undefined,
+						),
+					),
 				),
 			),
 		),
 		vscodeCommands.then((e) =>
 			e?.registerCommand("gitblame.online", () =>
 				import("./gitblame.online.js").then((c) =>
-					c.online(app, commands.executeCommand),
+					c.online(app, (command: string, url: URL) =>
+						vscode.then((v) =>
+							v
+								? commands.executeCommand(command, v.Uri.parse(url.toString()))
+								: undefined,
+						),
+					),
 				),
 			),
 		),

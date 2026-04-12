@@ -1,4 +1,4 @@
-import type { MessageItem, Uri } from "vscode";
+import type { MessageItem } from "vscode";
 import type { Extension } from "./extension.js";
 import { getActiveTextEditor } from "./get-active.js";
 import { getToolUrl } from "./git/get-tool-url.js";
@@ -15,8 +15,8 @@ type ActionableMessageItem = MessageItem & {
 };
 
 export async function quickInfo(
-	extension: Extension | undefined,
-	executeCommand: (command: string, url: Uri) => Thenable<void>,
+	extension: Pick<Extension, "commit" | "view"> | undefined,
+	executeCommand: (command: string, url: URL) => Thenable<void>,
 ): Promise<void> {
 	if (extension === undefined) {
 		return;

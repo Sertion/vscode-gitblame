@@ -1,5 +1,4 @@
 import { URL } from "node:url";
-import type { Uri as UriType } from "vscode";
 import { Logger } from "../logger.js";
 import { errorMessage } from "../message.js";
 import { PropertyStore } from "../PropertyStore.js";
@@ -9,7 +8,6 @@ import {
 	type InfoTokens,
 	parseTokens,
 } from "../string-stuff/text-decorator.js";
-import { getvscode } from "../vscode-quarantine.js";
 import { getGeneralGitInfo } from "./command/getGeneralGitInfo.js";
 import type { LineAttachedCommit } from "./LineAttachedCommit.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
@@ -119,10 +117,9 @@ export async function generateUrlTokens(
 	};
 }
 
-let Uri: typeof UriType | undefined;
 export async function getToolUrl(
 	commit?: LineAttachedCommit,
-): Promise<UriType | undefined> {
+): Promise<URL | undefined> {
 	if (!commit?.commit.isCommitted()) {
 		return;
 	}
@@ -135,11 +132,7 @@ export async function getToolUrl(
 	const parsedUrl = parseTokens(PropertyStore.get("commitUrl"), tokens);
 
 	if (isUrl(parsedUrl)) {
-		Uri ??= (await getvscode())?.Uri;
-		if (Uri === undefined) {
-			return;
-		}
-		return Uri.parse(parsedUrl, true);
+		return new URL(parsedUrl);
 	}
 
 	errorMessage(
