@@ -2,6 +2,7 @@ import { type FSWatcher, promises, watch } from "node:fs";
 import { type Disposable, workspace } from "vscode";
 import { type Blame, BlamedFile } from "./blamed-file.js";
 import { git } from "./git/command/CachedGit.js";
+import { GitWatch, type HeadChangeEvent } from "./git/git-watch.js";
 import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
 import { Queue } from "./git/queue.js";
 import { Logger } from "./logger.js";
@@ -21,6 +22,7 @@ export class Blamer {
 	private readonly blameQueue = new Queue<Blame | undefined>(
 		PropertyStore.get("parallelBlames"),
 	);
+	private readonly gitWatcher = new GitWatch();
 	private readonly configChange: Disposable;
 
 	public constructor() {
@@ -29,18 +31,19 @@ export class Blamer {
 				this.blameQueue.updateParallel(PropertyStore.get("parallelBlames"));
 			}
 		});
+		this.gitWatcher.onChange(({ repositoryRoot }: HeadChangeEvent) =>
+			this.removeFromRepository(repositoryRoot),
+		);
 	}
 
 	public async getLine(
 		fileName: string,
 		lineNumber: number,
 	): Promise<LineAttachedCommit | undefined> {
+		this.gitWatcher.addFile(fileName);
 		await this.prepareFile(fileName);
 
-		const commitLineNumber = lineNumber + 1;
-		const blameInfo = await this.files.get(fileName);
-
-		return blameInfo?.get(commitLineNumber);
+		return await this.files.get(fileName)?.then((e) => e?.get(lineNumber + 1));
 	}
 
 	public removeFromRepository(gitRepositoryPath: string): void {
@@ -71,6 +74,7 @@ export class Blamer {
 		for (const fileName of this.files.keys()) {
 			this.remove(fileName);
 		}
+		this.gitWatcher.dispose();
 		this.configChange.dispose();
 	}
 

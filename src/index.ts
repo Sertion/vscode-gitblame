@@ -1,6 +1,9 @@
 import type { Disposable, ExtensionContext } from "vscode";
 import type { Extension } from "./extension.js";
-import { setvscodeForActiveTextEditor } from "./get-active.js";
+import {
+	getActiveTextEditor,
+	setvscodeForActiveTextEditor,
+} from "./get-active.js";
 import { setupCachedGit } from "./git/command/CachedGit.js";
 import { PropertyStore } from "./PropertyStore.js";
 import { getvscode } from "./vscode-quarantine.js";
@@ -17,30 +20,38 @@ export async function activate(context: ExtensionContext): Promise<void> {
 	await Promise.all<Disposable | undefined>([
 		import("./extension.js").then((i) => {
 			app = new i.Extension();
-			app.updateView();
+			app.updateView(getActiveTextEditor());
 			return app;
 		}),
 		import("./logger.js").then((i) => i.Logger.createInstance()),
 		commands.then((e) =>
-			e?.registerCommand("gitblame.quickInfo", () => void app?.showMessage()),
-		),
-		commands.then((e) =>
-			e?.registerCommand("gitblame.online", () => void app?.blameLink()),
-		),
-		commands.then((e) =>
-			e?.registerCommand(
-				"gitblame.addCommitHashToClipboard",
-				() => void app?.copyHash(),
+			e?.registerCommand("gitblame.quickInfo", () =>
+				import("./gitblame.quickInfo.js").then((c) => c.quickInfo(app)),
 			),
 		),
 		commands.then((e) =>
-			e?.registerCommand(
-				"gitblame.addToolUrlToClipboard",
-				() => void app?.copyToolUrl(),
+			e?.registerCommand("gitblame.online", () =>
+				import("./gitblame.online.js").then((c) => c.online(app)),
 			),
 		),
 		commands.then((e) =>
-			e?.registerCommand("gitblame.gitShow", () => void app?.runGitShow()),
+			e?.registerCommand("gitblame.addCommitHashToClipboard", () =>
+				import("./gitblame.addCommitHashToClipboard.js").then((c) =>
+					c.addCommitHashToClipboard(app),
+				),
+			),
+		),
+		commands.then((e) =>
+			e?.registerCommand("gitblame.addToolUrlToClipboard", () =>
+				import("./gitblame.addToolUrlToClipboard.js").then((c) =>
+					c.addToolUrlToClipboard(app),
+				),
+			),
+		),
+		commands.then((e) =>
+			e?.registerCommand("gitblame.gitShow", () =>
+				import("./gitblame.gitShow.js").then((c) => c.gitShow(app)),
+			),
 		),
 	]).then((disposables) =>
 		context.subscriptions.push(...disposables.filter((e) => !!e)),

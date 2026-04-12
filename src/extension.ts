@@ -1,243 +1,62 @@
-import { dirname } from "node:path";
 import {
-	commands,
 	Disposable,
-	env,
-	type MessageItem,
 	type TextDocument,
 	type TextDocumentChangeEvent,
 	type TextEditor,
 	type TextEditorSelectionChangeEvent,
-	ThemeIcon,
 	window,
 	workspace,
 } from "vscode";
 import { Blamer } from "./blame.js";
-import { getActiveTextEditor, getFilePosition, NO_FILE } from "./get-active.js";
-import { Commit } from "./git/Commit.js";
-import { git } from "./git/command/CachedGit.js";
-import type { HeadChangeEvent } from "./git/GitRepositoryWatcher.js";
-import { getToolUrl } from "./git/get-tool-url.js";
-import { GitWatch } from "./git/git-watch.js";
+import { getActiveTextEditor } from "./get-active.js";
 import type { LineAttachedCommit } from "./git/LineAttachedCommit.js";
 import { Logger } from "./logger.js";
-import { errorMessage, infoMessage } from "./message.js";
 import { PropertyStore } from "./PropertyStore.js";
-import {
-	normalizeCommitInfoTokens,
-	parseTokens,
-} from "./string-stuff/text-decorator.js";
 import {
 	type Document,
 	type PartialTextEditor,
 	validEditor,
 } from "./valid-editor.js";
-import { StatusBarView } from "./view.js";
-
-type ActionableMessageItem = MessageItem & {
-	action: () => void;
-};
+import { View } from "./view.js";
 
 export class Extension {
-	private readonly disposable: Disposable;
-	private readonly blame = new Blamer();
-	private readonly view = new StatusBarView();
-	private readonly gitWatcher = new GitWatch();
+	public readonly blame = new Blamer();
+	public readonly view = new View();
 
-	constructor() {
-		this.disposable = this.setupListeners();
-	}
-
-	public async blameLink(): Promise<void> {
-		const lineAware = await this.commit(true);
-		if (lineAware === undefined) {
-			await errorMessage("No commit to copy link from");
-			return;
-		}
-		const toolUrl = await getToolUrl(lineAware);
-
-		if (toolUrl) {
-			await commands.executeCommand("vscode.open", toolUrl);
-		} else {
-			await errorMessage("Empty gitblame.commitUrl");
-		}
-	}
-
-	public async showMessage(): Promise<void> {
-		const lineAware = await this.commit(false);
-
-		if (!lineAware?.commit.isCommitted()) {
-			this.view.clear();
-			return;
-		}
-
-		const message = parseTokens(
-			PropertyStore.get("infoMessageFormat"),
-			normalizeCommitInfoTokens(lineAware.commit),
-		);
-		const toolUrl = await getToolUrl(lineAware);
-		const actions: ActionableMessageItem[] = [];
-
-		if (toolUrl) {
-			actions.push({
-				title: "Online",
-				action() {
-					commands.executeCommand("vscode.open", toolUrl);
-				},
-			});
-		}
-
-		actions.push({
-			title: "Terminal",
-			action: () => {
-				this.runGitShow();
-			},
-		});
-
-		this.view.set(lineAware.commit, getActiveTextEditor());
-
-		(await infoMessage(message, actions))?.action();
-	}
-
-	public async copyHash(): Promise<void> {
-		const lineAware = await this.commit(true);
-
-		if (lineAware?.commit.isCommitted()) {
-			await env.clipboard.writeText(lineAware.commit.hash);
-			await infoMessage("Copied hash");
-		} else {
-			await errorMessage("No commit to copy hash from");
-		}
-	}
-
-	public async copyToolUrl(): Promise<void> {
-		const lineAware = await this.commit(true);
-		if (lineAware === undefined) {
-			await errorMessage("No commit to copy link from");
-			return;
-		}
-		const toolUrl = await getToolUrl(lineAware);
-
-		if (toolUrl) {
-			await env.clipboard.writeText(toolUrl.toString());
-			await infoMessage("Copied tool URL");
-		} else {
-			await errorMessage("gitblame.commitUrl config empty");
-		}
-	}
-
-	public async runGitShow(): Promise<void> {
-		const editor = getActiveTextEditor();
-
-		if (!validEditor(editor)) {
-			return;
-		}
-
-		const currentLine = await this.commit(true);
-		if (currentLine === undefined) {
-			void errorMessage("Unable to get commit for current file/line.");
-			return;
-		}
-		const { hash } = currentLine.commit;
-
-		// Only ever allow HEAD or a git hash
-		if (hash !== "HEAD" && !Commit.IsHash(hash)) {
-			return;
-		}
-
-		const ignoreWhitespace = PropertyStore.get("ignoreWhitespace") ? "-w " : "";
-		const terminal = window.createTerminal({
-			name: `Git Blame: git show ${hash}`,
-			iconPath: new ThemeIcon("git-commit"),
-			isTransient: true,
-			cwd: dirname(editor.document.fileName),
-		});
-		terminal.sendText(`git show ${ignoreWhitespace}${hash}; exit 0`, true);
-		terminal.show();
-	}
+	private waitingForLine:
+		| undefined
+		| ((reason?: LineAttachedCommit | undefined) => void) = undefined;
+	private readonly disposable = this.setupListeners();
 
 	public async updateView(
-		editor = getActiveTextEditor(),
+		editor?: PartialTextEditor | undefined,
 		useDelay = true,
 	): Promise<void> {
+		this.waitingForLine?.();
 		if (!this.view.preUpdate(editor)) {
 			return;
 		}
 
-		if (this.isFileMaxLineCount(editor.document)) {
+		if (editor.document.lineCount > PropertyStore.get("maxLineCount")) {
+			this.view.fileTooLong();
 			return;
 		}
 
-		const before = getFilePosition(editor);
-		const line = await this.getLine(editor);
+		const { promise, resolve } = Promise.withResolvers<
+			LineAttachedCommit | undefined
+		>();
+		void this.blame
+			.getLine(editor.document.fileName, editor.selection.active.line)
+			.then(resolve);
 
-		const textEditorAfter = getActiveTextEditor();
-		if (!validEditor(textEditorAfter)) {
-			return;
-		}
-		const after = getFilePosition(textEditorAfter);
-
-		// Only update if we haven't moved since we started blaming
-		// or if we no longer have focus on any file
-		if (before === after || after === NO_FILE) {
-			this.view.set(line?.commit, textEditorAfter, useDelay);
+		const line = await promise;
+		if (line) {
+			this.view.set(line?.commit, editor, useDelay);
 		}
 	}
 
-	public dispose(): void {
-		this.view.dispose();
-		this.disposable.dispose();
-		this.blame.dispose();
-		this.gitWatcher.dispose();
-	}
-
-	private setupListeners(): Disposable {
-		const changeTextEditorSelection = (textEditor: TextEditor): void => {
-			const { scheme } = textEditor.document.uri;
-			if (scheme === "file" || scheme === "untitled") {
-				this.updateView(textEditor);
-			}
-		};
-
-		this.gitWatcher.onChange(({ repositoryRoot }: HeadChangeEvent) =>
-			this.blame.removeFromRepository(repositoryRoot),
-		);
-
-		return Disposable.from(
-			window.onDidChangeActiveTextEditor((textEditor): void => {
-				if (validEditor(textEditor)) {
-					this.view.activity();
-					changeTextEditorSelection(textEditor);
-				} else {
-					this.view.clear();
-				}
-			}),
-			window.onDidChangeTextEditorSelection(
-				({ textEditor }: TextEditorSelectionChangeEvent) => {
-					changeTextEditorSelection(textEditor);
-				},
-			),
-			workspace.onDidSaveTextDocument((document: TextDocument): void => {
-				if (getActiveTextEditor()?.document === document) {
-					this.updateView();
-				}
-			}),
-			workspace.onDidCloseTextDocument((document: Document): void => {
-				this.blame.remove(document.fileName);
-			}),
-			workspace.onDidChangeTextDocument(
-				({ document }: TextDocumentChangeEvent) => {
-					const textEditor = getActiveTextEditor();
-					if (textEditor?.document === document) {
-						this.updateView(textEditor, false);
-					}
-				},
-			),
-		);
-	}
-
-	private async commit(
-		hideActivity: boolean,
+	public async commit(
+		showActivity: boolean,
 	): Promise<LineAttachedCommit | undefined> {
 		const editor = getActiveTextEditor();
 
@@ -248,49 +67,58 @@ export class Extension {
 			return;
 		}
 
-		if (this.isFileMaxLineCount(editor.document)) {
+		if (editor.document.lineCount > PropertyStore.get("maxLineCount")) {
+			this.view.fileTooLong();
 			Logger.info("Git Blame is disabled for the current file");
 			return;
 		}
 
-		if (!hideActivity) {
+		if (showActivity) {
 			this.view.activity();
 		}
 
-		const line = await this.getLine(editor);
+		const fileName = editor.document.fileName;
+		const lineNumber = editor.selection.active.line;
+
+		const line = await this.blame.getLine(fileName, lineNumber);
 
 		if (!line) {
 			Logger.info(
-				"Unable to blame current line. Unable to get blame information for line.",
+				`Unable to blame "${fileName}:${lineNumber}". Failed to fetch blame information for it.`,
 			);
 		}
 
 		return line;
 	}
 
-	private isFileMaxLineCount(document: Document): boolean {
-		if (document.lineCount > PropertyStore.get("maxLineCount")) {
-			this.view.fileTooLong();
-			return true;
-		}
-		return false;
+	public dispose(): void {
+		this.blame.dispose();
+		this.view.dispose();
+		this.disposable.dispose();
 	}
 
-	private async getLine(
-		editor: PartialTextEditor,
-	): Promise<LineAttachedCommit | undefined> {
-		const repositoryPath = await git.getRepositoryFolder(
-			editor.document.fileName,
-		);
+	private setupListeners(): Disposable {
+		const changeTextEditorSelection = (
+			ev: TextEditor | TextEditorSelectionChangeEvent | undefined,
+		): void => {
+			this.updateView(ev && "textEditor" in ev ? ev.textEditor : ev);
+		};
+		const documentChange = (ev: TextDocumentChangeEvent | TextDocument) => {
+			const document = "document" in ev ? ev.document : ev;
+			const textEditor = getActiveTextEditor();
+			if (textEditor?.document === document) {
+				this.updateView(textEditor, false);
+			}
+		};
 
-		if (!repositoryPath) {
-			return undefined;
-		}
-
-		this.gitWatcher.addFile(editor.document.fileName, repositoryPath);
-		return await this.blame.getLine(
-			editor.document.fileName,
-			editor.selection.active.line,
+		return Disposable.from(
+			window.onDidChangeActiveTextEditor(changeTextEditorSelection),
+			window.onDidChangeTextEditorSelection(changeTextEditorSelection),
+			workspace.onDidSaveTextDocument(documentChange),
+			workspace.onDidChangeTextDocument(documentChange),
+			workspace.onDidCloseTextDocument((document: Document): void =>
+				this.blame.remove(document.fileName),
+			),
 		);
 	}
 }

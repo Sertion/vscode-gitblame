@@ -1,3 +1,4 @@
+import { git } from "./command/CachedGit.js";
 import { GitRepositoryWatcher } from "./GitRepositoryWatcher.js";
 
 export type HeadChangeEvent = {
@@ -21,16 +22,16 @@ export class GitWatch extends GitRepositoryWatcher {
 		);
 	}
 
-	public async addFile(
-		filePath: string,
-		gitRepositoryPath: string,
-	): Promise<void> {
+	public async addFile(filePath: string): Promise<void> {
 		if (this.foundPaths.has(filePath)) {
 			return;
 		}
 
 		this.foundPaths.add(filePath);
-		this.addRepository(gitRepositoryPath);
+		const gitRepositoryPath = await git.getRepositoryFolder(filePath);
+		if (gitRepositoryPath) {
+			this.addRepository(gitRepositoryPath);
+		}
 	}
 
 	public dispose(): void {
