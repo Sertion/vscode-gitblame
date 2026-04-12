@@ -1,4 +1,4 @@
-import { commands, type MessageItem } from "vscode";
+import type { MessageItem, Uri } from "vscode";
 import type { Extension } from "./extension.js";
 import { getActiveTextEditor } from "./get-active.js";
 import { getToolUrl } from "./git/get-tool-url.js";
@@ -16,6 +16,7 @@ type ActionableMessageItem = MessageItem & {
 
 export async function quickInfo(
 	extension: Extension | undefined,
+	executeCommand: (command: string, url: Uri) => Thenable<void>,
 ): Promise<void> {
 	if (extension === undefined) {
 		return;
@@ -35,7 +36,7 @@ export async function quickInfo(
 	if (toolUrl) {
 		actions.unshift({
 			title: "Online",
-			action: () => commands.executeCommand("vscode.open", toolUrl),
+			action: () => executeCommand("vscode.open", toolUrl),
 		});
 	}
 

@@ -45,6 +45,7 @@ export class Extension {
 		const { promise, resolve } = Promise.withResolvers<
 			LineAttachedCommit | undefined
 		>();
+		this.waitingForLine = resolve;
 		void this.blame
 			.getLine(editor.document.fileName, editor.selection.active.line)
 			.then(resolve);

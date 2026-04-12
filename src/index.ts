@@ -1,4 +1,4 @@
-import type { Disposable, ExtensionContext } from "vscode";
+import { commands, type Disposable, type ExtensionContext, env } from "vscode";
 import type { Extension } from "./extension.js";
 import {
 	getActiveTextEditor,
@@ -13,7 +13,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 	setvscodeForActiveTextEditor();
 	await setupCachedGit();
 
-	const commands = getvscode().then((e) => e?.commands);
+	const vscodeCommands = getvscode().then((e) => e?.commands);
 
 	let app: Extension | undefined;
 
@@ -24,31 +24,35 @@ export async function activate(context: ExtensionContext): Promise<void> {
 			return app;
 		}),
 		import("./logger.js").then((i) => i.Logger.createInstance()),
-		commands.then((e) =>
+		vscodeCommands.then((e) =>
 			e?.registerCommand("gitblame.quickInfo", () =>
-				import("./gitblame.quickInfo.js").then((c) => c.quickInfo(app)),
+				import("./gitblame.quickInfo.js").then((c) =>
+					c.quickInfo(app, commands.executeCommand),
+				),
 			),
 		),
-		commands.then((e) =>
+		vscodeCommands.then((e) =>
 			e?.registerCommand("gitblame.online", () =>
-				import("./gitblame.online.js").then((c) => c.online(app)),
+				import("./gitblame.online.js").then((c) =>
+					c.online(app, commands.executeCommand),
+				),
 			),
 		),
-		commands.then((e) =>
+		vscodeCommands.then((e) =>
 			e?.registerCommand("gitblame.addCommitHashToClipboard", () =>
 				import("./gitblame.addCommitHashToClipboard.js").then((c) =>
-					c.addCommitHashToClipboard(app),
+					c.addCommitHashToClipboard(app, env.clipboard.writeText),
 				),
 			),
 		),
-		commands.then((e) =>
+		vscodeCommands.then((e) =>
 			e?.registerCommand("gitblame.addToolUrlToClipboard", () =>
 				import("./gitblame.addToolUrlToClipboard.js").then((c) =>
-					c.addToolUrlToClipboard(app),
+					c.addToolUrlToClipboard(app, env.clipboard.writeText),
 				),
 			),
 		),
-		commands.then((e) =>
+		vscodeCommands.then((e) =>
 			e?.registerCommand("gitblame.gitShow", () =>
 				import("./gitblame.gitShow.js").then((c) => c.gitShow(app)),
 			),

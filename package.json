@@ -16,8 +16,8 @@
 		"build": "tsx esbuild.mts",
 		"build-with-sourcemaps": "SOURCEMAPS=1 tsx esbuild.mts",
 		"package": "npx @vscode/vsce package",
-		"lint": "biome lint ./src ./test --fix",
-		"check": "biome check ./src ./test --fix",
+		"lint": "biome lint ./src ./test --write",
+		"check": "biome check ./src ./test --write",
 		"update-test-snapshots": "tsx --test --experimental-test-module-mocks --test-update-snapshots \"./**/*.test.ts\"",
 		"test-coverage": "tsx --test --experimental-test-module-mocks --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=./lcov.info  \"./**/*.test.ts\"",
 		"test": "tsx --test --experimental-test-module-mocks \"./**/*.test.ts\""

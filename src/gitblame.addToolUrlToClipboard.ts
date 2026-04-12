@@ -1,10 +1,10 @@
-import { env } from "vscode";
 import type { Extension } from "./extension.js";
 import { getToolUrl } from "./git/get-tool-url.js";
 import { errorMessage, infoMessage } from "./message.js";
 
 export async function addToolUrlToClipboard(
 	extension: Extension | undefined,
+	addToClipboard: (send: string) => Thenable<void>,
 ): Promise<void> {
 	const lineAware = await extension?.commit(false);
 	if (lineAware === undefined) {
@@ -14,7 +14,7 @@ export async function addToolUrlToClipboard(
 	const toolUrl = await getToolUrl(lineAware);
 
 	if (toolUrl) {
-		await env.clipboard.writeText(toolUrl.toString());
+		await addToClipboard(toolUrl.toString());
 		await infoMessage("Copied tool URL");
 	} else {
 		await errorMessage("gitblame.commitUrl config empty");
