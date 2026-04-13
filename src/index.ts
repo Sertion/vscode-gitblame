@@ -23,7 +23,18 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 	let app: Extension | undefined;
 
-	await Promise.all<Disposable | undefined>([
+	await Promise.all([
+		import("./extension.js").then((i) => {
+			app = new i.Extension();
+			app.updateView(getActiveTextEditor());
+			return app;
+		}),
+		import("./logger.js").then((i) => i.Logger.createInstance()),
+	]).then((disposables) =>
+		context.subscriptions.push(...disposables.filter((e) => !!e)),
+	)
+
+	context.subscriptions.push(...[
 		vscode?.commands?.registerCommand("gitblame.quickInfo", () =>
 			import("./gitblame.quickInfo.js").then((c) => {
 				if (vscode) {
@@ -55,13 +66,5 @@ export async function activate(context: ExtensionContext): Promise<void> {
 				}
 			}),
 		),
-		import("./extension.js").then((i) => {
-			app = new i.Extension();
-			app.updateView(getActiveTextEditor());
-			return app;
-		}),
-		import("./logger.js").then((i) => i.Logger.createInstance()),
-	]).then((disposables) =>
-		context.subscriptions.push(...disposables.filter((e) => !!e)),
-	);
+	].filter((e) => !!e));
 }
