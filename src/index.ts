@@ -1,4 +1,4 @@
-import { commands, type Disposable, type ExtensionContext, env } from "vscode";
+import type { Disposable, ExtensionContext } from "vscode";
 import type { Extension } from "./extension.js";
 import {
 	getActiveTextEditor,
@@ -13,58 +13,54 @@ export async function activate(context: ExtensionContext): Promise<void> {
 	setvscodeForActiveTextEditor();
 	await setupCachedGit();
 
-	const vscode = getvscode();
-	const vscodeCommands = vscode.then((e) => e?.commands);
+	const vscode = await getvscode();
 
-	const executeCommand = (command: string, url: URL): Thenable<void> =>
-		vscode.then((v) =>
-			v
-				? commands.executeCommand(command, v.Uri.parse(url.toString()))
-				: undefined,
-		);
+	const executeCommand = async (command: string, url: URL): Promise<void> => {
+		if (vscode) {
+			vscode.commands.executeCommand(command, vscode.Uri.parse(url.toString()));
+		}
+	};
 
 	let app: Extension | undefined;
 
 	await Promise.all<Disposable | undefined>([
+		vscode?.commands?.registerCommand("gitblame.quickInfo", () =>
+			import("./gitblame.quickInfo.js").then((c) => {
+				if (vscode) {
+					c.quickInfo(app, executeCommand, vscode.window.createTerminal);
+				}
+			}),
+		),
+		vscode?.commands?.registerCommand("gitblame.online", () =>
+			import("./gitblame.online.js").then((c) => c.online(app, executeCommand)),
+		),
+		vscode?.commands?.registerCommand("gitblame.addCommitHashToClipboard", () =>
+			import("./gitblame.addCommitHashToClipboard.js").then((c) => {
+				if (vscode) {
+					c.addCommitHashToClipboard(app, vscode.env.clipboard.writeText);
+				}
+			}),
+		),
+		vscode?.commands?.registerCommand("gitblame.addToolUrlToClipboard", () =>
+			import("./gitblame.addToolUrlToClipboard.js").then((c) => {
+				if (vscode) {
+					c.addToolUrlToClipboard(app, vscode.env.clipboard.writeText);
+				}
+			}),
+		),
+		vscode?.commands?.registerCommand("gitblame.gitShow", () =>
+			import("./gitblame.gitShow.js").then((c) => {
+				if (vscode) {
+					c.gitShow(app, vscode.window.createTerminal);
+				}
+			}),
+		),
 		import("./extension.js").then((i) => {
 			app = new i.Extension();
 			app.updateView(getActiveTextEditor());
 			return app;
 		}),
 		import("./logger.js").then((i) => i.Logger.createInstance()),
-		vscodeCommands.then((e) =>
-			e?.registerCommand("gitblame.quickInfo", () =>
-				import("./gitblame.quickInfo.js").then((c) =>
-					c.quickInfo(app, executeCommand),
-				),
-			),
-		),
-		vscodeCommands.then((e) =>
-			e?.registerCommand("gitblame.online", () =>
-				import("./gitblame.online.js").then((c) =>
-					c.online(app, executeCommand),
-				),
-			),
-		),
-		vscodeCommands.then((e) =>
-			e?.registerCommand("gitblame.addCommitHashToClipboard", () =>
-				import("./gitblame.addCommitHashToClipboard.js").then((c) =>
-					c.addCommitHashToClipboard(app, env.clipboard.writeText),
-				),
-			),
-		),
-		vscodeCommands.then((e) =>
-			e?.registerCommand("gitblame.addToolUrlToClipboard", () =>
-				import("./gitblame.addToolUrlToClipboard.js").then((c) =>
-					c.addToolUrlToClipboard(app, env.clipboard.writeText),
-				),
-			),
-		),
-		vscodeCommands.then((e) =>
-			e?.registerCommand("gitblame.gitShow", () =>
-				import("./gitblame.gitShow.js").then((c) => c.gitShow(app)),
-			),
-		),
 	]).then((disposables) =>
 		context.subscriptions.push(...disposables.filter((e) => !!e)),
 	);

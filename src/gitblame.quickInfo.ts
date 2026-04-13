@@ -1,4 +1,4 @@
-import type { MessageItem } from "vscode";
+import type { MessageItem, Terminal, TerminalOptions } from "vscode";
 import type { Extension } from "./extension.js";
 import { getActiveTextEditor } from "./get-active.js";
 import { getToolUrl } from "./git/get-tool-url.js";
@@ -17,6 +17,9 @@ type ActionableMessageItem = MessageItem & {
 export async function quickInfo(
 	extension: Pick<Extension, "commit" | "view"> | undefined,
 	executeCommand: (command: string, url: URL) => Thenable<void>,
+	createTerminal: (
+		options: TerminalOptions,
+	) => Pick<Terminal, "show" | "sendText">,
 ): Promise<void> {
 	if (extension === undefined) {
 		return;
@@ -29,7 +32,7 @@ export async function quickInfo(
 	}
 
 	const actions: ActionableMessageItem[] = [
-		{ title: "Terminal", action: () => gitShow(extension) },
+		{ title: "Terminal", action: () => gitShow(extension, createTerminal) },
 	];
 
 	const toolUrl = await getToolUrl(lineAware);
