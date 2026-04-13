@@ -64,6 +64,18 @@ suite("blameProcess", async (): Promise<void> => {
 			"_file_",
 		]);
 	});
+	test("with ignore whitespace set to false", async (): Promise<void> => {
+		propStore.setOverride("ignoreWhitespace", false);
+		await blameProcess("_file_", undefined);
+
+		assert.strictEqual(spawnMock.mock.callCount(), 1);
+		assert.deepStrictEqual(spawnMock.mock.calls[0].arguments[1], [
+			"blame",
+			"--incremental",
+			"--",
+			"_file_",
+		]);
+	});
 
 	test("with detect move or copy from other files (1)", async (): Promise<void> => {
 		propStore.setOverride("detectMoveOrCopyFromOtherFiles", 1);

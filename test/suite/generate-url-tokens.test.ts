@@ -19,21 +19,36 @@ function call(
 	return typeof func === "string" ? func : func(arg);
 }
 
+type ExecuteMock = {
+	[key: `config branch.${string}.remote`]: string;
+	[key: `config remote.${string}.url`]: string;
+	"ls-files --full-name -- /fake.file": string;
+	[key: `ls-remote --get-url ${string}`]: string;
+	[key: `rev-parse --abbrev-ref ${string}/HEAD`]: string;
+	"rev-parse --absolute-git-dir": string;
+	"symbolic-ref -q --short HEAD": string;
+};
 async function setupMocks(
 	t: TestContext,
-	executeMock: typeof baseExecuteMock,
+	executeMock: ExecuteMock,
+	errorMocks: Partial<ExecuteMock> = {},
 ): Promise<ReturnType<typeof setupPropertyStore>> {
 	t.mock.module("../../src/git/command/execute.js", {
 		namedExports: {
-			execute: async (_: Promise<string>, args: string[]): Promise<string> =>
-				executeMock[args.join(" ") as keyof typeof executeMock] ?? "",
+			execute: async (_: Promise<string>, args: string[]): Promise<string> => {
+				const key = args.join(" ") as keyof typeof executeMock;
+				if (errorMocks[key] !== undefined) {
+					throw new Error(errorMocks[key]);
+				}
+				return executeMock[key] ?? "";
+			},
 		},
 	});
 	await setupCachedGit();
 	return await setupPropertyStore();
 }
 
-const baseExecuteMock = {
+const baseExecuteMock: ExecuteMock = {
 	"config branch.main.remote": "origin",
 	"config remote.origin.url": "https://github.com/Sertion/vscode-gitblame.git",
 	"ls-files --full-name -- /fake.file": "/fake.file",
@@ -236,6 +251,25 @@ suite("Generate URL Tokens", () => {
 			"ls-remote --get-url origin": "origin",
 		});
 		prop.setOverride("remoteName", "origin");
+
+		const tokens = await (
+			await import("../../src/git/get-tool-url.js")
+		).generateUrlTokens(exampleCommit);
+
+		prop.clearOverrides();
+
+		assert.strictEqual(tokens, undefined);
+	});
+	test("configured with empty gitblame.remoteName", async (t) => {
+		const prop = await setupMocks(
+			t,
+			{
+				...baseExecuteMock,
+				"config remote..url": "",
+			},
+			{ "config branch.main.remote": "TEST-ERROR" },
+		);
+		prop.setOverride("remoteName", "");
 
 		const tokens = await (
 			await import("../../src/git/get-tool-url.js")

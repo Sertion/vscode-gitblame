@@ -3,7 +3,6 @@ export function stripGitSuffix(rawUrl: string): string {
 }
 
 export function stripGitRemoteUrl(rawUrl: string): string {
-	// Remove .git-suffix
 	return (
 		stripGitSuffix(rawUrl)
 			// Remove protocol
