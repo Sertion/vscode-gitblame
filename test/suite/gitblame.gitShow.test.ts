@@ -4,7 +4,6 @@ import type { TerminalOptions } from "vscode";
 import type { gitShow as gitShowType } from "../../src/gitblame.gitShow.js";
 import { getExampleCommit } from "../getExampleCommit.js";
 import { setupPropertyStore } from "../setupPropertyStore.js";
-import { Logger } from "../../src/logger.js";
 
 suite("gitblame.gitShow", () => {
 	let gitShow: typeof gitShowType;

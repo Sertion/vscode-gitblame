@@ -29,7 +29,9 @@ export async function gitShow(
 
 	// Only ever allow things we know git could give as output
 	if (hash !== "HEAD" && !Commit.IsHash(hash)) {
-		void errorMessage("Got invalid git reference value for 'git show'. Aborting.");
+		void errorMessage(
+			"Got invalid git reference value for 'git show'. Aborting.",
+		);
 		return;
 	}
 
