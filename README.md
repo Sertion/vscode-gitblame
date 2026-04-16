@@ -193,7 +193,7 @@ Availiable values:
 |-------------------------------|----------|-----------|---------------|-------------|
 | `${commit.hash,length}`       | Yes      | `length`  |            64 | the first `length` characters of the 40-bit (or 64-bit) hash unique to the commit |
 | `${commit.hash_short,length}` | Yes      | `length`  |             7 | the first `length` characters of the 40-bit (or 64-bit) hash unique to the commit |
-| `${commit.summary}`           | Yes      | `length`  |         65536 | the first `length` characters of the first line of the commit message |
+| `${commit.summary,length}`    | Yes      | `length`  |         65536 | the first `length` characters of the first line of the commit message |
 | `${author.name}`              | No       | -         | -             | the commit author's name |
 | `${author.mail}`              | No       | -         | -             | the commit author's e-mail |
 | `${author.timestamp}`         | No       | -         | -             | timestamp for the commit author's commit |
@@ -206,6 +206,8 @@ Availiable values:
 | `${committer.date}`           | No       | -         | -             | the committer's date (ex: 1990-09-16) |
 | `${time.ago}`                 | No       | -         | -             | displays an estimation of how long ago the author committed (e.g. `10 hours ago`, `20 days ago`, `4 months ago`) |
 | `${time.c_ago}`               | No       | -         | -             | displays an estimation of how long ago the committer committed (e.g. `10 hours ago`, `20 days ago`, `4 months ago`) |
+
+Note: function tokens have an _optional_ parameter, for example both `${commit.summary}` and `${commit.summary,20}` may be used.
 
 ## Known issues
 ### The `gitblame.gitShow` command does not work with _my shell_
