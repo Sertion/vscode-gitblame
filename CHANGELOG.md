@@ -1,5 +1,10 @@
 # Change Log
 
+## Possible upcoming release
+* Fix: Create fewer instances of vscode objects just to use them once and never again
+* Feature: Setting `gitblame.commitUrl` to `""` removes the `Online` button in `gitblame.quickInfo`. Thanks to [Simon Sobisch](https://github.com/GitMensch) for [the suggestion](https://github.com/Sertion/vscode-gitblame/issues/207)!
+* Feature: Better user feedback when commands abort actions for various reasons.
+
 ## 13.0.1 (March 29, 2026)
 * Bug: Fails to display the informational message on an unpublished branch [#205](https://github.com/Sertion/vscode-gitblame/issues/205). Thanks to [Jérôme Lécuyer](https://github.com/Jiogo18)!
 

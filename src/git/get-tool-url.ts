@@ -120,6 +120,10 @@ export async function generateUrlTokens(
 export async function getToolUrl(
 	commit?: LineAttachedCommit,
 ): Promise<URL | undefined> {
+	const commitUrl = PropertyStore.get("commitUrl");
+	if (commitUrl === "") {
+		return;
+	}
 	if (!commit?.commit.isCommitted()) {
 		return;
 	}
