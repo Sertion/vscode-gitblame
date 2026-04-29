@@ -4,9 +4,4 @@
 !CHANGELOG.md
 !LICENSE
 !images/git_icon_3d.png
-!out/index.js
-!out/extension-*.js
-!out/chunk-*.js
-!out/execute-*.js
-!out/logger-*.js
-!out/property-*.js
+!out/*
