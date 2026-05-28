@@ -21,7 +21,7 @@ export async function execute(
 		{ ...options, encoding: "utf8" },
 		(error, stdout, stderr): void => {
 			if (error || stderr) {
-				reject(error || stderr);
+				reject(error ?? stderr);
 			} else {
 				resolve(stdout.trim());
 			}
