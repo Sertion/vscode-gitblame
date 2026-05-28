@@ -4,10 +4,10 @@
 		"dist": true,
 		"nod_modules": true
 	},
-	"typescript.tsdk": "./node_modules/typescript/lib",
+	"js/ts.tsdk.path": "./node_modules/typescript/lib",
 	"editor.insertSpaces": false,
 	"editor.formatOnSave": true,
-	"javascript.validate.enable": true,
+	"js/ts.validate.enabled": true,
 	"editor.showUnused": true,
 	"[typescript]": {
 		"editor.defaultFormatter": "biomejs.biome",

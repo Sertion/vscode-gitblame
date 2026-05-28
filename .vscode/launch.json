@@ -6,12 +6,9 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
-			"args": [
-				"--disable-extensions",
-				"--extensionDevelopmentPath=${workspaceRoot}"
-			],
+			"args": ["--extensionDevelopmentPath=${workspaceRoot}"],
 			"sourceMaps": true,
-			"outFiles": ["${workspaceRoot}/out/src/**/*.js"],
+			"outFiles": ["${workspaceRoot}/out/**/*.js"],
 			"preLaunchTask": "npm: build-with-sourcemaps"
 		}
 	]
