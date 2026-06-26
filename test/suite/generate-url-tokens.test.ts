@@ -33,6 +33,10 @@ async function setupMocks(
 	executeMock: ExecuteMock,
 	errorMocks: Partial<ExecuteMock> = {},
 ): Promise<ReturnType<typeof setupPropertyStore>> {
+	t.mock.module("node:fs/promises", {
+		namedExports: { realpath: async (path: string): Promise<string> => path },
+	});
+
 	t.mock.module("../../src/git/command/execute.js", {
 		namedExports: {
 			execute: async (_: Promise<string>, args: string[]): Promise<string> => {
