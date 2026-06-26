@@ -1,6 +1,7 @@
 # Change Log
 
-## Possible upcoming release
+## 13.1.0 (June 26, 2026)
+* Bug: Crash when generating file information for symlinked file [#215](https://github.com/Sertion/vscode-gitblame/issues/215). Thanks to [bhchoi-crema](https://github.com/bhchoi-crema)!
 * Feature: Adding hash to the extended hover information for statusbar and inline.
 * Feature: Better user feedback when commands abort actions for various reasons.
 * Feature: Setting `gitblame.commitUrl` to `""` removes the `Online` button in `gitblame.quickInfo`. Thanks to [Simon Sobisch](https://github.com/GitMensch) for [the suggestion](https://github.com/Sertion/vscode-gitblame/issues/207)!
