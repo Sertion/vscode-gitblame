@@ -36,6 +36,16 @@ export class Blamer {
 		);
 	}
 
+	/**
+	 * Return the full blame map for a file (line -> LineAttachedCommit | undefined).
+	 * This reuses the existing cache and setup logic.
+	 */
+	public async getBlame(fileName: string): Promise<Blame | undefined> {
+		this.gitWatcher.addFile(fileName);
+		await this.prepareFile(fileName);
+		return await this.files.get(fileName);
+	}
+
 	public async getLine(
 		fileName: string,
 		lineNumber: number,

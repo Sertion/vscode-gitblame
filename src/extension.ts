@@ -22,6 +22,14 @@ import { View } from "./view.js";
 export class Extension {
 	public readonly blame = new Blamer();
 	public readonly view = new View();
+	public readonly annotation: import("./annotation.js").AnnotationController;
+
+	public constructor() {
+		// lazy create annotation controller to avoid static import issues
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		const Annotation = require("./annotation.js").AnnotationController;
+		this.annotation = new Annotation(this.blame);
+	}
 
 	private waitingForLine:
 		| undefined
@@ -95,8 +103,16 @@ export class Extension {
 	public dispose(): void {
 		this.blame.dispose();
 		this.view.dispose();
+		this.annotation.dispose();
 		this.disposable.dispose();
 	}
+
+	public toggleAnnotation(): void {
+		// Toggle global annotation mode by default (persisted in settings). This
+		// will apply annotations across files when enabled.
+		void this.annotation.toggleGlobal();
+	}
+
 
 	private setupListeners(): Disposable {
 		const changeTextEditorSelection = (

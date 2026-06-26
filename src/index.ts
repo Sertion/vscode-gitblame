@@ -71,6 +71,16 @@ export async function activate(context: ExtensionContext): Promise<void> {
 					}
 				}),
 			),
+				vscode?.commands?.registerCommand("gitblame.toggleAnnotation", () =>
+					void (async () => {
+						if (!app) {
+							const module = await import("./extension.js");
+							app = new module.Extension();
+						}
+						app.toggleAnnotation();
+					})(),
+				),
+							// per-file toggle removed to avoid confusion; only global toggle is supported
 		].filter((e) => !!e),
 	);
 }

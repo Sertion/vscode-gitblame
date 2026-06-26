@@ -6,11 +6,11 @@
 	"publisher": "waderyan",
 	"private": true,
 	"type": "module",
+	"main": "./out/index.js",
 	"engines": {
 		"vscode": ">=1.100.0",
 		"node": ">=22.22.0"
 	},
-	"main": "./out/index.js",
 	"scripts": {
 		"vscode:prepublish": "npm run build",
 		"build": "tsx esbuild.mts",
@@ -89,6 +89,10 @@
 			{
 				"command": "gitblame.gitShow",
 				"title": "Git Blame: Git show for current line hash"
+			},
+			{
+				"command": "gitblame.toggleAnnotation",
+				"title": "Git Blame: Toggle File Annotation"
 			}
 		],
 		"colors": [
@@ -229,6 +233,55 @@
 					"default": [],
 					"scope": "resource",
 					"markdownDescription": "List of refs-file names to look for relative to the closest `.git`-folder. The first file in the list that is accessible will be used with the `-S`-argument in `git blame`."
+				},
+				"gitblame.annotationEnabled": {
+					"type": "boolean",
+					"default": false,
+					"scope": "resource",
+					"description": "Enable file annotations (show blame for every line)"
+				},
+				"gitblame.annotationRelativeDate": {
+					"type": "boolean",
+					"default": true,
+					"scope": "resource"
+				},
+				"gitblame.annotationShowAuthor": {
+					"type": "boolean",
+					"default": true,
+					"scope": "resource"
+				},
+				"gitblame.annotationShowHash": {
+					"type": "boolean",
+					"default": false,
+					"scope": "resource"
+				},
+				"gitblame.annotationShowSummary": {
+					"type": "boolean",
+					"default": false,
+					"scope": "resource"
+				},
+				"gitblame.annotationAuthorWidth": {
+					"type": "number",
+					"default": 18,
+					"scope": "resource"
+				},
+				"gitblame.annotationGutterOffset": {
+					"type": "number",
+					"default": 10,
+					"scope": "resource",
+					"description": "Horizontal offset (px) applied to annotations. Negative moves annotations further left toward the gutter; adjust to avoid overlapping code."
+				},
+				"gitblame.annotationColumnWidth": {
+					"type": "number",
+					"default": 21,
+					"scope": "resource",
+					"description": "Total width (characters) reserved for the annotation column (including brackets and name)."
+				},
+				"gitblame.annotationBackground": {
+					"type": "string",
+					"default": "#E6F7FF",
+					"scope": "resource",
+					"description": "Background color for the annotation column (CSS color)."
 				},
 				"gitblame.extendedHoverInformation": {
 					"type": "string",

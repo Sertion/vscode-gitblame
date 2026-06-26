@@ -23,7 +23,17 @@ export type PropertiesMap = {
 	delayBlame: number;
 	parallelBlames: number;
 	maxLineCount: number;
-	revsFile: string[];
+ 	revsFile: string[];
+ 	// Annotation configuration
+ 	annotationEnabled: boolean;
+ 	annotationRelativeDate: boolean;
+ 	annotationShowAuthor: boolean;
+ 	annotationShowHash: boolean;
+ 	annotationShowSummary: boolean;
+ 	annotationAuthorWidth: number;
+		annotationGutterOffset: number;
+					annotationColumnWidth: number;
+																	annotationBackground: string;
 	extendedHoverInformation: "off" | "inline-status" | "inline" | "status";
 	detectMoveOrCopyFromOtherFiles: 0 | 1 | 2 | 3;
 };

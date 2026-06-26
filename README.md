@@ -31,6 +31,9 @@ The command `gitblame.addToolUrlToClipboard` copies the tool url for the current
 ### Git show for current line hash
 The command `gitblame.gitShow` shows the current comit in a terminal using `git show $HASH`.
 
+### Toggle File Annotation
+The command `gitblame.toggleAnnotation` (Command Palette title: "Git Blame: Toggle File Annotation") enables or disables the new file annotation view. When enabled the extension shows blame information for every line in the active editor using a compact, left-side annotation column. The state is persisted via `gitblame.annotationEnabled` so annotations remain enabled across files until toggled off.
+
 ## Configuration
 
 ### `gitblame.commitUrl`
@@ -132,6 +135,37 @@ To enable the inline git blame view. Shows blame information at the end of the c
 > Default value: `2`
 
 The amount of margin between line and inline blame view
+
+### Annotation (new)
+The extension includes a compact file annotation feature. These settings control the annotation column and appearance.
+
+#### `gitblame.annotationEnabled`
+> Type: `boolean`
+
+> Default value: `false`
+
+When true, annotations are applied automatically to open files. You can toggle this from the Command Palette using "Git Blame: Toggle File Annotation".
+
+#### `gitblame.annotationColumnWidth`
+> Type: `number`
+
+> Default value: `21`
+
+Total character width reserved for the annotation column (brackets + date + name + padding). Increase if the annotations overlap your code for your font/zoom.
+
+#### `gitblame.annotationGutterOffset`
+> Type: `number`
+
+> Default value: `10`
+
+Horizontal offset (px) applied to the annotation render area. Adjust to nudge the annotations closer to or further from the line numbers.
+
+#### `gitblame.annotationBackground`
+> Type: `string`
+
+> Default value: `#E6F7FF`
+
+Background color used for the annotation area. Accepts any CSS color (hex, rgb, named color). Use a subtle color so code remains readable.
 
 ### `gitblame.currentUserAlias`
 > Type: `string` or `null`
