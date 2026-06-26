@@ -1,3 +1,4 @@
+import { realpath } from "node:fs/promises";
 import { getActiveTextEditor } from "../../get-active.js";
 import { validEditor } from "../../valid-editor.js";
 import { git } from "./CachedGit.js";
@@ -20,23 +21,27 @@ export async function getGeneralGitInfo(fallbackRemote: string): Promise<
 	}
 
 	const { fileName } = activeEditor.document;
+	// Resolve symlinks before handing the path to git. Opening a workspace through
+	// a symlink makes git reject the symlink path as "outside repository" (exit 128),
+	// which silently breaks URL generation. Blame already does this (see blamed-file.ts).
+	const realFileName = await realpath(fileName).catch(() => fileName);
 	const relativePathOfActiveFile = git.run(
-		fileName,
+		realFileName,
 		"ls-files",
 		"--full-name",
 		"--",
-		fileName,
+		realFileName,
 	);
-	const currentHash = git.run(fileName, "rev-parse", "HEAD");
+	const currentHash = git.run(realFileName, "rev-parse", "HEAD");
 	const currentBranch = git.run(
-		fileName,
+		realFileName,
 		"symbolic-ref",
 		"-q",
 		"--short",
 		"HEAD",
 	);
 	const currentRemote = currentBranch
-		.then((c) => git.run(fileName, "config", `branch.${c}.remote`))
+		.then((c) => git.run(realFileName, "config", `branch.${c}.remote`))
 		.then(
 			(c) => c || fallbackRemote,
 			() => fallbackRemote,
@@ -44,18 +49,18 @@ export async function getGeneralGitInfo(fallbackRemote: string): Promise<
 
 	return {
 		remoteUrl: await currentRemote
-			.then((c) => git.run(fileName, "config", `remote.${c}.url`))
+			.then((c) => git.run(realFileName, "config", `remote.${c}.url`))
 			.catch(() => ""),
 		defaultBranch: await currentBranch.then((c) =>
 			git
-				.run(fileName, "rev-parse", "--abbrev-ref", `${c}/HEAD`)
+				.run(realFileName, "rev-parse", "--abbrev-ref", `${c}/HEAD`)
 				.catch(() => "UNABLE-TO-FIND-DEFAULT-BRANCH"),
 		),
 		currentBranch: await currentBranch,
 		currentHash: await currentHash,
 		relativePathOfActiveFile: await relativePathOfActiveFile,
 		fileOrigin: await currentRemote.then((c) =>
-			git.run(fileName, "ls-remote", "--get-url", c),
+			git.run(realFileName, "ls-remote", "--get-url", c),
 		),
 	};
 }
