@@ -1,3 +1,4 @@
+import { realpath } from "node:fs/promises";
 import { getActiveTextEditor } from "../../get-active.js";
 import { validEditor } from "../../valid-editor.js";
 import { git } from "./CachedGit.js";
@@ -19,7 +20,7 @@ export async function getGeneralGitInfo(fallbackRemote: string): Promise<
 		return undefined;
 	}
 
-	const { fileName } = activeEditor.document;
+	const fileName = await realpath(activeEditor.document.fileName);
 	const relativePathOfActiveFile = git.run(
 		fileName,
 		"ls-files",
