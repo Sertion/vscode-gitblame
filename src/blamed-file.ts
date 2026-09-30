@@ -27,10 +27,10 @@ export class BlamedFile {
 	}
 
 	public dispose(): void {
-		this.process?.then((e) => e.kill());
+		void this.process?.then((e) => e.kill());
 		this.process = undefined;
 		this.killed = true;
-		this.store?.then((e) => e?.clear());
+		void this.store?.then((e) => e?.clear());
 	}
 
 	private async *run(file: string): AsyncGenerator<LineAttachedCommit> {

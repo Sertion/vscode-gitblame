@@ -47,11 +47,9 @@ export async function getGeneralGitInfo(fallbackRemote: string): Promise<
 		remoteUrl: await currentRemote
 			.then((c) => git.run(fileName, "config", `remote.${c}.url`))
 			.catch(() => ""),
-		defaultBranch: await currentBranch.then((c) =>
-			git
-				.run(fileName, "rev-parse", "--abbrev-ref", `${c}/HEAD`)
-				.catch(() => "UNABLE-TO-FIND-DEFAULT-BRANCH"),
-		),
+		defaultBranch: await git
+			.run(fileName, "rev-parse", "--abbrev-ref", `${await currentBranch}/HEAD`)
+			.catch(() => "UNABLE-TO-FIND-DEFAULT-BRANCH"),
 		currentBranch: await currentBranch,
 		currentHash: await currentHash,
 		relativePathOfActiveFile: await relativePathOfActiveFile,

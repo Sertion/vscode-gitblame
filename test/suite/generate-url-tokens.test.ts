@@ -34,11 +34,11 @@ async function setupMocks(
 	errorMocks: Partial<ExecuteMock> = {},
 ): Promise<ReturnType<typeof setupPropertyStore>> {
 	t.mock.module("node:fs/promises", {
-		namedExports: { realpath: async (path: string): Promise<string> => path },
+		exports: { realpath: async (path: string): Promise<string> => path },
 	});
 
 	t.mock.module("../../src/git/command/execute.js", {
-		namedExports: {
+		exports: {
 			execute: async (_: Promise<string>, args: string[]): Promise<string> => {
 				const key = args.join(" ") as keyof typeof executeMock;
 				if (errorMocks[key] !== undefined) {
@@ -68,7 +68,7 @@ suite("Generate URL Tokens", () => {
 	const exampleCommit = getExampleCommit();
 	beforeEach(async (): Promise<void> => {
 		mock.module("../../src/get-active.js", {
-			namedExports: {
+			exports: {
 				getActiveTextEditor: () => ({
 					document: {
 						isUntitled: false,

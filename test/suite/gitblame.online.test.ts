@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert";
 import { afterEach, before, mock, suite, test } from "node:test";
 
 import type { online as onlineType } from "../../src/gitblame.online.js";
@@ -13,13 +13,13 @@ suite("gitblame.online", () => {
 	);
 	before(async () => {
 		mock.module("../../src/message.js", {
-			namedExports: {
+			exports: {
 				infoMessage: infoMessageMock,
 				errorMessage: errorMessageMock,
 			},
 		});
 		mock.module("../../src/git/get-tool-url.js", {
-			namedExports: { getToolUrl: getToolUrlMock },
+			exports: { getToolUrl: getToolUrlMock },
 		});
 		online = (await import("../../src/gitblame.online.js")).online;
 	});

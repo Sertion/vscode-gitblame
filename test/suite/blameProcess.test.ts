@@ -7,7 +7,7 @@ import { setupPropertyStore } from "../setupPropertyStore.js";
 const spawnMock = mock.fn();
 function setupMocks(): void {
 	mock.module("node:child_process", {
-		namedExports: { spawn: spawnMock },
+		exports: { spawn: spawnMock },
 	});
 }
 

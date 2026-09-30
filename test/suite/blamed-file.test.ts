@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert";
 import { randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -24,7 +24,7 @@ suite("BlamedFile base cases", async () => {
 			{ encoding: null },
 		);
 		mock.module("../../src/git/command/blameProcess.js", {
-			namedExports: {
+			exports: {
 				blameProcess: async (
 					_realpathFileName: string,
 					_revsFile: string | undefined,
@@ -38,7 +38,7 @@ suite("BlamedFile base cases", async () => {
 			cache: false,
 		});
 		mock.module("node:fs/promises", {
-			namedExports: {
+			exports: {
 				realpath: () => Promise.resolve("fake-path"),
 				access: () => Promise.resolve(),
 			},
@@ -83,7 +83,7 @@ suite("BlamedFile error cases", async () => {
 		await setupCachedGit();
 		Logger.createInstance();
 		mock.module("../../src/git/command/blameProcess.js", {
-			namedExports: {
+			exports: {
 				blameProcess: async (
 					_realpathFileName: string,
 					_revsFile: string | undefined,
@@ -96,7 +96,7 @@ suite("BlamedFile error cases", async () => {
 			cache: false,
 		});
 		mock.module("node:fs/promises", {
-			namedExports: {
+			exports: {
 				realpath: () => Promise.resolve("fake-path"),
 				access: () => Promise.resolve(),
 			},

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert";
 import test, { afterEach, mock, suite } from "node:test";
 import { Logger } from "../../src/logger.js";
 

@@ -11,7 +11,7 @@ async function setupMocks(
 	executeMock: typeof baseExecuteMock,
 ): Promise<ReturnType<typeof setupPropertyStore>> {
 	t.mock.module("../../src/git/command/execute.js", {
-		namedExports: {
+		exports: {
 			execute: async (_: Promise<string>, args: string[]): Promise<string> =>
 				executeMock[args.join(" ") as keyof typeof executeMock] ?? "",
 		},

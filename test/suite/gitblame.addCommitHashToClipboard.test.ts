@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert";
 import { afterEach, before, mock, suite, test } from "node:test";
 
 import type { addCommitHashToClipboard as addCommitHashToClipboardType } from "../../src/gitblame.addCommitHashToClipboard.js";
@@ -10,7 +10,7 @@ suite("gitblame.addCommitHashToClipboard", () => {
 	const errorMessageMock = mock.fn();
 	before(async () => {
 		mock.module("../../src/message.js", {
-			namedExports: {
+			exports: {
 				infoMessage: infoMessageMock,
 				errorMessage: errorMessageMock,
 			},

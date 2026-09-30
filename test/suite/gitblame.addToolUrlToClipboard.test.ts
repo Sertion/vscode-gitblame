@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert";
 import { afterEach, before, mock, suite, test } from "node:test";
 
 import type { addToolUrlToClipboard as addToolUrlToClipboardType } from "../../src/gitblame.addToolUrlToClipboard.js";
@@ -13,13 +13,13 @@ suite("gitblame.addToolUrlToClipboard", () => {
 	);
 	before(async () => {
 		mock.module("../../src/message.js", {
-			namedExports: {
+			exports: {
 				infoMessage: infoMessageMock,
 				errorMessage: errorMessageMock,
 			},
 		});
 		mock.module("../../src/git/get-tool-url.js", {
-			namedExports: { getToolUrl: getToolUrlMock },
+			exports: { getToolUrl: getToolUrlMock },
 		});
 		addToolUrlToClipboard = (
 			await import("../../src/gitblame.addToolUrlToClipboard.js")

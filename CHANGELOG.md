@@ -1,6 +1,8 @@
 # Change Log
 
-## Under construction
+## 14.0.0
+* Feature: Added new setting for overriding `gitblame.commitUrl` when the hostname matches the key of the object in `gitblame.commitUrl.perHostnameOverride`. Thanks to [Zamiell](https://github.com/Zamiell) for raising awareness of the need for a feature like this!
+* Breaking: Lowest supported version of vscode is now 1.138
 * Fix: Updating dependencies
 
 ## 13.1.0 (June 26, 2026)

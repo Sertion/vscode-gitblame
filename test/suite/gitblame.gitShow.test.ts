@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert";
 import { afterEach, before, mock, suite, test } from "node:test";
 import type { TerminalOptions } from "vscode";
 import type { gitShow as gitShowType } from "../../src/gitblame.gitShow.js";
@@ -13,7 +13,7 @@ suite("gitblame.gitShow", () => {
 	let getActiveTextEditorDocumentUriScheme = "file";
 	before(async () => {
 		mock.module("../../src/get-active.js", {
-			namedExports: {
+			exports: {
 				getActiveTextEditor: () => ({
 					document: {
 						isUntitled: false,
@@ -32,7 +32,7 @@ suite("gitblame.gitShow", () => {
 			},
 		});
 		mock.module("../../src/message.js", {
-			namedExports: {
+			exports: {
 				infoMessage: infoMessageMock,
 				errorMessage: errorMessageMock,
 			},

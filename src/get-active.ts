@@ -4,7 +4,7 @@ import { getvscode } from "./vscode-quarantine.js";
 
 let vscodeWindow: typeof window | undefined;
 export function setvscodeForActiveTextEditor(): void {
-	getvscode().then((e) => {
+	void getvscode().then((e) => {
 		if (e) {
 			vscodeWindow = e.window;
 		}

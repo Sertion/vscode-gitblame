@@ -30,7 +30,7 @@ export class GitWatch extends GitRepositoryWatcher {
 		this.foundPaths.add(filePath);
 		const gitRepositoryPath = await git.getRepositoryFolder(filePath);
 		if (gitRepositoryPath) {
-			this.addRepository(gitRepositoryPath);
+			await this.addRepository(gitRepositoryPath);
 		}
 	}
 

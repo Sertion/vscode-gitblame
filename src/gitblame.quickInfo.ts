@@ -43,7 +43,7 @@ export async function quickInfo(
 		});
 	}
 
-	extension.view.set(lineAware.commit, getActiveTextEditor());
+	await extension.view.set(lineAware.commit, getActiveTextEditor());
 
 	const selected = await infoMessage(
 		parseTokens(

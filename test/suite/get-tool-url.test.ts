@@ -1,8 +1,13 @@
 import * as assert from "node:assert";
-import test, { afterEach, before, suite } from "node:test";
+import { afterEach, before, suite, type TestContext, test } from "node:test";
 import type { git as gitType } from "../../src/git/command/CachedGit.js";
-import type { gitRemotePath as gitRemotePathType } from "../../src/git/get-tool-url.js";
+import type {
+	getToolUrl as getToolUrlType,
+	gitRemotePath as gitRemotePathType,
+} from "../../src/git/get-tool-url.js";
 import { Logger } from "../../src/logger.js";
+import { getExampleCommit } from "../getExampleCommit.js";
+import { setupPropertyStore } from "../setupPropertyStore.js";
 
 function call(
 	func: string | ((param?: string) => string | undefined),
@@ -10,6 +15,45 @@ function call(
 ) {
 	return typeof func === "string" ? func : func(arg);
 }
+
+type ReturnValue = {
+	remoteUrl: string;
+	currentBranch: string;
+	defaultBranch: string;
+	currentHash: string;
+	relativePathOfActiveFile: string;
+	fileOrigin: string;
+};
+const baseGitInfoMock: ReturnValue = {
+	remoteUrl: "git@github.com:Sertion/vscode-gitblame.git",
+	currentBranch: "main",
+	defaultBranch: "main",
+	currentHash: "60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
+	relativePathOfActiveFile: "./example/path",
+	fileOrigin: "git@github.com:Sertion/vscode-gitblame.git",
+};
+let overrideGitInfoMock: Partial<ReturnValue> = {};
+async function setupMocks(
+	t: TestContext,
+): Promise<ReturnType<typeof setupPropertyStore>> {
+	t.mock.module("../../src/git/command/getGeneralGitInfo.ts", {
+		exports: {
+			getGeneralGitInfo: async (): Promise<
+				| {
+						remoteUrl: string;
+						currentBranch: string;
+						defaultBranch: string;
+						currentHash: string;
+						relativePathOfActiveFile: string;
+						fileOrigin: string;
+				  }
+				| undefined
+			> => ({ ...baseGitInfoMock, ...overrideGitInfoMock }),
+		},
+	});
+	return await setupPropertyStore();
+}
+
 suite("Get tool URL: gitRemotePath", (): void => {
 	Logger.createInstance();
 	let git: typeof gitType;
@@ -103,5 +147,32 @@ suite("Get tool URL: gitRemotePath", (): void => {
 			call(func, Number.MAX_SAFE_INTEGER.toString()),
 			"invalid-index",
 		);
+	});
+});
+
+suite("Get tool URL", (): void => {
+	Logger.createInstance();
+	let git: typeof gitType;
+	let getToolUrl: typeof getToolUrlType;
+	before(async () => {
+		git = (await import("../../src/git/command/CachedGit.js")).git;
+		getToolUrl = (await import("../../src/git/get-tool-url.js")).getToolUrl;
+	});
+	afterEach(() => {
+		git.clear();
+		overrideGitInfoMock = {};
+	});
+
+	test("hostname override", async (t: TestContext): Promise<void> => {
+		const prop = await setupMocks(t);
+		overrideGitInfoMock = {};
+		prop.setOverride("commitUrl.perHostnameOverride", {
+			"github.com": "https://different-url/with/path",
+		});
+
+		const exampleCommit = getExampleCommit();
+		const url = await getToolUrl(exampleCommit);
+
+		assert.strictEqual(url.toString(), "https://different-url/with/path");
 	});
 });

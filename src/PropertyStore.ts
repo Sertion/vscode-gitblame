@@ -3,6 +3,7 @@ import type { getProperty } from "./property.js";
 
 export type PropertiesMap = {
 	commitUrl: string;
+	"commitUrl.perHostnameOverride": Record<string, string>;
 	remoteName: string;
 	ignoreWhitespace: boolean;
 	infoMessageFormat: string;

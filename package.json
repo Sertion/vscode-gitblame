@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
-    "@types/node": "22.9.0",
-    "@types/vscode": "1.100.0",
+    "@types/node": "24.19.0",
+    "@types/vscode": "1.138.0",
     "esbuild": "0.28.2",
     "tsx": "4.23.15",
     "typescript": "7.0.2"
@@ -189,6 +189,14 @@
           "default": "${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
           "scope": "resource",
           "markdownDescription": "The link to an online tool to view a commit (use `${hash}` for the commit hash)."
+        },
+        "gitblame.commitUrl.perHostnameOverride": {
+          "type": "object",
+          "default": {
+            "ssh.dev.azure.com": "https://dev.azure.com/${gitorigin.path,1}/${gitorigin.path,2}/_git/${gitorigin.path,3}/commit/${hash}"
+          },
+          "scope": "resource",
+          "markdownDescription": "Override `gitblame.commitUrl` for specicif hostnames. Hostname is key, value is tool commit URL."
         },
         "gitblame.ignoreWhitespace": {
           "type": "boolean",

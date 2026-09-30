@@ -17,7 +17,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 	const executeCommand = async (command: string, url: URL): Promise<void> => {
 		if (vscode) {
-			vscode.commands.executeCommand(command, vscode.Uri.parse(url.toString()));
+			await vscode.commands.executeCommand(
+				command,
+				vscode.Uri.parse(url.toString()),
+			);
 		}
 	};
 
@@ -26,7 +29,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 	await Promise.all([
 		import("./extension.js").then((i) => {
 			app = new i.Extension();
-			app.updateView(getActiveTextEditor());
+			void app.updateView(getActiveTextEditor());
 			return app;
 		}),
 		import("./logger.js").then((i) => i.Logger.createInstance()),
@@ -39,7 +42,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 			vscode?.commands?.registerCommand("gitblame.quickInfo", () =>
 				import("./gitblame.quickInfo.js").then((c) => {
 					if (vscode) {
-						c.quickInfo(app, executeCommand, vscode.window.createTerminal);
+						void c.quickInfo(app, executeCommand, vscode.window.createTerminal);
 					}
 				}),
 			),
@@ -53,21 +56,24 @@ export async function activate(context: ExtensionContext): Promise<void> {
 				() =>
 					import("./gitblame.addCommitHashToClipboard.js").then((c) => {
 						if (vscode) {
-							c.addCommitHashToClipboard(app, vscode.env.clipboard.writeText);
+							void c.addCommitHashToClipboard(
+								app,
+								vscode.env.clipboard.writeText,
+							);
 						}
 					}),
 			),
 			vscode?.commands?.registerCommand("gitblame.addToolUrlToClipboard", () =>
 				import("./gitblame.addToolUrlToClipboard.js").then((c) => {
 					if (vscode) {
-						c.addToolUrlToClipboard(app, vscode.env.clipboard.writeText);
+						void c.addToolUrlToClipboard(app, vscode.env.clipboard.writeText);
 					}
 				}),
 			),
 			vscode?.commands?.registerCommand("gitblame.gitShow", () =>
 				import("./gitblame.gitShow.js").then((c) => {
 					if (vscode) {
-						c.gitShow(app, vscode.window.createTerminal);
+						void c.gitShow(app, vscode.window.createTerminal);
 					}
 				}),
 			),

@@ -42,7 +42,7 @@ export class Extension {
 
 		const line = await promise;
 		if (line) {
-			this.view.set(line?.commit, editor, useDelay);
+			await this.view.set(line?.commit, editor, useDelay);
 		}
 	}
 
@@ -97,13 +97,13 @@ export class Extension {
 			workspace.onDidSaveTextDocument((document) => {
 				const textEditor = getActiveTextEditor();
 				if (textEditor?.document === document) {
-					this.updateView(textEditor, false);
+					void this.updateView(textEditor, false);
 				}
 			}),
 			workspace.onDidChangeTextDocument((ev) => {
 				const textEditor = getActiveTextEditor();
 				if (textEditor?.document === ev.document) {
-					this.updateView(textEditor, false);
+					void this.updateView(textEditor, false);
 				}
 			}),
 			workspace.onDidCloseTextDocument((document: Document): void =>

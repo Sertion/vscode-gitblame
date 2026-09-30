@@ -40,8 +40,10 @@ export class Blamer {
 		fileName: string,
 		lineNumber: number,
 	): Promise<LineAttachedCommit | undefined> {
-		this.gitWatcher.addFile(fileName);
-		await this.prepareFile(fileName);
+		await Promise.all([
+			this.gitWatcher.addFile(fileName),
+			this.prepareFile(fileName),
+		]);
 
 		return await this.files.get(fileName)?.then((e) => e?.get(lineNumber + 1));
 	}

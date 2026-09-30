@@ -8,7 +8,6 @@ import {
 	type InfoTokens,
 	parseTokens,
 } from "../string-stuff/text-decorator.js";
-import { getGeneralGitInfo } from "./command/getGeneralGitInfo.js";
 import type { LineAttachedCommit } from "./LineAttachedCommit.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
@@ -88,7 +87,9 @@ function isToolUrlPlural(origin: string): boolean {
 export async function generateUrlTokens(
 	lineAware: LineAttachedCommit,
 ): Promise<ToolUrlTokens | undefined> {
-	const generalGit = await getGeneralGitInfo(PropertyStore.get("remoteName"));
+	const generalGit = await (
+		await import("./command/getGeneralGitInfo.js")
+	).getGeneralGitInfo(PropertyStore.get("remoteName"));
 	if (generalGit === undefined || generalGit.remoteUrl === "") {
 		Logger.info("Unable to find remote URL. Can not provide URL.");
 		return;
@@ -133,15 +134,22 @@ export async function getToolUrl(
 		return;
 	}
 
-	const parsedUrl = parseTokens(PropertyStore.get("commitUrl"), tokens);
+	const hostnameOverrides = PropertyStore.get("commitUrl.perHostnameOverride");
+	const hostname =
+		typeof tokens["gitorigin.hostname"] === "string"
+			? tokens["gitorigin.hostname"]
+			: tokens["gitorigin.hostname"]("");
+
+	const target =
+		hostnameOverrides?.[hostname] ?? PropertyStore.get("commitUrl");
+
+	const parsedUrl = parseTokens(target, tokens);
 
 	if (isUrl(parsedUrl)) {
 		return new URL(parsedUrl);
 	}
 
-	errorMessage(
-		`Malformed gitblame.commitUrl: '${parsedUrl}' from '${PropertyStore.get(
-			"commitUrl",
-		)}'`,
+	void errorMessage(
+		`Malformed gitblame.commitUrl: '${parsedUrl}' from '${target}'`,
 	);
 }

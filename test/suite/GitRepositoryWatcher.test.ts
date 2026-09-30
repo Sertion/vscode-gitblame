@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import * as assert from "node:assert";
 import { randomUUID } from "node:crypto";
 import type { FileChangeInfo } from "node:fs/promises";
 import test, { afterEach, beforeEach, type Mock, mock, suite } from "node:test";
@@ -25,7 +25,7 @@ suite("GitRepositoryWatcher", async () => {
 		resolve = wResolvers.resolve;
 		reject = wResolvers.reject;
 		fsMock = mock.module(`node:fs/promises?${randomUUID()}}`, {
-			namedExports: {
+			exports: {
 				watch: async function* (): AsyncIterable<FileChangeInfo<string>> {
 					yield await promise;
 				},
