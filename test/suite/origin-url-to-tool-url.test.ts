@@ -1,8 +1,44 @@
+import * as assert from "node:assert";
 import test, { suite } from "node:test";
 import { originUrlToToolUrl } from "../../src/git/origin-url-to-tool-url.js";
 import { setupPropertyStore } from "../setupPropertyStore.js";
 
 suite("Web URL formatting", (): void => {
+	for (const remote of [
+		"git@ssh.dev.azure.com:v3/example/Infrastructure/infrastructure",
+		"git@ssh.dev.azure.com:v3/example/Infrastructure/infrastructure.git",
+		"ssh://git@ssh.dev.azure.com/v3/example/Infrastructure/infrastructure",
+		"ssh://git@ssh.dev.azure.com:22/v3/example/Infrastructure/infrastructure",
+		"https://example@dev.azure.com/example/Infrastructure/_git/infrastructure",
+	]) {
+		test(`Azure DevOps: ${remote}`, (): void => {
+			assert.strictEqual(
+				originUrlToToolUrl(remote)?.href,
+				"https://dev.azure.com/example/Infrastructure/_git/infrastructure",
+			);
+		});
+	}
+
+	test("Azure DevOps preserves encoded names", (): void => {
+		assert.strictEqual(
+			originUrlToToolUrl(
+				"git@ssh.dev.azure.com:v3/example/My%20Project/My%20Repository",
+			)?.href,
+			"https://dev.azure.com/example/My%20Project/_git/My%20Repository",
+		);
+	});
+
+	test("Only rewrite Azure DevOps SSH repository paths", (): void => {
+		assert.strictEqual(
+			originUrlToToolUrl("git@example.com:v3/org/project/repo")?.href,
+			"https://example.com/v3/org/project/repo",
+		);
+		assert.strictEqual(
+			originUrlToToolUrl("git@ssh.dev.azure.com:org/project/repo")?.href,
+			"https://ssh.dev.azure.com/org/project/repo",
+		);
+	});
+
 	test("https://", (t): void => {
 		t.assert.snapshot(originUrlToToolUrl("https://example.com/user/repo.git"));
 		t.assert.snapshot(originUrlToToolUrl("https://example.com/user/repo"));

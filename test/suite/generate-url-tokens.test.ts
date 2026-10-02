@@ -264,6 +264,48 @@ suite("Generate URL Tokens", () => {
 
 		assert.strictEqual(tokens, undefined);
 	});
+
+	for (const remote of [
+		"git@ssh.dev.azure.com:v3/example/Infrastructure/infrastructure",
+		"git@ssh.dev.azure.com:v3/example/Infrastructure/infrastructure.git",
+		"ssh://git@ssh.dev.azure.com:22/v3/example/Infrastructure/infrastructure",
+		"https://example@dev.azure.com/example/Infrastructure/_git/infrastructure",
+	]) {
+		test(`Azure DevOps commit URL: ${remote}`, async (t) => {
+			const prop = await setupMocks(t, {
+				...baseExecuteMock,
+				"config remote.origin.url": remote,
+				"ls-remote --get-url origin": remote,
+			});
+			const { generateUrlTokens, getToolUrl } = await import(
+				"../../src/git/get-tool-url.js"
+			);
+			const tokens = await generateUrlTokens(exampleCommit);
+			assert.ok(tokens);
+			assert.strictEqual(
+				call(tokens["gitorigin.hostname"], ""),
+				"dev.azure.com",
+			);
+			assert.strictEqual(
+				call(tokens["gitorigin.path"], ""),
+				"/example/Infrastructure/_git/infrastructure",
+			);
+			assert.strictEqual(call(tokens["gitorigin.path"], "2"), "_git");
+			assert.strictEqual(tokens["gitorigin.port"], "");
+			assert.strictEqual(
+				(await getToolUrl(exampleCommit))?.href,
+				"https://dev.azure.com/example/Infrastructure/_git/infrastructure/commit/60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
+			);
+
+			prop.setOverride("commitUrl", "https://custom.example/changes/${hash}");
+			assert.strictEqual(
+				(await getToolUrl(exampleCommit))?.href,
+				"https://custom.example/changes/60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
+			);
+			prop.clearOverrides();
+		});
+	}
+
 	test("configured with empty gitblame.remoteName", async (t) => {
 		const prop = await setupMocks(
 			t,

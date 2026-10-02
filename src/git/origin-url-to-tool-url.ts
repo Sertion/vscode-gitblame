@@ -17,5 +17,14 @@ export function originUrlToToolUrl(url: string): URL | undefined {
 		uri.port = "";
 	}
 
+	if (uri.hostname === "ssh.dev.azure.com") {
+		const azurePath = /^\/v3\/([^/]+)\/([^/]+)\/([^/]+)$/.exec(uri.pathname);
+		if (azurePath) {
+			const [, organization, project, repository] = azurePath;
+			uri.hostname = "dev.azure.com";
+			uri.pathname = `/${organization}/${project}/_git/${repository}`;
+		}
+	}
+
 	return uri;
 }
