@@ -196,7 +196,7 @@
             "ssh.dev.azure.com": "https://dev.azure.com/${gitorigin.path,1}/${gitorigin.path,2}/_git/${gitorigin.path,3}/commit/${hash}"
           },
           "scope": "resource",
-          "markdownDescription": "Override `gitblame.commitUrl` for specicif hostnames. Hostname is key, value is tool commit URL."
+          "markdownDescription": "Override `gitblame.commitUrl` for specific hostnames. Hostname is key, value is tool commit URL."
         },
         "gitblame.ignoreWhitespace": {
           "type": "boolean",
