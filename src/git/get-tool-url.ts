@@ -138,10 +138,9 @@ export async function getToolUrl(
 	const hostname =
 		typeof tokens["gitorigin.hostname"] === "string"
 			? tokens["gitorigin.hostname"]
-			: tokens["gitorigin.hostname"]("");
+			: tokens["gitorigin.hostname"](""); // Pass "" to get the full hostname
 
-	const target =
-		hostnameOverrides?.[hostname] ?? PropertyStore.get("commitUrl");
+	const target = hostnameOverrides?.[hostname] ?? commitUrl;
 
 	const parsedUrl = parseTokens(target, tokens);
 

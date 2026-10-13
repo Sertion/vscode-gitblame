@@ -165,7 +165,6 @@ suite("Get tool URL", (): void => {
 
 	test("hostname override", async (t: TestContext): Promise<void> => {
 		const prop = await setupMocks(t);
-		overrideGitInfoMock = {};
 		prop.setOverride("commitUrl.perHostnameOverride", {
 			"github.com": "https://different-url/with/path",
 		});
@@ -174,5 +173,25 @@ suite("Get tool URL", (): void => {
 		const url = await getToolUrl(exampleCommit);
 
 		assert.strictEqual(url.toString(), "https://different-url/with/path");
+	});
+
+	test("hostname override for azure specific case", async (t: TestContext): Promise<void> => {
+		const prop = await setupMocks(t);
+		overrideGitInfoMock.remoteUrl =
+			"git@ssh.dev.azure.com:v3/organization/project/repository";
+		overrideGitInfoMock.fileOrigin =
+			"git@ssh.dev.azure.com:v3/organization/project/repository";
+		prop.setOverride("commitUrl.perHostnameOverride", {
+			"ssh.dev.azure.com":
+				"https://dev.azure.com/${gitorigin.path,1}/${gitorigin.path,2}/_git/${gitorigin.path,3}/commit/${hash}",
+		});
+
+		const exampleCommit = getExampleCommit();
+		const url = await getToolUrl(exampleCommit);
+
+		assert.strictEqual(
+			url.toString(),
+			"https://dev.azure.com/organization/project/_git/repository/commit/60d3fd32a7a9da4c8c93a9f89cfda22a0b4c65ce",
+		);
 	});
 });
