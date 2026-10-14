@@ -11,6 +11,7 @@
     "node": ">=24.19.0"
   },
   "main": "./out/index.js",
+  "l10n": "./translations",
   "scripts": {
     "vscode:prepublish": "npm run build",
     "build": "tsx esbuild.mts",
@@ -72,29 +73,29 @@
     "commands": [
       {
         "command": "gitblame.quickInfo",
-        "title": "Git Blame: Show quick info"
+        "title": "%gitblame.command.quickInfo%"
       },
       {
         "command": "gitblame.online",
-        "title": "Git Blame: View last change online"
+        "title": "%gitblame.command.online%"
       },
       {
         "command": "gitblame.addCommitHashToClipboard",
-        "title": "Git Blame: Copy hash to clipboard"
+        "title": "%gitblame.command.addCommitHashToClipboard%"
       },
       {
         "command": "gitblame.addToolUrlToClipboard",
-        "title": "Git Blame: Copy tool URL to clipboard"
+        "title": "%gitblame.command.addToolUrlToClipboard%"
       },
       {
         "command": "gitblame.gitShow",
-        "title": "Git Blame: Git show for current line hash"
+        "title": "%gitblame.command.gitShow%"
       }
     ],
     "colors": [
       {
         "id": "gitblame.inlineMessage",
-        "description": "Inline git blame message. Defaults to editorCodeLens.foreground",
+        "description": "%gitblame.colors.inlineMessage.description%",
         "defaults": {
           "dark": "editorCodeLens.foreground",
           "light": "editorCodeLens.foreground",
@@ -105,90 +106,96 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "Git Blame",
+      "title": "%gitblame.configuration.title%",
       "properties": {
         "gitblame.infoMessageFormat": {
           "type": "string",
           "default": "${commit.summary}",
           "scope": "resource",
-          "description": "Customize the info message"
+          "description": "%gitblame.properties.infoMessageFormat.description%"
         },
         "gitblame.statusBarMessageClickAction": {
           "type": "string",
-          "default": "Show info message",
+          "default": "SHOW_MESSAGE",
           "scope": "resource",
           "enum": [
-            "Show info message",
-            "Open tool URL",
-            "Open git show",
-            "Copy hash to clipboard"
+            "SHOW_MESSAGE",
+            "OPEN_URL",
+            "GIT_SHOW",
+            "COPY_HASH"
+          ],
+          "enumItemLabels": [
+            "%gitblame.properties.statusBarMessageClickAction.enum.label.message%",
+            "%gitblame.properties.statusBarMessageClickAction.enum.label.tool%",
+            "%gitblame.properties.statusBarMessageClickAction.enum.label.gitshow%",
+            "%gitblame.properties.statusBarMessageClickAction.enum.label.copy%"
           ],
           "enumDescriptions": [
-            "Show a info message with a short summary of the commit",
-            "Attempt to directly open the tool URL",
-            "Run git show in a vscode terminal view",
-            "Copies the hash of the current line's commit to the clipboard"
+            "%gitblame.properties.statusBarMessageClickAction.enum.description.message%",
+            "%gitblame.properties.statusBarMessageClickAction.enum.description.tool%",
+            "%gitblame.properties.statusBarMessageClickAction.enum.description.gitshow%",
+            "%gitblame.properties.statusBarMessageClickAction.enum.description.copy%"
           ]
         },
         "gitblame.statusBarMessageFormat": {
           "type": "string",
           "default": "Blame ${author.name} (${time.ago})",
           "scope": "resource",
-          "description": "Customize the status bar message"
+          "description": "%gitblame.properties.statusBarMessageFormat.description%"
         },
         "gitblame.statusBarMessageNoCommit": {
           "type": "string",
           "default": "Not Committed Yet",
           "scope": "resource",
-          "description": "Customize the status bar message"
+          "description": "%gitblame.properties.statusBarMessageNoCommit.description%"
         },
         "gitblame.statusBarPositionPriority": {
           "type": "number",
           "default": 500,
           "scope": "resource",
-          "description": "Priority where the status bar view should be placed"
+          "description": "%gitblame.properties.statusBarPositionPriority.description%"
         },
         "gitblame.inlineMessageEnabled": {
           "type": "boolean",
           "default": false,
           "scope": "resource",
-          "description": "Show blame information inline (next to the code)"
+          "description": "%gitblame.properties.inlineMessageEnabled.description%"
         },
         "gitblame.inlineMessageFormat": {
           "type": "string",
           "default": "Blame ${author.name} (${time.ago})",
           "scope": "resource",
-          "description": "Customize the inline message"
+          "description": "%gitblame.properties.inlineMessageFormat.description%"
         },
         "gitblame.inlineMessageNoCommit": {
           "type": "string",
           "default": "Not Committed Yet",
           "scope": "resource",
-          "description": "Customize the inline message"
+          "description": "%gitblame.properties.inlineMessageNoCommit.description%"
         },
         "gitblame.inlineMessageMargin": {
           "type": "number",
           "default": 2,
           "scope": "resource",
-          "description": "The amount of margin between line and inline blame view"
+          "description": "%gitblame.properties.inlineMessageMargin.description%"
         },
         "gitblame.currentUserAlias": {
           "type": "string",
           "default": "",
           "scope": "resource",
-          "markdownDescription": "Replaces `${author.name}` and `${committer.name}` when the git config `user.email` matches the author's or committer's email address."
+          "markdownDescription": "%gitblame.properties.currentUserAlias.markdownDescription%"
         },
         "gitblame.remoteName": {
           "type": "string",
           "default": "origin",
           "scope": "resource",
-          "description": "The name of the git remote used to build the URL."
+          "description": "%gitblame.properties.remoteName.description%"
         },
         "gitblame.commitUrl": {
           "type": "string",
           "default": "${tool.protocol}//${gitorigin.hostname}${gitorigin.port}${gitorigin.path}${tool.commitpath}${hash}",
           "scope": "resource",
-          "markdownDescription": "The link to an online tool to view a commit (use `${hash}` for the commit hash)."
+          "markdownDescription": "%gitblame.properties.commitUrl.markdownDescription%"
         },
         "gitblame.commitUrl.perHostnameOverride": {
           "type": "object",
@@ -196,13 +203,13 @@
             "ssh.dev.azure.com": "https://dev.azure.com/${gitorigin.path,1}/${gitorigin.path,2}/_git/${gitorigin.path,3}/commit/${hash}"
           },
           "scope": "resource",
-          "markdownDescription": "Override `gitblame.commitUrl` for specific hostnames. Hostname is key, value is tool commit URL."
+          "markdownDescription": "%gitblame.properties.commitUrl.perHostnameOverride.markdownDescription%"
         },
         "gitblame.ignoreWhitespace": {
           "type": "boolean",
           "default": false,
           "scope": "resource",
-          "markdownDescription": "Ignore whitespace changes when blaming (`-w` flag)"
+          "markdownDescription": "%gitblame.properties.ignoreWhitespace.markdownDescription%"
         },
         "gitblame.pluralWebPathSubstrings": {
           "type": "array",
@@ -211,32 +218,32 @@
             "atlassian"
           ],
           "scope": "resource",
-          "markdownDescription": "An array of substrings that, when present in the git origin URL, adds an extra _s_ to the url after _commit_ in `gitblame.commitUrl`'s default behavior"
+          "markdownDescription": "%gitblame.properties.pluralWebPathSubstrings.markdownDescription%"
         },
         "gitblame.delayBlame": {
           "type": "number",
           "default": 0,
           "scope": "resource",
-          "description": "This setting adds a delay (in milliseconds) before the blame is displayed"
+          "description": "%gitblame.properties.delayBlame.description%"
         },
         "gitblame.parallelBlames": {
           "type": "number",
           "minimum": 1,
           "default": 2,
           "scope": "resource",
-          "description": "Limit allowed parallel git blame process count"
+          "description": "%gitblame.properties.parallelBlames.description%"
         },
         "gitblame.maxLineCount": {
           "type": "number",
           "default": 16384,
           "scope": "resource",
-          "markdownDescription": "Will skip blaming files with **more** lines than this value"
+          "markdownDescription": "%gitblame.properties.maxLineCount.markdownDescription%"
         },
         "gitblame.revsFile": {
           "type": "array",
           "default": [],
           "scope": "resource",
-          "markdownDescription": "List of refs-file names to look for relative to the closest `.git`-folder. The first file in the list that is accessible will be used with the `-S`-argument in `git blame`."
+          "markdownDescription": "%gitblame.properties.revsFile.markdownDescription%"
         },
         "gitblame.extendedHoverInformation": {
           "type": "string",
@@ -249,23 +256,23 @@
             "status"
           ],
           "enumItemLabels": [
-            "Disable",
-            "Inline and status bar",
-            "Only inline",
-            "Only status bar"
+            "%gitblame.properties.extendedHoverInformation.enum.label.off%",
+            "%gitblame.properties.extendedHoverInformation.enum.label.inline-status%",
+            "%gitblame.properties.extendedHoverInformation.enum.label.inline%",
+            "%gitblame.properties.extendedHoverInformation.enum.label.status%"
           ],
           "enumDescriptions": [
-            "Do not show extended hover information",
-            "Show extended hover information for both inline and status bar",
-            "Show extended hover information only for inline view",
-            "Show extended hover information only for the status bar item"
+            "%gitblame.properties.extendedHoverInformation.enum.description.off%",
+            "%gitblame.properties.extendedHoverInformation.enum.description.inline-status%",
+            "%gitblame.properties.extendedHoverInformation.enum.description.inline%",
+            "%gitblame.properties.extendedHoverInformation.enum.description.status%"
           ]
         },
         "gitblame.detectMoveOrCopyFromOtherFiles": {
           "type": "number",
           "default": 0,
           "scope": "resource",
-          "markdownDescription": "Detect lines moved or copied from other files when blaming (`-C` flag)",
+          "markdownDescription": "%gitblame.properties.detectMoveOrCopyFromOtherFiles.markdownDescription%",
           "enum": [
             0,
             1,
@@ -273,16 +280,16 @@
             3
           ],
           "enumItemLabels": [
-            "Do not detect",
-            "Same commit",
-            "Same commit and file creation",
-            "All"
+            "%gitblame.properties.detectMoveOrCopyFromOtherFiles.enum.label.0%",
+            "%gitblame.properties.detectMoveOrCopyFromOtherFiles.enum.label.1%",
+            "%gitblame.properties.detectMoveOrCopyFromOtherFiles.enum.label.2%",
+            "%gitblame.properties.detectMoveOrCopyFromOtherFiles.enum.label.3%"
           ],
           "enumDescriptions": [
-            "Do not look for copied or moved lines",
-            "Looks for copies from other files in the commit that modified the line (slow) (`-C`)",
-            "Looks for copies from other files in the commit that creates the file (slower) (`-C -C`)",
-            "Looks for copies from other files in any commit (slowest) (`-C -C -C`)"
+            "%gitblame.properties.detectMoveOrCopyFromOtherFiles.enum.description.0%",
+            "%gitblame.properties.detectMoveOrCopyFromOtherFiles.enum.description.1%",
+            "%gitblame.properties.detectMoveOrCopyFromOtherFiles.enum.description.2%",
+            "%gitblame.properties.detectMoveOrCopyFromOtherFiles.enum.description.3%"
           ]
         }
       }

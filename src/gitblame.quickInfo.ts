@@ -1,4 +1,9 @@
-import type { MessageItem, Terminal, TerminalOptions } from "vscode";
+import {
+	l10n,
+	type MessageItem,
+	type Terminal,
+	type TerminalOptions,
+} from "vscode";
 import type { Extension } from "./extension.js";
 import { getActiveTextEditor } from "./get-active.js";
 import { getToolUrl } from "./git/get-tool-url.js";
@@ -32,13 +37,16 @@ export async function quickInfo(
 	}
 
 	const actions: ActionableMessageItem[] = [
-		{ title: "Terminal", action: () => gitShow(extension, createTerminal) },
+		{
+			title: l10n.t({ message: "Terminal", comment: "Quick info button" }),
+			action: () => gitShow(extension, createTerminal),
+		},
 	];
 
 	const toolUrl = await getToolUrl(lineAware);
 	if (toolUrl) {
 		actions.unshift({
-			title: "Online",
+			title: l10n.t({ message: "Online", comment: "Quick info button" }),
 			action: () => executeCommand("vscode.open", toolUrl),
 		});
 	}

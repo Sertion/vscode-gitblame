@@ -1,4 +1,5 @@
 import { URL } from "node:url";
+import { l10n } from "vscode";
 import { Logger } from "../logger.js";
 import { errorMessage } from "../message.js";
 import { PropertyStore } from "../PropertyStore.js";
@@ -149,6 +150,9 @@ export async function getToolUrl(
 	}
 
 	void errorMessage(
-		`Malformed gitblame.commitUrl: '${parsedUrl}' from '${target}'`,
+		l10n.t("Malformed gitblame.commitUrl: '{parsedUrl}' from '{target}'", {
+			parsedUrl,
+			target,
+		}),
 	);
 }

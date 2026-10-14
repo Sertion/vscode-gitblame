@@ -1,0 +1,25 @@
+{
+  "Terminal/Quick info button": {
+    "message": "Terminal",
+    "comment": [
+      "Quick info button"
+    ]
+  },
+  "Online/Quick info button": {
+    "message": "Online",
+    "comment": [
+      "Quick info button"
+    ]
+  },
+  "No commit to copy link from": "No commit to copy link from",
+  "Empty {prop}": "Empty {prop}",
+  "Unable to show git when no editor is active.": "Unable to show git when no editor is active.",
+  "Unable to get commit for current file/line.": "Unable to get commit for current file/line.",
+  "Got invalid git reference value for 'git show'. Aborting.": "Got invalid git reference value for 'git show'. Aborting.",
+  "Git Blame: git show {hash}": "Git Blame: git show {hash}",
+  "Copied tool URL": "Copied tool URL",
+  "gitblame.commitUrl config empty": "gitblame.commitUrl config empty",
+  "Copied hash": "Copied hash",
+  "No commit to copy hash from": "No commit to copy hash from",
+  "Malformed gitblame.commitUrl: '{parsedUrl}' from '{target}'": "Malformed gitblame.commitUrl: '{parsedUrl}' from '{target}'"
+}

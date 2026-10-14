@@ -2,7 +2,9 @@
 
 ## 14.0.0
 * Feature: Added new setting for overriding `gitblame.commitUrl` when the hostname matches the key of the object in `gitblame.commitUrl.perHostnameOverride`. Thanks to [Zamiell](https://github.com/Zamiell) for raising awareness of the need for a feature like this!
+* Feature: It is now possible to localize gitblame. If you speak english, one other language and want to help please provide a PR! 
 * Breaking: Lowest supported version of vscode is now 1.138
+* Deprecation: The property `gitblame.statusBarMessageClickAction` will change from using sentences to be more ''enumy''. The old values will be kept until a possible 15.0.0 release.
 * Fix: Updating dependencies
 
 ## 13.1.0 (June 26, 2026)

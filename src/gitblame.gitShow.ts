@@ -1,5 +1,5 @@
 import { dirname } from "node:path";
-import type { Terminal, TerminalOptions } from "vscode";
+import { l10n, type Terminal, type TerminalOptions } from "vscode";
 import type { Extension } from "./extension.js";
 import { getActiveTextEditor } from "./get-active.js";
 import { Commit } from "./git/Commit.js";
@@ -16,13 +16,13 @@ export async function gitShow(
 	const editor = getActiveTextEditor();
 
 	if (!validEditor(editor)) {
-		void errorMessage("Unable to show git when no editor is active.");
+		void errorMessage(l10n.t("Unable to show git when no editor is active."));
 		return;
 	}
 
 	const currentLine = await extension?.commit(false);
 	if (currentLine === undefined) {
-		void errorMessage("Unable to get commit for current file/line.");
+		void errorMessage(l10n.t("Unable to get commit for current file/line."));
 		return;
 	}
 	const { hash } = currentLine.commit;
@@ -30,14 +30,14 @@ export async function gitShow(
 	// Only ever allow things we know git could give as output
 	if (hash !== "HEAD" && !Commit.IsHash(hash)) {
 		void errorMessage(
-			"Got invalid git reference value for 'git show'. Aborting.",
+			l10n.t("Got invalid git reference value for 'git show'. Aborting."),
 		);
 		return;
 	}
 
 	const ignoreWhitespace = PropertyStore.get("ignoreWhitespace") ? "-w " : "";
 	const terminal = createTerminal({
-		name: `Git Blame: git show ${hash}`,
+		name: l10n.t("Git Blame: git show {hash}", { hash }),
 		iconPath: { id: "git-commit" },
 		isTransient: true,
 		cwd: dirname(editor.document.fileName),

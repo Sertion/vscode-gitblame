@@ -128,6 +128,10 @@ export class View {
 			"Open git show": "gitblame.gitShow",
 			"Copy hash to clipboard": "gitblame.addCommitHashToClipboard",
 			"Show info message": "gitblame.quickInfo",
+			OPEN_URL: "gitblame.online",
+			GIT_SHOW: "gitblame.gitShow",
+			COPY_HASH: "gitblame.addCommitHashToClipboard",
+			SHOW_MESSAGE: "gitblame.quickInfo",
 		}[PropertyStore.get("statusBarMessageClickAction")];
 	}
 
