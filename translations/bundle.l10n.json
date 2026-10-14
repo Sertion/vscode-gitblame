@@ -18,7 +18,7 @@
   "Got invalid git reference value for 'git show'. Aborting.": "Got invalid git reference value for 'git show'. Aborting.",
   "Git Blame: git show {hash}": "Git Blame: git show {hash}",
   "Copied tool URL": "Copied tool URL",
-  "gitblame.commitUrl config empty": "gitblame.commitUrl config empty",
+  "{prop} config empty": "{prop} config empty",
   "Copied hash": "Copied hash",
   "No commit to copy hash from": "No commit to copy hash from",
   "Malformed gitblame.commitUrl: '{parsedUrl}' from '{target}'": "Malformed gitblame.commitUrl: '{parsedUrl}' from '{target}'"
