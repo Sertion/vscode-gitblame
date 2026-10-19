@@ -8,11 +8,11 @@ import {
 	type InfoTokens,
 	parseTokens,
 } from "../string-stuff/text-decorator.js";
+import { t } from "../t.js";
 import type { LineAttachedCommit } from "./LineAttachedCommit.js";
 import { originUrlToToolUrl } from "./origin-url-to-tool-url.js";
 import { projectNameFromOrigin } from "./project-name-from-origin.js";
 import { stripGitRemoteUrl, stripGitSuffix } from "./strip-git-remote-url.js";
-import { t } from "../t.js";
 
 export type ToolUrlTokens = {
 	hash: string;

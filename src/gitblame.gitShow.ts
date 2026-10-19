@@ -1,12 +1,12 @@
 import { dirname } from "node:path";
-import { type Terminal, type TerminalOptions } from "vscode";
+import type { Terminal, TerminalOptions } from "vscode";
 import type { Extension } from "./extension.js";
 import { getActiveTextEditor } from "./get-active.js";
 import { Commit } from "./git/Commit.js";
 import { errorMessage } from "./message.js";
 import { PropertyStore } from "./PropertyStore.js";
-import { validEditor } from "./valid-editor.js";
 import { t } from "./t.js";
+import { validEditor } from "./valid-editor.js";
 
 export async function gitShow(
 	extension: Pick<Extension, "commit"> | undefined,

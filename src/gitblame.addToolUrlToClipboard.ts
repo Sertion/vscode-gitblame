@@ -18,8 +18,10 @@ export async function addToolUrlToClipboard(
 		await addToClipboard(toolUrl.toString());
 		await infoMessage(t("Copied tool URL"));
 	} else {
-		await errorMessage(t("{prop} config empty", {
-			prop: "gitblame.commitUrl",
-		}));
+		await errorMessage(
+			t("{prop} config empty", {
+				prop: "gitblame.commitUrl",
+			}),
+		);
 	}
 }
