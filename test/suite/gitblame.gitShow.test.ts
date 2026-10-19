@@ -143,7 +143,7 @@ suite("gitblame.gitShow", () => {
 		);
 		assert.deepEqual(mockCreateTerminal.mock.calls[0].arguments, [
 			{
-				name: `Git Blame: git show ${commit.commit.hash}`,
+				name: undefined,
 				iconPath: { id: "git-commit" },
 				isTransient: true,
 				cwd: "/",

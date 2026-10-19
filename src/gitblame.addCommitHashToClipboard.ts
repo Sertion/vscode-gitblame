@@ -1,6 +1,6 @@
-import { l10n } from "vscode";
 import type { Extension } from "./extension.js";
 import { errorMessage, infoMessage } from "./message.js";
+import { t } from "./t.js";
 
 export async function addCommitHashToClipboard(
 	extension: Pick<Extension, "commit"> | undefined,
@@ -10,8 +10,8 @@ export async function addCommitHashToClipboard(
 
 	if (lineAware?.commit.isCommitted()) {
 		await addToClipboard(lineAware.commit.hash);
-		await infoMessage(l10n.t("Copied hash"));
+		await infoMessage(t("Copied hash"));
 	} else {
-		await errorMessage(l10n.t("No commit to copy hash from"));
+		await errorMessage(t("No commit to copy hash from"));
 	}
 }
